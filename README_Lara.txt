@@ -1,2 +1,0 @@
-Olá mundo!
-Tudo ok
