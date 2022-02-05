@@ -8,6 +8,8 @@ extern ALLEGRO_DISPLAY *game; // ALLEGRO_DISPLAY é um tipo de variável que gua
 extern ALLEGRO_EVENT_QUEUE *event_queue; // Declarando a fila de enventos 
 extern ALLEGRO_BITMAP  *map; // Variável que vai receber uma imagem
 extern ALLEGRO_TIMER *timer; //Declarando o temporizador do jogo
+extern int res_x_comp;
+extern int res_y_comp;
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
 // Matriz do mapa.

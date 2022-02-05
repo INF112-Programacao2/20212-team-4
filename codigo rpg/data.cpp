@@ -91,6 +91,8 @@ const short int x = 16;
 const short int y = 16;
 const float FPS = 10;
 bool redraw = true;
+int res_x_comp;
+int res_y_comp;
 
 // Posição atual do player
 short int EIXO_X_PLAYER = 48*x;
@@ -119,7 +121,6 @@ bool inicializaJogo() {
     }
 
     ALLEGRO_MONITOR_INFO info;
-    int res_x_comp, res_y_comp;
     al_get_monitor_info(0, &info);
     res_x_comp = info.x2 - info.x1;
     res_y_comp = info.y2 - info.y1;
