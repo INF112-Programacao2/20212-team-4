@@ -27,8 +27,8 @@ extern ALLEGRO_TIMER *timer; //Declarando o temporizador do jogo
 // Matriz do mapa.
 extern unsigned char MAPA[][97];
 extern unsigned char CAMERA[][23];
-extern int res_x_comp;
-extern int res_y_comp;
+extern short int res_x_comp;
+extern short int res_y_comp;
 extern short int j; //posicao do personagem na matriz
 extern short int i; //posicao do personagem na matriz
 
@@ -38,12 +38,10 @@ extern const short int TELA_LARG;
 extern bool redraw;
 
 // Posição atual do player
-extern short int EIXO_X_PLAYER;
-extern short int EIXO_Y_PLAYER;
+extern short int EIXO_X_PLAYER_TELA;
+extern short int EIXO_Y_PLAYER_TELA;
 extern short int TELA_X_MAPA;
 extern short int TELA_Y_MAPA;
-extern short int TELA_X_PLAYER;
-extern short int TELA_Y_PLAYER;
 
 /**
  * @brief tenta inicializar todas as variáveis Allegro que serão utilizadas. 
