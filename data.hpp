@@ -11,7 +11,7 @@ extern ALLEGRO_TIMER *timer; //Declarando o temporizador do jogo
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
 // Matriz do mapa.
-extern unsigned char MAPA;
+extern unsigned char MAPA[][200];
 
 // Tamanho de uma célula do mapa.
 extern const short int TELA_ALT;
@@ -19,6 +19,7 @@ extern const short int TELA_LARG;
 extern const short int x;
 extern const short int y;
 extern const float FPS;
+extern bool redraw;
 
 // Posição atual do player
 extern short int EIXO_X_PLAYER;

@@ -12,7 +12,23 @@ Inimigo Silvio("Silvio", 60, 4, 5);
 
 int main(int argc, char **argv){
     if(inicializaJogo() == true){
-        
+        while(1){
+            ALLEGRO_EVENT ev0;
+            al_wait_for_event(event_queue, &ev0);
+            if(ev0.type == ALLEGRO_EVENT_TIMER){
+                if(redraw && al_is_event_queue_empty(event_queue)){
+                    al_draw_bitmap(map,0,0,0);
+                    al_flip_display();
+                }
+            }
+            if(ev0.type == ALLEGRO_EVENT_KEY_DOWN){
+                switch (ev0.keyboard.keycode){
+                    case ALLEGRO_KEY_ESCAPE:
+                        return 0;
+                };
+            }
+            if(ev0.type == ALLEGRO_EVENT_DISPLAY_CLOSE)return 0;
+        }
     }
 
     return 0;

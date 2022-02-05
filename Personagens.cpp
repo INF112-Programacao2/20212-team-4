@@ -1,5 +1,6 @@
 #include "Personagens.hpp"
 #include <iostream>
+#include <cstdlib>
 
 /** Getters dos atributos de um personagem qualquer.
 */
@@ -99,7 +100,7 @@ void Inimigo::randomAtaqueInimigo(Protagonista &player){
         it = this->_ataques.begin();
         short int attack = rand()%this->_total_ataques, i;
 
-        for(i = 0; i < attack; i++)
+        for(int i = 0; i < attack; i++)
             it++;
 
         /*
