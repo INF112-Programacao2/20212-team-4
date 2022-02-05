@@ -3,6 +3,12 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 
+#define ZOOM 4
+#define FPS 8
+#define CELULA 16
+#define res_x_player 16 
+#define res_y_player 32
+
 /* VARIÁVEIS ALLEGRO */
 extern ALLEGRO_DISPLAY *game; // ALLEGRO_DISPLAY é um tipo de variável que guarda uma janela a ser desenhada
 extern ALLEGRO_EVENT_QUEUE *event_queue; // Declarando a fila de enventos 
@@ -16,28 +22,28 @@ extern ALLEGRO_BITMAP *player_c2; //variavel que vai receber a imagem do persona
 extern ALLEGRO_BITMAP *player_d2; //variavel que vai receber a imagem do personagem
 extern ALLEGRO_BITMAP *player_e2; //variavel que vai receber a imagem do personagem
 extern ALLEGRO_TIMER *timer; //Declarando o temporizador do jogo
-extern int res_x_comp;
-extern int res_y_comp;
-extern int res_x_player;
-extern int res_y_player;
-extern short int j; //posicao do personagem na matriz
-extern short int i; //posicao do personagem na matriz
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
 // Matriz do mapa.
-extern unsigned char MAPA[][200];
+extern unsigned char MAPA[][97];
+extern unsigned char CAMERA[][23];
+extern int res_x_comp;
+extern int res_y_comp;
+extern short int j; //posicao do personagem na matriz
+extern short int i; //posicao do personagem na matriz
 
 // Tamanho de uma célula do mapa.
 extern const short int TELA_ALT;
 extern const short int TELA_LARG;
-extern const short int x;
-extern const short int y;
-extern const float FPS;
 extern bool redraw;
 
 // Posição atual do player
 extern short int EIXO_X_PLAYER;
 extern short int EIXO_Y_PLAYER;
+extern short int TELA_X_MAPA;
+extern short int TELA_Y_MAPA;
+extern short int TELA_X_PLAYER;
+extern short int TELA_Y_PLAYER;
 
 /**
  * @brief tenta inicializar todas as variáveis Allegro que serão utilizadas. 

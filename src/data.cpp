@@ -1,5 +1,6 @@
 #include <iostream>
 #include "data.hpp"
+#include <ctime>
 
 /* VARIÁVEIS ALLEGRO */
 ALLEGRO_DISPLAY *game = NULL; // ALLEGRO_DISPLAY é um tipo de variável que guarda uma janela a ser desenhada
@@ -17,7 +18,7 @@ ALLEGRO_TIMER *timer = NULL; //Declarando o temporizador do jogo
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
 // Matriz do mapa.
-unsigned char MAPA[][200]=
+unsigned char MAPA[][97]=
 {"000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
 "100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
 "100001111111000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
@@ -93,21 +94,36 @@ unsigned char MAPA[][200]=
 "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
 "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"};
 
+unsigned char CAMERA[][23] = {
+    "1111111111111111111111",
+    "1000000000000000000001",
+    "1000000000000000000001",
+    "1000000000000000000001",
+    "1000000000000000000001",
+    "1000000000000000000001",
+    "1000000000000000000001",
+    "10000000000000P0000001",
+    "1000000000000000000001",
+    "1000000000000000000001",
+    "1000000000000000000001",
+    "1111111111111111111111"
+};
+
 // Tamanho de uma célula do mapa.
-const short int x = 16;
-const short int y = 16;
-const float FPS = 10;
 bool redraw = true;
-int res_x_player=16;//tamando do personagem em pixels
-int res_y_player=32;//tamando do personagem em pixels
-int res_x_comp;
-int res_y_comp;
+int res_x_comp;//tamando do personagem em pixels
+int res_y_comp;//tamando do personagem em pixels
 
 // Posição atual do player
-short int EIXO_X_PLAYER = 60*x;
-short int EIXO_Y_PLAYER = 29*y;
-short int j=60; //posicao do personagem na matriz
-short int i=29; //posicao do personagem na matriz
+short int j = 69; //posicao do personagem na matriz
+short int i = 29; //posicao do personagem na matriz
+
+short int EIXO_X_PLAYER = j*CELULA;
+short int EIXO_Y_PLAYER = i*CELULA;
+short int TELA_X_MAPA = 50;
+short int TELA_Y_MAPA = 20;
+short int TELA_X_PLAYER = j;
+short int TELA_Y_PLAYER = i;
 
 bool inicializaJogo() {
     if(!al_init()){
@@ -155,7 +171,7 @@ bool inicializaJogo() {
         return false;
     }
 
-    map= al_load_bitmap("map.bmp");
+    map= al_load_bitmap("./../assets/map.bmp");
     if(!map){
         std::cout << "Falha ao carregar o mapa" << std::endl;
         al_destroy_display(game);
@@ -163,14 +179,14 @@ bool inicializaJogo() {
     }
 
     //atribuindo as imagens do personagem as variaveis
-    player_f1=al_load_bitmap("frente1.bmp");
-    player_c1=al_load_bitmap("costas1.bmp");
-    player_d1=al_load_bitmap("direita1.bmp");
-    player_e1=al_load_bitmap("esquerda1.bmp");
-    player_f2=al_load_bitmap("frente2.bmp");
-    player_c2=al_load_bitmap("costas2.bmp");
-    player_d2=al_load_bitmap("direita2.bmp");
-    player_e2=al_load_bitmap("esquerda2.bmp");
+    player_f1=al_load_bitmap("./../assets/frente1.bmp");
+    player_c1=al_load_bitmap("./../assets/costas1.bmp");
+    player_d1=al_load_bitmap("./../assets/direita1.bmp");
+    player_e1=al_load_bitmap("./../assets/esquerda1.bmp");
+    player_f2=al_load_bitmap("./../assets/frente2.bmp");
+    player_c2=al_load_bitmap("./../assets/costas2.bmp");
+    player_d2=al_load_bitmap("./../assets/direita2.bmp");
+    player_e2=al_load_bitmap("./../assets/esquerda2.bmp");
 
     al_register_event_source(event_queue, al_get_display_event_source(game));
     al_register_event_source(event_queue, al_get_timer_event_source(timer));

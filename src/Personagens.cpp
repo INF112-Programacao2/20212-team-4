@@ -1,7 +1,7 @@
 #include "Personagens.hpp"
 #include <iostream>
 #include <cstdlib>
-
+#include <ctime>
 /** Getters dos atributos de um personagem qualquer.
 */
 std::string Personagem::getNome(){
