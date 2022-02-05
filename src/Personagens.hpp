@@ -88,6 +88,7 @@ class Protagonista : public Personagem{
         /** Getters dos atributos do protagonista.
         */
         short int getDinheiro();
+        short int getNivel();
 
         /**
          * @brief Passa o protagonista de nível, acrescentando em +1 o atributo _nivel.

@@ -36,6 +36,10 @@ short int Protagonista::getDinheiro(){
     return this->_dinheiro;
 }
 
+short int Protagonista::getNivel(){
+    return this->_nivel;
+}
+
 /** Setters dos atributos do protagonista.
 */
 void Protagonista::setDinheiro(short int valor){
