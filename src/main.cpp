@@ -290,10 +290,10 @@ bool to_move(){
     }
     else if(ev0.type == ALLEGRO_EVENT_KEY_UP){
         //faz com que obrigatoriamente o personagem pare com o pé abaixado
-        if(movimento[0]) redesenhar(player_c1, player_c2, cont);
-        else if(movimento[1]) redesenhar(player_e1, player_e2, cont);
-        else if(movimento[2]) redesenhar(player_f1, player_f2, cont);
-        else if(movimento[3]) redesenhar(player_d1, player_d2, cont);
+        if(movimento[0]) redesenhar(player_c1, player_c2, 0);
+        else if(movimento[1]) redesenhar(player_e1, player_e2, 0);
+        else if(movimento[2]) redesenhar(player_f1, player_f2, 0);
+        else if(movimento[3]) redesenhar(player_d1, player_d2, 0);
         set_false(movimento);
     }
     else if(ev0.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
