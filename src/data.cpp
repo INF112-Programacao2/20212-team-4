@@ -1,6 +1,5 @@
 #include <iostream>
 #include "data.hpp"
-#include <ctime>
 
 /* VARIÁVEIS ALLEGRO */
 ALLEGRO_DISPLAY *game = NULL; // ALLEGRO_DISPLAY é um tipo de variável que guarda uma janela a ser desenhada
@@ -111,19 +110,17 @@ unsigned char CAMERA[][23] = {
 
 // Tamanho de uma célula do mapa.
 bool redraw = true;
-int res_x_comp;//tamando do personagem em pixels
-int res_y_comp;//tamando do personagem em pixels
+short int res_x_comp;//tamando do personagem em pixels
+short int res_y_comp;//tamando do personagem em pixels
 
 // Posição atual do player
 short int j = 69; //posicao do personagem na matriz
 short int i = 29; //posicao do personagem na matriz
 
-short int EIXO_X_PLAYER = j*CELULA;
-short int EIXO_Y_PLAYER = i*CELULA;
+short int EIXO_X_PLAYER_TELA;
+short int EIXO_Y_PLAYER_TELA;
 short int TELA_X_MAPA = 50;
 short int TELA_Y_MAPA = 20;
-short int TELA_X_PLAYER = j;
-short int TELA_Y_PLAYER = i;
 
 bool inicializaJogo() {
     if(!al_init()){
@@ -193,6 +190,9 @@ bool inicializaJogo() {
     al_register_event_source(event_queue, al_get_keyboard_event_source());
 
     al_start_timer(timer);
+
+    EIXO_X_PLAYER_TELA = 1216;
+    EIXO_Y_PLAYER_TELA = 588;
 
     return true;
 }
