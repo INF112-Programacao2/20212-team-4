@@ -22,8 +22,10 @@ class Interacao {
 class Item: public Interacao{
     private:
     ALLEGRO_BITMAP = _imgItem;
+    bool _coletado = false;
     public:
     Item();
     void desenhaItem();
+    void coletaItem();
     void removeItem();
 }

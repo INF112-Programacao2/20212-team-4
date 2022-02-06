@@ -41,3 +41,8 @@ void Item::Item(ALLEGRO_BITMAP img){
 void Item::removeItem(){
     MAPA[_x][_y] = 1;
 }
+
+void Item::coletaItem(){
+    _coletado = true;
+    void removeItem();
+}
