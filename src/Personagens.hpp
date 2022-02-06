@@ -51,7 +51,7 @@ class Personagem{
          * @param alvo quem será atacado.
          * @param dano dano que o ataque dá, SEMPRE NEGATIVO.
          */
-        template <class ENEMY_OR_PLAYER>
+        template<class ENEMY_OR_PLAYER>
         void atacar(ENEMY_OR_PLAYER &alvo, short int dano);
 
         /**
@@ -102,7 +102,7 @@ class Protagonista : public Personagem{
          * @param item o nome do ítem que se deseja adicionar.
          * @param qtd a quantidade do ítem que se deseja adicionar.
          */
-        void addItem(std::string item, short int qtd);
+        void addItem(std::string item);
 
         /**
          * @brief Retorna a quantidade de um ítem no inventário. Caso não haja, 
@@ -157,5 +157,5 @@ class Inimigo : public Personagem{
          * 
          * @param player o personagem que irá ser alvo do dano.
          */
-        void randomAtaqueInimigo(Protagonista &player);
+        void atacar(Protagonista &alvo);
 };

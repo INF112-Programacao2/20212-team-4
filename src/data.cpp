@@ -107,6 +107,9 @@ unsigned char CAMERA[][23] = {
     "1000000000000000000001",
     "1111111111111111111111"
 };
+short int camI = 7;
+short int camJ = 14;
+short int valueIJcam = '0';
 
 // Tamanho de uma célula do mapa.
 bool redraw = true;
@@ -119,8 +122,8 @@ short int i = 29; //posicao do personagem na matriz
 
 short int EIXO_X_PLAYER_TELA;
 short int EIXO_Y_PLAYER_TELA;
-short int TELA_X_MAPA = 50;
-short int TELA_Y_MAPA = 20;
+double TELA_X_MAPA = 56;
+double TELA_Y_MAPA = 23;
 
 bool inicializaJogo() {
     if(!al_init()){

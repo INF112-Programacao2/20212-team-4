@@ -80,7 +80,7 @@ bool Personagem::isDead(){
         return false;
 }
 
-template <class ENEMY_OR_PLAYER>
+template<class ENEMY_OR_PLAYER>
 void Personagem::atacar(ENEMY_OR_PLAYER &alvo, short int dano){
     // Altera a vida do personagem para a nova, subtraída pelo dano.
     alvo.setVida(alvo.getVida()+dano); // O dano é sempre um valor negativo.
@@ -96,7 +96,7 @@ void Personagem::curarVida(short int cura){
     this->_vida += cura;
 }
 
-void Inimigo::randomAtaqueInimigo(Protagonista &player){
+void Inimigo::atacar(Protagonista &alvo){
     std::map <std::string, short int>::iterator it;
     
     RANDOM:
@@ -117,20 +117,20 @@ void Inimigo::randomAtaqueInimigo(Protagonista &player){
         * 
         */
         if(it->second < 0)
-            this->atacar(player, it->second);
+            alvo.setVida(alvo.getVida()+it->second);
         else if(it->second > 0 && this->_vida != this->_maxVida)
             this->curarVida(this->_cura);
         else
             goto RANDOM;
 }
 
-void Protagonista::addItem(std::string item, short int qtd){
+void Protagonista::addItem(std::string item){
     std::map<std::string, short int>::iterator it = this->_inventario.find(item);
 
     if(it != this->_inventario.end())
-        it->second += qtd;
+        it->second++;
     else
-        this->_inventario.insert(std::pair<std::string, short int> (item, qtd));
+        this->_inventario.insert(std::pair<std::string, short int> (item, 1));
 }
 
 short int Protagonista::qtdItem(std::string item){
@@ -143,12 +143,12 @@ short int Protagonista::qtdItem(std::string item){
 
 void Protagonista::pegarItem(std::string objeto){
     if(this->qtdItem(objeto) == 0)
-        this->addItem(objeto, 1);
+        this->addItem(objeto);
 }
 
 bool Protagonista::entregar(std::string objeto, short int recompensa){
     if(this->qtdItem(objeto) == 1){
-        addItem(objeto, -2); // Altera para -1 para que não seja mais possível pegar outro.
+        addItem(objeto); // Altera para -1 para que não seja mais possível pegar outro.
         this->_dinheiro += recompensa;
 
         return true;
