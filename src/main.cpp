@@ -133,62 +133,75 @@ bool camera(char mov){
     // Retorna false caso o personagem não já se mover (caso esteja na borda da matriz CAMERA)
     // e true caso ele possa se mover (caso esteja no "miolo" da matriz câmera).
 
-    // Caso ele NÃO vá se mover (está em uma borda)
-    if(camI == 0 && mov == 'C'){
-        TELA_Y_MAPA -= 0.99;
-        i--;
-        return false;
-    }
+    if(mov == 'C'){
+        // Caso esteja na borda de cima.
+        if(camI == 0){
+            TELA_Y_MAPA -= 0.99;
+            i--;
+            return false;
+        }
 
-    else if(camI == 11 && mov == 'B'){
-        TELA_Y_MAPA += 0.99;
-        i++;
-        return false;
-    }
-
-    else if(camJ == 0 && mov == 'E'){
-        TELA_X_MAPA -= 1;
-        j--;
-        return false;
-    }
-
-    else if(camJ == 21 && mov == 'D'){
-        TELA_X_MAPA += 1;
-        j++;
-        return false;
-    }
-
-    // Caso ele VÁ se mover (está no "miolo").
-    else{
-
-        // Altera os valores a posição do personagem na matriz camera e 
-        // retorna true informando que haverá movimentação.
-        if(mov == 'C'){
+        else{
             CAMERA[camI][camJ] = valueIJcam;
             camI--;
             valueIJcam = CAMERA[camI][camJ];
             CAMERA[camI][camJ] = 'P';
+
+            return true;
         }
-        else if(mov == 'B'){
+    }
+
+    else if(mov == 'B'){
+        // Caso esteja na borda de baixo.
+        if(camI == 11){
+            TELA_Y_MAPA += 0.99;
+            i++;
+            return false;
+        }
+
+        else{
             CAMERA[camI][camJ] = valueIJcam;
             camI++;
             valueIJcam = CAMERA[camI][camJ];
-            CAMERA[camI][camJ] = 'P';            
+            CAMERA[camI][camJ] = 'P'; 
+
+            return true;
         }
-        else if(mov == 'E'){
+    }
+
+    else if(mov == 'E'){
+        // Caso esteja na borda da esquerda.
+        if(camJ == 0){
+            TELA_X_MAPA -= 1;
+            j--;
+            return false;
+        }
+        else{
             CAMERA[camI][camJ] = valueIJcam;
             camJ--;
             valueIJcam = CAMERA[camI][camJ];
             CAMERA[camI][camJ] = 'P'; 
+
+            return true;
         }
-        else if(mov == 'D'){
+    }
+
+    else{
+        if(camJ == 21){
+            // Caso esteja na borda da direita.
+            TELA_X_MAPA += 1;
+            j++;
+            return false;
+        }
+
+        else{
             CAMERA[camI][camJ] = valueIJcam;
             camJ++;
             valueIJcam = CAMERA[camI][camJ];
             CAMERA[camI][camJ] = 'P'; 
-        }
 
-        return true;
+            return true;
+        }
     }
 }
 
