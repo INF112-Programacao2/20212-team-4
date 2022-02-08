@@ -96,6 +96,11 @@ void Personagem::curarVida(short int cura){
     this->_vida += cura;
 }
 
+void Protagonista::comer(){
+    this->curarVida(10);
+    this->subItem("Comida", 1);
+}
+
 void Inimigo::atacar(Protagonista &alvo){
     std::map <std::string, short int>::iterator it;
     
@@ -124,13 +129,20 @@ void Inimigo::atacar(Protagonista &alvo){
             goto RANDOM;
 }
 
-void Protagonista::addItem(std::string item){
+void Protagonista::addItem(std::string item, short int qtd){
     std::map<std::string, short int>::iterator it = this->_inventario.find(item);
 
     if(it != this->_inventario.end())
-        it->second++;
+        it->second += qtd;
     else
         this->_inventario.insert(std::pair<std::string, short int> (item, 1));
+}
+
+void Protagonista::subItem(std::string item, short int qtd){
+    std::map<std::string, short int>::iterator it = this->_inventario.find(item);
+
+    if(it != this->_inventario.end())
+        it->second -= qtd;
 }
 
 short int Protagonista::qtdItem(std::string item){
@@ -141,18 +153,10 @@ short int Protagonista::qtdItem(std::string item){
     else return 0;
 }
 
-void Protagonista::pegarItem(std::string objeto){
-    if(this->qtdItem(objeto) == 0)
-        this->addItem(objeto);
-}
-
-bool Protagonista::entregar(std::string objeto, short int recompensa){
-    if(this->qtdItem(objeto) == 1){
-        addItem(objeto); // Altera para -1 para que não seja mais possível pegar outro.
-        this->_dinheiro += recompensa;
-
-        return true;
-    }
-
-    return false;
+void Protagonista::entregar(/*MissaoSecundaria &missao*/){
+    // if(this->qtdItem(missao.getNome()) == 1){
+    //     this->subItem(missao.getNome(), 1);
+        // missao.pay(*this);
+        // missao.get();
+    // }
 }

@@ -97,12 +97,20 @@ class Protagonista : public Personagem{
         void nextLevel(int addVida);
 
         /**
-         * @brief Adiciona um ítem ao inventário.
+         * @brief Adiciona uma unidade de um ítem ao inventário.
          * 
          * @param item o nome do ítem que se deseja adicionar.
-         * @param qtd a quantidade do ítem que se deseja adicionar.
+         * @param qtd a quantidade do ítem que se deseja reduzir.
          */
-        void addItem(std::string item);
+        void addItem(std::string item, short int qtd);
+
+        /**
+         * @brief Reduz um ítem do inventário em qtd unidades.
+         * 
+         * @param item o nome do ítem que se deseja adicionar.
+         * @param qtd a quantidade do ítem que se deseja reduzir.
+         */
+        void subItem(std::string item, short int qtd);
 
         /**
          * @brief Retorna a quantidade de um ítem no inventário. Caso não haja, 
@@ -112,14 +120,6 @@ class Protagonista : public Personagem{
          * 
          */
         short int qtdItem(std::string item);
-
-        /**
-         * @brief Pegar um ítem no mapa, caso a quantidade dele no inventário seja zero e apenas
-         * zero.
-         * 
-         * @param bbjeto o nome do ítem que se deseja adicionar.
-         */
-        void pegarItem(std::string objeto);
 
         /**
          * @brief Entrega um objeto para um NPC.
@@ -132,7 +132,13 @@ class Protagonista : public Personagem{
          * @param objeto o nome do ítem que se deseja adicionar.
          * @param recompensa valor da recompensa.
          */
-        bool entregar(std::string objeto, short int recompensa);
+        void entregar(/*MissaoSecundaria &missao*/);
+
+        /**
+        * @brief Consome alimento para curar a vida do protagonista
+        *
+        */
+        void comer();
 };
 
 /* CLASSE QUE DEFINE ATRIBUTOS DOS INIMIGOS */
