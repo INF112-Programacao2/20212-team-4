@@ -44,8 +44,3 @@ void Item::removeItem(){
 
 
 
-/* ATRIBUINDO AS IMAGENS AS RESPECTIVAS VARIAVEIS */
-ALLEGRO_BITMAP *relogio = al_load_bitmap("./../assets/relogio.bmp");
-ALLEGRO_BITMAP *chave = al_load_bitmap("./../assets/chave.bmp");
-ALLEGRO_BITMAP *pocao = al_load_bitmap("./../assets/pocao.bmp");
-ALLEGRO_BITMAP *dinheiro = al_load_bitmap("./../assets/saco-dinheiro.bmp");

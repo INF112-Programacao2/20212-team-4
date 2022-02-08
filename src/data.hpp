@@ -22,6 +22,14 @@ extern ALLEGRO_BITMAP *player_c2; //variavel que vai receber a imagem do persona
 extern ALLEGRO_BITMAP *player_d2; //variavel que vai receber a imagem do personagem
 extern ALLEGRO_BITMAP *player_e2; //variavel que vai receber a imagem do personagem
 extern ALLEGRO_TIMER *timer; //Declarando o temporizador do jogo
+extern ALLEGRO_BITMAP *relogio; //variavel que vai receber a imagem do relogio
+extern ALLEGRO_BITMAP *chave; //variavel que vai receber a imagem da chave
+extern ALLEGRO_BITMAP *pocao; //variavel que vai receber a imagem da poção
+extern ALLEGRO_BITMAP *dinheiro1; //variavel que vai receber a imagem do saco de dinheiro
+extern ALLEGRO_BITMAP *dinheiro2; //variavel que vai receber a imagem do saco de dinheiro
+extern ALLEGRO_BITMAP *dinheiro3; //variavel que vai receber a imagem do saco de dinheiro
+extern ALLEGRO_BITMAP *dinheiro4; //variavel que vai receber a imagem do saco de dinheiro
+
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
 // Matriz do mapa.

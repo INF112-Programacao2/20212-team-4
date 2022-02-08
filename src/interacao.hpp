@@ -3,6 +3,9 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 
+#define res_x_item 16
+#define res_y_item 16
+
 /* CLASSE QUE DEFINE ATRIBUTOS BASICOS DE ELEMENTOS INTERATIVOS */
 class Interacao {
     private:
@@ -30,9 +33,3 @@ class Item: public Interacao{  //classe filha de interação, herda os atributos
     Item(std::string nome, short int X, short int Y, char valor);
     void removeItem(); 
 };
-
-/* VARIAVEIS PARA ARMAZENAR AS IMAGENS DOS ITENS */
-extern ALLEGRO_BITMAP *relogio;
-extern ALLEGRO_BITMAP *chave;
-extern ALLEGRO_BITMAP *pocao;
-extern ALLEGRO_BITMAP *dinheiro;
