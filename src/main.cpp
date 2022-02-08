@@ -1,7 +1,9 @@
 #include <iostream>
+#include <string>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 #include "data.hpp"
+#include "interacao.hpp"
 
 #define RES_WIDTH(i) \
     i*(res_x_comp/1920.0)
@@ -17,6 +19,15 @@ Inimigo *Jose_do_Caixao = new Inimigo("Jose do caixao", 32, 4, 3);
 Inimigo *Caixao_do_Jose = new Inimigo("Caixao do Jose", 15, 2, 1);
 Inimigo *Geraldina = new Inimigo("Geraldina", 45, 4, 3);
 Inimigo *Johnny_Cash = new Inimigo("Johnny Cash", 60, 4, 5);
+
+/* ITENS */
+Item *Chave = new Item("chave", 71, 83, 5);
+Item *Relogio = new Item("relogio", 33, 85, 6);
+Item *Pocao = new Item("pocao", 5, 2, 7);
+Item *Dinheiro1 = new Item("dinheiro1", 15, 4, 8);
+Item *Dinheiro2 = new Item("dinheiro2", 20, 79, 8);
+Item *Dinheiro3 = new Item("dinheiro3", 47, 3, 8);
+Item *Dinheiro4 = new Item("dinheiro4", 68, 69, 8);
 
 /* FUNCOES */
 bool camera(char mov);
@@ -236,7 +247,13 @@ bool to_move(){
                 i--;
                 EIXO_Y_PLAYER_TELA -= 16*ZOOM;
 
-            } cont++;
+            }
+            else{
+                if (MAPA[i][j]!='0'){
+                    //interagir();
+                }
+            }
+            cont++;
             redesenhar(player_c1, player_c2, cont);
         }
         else if(movimento[1]){//movimento para esquerda

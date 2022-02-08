@@ -1,31 +1,38 @@
+#include <iostream>
 #include <string>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 
+/* CLASSE QUE DEFINE ATRIBUTOS BASICOS DE ELEMENTOS INTERATIVOS */
 class Interacao {
     private:
-    std::string _nome;
-    short int _x, _y;
-    char _valor;
+    std::string _nome;  
+    short int _x, _y; //coordenadas da matriz na qual o elemento está
+    char _valor;  //valor na matriz correspondente ao elemento
 
     public:
-    Interacao(std::string nome, short int X, short int Y);
+    Interacao(std::string nome, short int X, short int Y, char valor); //construtor
     std::string getNome();
     short int getPosicaoX();
     short int getPosicaoY();
     char getValor();
-    char setValor(char valor);
-}
+};
 
+/* ---------------------------- */
 
-
-class Item: public Interacao{
+/* CLASSE QUE DEFINE OS ATRIBUTOS DOS ITENS COLETAVEIS */
+class Item: public Interacao{  //classe filha de interação, herda os atributos
     private:
-    ALLEGRO_BITMAP = _imgItem;
-    bool _coletado = false;
+    bool _coletado;  //variavel que indica se o item esta no mapa ou foi coletado
+
+
     public:
-    Item();
-    void desenhaItem();
-    void coletaItem();
-    void removeItem();
-}
+    Item(std::string nome, short int X, short int Y, char valor);
+    void removeItem(); 
+};
+
+/* VARIAVEIS PARA ARMAZENAR AS IMAGENS DOS ITENS */
+extern ALLEGRO_BITMAP *relogio;
+extern ALLEGRO_BITMAP *chave;
+extern ALLEGRO_BITMAP *pocao;
+extern ALLEGRO_BITMAP *dinheiro;
