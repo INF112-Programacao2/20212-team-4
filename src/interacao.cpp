@@ -6,7 +6,7 @@
 #include "data.hpp"
 
 /* FUNCOES DA CLASSE INTERACAO */
-Interacao::Interacao(std::string nome, short int X, short int Y, char valor){
+Interacao::Interacao(std::string nome, short int X, short int Y, unsigned char valor){
     _nome = nome;
     _x = X;
     _y = Y;
@@ -42,5 +42,7 @@ void Item::removeItem(){
     MAPA[getPosicaoX()][getPosicaoY()] = 1; //remove o item da matriz, deixando a posicao livre para o personagem andar
 }
 
-
+bool Item::Coletado(){
+    return _coletado;
+}
 
