@@ -23,7 +23,7 @@ Inimigo *Johnny_Cash = new Inimigo("Johnny Cash", 60, 4, 5);
 
 /* ITENS */
 Interacao *Chave = new Interacao("chave", 71, 83, '5');
-Interacao *Relogio = new Interacao("relogio", 33, 85, '6');
+Interacao *Relogio = new Interacao("relogio", 84, 32, '6');
 Interacao *Pocao = new Interacao("pocao", 5, 2, '7');
 Interacao *Dinheiro1 = new Interacao("dinheiro1", 15, 4, '8');
 Interacao *Dinheiro2 = new Interacao("dinheiro2", 20, 79, '8');
@@ -63,7 +63,6 @@ int main(int argc, char **argv){
         // no mapa para passar missões.
 
         while(Player->getNivel()==1){
-            std::cout << MAPA[33][85] << std::endl;
             al_wait_for_event(event_queue, &ev0);
             galinha();
             if(!to_move())return 0;   
@@ -390,27 +389,28 @@ void galinha(){
 /* FUNCAO PARA COLETAR O ITEM */
 void interagir(){
     if(Relogio->itemProximo('1')){
+        "relogio\n";
         Player->addItem(Relogio->getNome());
     }
-    if(Chave->itemProximo('1')){
+    else if(Chave->itemProximo('1')){
         Player->addItem(Chave->getNome());
     }
-    if(Pocao->itemProximo('1')){
+    else if(Pocao->itemProximo('1')){
         Player->addItem(Pocao->getNome());
     }
-    if(Dinheiro1->itemProximo('1')){
+    else if(Dinheiro1->itemProximo('1')){
         Player->addItem(Dinheiro1->getNome());
         delete Dinheiro1;
     }
-    if(Dinheiro2->itemProximo('1')){
+    else if(Dinheiro2->itemProximo('1')){
         Player->addItem(Dinheiro2->getNome());
         delete Dinheiro2;
     }
-    if(Dinheiro3->itemProximo('1')){
+    else if(Dinheiro3->itemProximo('1')){
         Player->addItem(Dinheiro3->getNome());
         delete Dinheiro3;
     }
-    if(Dinheiro4->itemProximo('1')){
+    else if(Dinheiro4->itemProximo('1')){
         Player->addItem(Dinheiro4->getNome());
         delete Dinheiro4;
     }

@@ -12,7 +12,7 @@ Interacao::Interacao(std::string nome, short int X, short int Y, unsigned char v
     _x = X;
     _y = Y;
     _valor = valor;
-    MAPA[_x][_y] = valor;
+    MAPA[_y][_x] = valor;
 }
 
 std::string Interacao::getNome(){
@@ -42,7 +42,7 @@ bool Interacao::completo(){
 
 /* FUNCAO QUE VERIFICA SE O ITEM ESTA PROXIMO AO JOGADOR */
 bool Interacao::itemProximo(unsigned char novoValor){
-    if(_y >= i){
+    if(i >= _y){
         if(pow((_x -j),2) == 1 ^ pow((_y - i),2) == 1){
             removeItem(novoValor);
             return true;
@@ -51,8 +51,11 @@ bool Interacao::itemProximo(unsigned char novoValor){
             return false;
     }
     else{
+        std::cout << _y << " " << _x << "\n";
+        std::cout << i << " " << j << "\n";
         if((_y == (i + 2)  && _x == j) || (pow((_x -j),2) + pow((_y - i),2) == 2)){
             removeItem(novoValor);
+            std::cout << "OI\n" << std::endl;
             return true;
         }
         else 
