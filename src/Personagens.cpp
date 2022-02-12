@@ -92,6 +92,10 @@ void Protagonista::nextLevel(int addVida){
     this->_vida += addVida;
 }
 
+void Protagonista::setNivel(short int nivel){
+    this->_nivel = nivel;
+}
+
 void Personagem::curarVida(short int cura){
     this->_vida += cura;
 }

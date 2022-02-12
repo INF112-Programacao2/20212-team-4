@@ -5,12 +5,6 @@
 #include "Save.hpp"
 #include <math.h>
 
-#define RES_WIDTH(i) \
-    i*(res_x_comp/1920.0)
-
-#define RES_HEIGHT(j) \
-    j*(res_y_comp/1080.0)
-
 /* GAME SAVE */
 GameSave *Save = new GameSave();
 
@@ -33,9 +27,10 @@ Interacao *Dinheiro3 = new Interacao("dinheiro3", 2, 46, '8');
 Interacao *Dinheiro4 = new Interacao("dinheiro4", 68, 67, '8');
 
 /* MISSOES SECUNDARIAS */
-MissaoSecundaria *Missao_Espingarda = new MissaoSecundaria("Espingarda", 0, 0, 'E', 10, "Sidney");
-MissaoSecundaria *Missao_Chave = new MissaoSecundaria("Chave", 0, 0, 'C', 10, "NPC_chave");
-MissaoSecundaria *Missao_Relogio = new MissaoSecundaria("Relogio", 0, 0, 'R', 10, "Lojista");
+MissaoSecundaria *Missao_Espingarda = new MissaoSecundaria("Espingarda", 0, 0, 'E', 10, "Andrew");
+MissaoSecundaria *Missao_Chave = new MissaoSecundaria("Chave", 0, 0, 'C', 10, "Cris");
+MissaoSecundaria *Missao_Relogio = new MissaoSecundaria("Relogio", 0, 0, 'R', 10, "Saul");
+MissaoSecundaria *Missao_Pocao = new MissaoSecundaria("Pocao", 0, 0, 'P', 10, "Clara");
 
 /* FUNCOES */
 bool camera(char mov);
@@ -54,18 +49,11 @@ ALLEGRO_EVENT ev0;
 short int contGalinha = 0;
 
 int main(int argc, char **argv){
-    Save->read_save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio);
-    Player->setNome("Barbara");
 
     /* COMECANDO A EXECUCAO DO JOGO*/
     if(inicializaJogo()){
-        
-        if(Player->getNivel()==1){
-            //variável, começa a dar zoom, começa a dar zoom, largura, altura, até onde vai, até onde vai, escala, escala, 0
-            al_draw_scaled_bitmap(map, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
-            al_draw_scaled_bitmap(player_f1, 0, 0, res_x_player, res_y_player, RES_WIDTH(EIXO_X_PLAYER_TELA), RES_HEIGHT(EIXO_Y_PLAYER_TELA), RES_WIDTH(res_x_player*ZOOM), RES_HEIGHT(res_y_player*ZOOM), 0);
-            al_flip_display();
-        }
+        Save->read_save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao);
+        Player->setNome("Barbara");
 
         /* === NÍVEL UM === */
         // Neste nível, o jogador tem a batalha contra o pistoleiro Silvio, em frente ao Saloon. Não há NPCs 
@@ -79,10 +67,14 @@ int main(int argc, char **argv){
         }
 
         delete Silvio;
+        Silvio = nullptr;
+
+        Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao);
+        Save->read_save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao);
 
         /* === NÍVEL DOIS === */
         // Neste nível, o jogador tem a batalha contra o Xerife Espeto, no deserto. Estão presentes todos
-        // os NPCs no mapa para passar missões, porém, ainda não é possível completar a missão da espingarda.        
+        // os NPCs no mapa para passar missões, porém, ainda não é possível completar a missão da espingarda.    
 
         while(Player->getNivel()==2){
             al_wait_for_event(event_queue, &ev0);
@@ -92,6 +84,10 @@ int main(int argc, char **argv){
         }
 
         delete Xerife_Espeto;
+        Xerife_Espeto = nullptr;
+
+        Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao);
+        Save->read_save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao);
 
         /* === NÍVEL TRÊS === */
         // Neste nível, o jogador tem a batalha contra Geraldina, no rancho. Estão presentes todos
@@ -105,6 +101,10 @@ int main(int argc, char **argv){
         }
 
         delete Geraldina;
+        Geraldina = nullptr;
+
+        Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao);
+        Save->read_save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao);
 
         /* === NÍVEL QUATRO === */
         // Neste nível, o jogador tem a batalha contra José do Caixão e o Caixão do josé, na igreja. 
@@ -118,7 +118,12 @@ int main(int argc, char **argv){
         }
 
         delete Jose_do_Caixao;
+        Jose_do_Caixao = nullptr;
         delete Caixao_do_Jose;
+        Caixao_do_Jose = nullptr;
+
+        Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao);
+        Save->read_save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao);
 
         /* === NÍVEL QUATRO === */
         // Neste nível, o jogador tem a batalha contra Johnny Cash, na cabana. Estão presentes 
@@ -132,10 +137,20 @@ int main(int argc, char **argv){
         }
 
         delete Johnny_Cash;
+        Johnny_Cash = nullptr;
 
+        Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao);
+        Save->read_save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao);
     }
 
-    Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio);
+    Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao);
+    if(Player != nullptr) delete Player;
+    if(Silvio != nullptr) delete Silvio;
+    if(Xerife_Espeto != nullptr) delete Xerife_Espeto;
+    if(Geraldina != nullptr) delete Geraldina;
+    if(Jose_do_Caixao != nullptr) delete Jose_do_Caixao;
+    if(Caixao_do_Jose != nullptr) delete Caixao_do_Jose;
+    if(Johnny_Cash != nullptr) delete Johnny_Cash;
 
     return 0;
 }

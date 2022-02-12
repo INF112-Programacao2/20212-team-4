@@ -1,1 +1,1 @@
-g++ main.cpp Personagens.cpp data.cpp interacao.cpp Save.hpp -lallegro -lallegro_image -o teste
+g++ main.cpp Personagens.cpp data.cpp interacao.cpp Save.cpp -lallegro -lallegro_image -o teste

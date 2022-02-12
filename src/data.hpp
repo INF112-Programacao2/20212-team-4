@@ -9,6 +9,12 @@
 #define res_x_player 16 
 #define res_y_player 32
 
+#define RES_WIDTH(i) \
+    i*(res_x_comp/1920.0)
+
+#define RES_HEIGHT(j) \
+    j*(res_y_comp/1080.0)
+
 /* VARIÁVEIS ALLEGRO */
 extern ALLEGRO_DISPLAY *game; // ALLEGRO_DISPLAY é um tipo de variável que guarda uma janela a ser desenhada
 extern ALLEGRO_EVENT_QUEUE *event_queue; // Declarando a fila de enventos 
@@ -34,7 +40,7 @@ extern ALLEGRO_BITMAP *dinheiro4; //variavel que vai receber a imagem do saco de
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
 // Matriz do mapa.
 extern unsigned char MAPA[][97];
-extern unsigned char CAMERA[][23];
+extern std::string CAMERA[12];
 extern short int camI;
 extern short int camJ;
 extern short int valueIJcam;
@@ -60,3 +66,4 @@ extern double TELA_Y_MAPA;
  * 
  */
 bool inicializaJogo();
+void resetCamera(short int x, short int y);
