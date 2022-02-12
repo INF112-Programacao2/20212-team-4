@@ -1,29 +1,25 @@
+#include <iostream>
 #include <string>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 
+/* CLASSE QUE DEFINE ATRIBUTOS BASICOS DE ELEMENTOS INTERATIVOS */
 class Interacao {
     private:
-    std::string _nome;
-    short int _x, _y;
-    char _valor;
+    std::string _nome;  
+    short int _x, _y; //coordenadas da matriz na qual o elemento está
+    unsigned char _valor;  //valor na matriz correspondente ao elemento
+    bool _completo; //variavel que indica se a interação foi concluída
 
     public:
-    Interacao(std::string nome, short int X, short int Y);
+    Interacao(std::string nome, short int X, short int Y, unsigned char valor); //construtor
     std::string getNome();
     short int getPosicaoX();
     short int getPosicaoY();
     char getValor();
-    char setValor(char valor);
-}
+    bool completo();
+    void removeItem(unsigned char novoValor);
+    bool itemProximo(unsigned char novoValor);
+};
 
 
-
-class Item: public Interacao{
-    private:
-    ALLEGRO_BITMAP = _imgItem;
-    public:
-    Item();
-    void desenhaItem();
-    void removeItem();
-}
