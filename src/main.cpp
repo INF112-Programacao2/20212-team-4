@@ -2,8 +2,7 @@
 #include <string>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
-#include "data.hpp"
-#include "interacao.hpp"
+#include "Save.hpp"
 #include <math.h>
 
 #define RES_WIDTH(i) \
@@ -253,8 +252,6 @@ void redesenhar(ALLEGRO_BITMAP *img1, ALLEGRO_BITMAP *img2, long long int c){
     else 
         al_draw_scaled_bitmap(img2, 0, 0, res_x_player, res_y_player, RES_WIDTH(EIXO_X_PLAYER_TELA), 
             RES_HEIGHT(EIXO_Y_PLAYER_TELA), RES_WIDTH(res_x_player*ZOOM), RES_HEIGHT(res_y_player*ZOOM), 0);
-
-    std::cout << i << " " << j << std::endl;
     
 }
 
@@ -398,34 +395,34 @@ void galinha(){
 /* FUNCAO PARA COLETAR O ITEM */
 void interagir(){
     if(Relogio->itemProximo('1'))
-        Player->addItem(Relogio->getNome());
+        Player->addItem(Relogio->getNome(), 1);
 
     else if(Chave->itemProximo('1'))
-        Player->addItem(Chave->getNome());
+        Player->addItem(Chave->getNome(), 1);
     
     else if(Pocao->itemProximo('1'))
-        Player->addItem(Pocao->getNome());
+        Player->addItem(Pocao->getNome(), 1);
     
     else if(Dinheiro1->itemProximo('1')){
-        Player->addItem(Dinheiro1->getNome());
+        Player->setDinheiro(Player->getDinheiro()+10);
         delete Dinheiro1;
         Dinheiro1 = nullptr;
     }
     
     else if(Dinheiro2->itemProximo('1')){
-        Player->addItem(Dinheiro2->getNome());
+        Player->setDinheiro(Player->getDinheiro()+10);
         delete Dinheiro2;
         Dinheiro2 = nullptr;
     }   
     
     else if(Dinheiro3->itemProximo('1')){
-        Player->addItem(Dinheiro3->getNome());
+        Player->setDinheiro(Player->getDinheiro()+10);
         delete Dinheiro3;
         Dinheiro3 = nullptr;
     }
     
     else if(Dinheiro4->itemProximo('1')){
-        Player->addItem(Dinheiro4->getNome());
+        Player->setDinheiro(Player->getDinheiro()+10);
         delete Dinheiro4;
         Dinheiro4 = nullptr;
     }

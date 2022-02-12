@@ -15,6 +15,10 @@ Interacao::Interacao(std::string nome, short int X, short int Y, unsigned char v
     MAPA[_y][_x] = valor;
 }
 
+MissaoSecundaria::MissaoSecundaria(std::string nome, short int X, short int Y, unsigned char valor, short int recompensa, std::string npc):
+    Interacao(nome,  X, Y, valor), _recompensa(recompensa),  _nomeNPC(npc), _coletado(false) {}
+
+
 std::string Interacao::getNome(){
     return _nome;
 }
@@ -60,8 +64,16 @@ bool Interacao::itemProximo(unsigned char novoValor){
     }
 }
 
+void MissaoSecundaria::get(){
+    this->_coletado = true;
+}
 
+bool MissaoSecundaria::got(){
+    return this->_coletado;
+}
 
-
+void MissaoSecundaria::finish(){
+    this->_completo = true;
+}
 
 

@@ -1,15 +1,7 @@
 #include "Save.hpp"
 #include <fstream>
 
-GameSave::GameSave(){
-    //this->_missoes = new MissaoSecundaria[4];
-}
-
-GameSave::~GameSave(){
-    //delete[] this->_missoes;
-}
-
-void GameSave::save(Protagonista *Player /*, MissaoSecundaria &Sec1, MissaoSecundaria &Sec2, MissaoSecundaria &Sec3*/){
+void GameSave::save(Protagonista *Player, MissaoSecundaria *Sec1, MissaoSecundaria *Sec2, MissaoSecundaria *Sec3){
     std::ofstream data;
 
     // Salva nome do jogador.
@@ -22,12 +14,12 @@ void GameSave::save(Protagonista *Player /*, MissaoSecundaria &Sec1, MissaoSecun
     data << Player->qtdItem("Espingarda") << " " << Player->qtdItem("Chave") << " " << Player->qtdItem("Relogio");
 
     //Salva missões secundárias.
-    // data << (int)Sec1.finalizada() << "\n";
-    // data << (int)Sec2.finalizada() << "\n";
-    // data << (int)Sec3.finalizada() << "\n";
+    data << (int)Sec1.completo() << "\n";
+    data << (int)Sec2.completo() << "\n";
+    data << (int)Sec3.completo() << "\n";
 }
 
-void GameSave::read_save(){
+void GameSave::read_save(Protagonista *Player, MissaoSecundaria *Sec1, MissaoSecundaria *Sec2, MissaoSecundaria *Sec3){
     bool mission_passed;
     short int value;
     std::string nome;
@@ -35,43 +27,36 @@ void GameSave::read_save(){
 
     // Lê nome do jogador.
     getline(data, nome);
-    this->_player->setNome(nome);
+    Player->setNome(nome);
 
     // Lê nível e dados do player.
     data >> value;
     for(int i = 0; i < value-1; i++)
-        this->_player->nextLevel(0);
+        Player->nextLevel(0);
 
     data >> value;
-    this->_player->setVida(value);
+    Player->setVida(value);
     data >> value;
-    this->_player->setMaxVida(value);
+    Player->setMaxVida(value);
     data >> value;
-    this->_player->setDinheiro(value);
+    Player->setDinheiro(value);
     data >> value;
-    this->_player->addItem("Comida", value);
+    Player->addItem("Comida", value);
     data >> value;
-    this->_player->addItem("Espingarda", value);
+    Player->addItem("Espingarda", value);
     data >> value;
-    this->_player->addItem("Chave", value);
+    Player->addItem("Chave", value);
     data >> value;
-    this->_player->addItem("Relogio", value);
+    Player->addItem("Relogio", value);
 
     // Lê missões recundárias
-    // data >> mission_passed;
-    // if(mission_passed == true) this->_missoes[0]->finish();
-    // data >> mission_passed;
-    // if(mission_passed == true) this->_missoes[1]->finish();
-    // data >> mission_passed;
-    // if(mission_passed == true) this->_missoes[2]->finish();
-    // data >> mission_passed;
-    // if(mission_passed == true) this->_missoes[3]->finish();
+    data >> mission_passed;
+    if(mission_passed == true) Sec1->finish();
+    data >> mission_passed;
+    if(mission_passed == true) Sec1->finish();
+    data >> mission_passed;
+    if(mission_passed == true) Sec1->finish();
+    data >> mission_passed;
+    if(mission_passed == true) Sec1->finish();
 }
 
-void GameSave::check_point(Protagonista *Player /*, MissaoSecundaria &Sec1, MissaoSecundaria &Sec2, MissaoSecundaria &Sec3*/){
-    Player = this->_player;
-    // if(this->_missoes[0] == true) Sec1->finish();
-    // if(this->_missoes[1] == true) Sec2->finish();
-    // if(this->_missoes[2] == true) Sec3->finish();
-    // if(this->_missoes[3] == true) Sec4->finish();
-}
