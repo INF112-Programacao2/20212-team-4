@@ -22,13 +22,13 @@ Inimigo *Geraldina = new Inimigo("Geraldina", 45, 4, 3);
 Inimigo *Johnny_Cash = new Inimigo("Johnny Cash", 60, 4, 5);
 
 /* ITENS */
-Item *Chave = new Item("chave", 71, 83, 5);
-Item *Relogio = new Item("relogio", 33, 85, 6);
-Item *Pocao = new Item("pocao", 5, 2, 7);
-Item *Dinheiro1 = new Item("dinheiro1", 15, 4, 8);
-Item *Dinheiro2 = new Item("dinheiro2", 20, 79, 8);
-Item *Dinheiro3 = new Item("dinheiro3", 47, 3, 8);
-Item *Dinheiro4 = new Item("dinheiro4", 68, 69, 8);
+Interacao *Chave = new Interacao("chave", 71, 83, '5');
+Interacao *Relogio = new Interacao("relogio", 33, 85, '6');
+Interacao *Pocao = new Interacao("pocao", 5, 2, '7');
+Interacao *Dinheiro1 = new Interacao("dinheiro1", 15, 4, '8');
+Interacao *Dinheiro2 = new Interacao("dinheiro2", 20, 79, '8');
+Interacao *Dinheiro3 = new Interacao("dinheiro3", 47, 3, '8');
+Interacao *Dinheiro4 = new Interacao("dinheiro4", 68, 69, '8');
 
 /* FUNCOES */
 bool camera(char mov);
@@ -38,7 +38,6 @@ void redesenhar(ALLEGRO_BITMAP *img1, ALLEGRO_BITMAP *img2, long long int c);
 bool to_move();
 void galinha();
 void itens();
-bool itemProximo(Item &item);
 void interagir();
 
 /* VARIAVEIS */
@@ -64,6 +63,7 @@ int main(int argc, char **argv){
         // no mapa para passar missões.
 
         while(Player->getNivel()==1){
+            std::cout << MAPA[33][85] << std::endl;
             al_wait_for_event(event_queue, &ev0);
             galinha();
             if(!to_move())return 0;   
@@ -339,25 +339,25 @@ bool to_move(){
 
 /* FUNCAO QUE DESENHA OS ITENS COLETAVEIS */
 void itens(){
-    if (!Relogio->Coletado()){
+    if (!Relogio->completo()){
         al_draw_scaled_bitmap(relogio, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
     }
-    if (!Chave->Coletado()){
+    if (!Chave->completo()){
         al_draw_scaled_bitmap(chave, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
     }
-    if (!Pocao->Coletado()){
+    if (!Pocao->completo()){
         al_draw_scaled_bitmap(pocao, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
     }
-    if (!Dinheiro1->Coletado()){
+    if (Dinheiro1!=NULL){
         al_draw_scaled_bitmap(dinheiro1, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
     }
-    if (!Dinheiro2->Coletado()){
+    if (Dinheiro2!=NULL){
         al_draw_scaled_bitmap(dinheiro2, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
     }
-    if (!Dinheiro3->Coletado()){
+    if (Dinheiro3!=NULL){
         al_draw_scaled_bitmap(dinheiro3, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
     }
-    if (!Dinheiro4->Coletado()){
+    if (Dinheiro4!=NULL){
         al_draw_scaled_bitmap(dinheiro4, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
     }
 }
@@ -387,54 +387,32 @@ void galinha(){
 
 }
 
-/* FUNCAO QUE VERIFICA SE O ITEM ESTA PROXIMO AO JOGADOR */
-bool itemProximo(Item *item){
-    short int X = item->getPosicaoX();
-    short int Y = item->getPosicaoY();
-    if(Y >= i){
-        if(pow((X-j),2) == 1 ^ pow((Y - i),2) == 1){
-            return true;
-        }
-        else
-            return false;
+/* FUNCAO PARA COLETAR O ITEM */
+void interagir(){
+    if(Relogio->itemProximo('1')){
+        Player->addItem(Relogio->getNome());
     }
-    else{
-        if((Y == (i + 2)  && X == j) || (pow((X-j),2) + pow((Y - i),2) == 2)){
-            return true;
-        }
-        else 
-            return false;
+    if(Chave->itemProximo('1')){
+        Player->addItem(Chave->getNome());
+    }
+    if(Pocao->itemProximo('1')){
+        Player->addItem(Pocao->getNome());
+    }
+    if(Dinheiro1->itemProximo('1')){
+        Player->addItem(Dinheiro1->getNome());
+        delete Dinheiro1;
+    }
+    if(Dinheiro2->itemProximo('1')){
+        Player->addItem(Dinheiro2->getNome());
+        delete Dinheiro2;
+    }
+    if(Dinheiro3->itemProximo('1')){
+        Player->addItem(Dinheiro3->getNome());
+        delete Dinheiro3;
+    }
+    if(Dinheiro4->itemProximo('1')){
+        Player->addItem(Dinheiro4->getNome());
+        delete Dinheiro4;
     }
 }
 
-/* FUNCAO PARA COLETAR O ITEM */
-void interagir(){
-    if(itemProximo(Relogio)){
-        Player->addItem(Relogio->getNome());
-        Relogio->removeItem();
-    };
-    if(itemProximo(Chave)){
-        Player->addItem(Chave->getNome());
-        Chave->removeItem();
-    };
-    if(itemProximo(Pocao)){
-        Player->addItem(Pocao->getNome());
-        Pocao->removeItem();
-    };
-    if(itemProximo(Dinheiro1)){
-        Player->addItem(Dinheiro1->getNome());
-        Dinheiro1->removeItem();
-    };
-    if(itemProximo(Dinheiro2)){
-        Player->addItem(Dinheiro2->getNome());
-        Dinheiro2->removeItem();
-    };
-    if(itemProximo(Dinheiro3)){
-        Player->addItem(Dinheiro3->getNome());
-        Dinheiro3->removeItem();
-    };
-    if(itemProximo(Dinheiro4)){
-        Player->addItem(Dinheiro4->getNome());
-        Dinheiro4->removeItem();
-    };
-}

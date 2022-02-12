@@ -4,6 +4,7 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 #include "data.hpp"
+#include <cmath>
 
 /* FUNCOES DA CLASSE INTERACAO */
 Interacao::Interacao(std::string nome, short int X, short int Y, unsigned char valor){
@@ -30,19 +31,37 @@ char Interacao::getValor(){
     return _valor;
 }
 
-
-
-
-/* FUNCOES DA CLASSE ITEM */
-Item::Item(std::string nome, short int X, short int Y, char valor):
-    Interacao(nome,X,Y, valor), _coletado(false) {}
-
-void Item::removeItem(){
-    _coletado = true;
-    MAPA[getPosicaoX()][getPosicaoY()] = 1; //remove o item da matriz, deixando a posicao livre para o personagem andar
+void Interacao::removeItem(unsigned char novoValor){
+    _completo = true;
+    MAPA[getPosicaoX()][getPosicaoY()] = novoValor; //remove o item da matriz, deixando a posicao livre para o personagem andar
 }
 
-bool Item::Coletado(){
-    return _coletado;
+bool Interacao::completo(){
+    return _completo;
 }
+
+/* FUNCAO QUE VERIFICA SE O ITEM ESTA PROXIMO AO JOGADOR */
+bool Interacao::itemProximo(unsigned char novoValor){
+    if(_y >= i){
+        if(pow((_x -j),2) == 1 ^ pow((_y - i),2) == 1){
+            removeItem(novoValor);
+            return true;
+        }
+        else
+            return false;
+    }
+    else{
+        if((_y == (i + 2)  && _x == j) || (pow((_x -j),2) + pow((_y - i),2) == 2)){
+            removeItem(novoValor);
+            return true;
+        }
+        else 
+            return false;
+    }
+}
+
+
+
+
+
 
