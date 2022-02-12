@@ -11,6 +11,9 @@
 #define RES_HEIGHT(j) \
     j*(res_y_comp/1080.0)
 
+/* GAME SAVE */
+GameSave *Save = new GameSave();
+
 /* PERSONAGENS  */
 Protagonista *Player = new Protagonista(10, 3);
 Inimigo *Silvio = new Inimigo("Silvio", 12, 3, 2);
@@ -29,6 +32,11 @@ Interacao *Dinheiro2 = new Interacao("dinheiro2", 78, 19, '8');
 Interacao *Dinheiro3 = new Interacao("dinheiro3", 2, 46, '8');
 Interacao *Dinheiro4 = new Interacao("dinheiro4", 68, 67, '8');
 
+/* MISSOES SECUNDARIAS */
+MissaoSecundaria *Missao_Espingarda = new MissaoSecundaria("Espingarda", 0, 0, 'E', 10, "Sidney");
+MissaoSecundaria *Missao_Chave = new MissaoSecundaria("Chave", 0, 0, 'C', 10, "NPC_chave");
+MissaoSecundaria *Missao_Relogio = new MissaoSecundaria("Relogio", 0, 0, 'R', 10, "Lojista");
+
 /* FUNCOES */
 bool camera(char mov);
 void set_true(bool vetor[], int n);
@@ -46,6 +54,8 @@ ALLEGRO_EVENT ev0;
 short int contGalinha = 0;
 
 int main(int argc, char **argv){
+    Save->read_save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio);
+    Player->setNome("Barbara");
 
     /* COMECANDO A EXECUCAO DO JOGO*/
     if(inicializaJogo()){
@@ -63,7 +73,7 @@ int main(int argc, char **argv){
 
         while(Player->getNivel()==1){
             al_wait_for_event(event_queue, &ev0);
-            if(!to_move())return 0;   
+            if(!to_move()) break;   
             galinha();
             al_flip_display();
         }
@@ -77,7 +87,7 @@ int main(int argc, char **argv){
         while(Player->getNivel()==2){
             al_wait_for_event(event_queue, &ev0);
             galinha();
-            if(!to_move())return 0;   
+            if(!to_move()) break;   
             al_flip_display();  
         }
 
@@ -90,7 +100,7 @@ int main(int argc, char **argv){
         while(Player->getNivel()==3){
             al_wait_for_event(event_queue, &ev0);
             galinha();
-            if(!to_move())return 0;   
+            if(!to_move()) break;   
             al_flip_display();
         }
 
@@ -103,7 +113,7 @@ int main(int argc, char **argv){
         while(Player->getNivel()==4){
             al_wait_for_event(event_queue, &ev0);
             galinha();
-            if(!to_move())return 0;   
+            if(!to_move()) break;   
             al_flip_display();  
         }
 
@@ -117,13 +127,15 @@ int main(int argc, char **argv){
         while(Player->getNivel()==5){
             al_wait_for_event(event_queue, &ev0);
             galinha();
-            if(!to_move())return 0;   
+            if(!to_move()) break;   
             al_flip_display();  
         }
 
         delete Johnny_Cash;
 
     }
+
+    Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio);
 
     return 0;
 }
