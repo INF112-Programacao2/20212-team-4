@@ -33,7 +33,7 @@ char Interacao::getValor(){
 
 void Interacao::removeItem(unsigned char novoValor){
     _completo = true;
-    MAPA[getPosicaoX()][getPosicaoY()] = novoValor; //remove o item da matriz, deixando a posicao livre para o personagem andar
+    MAPA[getPosicaoY()][getPosicaoX()] = novoValor; //remove o item da matriz, deixando a posicao livre para o personagem andar
 }
 
 bool Interacao::completo(){
@@ -51,11 +51,8 @@ bool Interacao::itemProximo(unsigned char novoValor){
             return false;
     }
     else{
-        std::cout << _y << " " << _x << "\n";
-        std::cout << i << " " << j << "\n";
         if((_y == (i + 2)  && _x == j) || (pow((_x -j),2) + pow((_y - i),2) == 2)){
             removeItem(novoValor);
-            std::cout << "OI\n" << std::endl;
             return true;
         }
         else 

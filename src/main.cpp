@@ -22,13 +22,13 @@ Inimigo *Geraldina = new Inimigo("Geraldina", 45, 4, 3);
 Inimigo *Johnny_Cash = new Inimigo("Johnny Cash", 60, 4, 5);
 
 /* ITENS */
-Interacao *Chave = new Interacao("chave", 71, 83, '5');
+Interacao *Chave = new Interacao("chave", 81, 70, '5');
 Interacao *Relogio = new Interacao("relogio", 84, 32, '6');
-Interacao *Pocao = new Interacao("pocao", 5, 2, '7');
-Interacao *Dinheiro1 = new Interacao("dinheiro1", 15, 4, '8');
-Interacao *Dinheiro2 = new Interacao("dinheiro2", 20, 79, '8');
-Interacao *Dinheiro3 = new Interacao("dinheiro3", 47, 3, '8');
-Interacao *Dinheiro4 = new Interacao("dinheiro4", 68, 69, '8');
+Interacao *Pocao = new Interacao("pocao", 1, 4, '7');
+Interacao *Dinheiro1 = new Interacao("dinheiro1", 3, 14, '8');
+Interacao *Dinheiro2 = new Interacao("dinheiro2", 78, 19, '8');
+Interacao *Dinheiro3 = new Interacao("dinheiro3", 2, 46, '8');
+Interacao *Dinheiro4 = new Interacao("dinheiro4", 68, 67, '8');
 
 /* FUNCOES */
 bool camera(char mov);
@@ -64,8 +64,8 @@ int main(int argc, char **argv){
 
         while(Player->getNivel()==1){
             al_wait_for_event(event_queue, &ev0);
-            galinha();
             if(!to_move())return 0;   
+            galinha();
             al_flip_display();
         }
 
@@ -253,6 +253,8 @@ void redesenhar(ALLEGRO_BITMAP *img1, ALLEGRO_BITMAP *img2, long long int c){
     else 
         al_draw_scaled_bitmap(img2, 0, 0, res_x_player, res_y_player, RES_WIDTH(EIXO_X_PLAYER_TELA), 
             RES_HEIGHT(EIXO_Y_PLAYER_TELA), RES_WIDTH(res_x_player*ZOOM), RES_HEIGHT(res_y_player*ZOOM), 0);
+
+    std::cout << i << " " << j << std::endl;
     
 }
 
@@ -338,27 +340,34 @@ bool to_move(){
 
 /* FUNCAO QUE DESENHA OS ITENS COLETAVEIS */
 void itens(){
-    if (!Relogio->completo()){
-        al_draw_scaled_bitmap(relogio, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
-    }
-    if (!Chave->completo()){
-        al_draw_scaled_bitmap(chave, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
-    }
-    if (!Pocao->completo()){
-        al_draw_scaled_bitmap(pocao, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
-    }
-    if (Dinheiro1!=NULL){
-        al_draw_scaled_bitmap(dinheiro1, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
-    }
-    if (Dinheiro2!=NULL){
-        al_draw_scaled_bitmap(dinheiro2, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
-    }
-    if (Dinheiro3!=NULL){
-        al_draw_scaled_bitmap(dinheiro3, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
-    }
-    if (Dinheiro4!=NULL){
-        al_draw_scaled_bitmap(dinheiro4, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
-    }
+    if (!Relogio->completo())
+        al_draw_scaled_bitmap(relogio, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 
+            0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
+    
+    if (!Chave->completo())
+        al_draw_scaled_bitmap(chave, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 
+            0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
+
+    if (!Pocao->completo())
+        al_draw_scaled_bitmap(pocao, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 
+            0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
+    
+    if (Dinheiro1!=nullptr)
+        al_draw_scaled_bitmap(dinheiro1, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 
+            0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
+    
+    if (Dinheiro2!=nullptr)
+        al_draw_scaled_bitmap(dinheiro2, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 
+            0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
+    
+    if (Dinheiro3!=nullptr)
+        al_draw_scaled_bitmap(dinheiro3, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 
+            0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
+    
+    if (Dinheiro4!=nullptr)
+        al_draw_scaled_bitmap(dinheiro4, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 
+            0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
+    
 }
 
 /* FUNCAO QUE DESENHA AS GALINHAS */
@@ -388,31 +397,37 @@ void galinha(){
 
 /* FUNCAO PARA COLETAR O ITEM */
 void interagir(){
-    if(Relogio->itemProximo('1')){
-        "relogio\n";
+    if(Relogio->itemProximo('1'))
         Player->addItem(Relogio->getNome());
-    }
-    else if(Chave->itemProximo('1')){
+
+    else if(Chave->itemProximo('1'))
         Player->addItem(Chave->getNome());
-    }
-    else if(Pocao->itemProximo('1')){
+    
+    else if(Pocao->itemProximo('1'))
         Player->addItem(Pocao->getNome());
-    }
+    
     else if(Dinheiro1->itemProximo('1')){
         Player->addItem(Dinheiro1->getNome());
         delete Dinheiro1;
+        Dinheiro1 = nullptr;
     }
+    
     else if(Dinheiro2->itemProximo('1')){
         Player->addItem(Dinheiro2->getNome());
         delete Dinheiro2;
-    }
+        Dinheiro2 = nullptr;
+    }   
+    
     else if(Dinheiro3->itemProximo('1')){
         Player->addItem(Dinheiro3->getNome());
         delete Dinheiro3;
+        Dinheiro3 = nullptr;
     }
+    
     else if(Dinheiro4->itemProximo('1')){
         Player->addItem(Dinheiro4->getNome());
         delete Dinheiro4;
+        Dinheiro4 = nullptr;
     }
 }
 
