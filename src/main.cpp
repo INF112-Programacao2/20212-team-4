@@ -34,17 +34,16 @@ MissaoSecundaria *Missao_Pocao = new MissaoSecundaria("Pocao", 0, 0, 'P', 10, "C
 
 /* FUNCOES */
 bool camera(char mov);
-void set_true(bool vetor[], int n);
-void set_false(bool vetor[]);
-void redesenhar(ALLEGRO_BITMAP *img1, ALLEGRO_BITMAP *img2, long long int c);
+void posicao(ALLEGRO_BITMAP *img1, ALLEGRO_BITMAP *img2, ALLEGRO_BITMAP *img3);
+void redesenhar();
 bool to_move();
 void galinha();
 void itens();
 void interagir();
 
 /* VARIAVEIS */
-bool movimento[4] = {false};
-long long int cont = 0;
+bool keys[ALLEGRO_KEY_MAX] = {0};
+short int mov_cont = 0;
 ALLEGRO_EVENT ev0;
 short int contGalinha = 0;
 
@@ -62,7 +61,7 @@ int main(int argc, char **argv){
         while(Player->getNivel()==1){
             al_wait_for_event(event_queue, &ev0);
             if(!to_move()) break;   
-            galinha();
+            redesenhar();
             al_flip_display();
         }
 
@@ -78,7 +77,6 @@ int main(int argc, char **argv){
 
         while(Player->getNivel()==2){
             al_wait_for_event(event_queue, &ev0);
-            galinha();
             if(!to_move()) break;   
             al_flip_display();  
         }
@@ -95,7 +93,6 @@ int main(int argc, char **argv){
 
         while(Player->getNivel()==3){
             al_wait_for_event(event_queue, &ev0);
-            galinha();
             if(!to_move()) break;   
             al_flip_display();
         }
@@ -112,7 +109,6 @@ int main(int argc, char **argv){
 
         while(Player->getNivel()==4){
             al_wait_for_event(event_queue, &ev0);
-            galinha();
             if(!to_move()) break;   
             al_flip_display();  
         }
@@ -153,34 +149,6 @@ int main(int argc, char **argv){
     if(Johnny_Cash != nullptr) delete Johnny_Cash;
 
     return 0;
-}
-
-/*FUNCAO QUE ATRIBUI TRUE A DIRECAO QUE O PLAYER QUER SE MOVIMENTAR*/
-void set_true(bool vetor[], int n){
-    if(n==0){
-        vetor[0]=true;
-        vetor[1]=false;
-        vetor[2]=false;
-        vetor[3]=false;
-    }
-    else if(n==1){
-        vetor[0]=false;
-        vetor[1]=true;
-        vetor[2]=false;
-        vetor[3]=false;
-    }
-    else if(n==2){
-        vetor[0]=false;
-        vetor[1]=false;
-        vetor[2]=true;
-        vetor[3]=false;
-    }
-    else if(n==3){
-        vetor[0]=false;
-        vetor[1]=false;
-        vetor[2]=false;
-        vetor[3]=true;
-    }
 }
 
 /* FUÇÃO QUE ESTUDA O COMPORTAMENTO DA CÂMERA */
@@ -260,100 +228,81 @@ bool camera(char mov){
     }
 }
 
-/*FUNCAO QUE ATRIBUI FALSE A TODAS AS POSICOES DO VETOR*/
-void set_false(bool vetor[4]){
-    vetor[0]=false;
-    vetor[1]=false;
-    vetor[2]=false;
-    vetor[3]=false;
-}
-
-/*FUNCAO QUE REDESENHA O MAPA, O PERSONAGEM E OS ITENS*/
-void redesenhar(ALLEGRO_BITMAP *img1, ALLEGRO_BITMAP *img2, long long int c){
-    al_draw_scaled_bitmap(map, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 0, 0, res_x_comp*(res_x_comp/1920.0)*ZOOM, res_y_comp*(res_y_comp/1080.0)*ZOOM, 0);
-    itens();
-    
-    if(c%2==0)
-        al_draw_scaled_bitmap(img1, 0, 0, res_x_player, res_y_player, RES_WIDTH(EIXO_X_PLAYER_TELA), 
-            RES_HEIGHT(EIXO_Y_PLAYER_TELA), RES_WIDTH(res_x_player*ZOOM), RES_HEIGHT(res_y_player*ZOOM), 0);
-    else 
-        al_draw_scaled_bitmap(img2, 0, 0, res_x_player, res_y_player, RES_WIDTH(EIXO_X_PLAYER_TELA), 
-            RES_HEIGHT(EIXO_Y_PLAYER_TELA), RES_WIDTH(res_x_player*ZOOM), RES_HEIGHT(res_y_player*ZOOM), 0);
-    
+/*FUNCAO QUE VERIFICA A POSIÇÃO DO PERSONAGEM ENQUANTO ANDA*/
+void posicao(ALLEGRO_BITMAP *img1, ALLEGRO_BITMAP *img2, ALLEGRO_BITMAP *img3){    
+    if(mov_cont==0){
+        general_player = img1;
+        cont++;
+    }
+    else if(mov_cont == 1){
+        general_player = img2;
+        cont++;
+    }
+    else{
+        general_player = img3;
+        cont = 0;
+    }
 }
 
 /*FUNCAO QUE FAZ A MOVIMENTACAO DO PERSONAGEM*/
 bool to_move(){
-    if(ev0.type == ALLEGRO_EVENT_TIMER){
-        //if(redraw && al_is_event_queue_empty(event_queue)){}
-        if(movimento[0]){//movimento para cima
+    if (ev0.type == ALLEGRO_EVENT_KEY_DOWN) {
+        keys[ev0.keyboard.keycode] = true;
+
+        if(keys[ALLEGRO_KEY_ESCAPE]) {
+            return false;
+        }   
+    }
+    else if (ev0.type == ALLEGRO_EVENT_KEY_UP) {
+        keys[ev0.keyboard.keycode] = false;
+        general_player = parado;
+        mov_cont = 0;
+    }
+
+    if(ev0.type == ALLEGRO_EVENT_TIMER){  
+        if (keys[ALLEGRO_KEY_E])
+            interagir();
+
+        else if(keys[ALLEGRO_KEY_W]){
             if(MAPA[i][j] == '1' && camera('C')){
                 i--;
                 EIXO_Y_PLAYER_TELA -= 16*ZOOM;
             }
-            cont++;
-            redesenhar(player_c1, player_c2, cont);
-        }
-        else if(movimento[1]){//movimento para esquerda
-            if(MAPA[i+1][j-1] == '1' && camera('E')){
-                j--;
-                EIXO_X_PLAYER_TELA -= 16*ZOOM;          
 
-            } cont++;
-            redesenhar(player_e1, player_e2, cont);
+            parado = player_c1;
+            cont++;
+            posicao(player_c1, player_c2, player_c3);    
         }
-        else if(movimento[2]){//movimento para baixo
+        else if (keys[ALLEGRO_KEY_S]){
             if(MAPA[i+2][j] == '1' && camera('B')){
                 i++;
                 EIXO_Y_PLAYER_TELA += 16*ZOOM;
+            }
 
-            } cont++;
-            redesenhar(player_f1, player_f2, cont);
+            parado = player_f1;
+            cont++;
+            posicao(player_f1, player_f2, player_f3);
         }
-        else if(movimento[3]){//movimento para direita
+        else if (keys[ALLEGRO_KEY_A]){
+            if(MAPA[i+1][j-1] == '1' && camera('E')){
+                j--;
+                EIXO_X_PLAYER_TELA -= 16*ZOOM;
+            }  
+
+            parado = player_e1;
+            cont++;
+            posicao(player_e1, player_e2, player_e3);
+        }
+        else if (keys[ALLEGRO_KEY_D]){
             if(MAPA[i+1][j+1] == '1' && camera('D')){
                 j++;
                 EIXO_X_PLAYER_TELA += 16*ZOOM;
+            }
 
-            } cont++;
-            redesenhar(player_d1, player_d2, cont);
+            parado = player_d1;
+            cont++;
+            posicao(player_d1, player_d2, player_d3);
         }
-
-    }
-    else if(ev0.type == ALLEGRO_EVENT_KEY_DOWN){
-        switch (ev0.keyboard.keycode){
-            case ALLEGRO_KEY_ESCAPE:{
-                return false;
-            }                   
-            case ALLEGRO_KEY_W:{
-                set_true(movimento, 0);                   
-                break;
-            }
-            case ALLEGRO_KEY_A:{
-                set_true(movimento, 1);
-                break;
-            }
-            case ALLEGRO_KEY_S:{
-                set_true(movimento, 2);
-                break;
-            }
-            case ALLEGRO_KEY_D:{
-                set_true(movimento, 3);
-                break;
-            }
-            case ALLEGRO_KEY_E:{
-                interagir();
-                break;
-            }
-        };
-    }
-    else if(ev0.type == ALLEGRO_EVENT_KEY_UP){
-        //faz com que obrigatoriamente o personagem pare com o pé abaixado
-        if(movimento[0]) redesenhar(player_c1, player_c2, 0);
-        else if(movimento[1]) redesenhar(player_e1, player_e2, 0);
-        else if(movimento[2]) redesenhar(player_f1, player_f2, 0);
-        else if(movimento[3]) redesenhar(player_d1, player_d2, 0);
-        set_false(movimento);
     }
     else if(ev0.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
         return false;
@@ -399,22 +348,22 @@ void galinha(){
     switch(contGalinha){
         case 0:
             al_draw_scaled_bitmap(galinha1, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, 
-            res_y_comp, 0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
+                res_y_comp, 0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
             contGalinha++;
             break;
         case 1:
             al_draw_scaled_bitmap(galinha2, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, 
-            res_y_comp, 0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
+                res_y_comp, 0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
             contGalinha++;
             break;
         case 2:
             al_draw_scaled_bitmap(galinha3, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, 
-            res_y_comp, 0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
+                res_y_comp, 0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
             contGalinha++;
             break;
         case 3:
             al_draw_scaled_bitmap(galinha4, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, 
-            res_y_comp, 0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
+                res_y_comp, 0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
             contGalinha = 0;
             break;
     }
@@ -456,3 +405,13 @@ void interagir(){
     }
 }
 
+void redesenhar(){
+    al_draw_scaled_bitmap(map, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 0, 
+        0, res_x_comp*(res_x_comp/1920.0)*ZOOM, res_y_comp*(res_y_comp/1080.0)*ZOOM, 0);
+
+    itens();
+    galinha();
+
+    al_draw_scaled_bitmap(general_player, 0, 0, res_x_player, res_y_player, RES_WIDTH(EIXO_X_PLAYER_TELA), 
+        RES_HEIGHT(EIXO_Y_PLAYER_TELA), RES_WIDTH(res_x_player*ZOOM), RES_HEIGHT(res_y_player*ZOOM), 0);
+}
