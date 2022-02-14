@@ -35,6 +35,10 @@ extern ALLEGRO_BITMAP *dinheiro1; //variavel que vai receber a imagem do saco de
 extern ALLEGRO_BITMAP *dinheiro2; //variavel que vai receber a imagem do saco de dinheiro
 extern ALLEGRO_BITMAP *dinheiro3; //variavel que vai receber a imagem do saco de dinheiro
 extern ALLEGRO_BITMAP *dinheiro4; //variavel que vai receber a imagem do saco de dinheiro
+extern ALLEGRO_BITMAP *galinha1; //variavel que vai receber a imagem das galinhas
+extern ALLEGRO_BITMAP *galinha2; //variavel que vai receber a imagem das galinhas
+extern ALLEGRO_BITMAP *galinha3; //variavel que vai receber a imagem das galinhas
+extern ALLEGRO_BITMAP *galinha4; //variavel que vai receber a imagem das galinhas
 
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */

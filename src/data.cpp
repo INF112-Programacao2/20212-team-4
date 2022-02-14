@@ -21,6 +21,11 @@ ALLEGRO_BITMAP *dinheiro1 = NULL; //variavel que vai receber a imagem dos sacos 
 ALLEGRO_BITMAP *dinheiro2 = NULL; //variavel que vai receber a imagem dos sacos de dinheiro
 ALLEGRO_BITMAP *dinheiro3 = NULL; //variavel que vai receber a imagem dos sacos de dinheiro
 ALLEGRO_BITMAP *dinheiro4 = NULL; //variavel que vai receber a imagem dos sacos de dinheiro
+ALLEGRO_BITMAP *galinha1 = NULL; //variavel que vai receber a imagem das galinhas
+ALLEGRO_BITMAP *galinha2 = NULL; //variavel que vai receber a imagem das galinhas
+ALLEGRO_BITMAP *galinha3 = NULL; //variavel que vai receber a imagem das galinhas
+ALLEGRO_BITMAP *galinha4 = NULL; //variavel que vai receber a imagem das galinhas
+
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
 // Matriz do mapa.
@@ -253,6 +258,34 @@ bool inicializaJogo() {
     dinheiro4 = al_load_bitmap("./../assets/dinheiro4-map.bmp");
     if(!dinheiro4){
         std::cout << "Falha ao carregar o saco de dinheiro 4" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
+    galinha1 = al_load_bitmap("./../assets/galinha1.bmp");
+    if(!galinha1){
+        std::cout << "Falha ao carregar a imagem 1 das galinhas" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
+    galinha2 = al_load_bitmap("./../assets/galinha2.bmp");
+    if(!galinha2){
+        std::cout << "Falha ao carregar a imagem 2 das galinhas" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
+    galinha3 = al_load_bitmap("./../assets/galinha3.bmp");
+    if(!galinha3){
+        std::cout << "Falha ao carregar a imagem 3 das galinhas" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
+    galinha4 = al_load_bitmap("./../assets/galinha4.bmp");
+    if(!galinha4){
+        std::cout << "Falha ao carregar a imagem 4 das galinhas" << std::endl;
         al_destroy_display(game);
         return false;
     }
