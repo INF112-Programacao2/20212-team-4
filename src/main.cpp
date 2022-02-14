@@ -34,7 +34,7 @@ MissaoSecundaria *Missao_Pocao = new MissaoSecundaria("Pocao", 0, 0, 'P', 10, "C
 
 /* FUNCOES */
 bool camera(char mov);
-void posicao(ALLEGRO_BITMAP *img1, ALLEGRO_BITMAP *img2, ALLEGRO_BITMAP *img3);
+void posicao(ALLEGRO_BITMAP *img1, ALLEGRO_BITMAP *img2, ALLEGRO_BITMAP *img3, ALLEGRO_BITMAP *img4);
 void redesenhar();
 bool to_move();
 void galinha();
@@ -229,18 +229,22 @@ bool camera(char mov){
 }
 
 /*FUNCAO QUE VERIFICA A POSIÇÃO DO PERSONAGEM ENQUANTO ANDA*/
-void posicao(ALLEGRO_BITMAP *img1, ALLEGRO_BITMAP *img2, ALLEGRO_BITMAP *img3){    
+void posicao(ALLEGRO_BITMAP *img1, ALLEGRO_BITMAP *img2, ALLEGRO_BITMAP *img3, ALLEGRO_BITMAP *img4){    
     if(mov_cont==0){
         general_player = img1;
-        cont++;
+        mov_cont++;
     }
     else if(mov_cont == 1){
         general_player = img2;
-        cont++;
+        mov_cont++;
+    }
+    else if(mov_cont == 3){
+        general_player = img3;
+        mov_cont++;       
     }
     else{
-        general_player = img3;
-        cont = 0;
+        general_player = img4;
+        mov_cont = 0;
     }
 }
 
@@ -270,8 +274,7 @@ bool to_move(){
             }
 
             parado = player_c1;
-            cont++;
-            posicao(player_c1, player_c2, player_c3);    
+            posicao(player_c1, player_c2, player_c3, player_c4);    
         }
         else if (keys[ALLEGRO_KEY_S]){
             if(MAPA[i+2][j] == '1' && camera('B')){
@@ -280,8 +283,7 @@ bool to_move(){
             }
 
             parado = player_f1;
-            cont++;
-            posicao(player_f1, player_f2, player_f3);
+            posicao(player_f1, player_f2, player_f3, player_f4);
         }
         else if (keys[ALLEGRO_KEY_A]){
             if(MAPA[i+1][j-1] == '1' && camera('E')){
@@ -290,8 +292,7 @@ bool to_move(){
             }  
 
             parado = player_e1;
-            cont++;
-            posicao(player_e1, player_e2, player_e3);
+            posicao(player_e1, player_e2, player_e3, player_e4);
         }
         else if (keys[ALLEGRO_KEY_D]){
             if(MAPA[i+1][j+1] == '1' && camera('D')){
@@ -300,8 +301,7 @@ bool to_move(){
             }
 
             parado = player_d1;
-            cont++;
-            posicao(player_d1, player_d2, player_d3);
+            posicao(player_d1, player_d2, player_d3, player_d4);
         }
     }
     else if(ev0.type == ALLEGRO_EVENT_DISPLAY_CLOSE){

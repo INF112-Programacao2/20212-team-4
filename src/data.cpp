@@ -19,6 +19,10 @@ ALLEGRO_BITMAP *player_f3= NULL; //variavel que vai receber a imagem do personag
 ALLEGRO_BITMAP *player_c3= NULL; //variavel que vai receber a imagem do personagem
 ALLEGRO_BITMAP *player_d3= NULL; //variavel que vai receber a imagem do personagem
 ALLEGRO_BITMAP *player_e3= NULL; //variavel que vai receber a imagem do personagem
+ALLEGRO_BITMAP *player_f4= NULL; //variavel que vai receber a imagem do personagem
+ALLEGRO_BITMAP *player_c4= NULL; //variavel que vai receber a imagem do personagem
+ALLEGRO_BITMAP *player_d4= NULL; //variavel que vai receber a imagem do personagem
+ALLEGRO_BITMAP *player_e4= NULL; //variavel que vai receber a imagem do personagem
 ALLEGRO_TIMER *timer = NULL; //Declarando o temporizador do jogo
 ALLEGRO_BITMAP *relogio = NULL; //variavel que vai receber a imagem do relogio
 ALLEGRO_BITMAP *chave = NULL; //variavel que vai receber a imagem da chave
@@ -209,10 +213,14 @@ bool inicializaJogo() {
     player_c2=al_load_bitmap("./../assets/costas2.bmp");
     player_d2=al_load_bitmap("./../assets/direita2.bmp");
     player_e2=al_load_bitmap("./../assets/esquerda2.bmp");
-    player_f2=al_load_bitmap("./../assets/frente2.bmp");
-    player_c2=al_load_bitmap("./../assets/costas2.bmp");
-    player_d2=al_load_bitmap("./../assets/direita2.bmp");
-    player_e2=al_load_bitmap("./../assets/esquerda2.bmp");
+    player_f3=al_load_bitmap("./../assets/frente3.bmp");
+    player_c3=al_load_bitmap("./../assets/costas3.bmp");
+    player_d3=al_load_bitmap("./../assets/direita3.bmp");
+    player_e3=al_load_bitmap("./../assets/esquerda3.bmp");
+    player_f4=al_load_bitmap("./../assets/frente4.bmp");
+    player_c4=al_load_bitmap("./../assets/costas4.bmp");
+    player_d4=al_load_bitmap("./../assets/direita4.bmp");
+    player_e4=al_load_bitmap("./../assets/esquerda4.bmp");
 
     al_register_event_source(event_queue, al_get_display_event_source(game));
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
