@@ -4,7 +4,9 @@
 /* VARIÁVEIS ALLEGRO */
 ALLEGRO_DISPLAY *game = NULL; // ALLEGRO_DISPLAY é um tipo de variável que guarda uma janela a ser desenhada
 ALLEGRO_EVENT_QUEUE *event_queue = NULL; // Declarando a fila de enventos 
-ALLEGRO_BITMAP  *map = NULL; // Variável que vai receber uma imagem
+ALLEGRO_BITMAP *map = NULL; // Variável que vai receber uma imagem
+ALLEGRO_BITMAP *general_player = NULL; //variavel que vai receber a imagem do personagem
+ALLEGRO_BITMAP *parado = NULL; //variavel que vai receber a imagem do personagem
 ALLEGRO_BITMAP *player_f1= NULL; //variavel que vai receber a imagem do personagem
 ALLEGRO_BITMAP *player_c1= NULL; //variavel que vai receber a imagem do personagem
 ALLEGRO_BITMAP *player_d1= NULL; //variavel que vai receber a imagem do personagem
@@ -194,6 +196,8 @@ bool inicializaJogo() {
 
     //atribuindo as imagens do personagem as variaveis
     player_f1=al_load_bitmap("./../assets/frente1.bmp");
+    general_player = player_f1;
+    parado = player_f1;
     player_c1=al_load_bitmap("./../assets/costas1.bmp");
     player_d1=al_load_bitmap("./../assets/direita1.bmp");
     player_e1=al_load_bitmap("./../assets/esquerda1.bmp");

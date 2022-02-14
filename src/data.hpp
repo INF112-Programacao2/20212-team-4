@@ -19,6 +19,8 @@
 extern ALLEGRO_DISPLAY *game; // ALLEGRO_DISPLAY é um tipo de variável que guarda uma janela a ser desenhada
 extern ALLEGRO_EVENT_QUEUE *event_queue; // Declarando a fila de enventos 
 extern ALLEGRO_BITMAP  *map; // Variável que vai receber uma imagem
+extern ALLEGRO_BITMAP *general_player; //variavel que vai receber a imagem do personagem
+extern ALLEGRO_BITMAP *parado; //variavel que vai receber a imagem do personagem
 extern ALLEGRO_BITMAP *player_f1; //variavel que vai receber a imagem do personagem
 extern ALLEGRO_BITMAP *player_c1; //variavel que vai receber a imagem do personagem
 extern ALLEGRO_BITMAP *player_d1; //variavel que vai receber a imagem do personagem
@@ -63,6 +65,8 @@ extern short int EIXO_X_PLAYER_TELA;
 extern short int EIXO_Y_PLAYER_TELA;
 extern double TELA_X_MAPA;
 extern double TELA_Y_MAPA;
+
+
 
 /**
  * @brief tenta inicializar todas as variáveis Allegro que serão utilizadas. 
