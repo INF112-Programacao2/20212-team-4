@@ -2,6 +2,8 @@
 #include <string>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_ttf.h>
 #include "Save.hpp"
 #include <math.h>
 
@@ -18,13 +20,14 @@ Inimigo *Geraldina = new Inimigo("Geraldina", 45, 4, 3);
 Inimigo *Johnny_Cash = new Inimigo("Johnny Cash", 60, 4, 5);
 
 /* ITENS */
-Interacao *Chave = new Interacao("chave", 81, 70, '5');
-Interacao *Relogio = new Interacao("relogio", 84, 32, '6');
-Interacao *Pocao = new Interacao("pocao", 1, 4, '7');
-Interacao *Dinheiro1 = new Interacao("dinheiro1", 3, 14, '8');
-Interacao *Dinheiro2 = new Interacao("dinheiro2", 78, 19, '8');
-Interacao *Dinheiro3 = new Interacao("dinheiro3", 2, 46, '8');
-Interacao *Dinheiro4 = new Interacao("dinheiro4", 68, 67, '8');
+Interacao *Chave = new Interacao("Chave", 81, 70, '5');
+Interacao *Relogio = new Interacao("Relogio", 84, 32, '6');
+Interacao *Pocao = new Interacao("Pocao", 1, 4, '7');
+Interacao *Dinheiro1 = new Interacao("Dinheiro1", 3, 14, '8');
+Interacao *Dinheiro2 = new Interacao("Dinheiro2", 78, 19, '8');
+Interacao *Dinheiro3 = new Interacao("Dinheiro3", 2, 46, '8');
+Interacao *Dinheiro4 = new Interacao("Cinheiro4", 68, 67, '8');
+Interacao *Botao_Interagir = new Interacao("Botaointeracao", 0, 0, '1');
 
 /* MISSOES SECUNDARIAS */
 MissaoSecundaria *Missao_Espingarda = new MissaoSecundaria("Espingarda", 0, 0, 'E', 10, "Andrew");
@@ -40,6 +43,7 @@ bool to_move();
 void galinha();
 void itens();
 void interagir();
+void hud();
 
 /* VARIAVEIS */
 bool keys[ALLEGRO_KEY_MAX] = {0};
@@ -62,6 +66,13 @@ int main(int argc, char **argv){
             al_wait_for_event(event_queue, &ev0);
             if(!to_move()) break;   
             redesenhar();
+
+            //* FUNCAO APRESENTANDO ERRO * //
+
+            //if(Botao_Interagir->itemProximo(i, j))
+            //    al_draw_scaled_bitmap(botaointeracao, 0, 0, res_x_comp, res_y_comp, 0, 0, res_x_comp*(res_x_comp/1920.0)*ZOOM, 
+            //      res_y_comp*(res_y_comp/1080.0)*ZOOM, 0);
+
             al_flip_display();
         }
 
@@ -405,13 +416,40 @@ void interagir(){
     }
 }
 
+/* FUNCAO QUE DESENHA O HUD */
+void hud(){
+
+    al_draw_scaled_bitmap(fundo, 0, 0, 322, 73, 99*CELULA, 15, 322*(res_x_comp/1920.0), 73*(res_y_comp/1080.0), 0);
+    al_draw_scaled_bitmap(lifebar, 0, 0,322*(Player->getVida()/Player->getMaxVida()), 73, 99*CELULA, 15, 322*(res_x_comp/1920.0), 73*(res_y_comp/1080.0), 0);
+    al_draw_scaled_bitmap(contorno, 0, 0, 322, 73, 99*CELULA, 15, 322*(res_x_comp/1920.0), 73*(res_y_comp/1080.0), 0);
+
+    al_draw_textf(font15, al_map_rgb(0,0,0),110*CELULA,105,0,"$:%d", Player->getDinheiro());
+    al_draw_textf(font15, al_map_rgb(0,0,0),105*CELULA,105,0,"%d", Player->qtdItem("Comida"));
+    al_draw_scaled_bitmap(frango, 0, 0, 16, 16, 100*CELULA, 105, RES_WIDTH(16*ZOOM), RES_HEIGHT(16*ZOOM), 0);
+
+    if(Player->qtdItem("Relogio") == 0){
+        al_draw_scaled_bitmap(relogiohud, 0, 0, 16, 16, 115*CELULA, 180, RES_WIDTH(16*ZOOM), RES_HEIGHT(16*ZOOM), 0);
+    }
+    if(Player->qtdItem("Chave") == 0){
+        al_draw_scaled_bitmap(chavehud, 0, 0, 16, 16, 110*CELULA, 180, RES_WIDTH(16*ZOOM), RES_HEIGHT(16*ZOOM), 0);
+    }
+    if(Player->qtdItem("Espingarda") == 0){
+        al_draw_scaled_bitmap(espingarda, 0, 0, 34, 16, 101*CELULA, 180, RES_WIDTH(34*ZOOM), RES_HEIGHT(16*ZOOM), 0);
+    }
+    if(Player->qtdItem("Pocao") == 0){
+        al_draw_scaled_bitmap(pocaohud, 0, 0, 16, 16, 115*CELULA, 250, RES_WIDTH(16*ZOOM), RES_HEIGHT(16*ZOOM), 0);
+    }
+}
+
 void redesenhar(){
     al_draw_scaled_bitmap(map, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 0, 
         0, res_x_comp*(res_x_comp/1920.0)*ZOOM, res_y_comp*(res_y_comp/1080.0)*ZOOM, 0);
 
     itens();
     galinha();
+    hud();
 
     al_draw_scaled_bitmap(general_player, 0, 0, res_x_player, res_y_player, RES_WIDTH(EIXO_X_PLAYER_TELA), 
         RES_HEIGHT(EIXO_Y_PLAYER_TELA), RES_WIDTH(res_x_player*ZOOM), RES_HEIGHT(res_y_player*ZOOM), 0);
+
 }

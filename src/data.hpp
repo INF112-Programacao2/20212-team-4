@@ -2,6 +2,8 @@
 /* CAMPO DE BIBLIOTECAS ALLEGRO */
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_ttf.h>
 
 #define ZOOM 4
 #define FPS 8
@@ -39,7 +41,12 @@ extern ALLEGRO_BITMAP *player_d4; //variavel que vai receber a imagem do persona
 extern ALLEGRO_BITMAP *player_e4; //variavel que vai receber a imagem do personagem
 extern ALLEGRO_TIMER *timer; //Declarando o temporizador do jogo
 extern ALLEGRO_BITMAP *relogio; //variavel que vai receber a imagem do relogio
+extern ALLEGRO_BITMAP *relogiohud; // variavel que vai receber a imagem do relogio do hud
 extern ALLEGRO_BITMAP *chave; //variavel que vai receber a imagem da chave
+extern ALLEGRO_BITMAP *chavehud; //variavel que vai receber a imagem da chave do hud
+extern ALLEGRO_BITMAP *espingarda; //variavel que vai receber a imagem da espingarda do hud
+extern ALLEGRO_BITMAP *pocaohud; //variavel que vai receber a imagem da pocao do hud
+extern ALLEGRO_BITMAP *frango; //variavel que vai receber a imagem do frango
 extern ALLEGRO_BITMAP *pocao; //variavel que vai receber a imagem da poção
 extern ALLEGRO_BITMAP *dinheiro1; //variavel que vai receber a imagem do saco de dinheiro
 extern ALLEGRO_BITMAP *dinheiro2; //variavel que vai receber a imagem do saco de dinheiro
@@ -49,6 +56,12 @@ extern ALLEGRO_BITMAP *galinha1; //variavel que vai receber a imagem das galinha
 extern ALLEGRO_BITMAP *galinha2; //variavel que vai receber a imagem das galinhas
 extern ALLEGRO_BITMAP *galinha3; //variavel que vai receber a imagem das galinhas
 extern ALLEGRO_BITMAP *galinha4; //variavel que vai receber a imagem das galinhas
+extern ALLEGRO_BITMAP *galinha4; //variavel que vai receber a imagem das galinhas
+extern ALLEGRO_BITMAP *botaointeracao; // variavel que vai receber a imagem do botao de interacao
+extern ALLEGRO_BITMAP *fundo; // variavel que vai receber a imagem do fundo da barra de vida
+extern ALLEGRO_BITMAP *lifebar; // variavel que vai receber a imagem da barra de vida
+extern ALLEGRO_BITMAP *contorno; // variavel que vai receber a imagem do contorno da barra de vida
+extern ALLEGRO_FONT *font15;  // variavel que vai receber a fonte do hud
 
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */

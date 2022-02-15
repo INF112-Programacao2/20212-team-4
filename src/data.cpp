@@ -1,6 +1,7 @@
 #include <iostream>
 #include "data.hpp"
 
+
 /* VARIÁVEIS ALLEGRO */
 ALLEGRO_DISPLAY *game = NULL; // ALLEGRO_DISPLAY é um tipo de variável que guarda uma janela a ser desenhada
 ALLEGRO_EVENT_QUEUE *event_queue = NULL; // Declarando a fila de enventos 
@@ -25,6 +26,11 @@ ALLEGRO_BITMAP *player_d4= NULL; //variavel que vai receber a imagem do personag
 ALLEGRO_BITMAP *player_e4= NULL; //variavel que vai receber a imagem do personagem
 ALLEGRO_TIMER *timer = NULL; //Declarando o temporizador do jogo
 ALLEGRO_BITMAP *relogio = NULL; //variavel que vai receber a imagem do relogio
+ALLEGRO_BITMAP *relogiohud = NULL; // variavel que vai receber a imagem do relogio do hud
+ALLEGRO_BITMAP *chavehud = NULL; // variavel que vai receber a imagem da chave do hud
+ALLEGRO_BITMAP *espingarda = NULL; // variavel que vai receber a imagem da espingarda do hud
+ALLEGRO_BITMAP *pocaohud = NULL; // variavel que vai receber a imagem da pocao do hud
+ALLEGRO_BITMAP *frango = NULL; // variavel que vai receber a imagem do frango do hud
 ALLEGRO_BITMAP *chave = NULL; //variavel que vai receber a imagem da chave
 ALLEGRO_BITMAP *pocao = NULL; //variavel que vai receber a imagem da poção
 ALLEGRO_BITMAP *dinheiro1 = NULL; //variavel que vai receber a imagem dos sacos de dinheiro
@@ -35,6 +41,11 @@ ALLEGRO_BITMAP *galinha1 = NULL; //variavel que vai receber a imagem das galinha
 ALLEGRO_BITMAP *galinha2 = NULL; //variavel que vai receber a imagem das galinhas
 ALLEGRO_BITMAP *galinha3 = NULL; //variavel que vai receber a imagem das galinhas
 ALLEGRO_BITMAP *galinha4 = NULL; //variavel que vai receber a imagem das galinhas
+ALLEGRO_BITMAP *botaointeracao = NULL; // variavel que vai receber a imagem do botao de interacao
+ALLEGRO_BITMAP *fundo = NULL; // variavel que vai receber a imagem do fundo da barra de vida
+ALLEGRO_BITMAP *lifebar = NULL; // variavel que vai receber a imagem da barra de vida
+ALLEGRO_BITMAP *contorno = NULL; // variavel que vai receber a imagem do contorno da barra de vida
+ALLEGRO_FONT *font15 = NULL; // variavel que vai receber a fonte do hud
 
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
@@ -202,6 +213,17 @@ bool inicializaJogo() {
         return false;
     }
 
+    al_init_font_addon();
+	al_init_ttf_addon();
+
+    
+    font15 = al_load_font("./../assets/arial.ttf", 50, 0);
+    if(!font15)
+    {
+        std::cout << "Falha ao inicializar a fonte" << std::endl;
+        return false;
+    }
+
     //atribuindo as imagens do personagem as variaveis
     player_f1=al_load_bitmap("./../assets/frente1.bmp");
     general_player = player_f1;
@@ -222,6 +244,7 @@ bool inicializaJogo() {
     player_d4=al_load_bitmap("./../assets/direita4.bmp");
     player_e4=al_load_bitmap("./../assets/esquerda4.bmp");
 
+
     al_register_event_source(event_queue, al_get_display_event_source(game));
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
     al_register_event_source(event_queue, al_get_keyboard_event_source());
@@ -240,6 +263,20 @@ bool inicializaJogo() {
         return false;
     }
 
+    relogiohud = al_load_bitmap("./../assets/relogio.bmp");
+    if(!relogiohud){
+        std::cout << "Falha ao carregar o relogio do hud" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
+    botaointeracao = al_load_bitmap("./../assets/aperteE.bmp");
+    if(!botaointeracao){
+        std::cout << "Falha ao carregar a imagem de interacao" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
     chave = al_load_bitmap("./../assets/chave-map.bmp");
     if(!chave){
         std::cout << "Falha ao carregar a chave" << std::endl;
@@ -247,8 +284,30 @@ bool inicializaJogo() {
         return false;
     }
 
+    chavehud = al_load_bitmap("./../assets/chave.bmp");
+    if(!chavehud){
+        std::cout << "Falha ao carregar a chave do hud" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
+    espingarda = al_load_bitmap("./../assets/espingarda.bmp");
+    if(!espingarda){
+        std::cout << "Falha ao carregar a espingarda" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
+
     pocao = al_load_bitmap("./../assets/pocao-map.bmp");
     if(!pocao){
+        std::cout << "Falha ao carregar a pocao" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
+    pocaohud = al_load_bitmap("./../assets/pocao.bmp");
+    if(!pocaohud){
         std::cout << "Falha ao carregar a pocao" << std::endl;
         al_destroy_display(game);
         return false;
@@ -306,6 +365,34 @@ bool inicializaJogo() {
     galinha4 = al_load_bitmap("./../assets/galinha4.bmp");
     if(!galinha4){
         std::cout << "Falha ao carregar a imagem 4 das galinhas" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
+    fundo = al_load_bitmap("./../assets/fundo_HUD.bmp");
+    if(!fundo){
+        std::cout << "Falha ao carregar o fundo da barra de vida" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
+    lifebar = al_load_bitmap("./../assets/Life_bar.bmp");
+    if(!lifebar){
+        std::cout << "Falha ao carregar a barra de vida" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
+    contorno = al_load_bitmap("./../assets/HUD_contorno.bmp");
+    if(!contorno){
+        std::cout << "Falha ao carregar o contorno da barra de vida" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
+    frango = al_load_bitmap("./../assets/frango.bmp");
+    if(!frango){
+        std::cout << "Falha ao carregar o frango" << std::endl;
         al_destroy_display(game);
         return false;
     }

@@ -20,6 +20,7 @@ class Interacao {
         bool completo();
         void removeItem(unsigned char novoValor);
         bool itemProximo(unsigned char novoValor);
+        bool itemProximo(short int X, short int Y);
 };
 
 class MissaoSecundaria : public Interacao{

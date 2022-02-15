@@ -139,7 +139,7 @@ void Protagonista::addItem(std::string item, short int qtd){
     if(it != this->_inventario.end())
         it->second += qtd;
     else
-        this->_inventario.insert(std::pair<std::string, short int> (item, 1));
+        this->_inventario.insert(std::pair<std::string, short int> (item, 0));
 }
 
 void Protagonista::subItem(std::string item, short int qtd){
