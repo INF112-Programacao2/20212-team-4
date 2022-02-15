@@ -427,16 +427,16 @@ void hud(){
     al_draw_textf(font15, al_map_rgb(0,0,0),105*CELULA,105,0,"%d", Player->qtdItem("Comida"));
     al_draw_scaled_bitmap(frango, 0, 0, 16, 16, 100*CELULA, 105, RES_WIDTH(16*ZOOM), RES_HEIGHT(16*ZOOM), 0);
 
-    if(Player->qtdItem("Relogio") == 0){
+    if(Player->qtdItem("Relogio") != 0){
         al_draw_scaled_bitmap(relogiohud, 0, 0, 16, 16, 115*CELULA, 180, RES_WIDTH(16*ZOOM), RES_HEIGHT(16*ZOOM), 0);
     }
-    if(Player->qtdItem("Chave") == 0){
+    if(Player->qtdItem("Chave") != 0){
         al_draw_scaled_bitmap(chavehud, 0, 0, 16, 16, 110*CELULA, 180, RES_WIDTH(16*ZOOM), RES_HEIGHT(16*ZOOM), 0);
     }
-    if(Player->qtdItem("Espingarda") == 0){
+    if(Player->qtdItem("Espingarda") != 0){
         al_draw_scaled_bitmap(espingarda, 0, 0, 34, 16, 101*CELULA, 180, RES_WIDTH(34*ZOOM), RES_HEIGHT(16*ZOOM), 0);
     }
-    if(Player->qtdItem("Pocao") == 0){
+    if(Player->qtdItem("Pocao") != 0){
         al_draw_scaled_bitmap(pocaohud, 0, 0, 16, 16, 115*CELULA, 250, RES_WIDTH(16*ZOOM), RES_HEIGHT(16*ZOOM), 0);
     }
 }
