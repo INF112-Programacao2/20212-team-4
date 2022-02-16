@@ -1,3 +1,6 @@
+#ifndef PERSONAGENS_HPP
+#define PERSONAGENS_HPP
+
 #include <string>
 #include <map>
 
@@ -95,7 +98,7 @@ class Protagonista : public Personagem{
          * @brief Passa o protagonista de nível, acrescentando em +1 o atributo _nivel.
          * 
          */
-        void nextLevel(int addVida);
+        void nextLevel();
 
         /**
          * @brief Adiciona uma unidade de um ítem ao inventário.
@@ -166,3 +169,5 @@ class Inimigo : public Personagem{
          */
         void atacar(Protagonista &alvo);
 };
+
+#endif

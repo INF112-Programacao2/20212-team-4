@@ -1,3 +1,6 @@
+#ifndef DATA_HPP
+#define DATA_HPP
+
 #include "Personagens.hpp"
 /* CAMPO DE BIBLIOTECAS ALLEGRO */
 #include <allegro5/allegro.h>
@@ -67,7 +70,7 @@ extern ALLEGRO_FONT *font15;  // variavel que vai receber a fonte do hud
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
 // Matriz do mapa.
 extern unsigned char MAPA[][97];
-extern std::string CAMERA[12];
+extern std::string CAMERA[10];
 extern short int camI;
 extern short int camJ;
 extern short int valueIJcam;
@@ -96,3 +99,5 @@ extern double TELA_Y_MAPA;
  */
 bool inicializaJogo();
 void resetCamera(short int x, short int y);
+
+#endif

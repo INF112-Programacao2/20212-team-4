@@ -46,24 +46,19 @@ bool Interacao::completo(){
 
 /* FUNCAO QUE VERIFICA SE O ITEM ESTA PROXIMO AO JOGADOR */
 bool Interacao::itemProximo(unsigned char novoValor){
-    if((i >= this->_y-2 && i < this->_y) && j  == _x){
+    if(MAPA[_y][_x] != '1' && sqrt(pow(((i+1) - this->_y), 2) + pow((j - this->_x), 2)) <= 1){
         removeItem(novoValor);
-        return true;
-    }
-    
-    else if(i == this->_y-1 && (j >= this->_x-1 && j <= this->_x + 1)){
-        removeItem(novoValor);
-        return true;
+        return true;        
     }
 
     return false;
 }
 
-bool Interacao::itemProximo(short int X, short int Y){
-    if((int)MAPA[Y-2][X] > 32) return true;
-    if((int)MAPA[Y-1][X-1] > 32) return true;
-    if((int)MAPA[Y-1][X+1] > 32) return true;
-    if((int)MAPA[Y][X] > 32) return true;
+bool Interacao::itemProximo(){
+    if((int)MAPA[i+2][j] > 50) return true;
+    if((int)MAPA[i+1][j-1] > 50) return true;
+    if((int)MAPA[i+1][j+1] > 50) return true;
+    if((int)MAPA[i][j] > 50) return true;
 
     return false;
 }

@@ -128,10 +128,8 @@ unsigned char MAPA[][97]=
 "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
 };
 
-std::string CAMERA[12] = {
+std::string CAMERA[10] = {
     "1111111111111111111111",
-    "1000000000000000000001",
-    "1000000000000000000001",
     "1000000000000000000001",
     "1000000000000000000001",
     "1000000000000000000001",
@@ -142,7 +140,7 @@ std::string CAMERA[12] = {
     "1000000000000000000001",
     "1111111111111111111111"
 };
-short int camI = 7;
+short int camI = 5;
 short int camJ = 14;
 short int valueIJcam = '0';
 
@@ -217,7 +215,7 @@ bool inicializaJogo() {
 	al_init_ttf_addon();
 
     
-    font15 = al_load_font("./../assets/arial.ttf", 50, 0);
+    font15 = al_load_font("./../assets/arial.ttf", RES_HEIGHT(50), 0);
     if(!font15)
     {
         std::cout << "Falha ao inicializar a fonte" << std::endl;
@@ -401,8 +399,8 @@ bool inicializaJogo() {
 }
 
 void resetCamera(short int x, short int y){
-    for(int i = 0; i < 12; i++){
-        if(i == 0 || i == 11)
+    for(int i = 0; i < 10; i++){
+        if(i == 0 || i == 9)
             CAMERA[i] = "1111111111111111111111";
         else
             CAMERA[i] = "1000000000000000000001";

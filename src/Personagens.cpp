@@ -1,6 +1,7 @@
 #include "Personagens.hpp"
 #include <iostream>
 #include <cstdlib>
+#include "data.hpp"
 
 /** Getters dos atributos de um personagem qualquer.
 */
@@ -86,10 +87,67 @@ void Personagem::atacar(ENEMY_OR_PLAYER &alvo, short int dano){
     alvo.setVida(alvo.getVida()+dano); // O dano é sempre um valor negativo.
 }
 
-void Protagonista::nextLevel(int addVida){
+void Protagonista::nextLevel(){
     this->_nivel++;
-    this->_maxVida += addVida;
-    this->_vida += addVida;
+
+    // Define as posições iniciais pra cada nível.
+    if(this->_nivel == 2){
+        j = 48;
+        TELA_X_MAPA = 35;
+
+        this->_maxVida += 10;
+        this->_vida += 10;        
+
+        resetCamera(15, 5);
+    }
+
+    else if(this->_nivel == 3){
+        i = 56;
+        j = 69;
+
+        this->_maxVida += 10;
+        this->_vida += 10;  
+
+        TELA_X_MAPA = 60;
+        TELA_Y_MAPA = 50;
+
+        EIXO_X_PLAYER_TELA = 958;
+        EIXO_Y_PLAYER_TELA = 572;    
+
+        resetCamera(11, 5); 
+    }
+
+    else if(this->_nivel == 4){
+        i = 48;
+        j = 19;
+
+        this->_maxVida += 10;
+        this->_vida += 10;  
+
+        TELA_X_MAPA = 10;
+        TELA_Y_MAPA = 45;
+
+        EIXO_X_PLAYER_TELA = 958;
+        EIXO_Y_PLAYER_TELA = 380;    
+
+        resetCamera(12, 2);  
+    }
+
+    else if(this->_nivel == 5){
+        i = 29;
+        j = 86;
+
+        this->_maxVida += 10;
+        this->_vida += 10;  
+
+        TELA_X_MAPA = 72;
+        TELA_Y_MAPA = 23;
+
+        EIXO_X_PLAYER_TELA = 1280;
+        EIXO_Y_PLAYER_TELA = 572;  
+
+        resetCamera(16, 5); 
+    }    
 }
 
 void Protagonista::setNivel(short int nivel){
@@ -139,7 +197,7 @@ void Protagonista::addItem(std::string item, short int qtd){
     if(it != this->_inventario.end())
         it->second += qtd;
     else
-        this->_inventario.insert(std::pair<std::string, short int> (item, 0));
+        this->_inventario.insert(std::pair<std::string, short int> (item, qtd));
 }
 
 void Protagonista::subItem(std::string item, short int qtd){

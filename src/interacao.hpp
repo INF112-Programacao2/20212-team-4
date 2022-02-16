@@ -1,3 +1,6 @@
+#ifndef INTERACAO_HPP
+#define INTERACAO_HPP
+
 #include <iostream>
 #include <string>
 #include <allegro5/allegro.h>
@@ -20,7 +23,7 @@ class Interacao {
         bool completo();
         void removeItem(unsigned char novoValor);
         bool itemProximo(unsigned char novoValor);
-        bool itemProximo(short int X, short int Y);
+        bool itemProximo();
 };
 
 class MissaoSecundaria : public Interacao{
@@ -36,4 +39,4 @@ class MissaoSecundaria : public Interacao{
         bool got();
 };
 
-
+#endif
