@@ -56,9 +56,9 @@ bool Interacao::itemProximo(unsigned char novoValor){
 
 bool Interacao::itemProximo(){
     if((int)MAPA[i+2][j] > 50) return true;
-    if((int)MAPA[i+1][j-1] > 50) return true;
-    if((int)MAPA[i+1][j+1] > 50) return true;
-    if((int)MAPA[i][j] > 50) return true;
+    else if((int)MAPA[i+1][j-1] > 50) return true;
+    else if((int)MAPA[i+1][j+1] > 50) return true;
+    else if((int)MAPA[i][j] > 50) return true;
 
     return false;
 }

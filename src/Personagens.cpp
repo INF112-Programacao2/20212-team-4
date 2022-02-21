@@ -92,6 +92,7 @@ void Protagonista::nextLevel(){
 
     // Define as posições iniciais pra cada nível.
     if(this->_nivel == 2){
+        i = 29;
         j = 48;
         TELA_X_MAPA = 35;
 

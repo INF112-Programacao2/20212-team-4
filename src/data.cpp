@@ -398,7 +398,7 @@ bool inicializaJogo() {
     return true;
 }
 
-void resetCamera(short int x, short int y){
+void resetCamera(short int x, short int y){ //Reseta a camera ao passar de nível
     for(int i = 0; i < 10; i++){
         if(i == 0 || i == 9)
             CAMERA[i] = "1111111111111111111111";
