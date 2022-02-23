@@ -272,7 +272,7 @@ bool to_move(){
                 EIXO_Y_PLAYER_TELA -= 16*ZOOM;
             }
             else if(MAPA[i][j] == '*'){
-                Player -> setVida(Player -> getVida() -1);
+                Player -> setVida(Player -> getVida() -0.5);
             }
 
             parado = player_c1;
@@ -283,7 +283,9 @@ bool to_move(){
                 i++;
                 EIXO_Y_PLAYER_TELA += 16*ZOOM;
             }
-
+            else if(MAPA[i+2][j] == '*'){
+                Player -> setVida(Player -> getVida() -0.5);
+            }
             parado = player_f1;
             posicao(player_f1, player_f2, player_f3, player_f4);
         }
@@ -292,7 +294,9 @@ bool to_move(){
                 j--;
                 EIXO_X_PLAYER_TELA -= 16*ZOOM;
             }  
-
+            else if(MAPA[i+1][j-1] == '*'){
+                Player -> setVida(Player -> getVida() -0.5);
+            }
             parado = player_e1;
             posicao(player_e1, player_e2, player_e3, player_e4);
         }
@@ -301,7 +305,9 @@ bool to_move(){
                 j++;
                 EIXO_X_PLAYER_TELA += 16*ZOOM;
             }
-
+            else if(MAPA[i+1][j+1] == '*'){
+                Player -> setVida(Player -> getVida() -0.5);
+            }
             parado = player_d1;
             posicao(player_d1, player_d2, player_d3, player_d4);
         }
