@@ -271,7 +271,8 @@ bool to_move(){
                 i--;
                 EIXO_Y_PLAYER_TELA -= 16*ZOOM;
             }
-            else if(MAPA[i][j] == '*'){
+            /*SE O PERSONAGEM ENCOSTA EM UM CACTO, ELE SOFRE UM DANO */
+            else if(MAPA[i][j] == '*'){   
                 Player -> setVida(Player -> getVida() -0.5);
             }
 
@@ -419,7 +420,7 @@ void interagir(){
 /* FUNCAO QUE DESENHA O HUD */
 void hud(){
     al_draw_scaled_bitmap(fundo, 0, 0, 322, 73, RES_WIDTH(99*CELULA), RES_HEIGHT(15), RES_WIDTH(322), RES_HEIGHT(73), 0);
-    al_draw_scaled_bitmap(lifebar, 0, 0, 322*((double)Player->getVida()/Player->getMaxVida()), 73, RES_WIDTH(99*CELULA), RES_HEIGHT(15), RES_WIDTH(322), RES_HEIGHT(73), 0);
+    al_draw_scaled_bitmap(lifebar, 0, 0, 322, 73, RES_WIDTH(99*CELULA), RES_HEIGHT(15), RES_WIDTH(322*((double)Player->getVida()/Player->getMaxVida())), RES_HEIGHT(73), 0);
     al_draw_scaled_bitmap(contorno, 0, 0, 322, 73, RES_WIDTH(99*CELULA), RES_HEIGHT(15), RES_WIDTH(322), RES_HEIGHT(73), 0);
 
     al_draw_textf(font15, al_map_rgb(60,25,97), RES_WIDTH(110*CELULA), RES_HEIGHT(105), 0,"$ %d", Player->getDinheiro());
