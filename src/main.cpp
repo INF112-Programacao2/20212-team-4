@@ -26,7 +26,8 @@ Interacao *Pocao = new Interacao("Pocao", 1, 4, '7');
 Interacao *Dinheiro1 = new Interacao("Dinheiro1", 3, 14, '8');
 Interacao *Dinheiro2 = new Interacao("Dinheiro2", 78, 19, '8');
 Interacao *Dinheiro3 = new Interacao("Dinheiro3", 2, 46, '8');
-Interacao *Dinheiro4 = new Interacao("Cinheiro4", 68, 67, '8');
+Interacao *Dinheiro4 = new Interacao("Dinheiro4", 68, 67, '8');
+Interacao *Loja = new Interacao("Loja", 42, 45, '4'); //criando ponteiro para objeto loja do tipo interecao
 Interacao *Botao_Interagir = new Interacao("Botaointeracao", 0, 0, '1');
 
 /* MISSOES SECUNDARIAS */
@@ -44,12 +45,14 @@ void galinha();
 void itens();
 void interagir();
 void hud();
+void loja();
 
 /* VARIAVEIS */
 bool keys[ALLEGRO_KEY_MAX] = {0};
 short int mov_cont = 0;
 ALLEGRO_EVENT ev0;
 short int contGalinha = 0;
+bool store=false;
 
 int main(int argc, char **argv){
 
@@ -391,6 +394,11 @@ void interagir(){
         Player->addItem(Pocao->getNome(), 1);
         std::cout << Pocao->getNome() << " " << Player->qtdItem("Pocao") << std::endl;
     }
+
+    else if(Loja->itemProximo()){
+        std::cout << Loja->getNome() << std::endl;
+        store=true;
+    }
     
     else if(Dinheiro1 != nullptr && Dinheiro1->itemProximo('1')){
         Player->setDinheiro(Player->getDinheiro()+10);
@@ -442,6 +450,35 @@ void hud(){
     }
 }
 
+/* FUNCAO QUE GERENCIA A LOJA*/
+void loja(){
+    if(Player->getDinheiro()>=100){
+        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(190), 0.85*res_y_comp, 0,
+        "Olá rapaz! Bem vindo à loja! Deseja adquirir comida por $5? Aperte C para comprar ou B para sair da loja");
+        al_wait_for_event(event_queue, &ev0);
+        if (ev0.type == ALLEGRO_EVENT_KEY_DOWN && ALLEGRO_KEY_C)
+        {
+            Player->setDinheiro(Player->getDinheiro()-5);
+            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(760), 0.85*res_y_comp, 0,
+            "Prontinho! Foi bom fazer negócios com você!");
+        }
+        else if (ev0.type == ALLEGRO_EVENT_KEY_DOWN && ALLEGRO_KEY_B)
+        {
+            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(760), 0.85*res_y_comp, 0,
+            "Até logo!");
+        }       
+        
+    }
+    else{
+        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(500), 0.80*res_y_comp, 0,
+        "Oh! Parece que você não possui dinheiro suficiente para investir!");
+        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(700), 0.85*res_y_comp, 0,
+        "Vá buscar seu ouro rapaz, e volte depois!");
+        store=false;
+    }
+    
+}
+
 void redesenhar(){
     al_draw_scaled_bitmap(map, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 0, 
         0, res_x_comp*(res_x_comp/1920.0)*ZOOM, res_y_comp*(res_y_comp/1080.0)*ZOOM, 0);
@@ -453,8 +490,11 @@ void redesenhar(){
     al_draw_scaled_bitmap(general_player, 0, 0, res_x_player, res_y_player, RES_WIDTH(EIXO_X_PLAYER_TELA), 
         RES_HEIGHT(EIXO_Y_PLAYER_TELA), RES_WIDTH(res_x_player*ZOOM), RES_HEIGHT(res_y_player*ZOOM), 0);
 
-    if(Botao_Interagir->itemProximo()){
+    if(Botao_Interagir->itemProximo() && !store){
         al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(760), 0.85*res_y_comp, 0,"Aperte          para Interagir");
         al_draw_scaled_bitmap(botaointeracao, 0,  0, 18, 18, RES_WIDTH(920), 0.85*res_y_comp, RES_WIDTH(18*ZOOM), RES_HEIGHT(18*ZOOM), 0);
+    }
+    else if(store){
+        loja();
     }
 }
