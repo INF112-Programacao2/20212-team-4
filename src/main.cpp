@@ -253,6 +253,7 @@ void posicao(ALLEGRO_BITMAP *img1, ALLEGRO_BITMAP *img2, ALLEGRO_BITMAP *img3, A
 /*FUNCAO QUE FAZ A MOVIMENTACAO DO PERSONAGEM*/
 bool to_move(){
     if (ev0.type == ALLEGRO_EVENT_KEY_DOWN) {
+        store=false;
         keys[ev0.keyboard.keycode] = true;
 
         if(keys[ALLEGRO_KEY_ESCAPE]) {
@@ -470,11 +471,10 @@ void loja(){
         
     }
     else{
-        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(500), 0.80*res_y_comp, 0,
+        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(340), 0.80*res_y_comp, 0,
         "Oh! Parece que você não possui dinheiro suficiente para investir!");
-        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(700), 0.85*res_y_comp, 0,
+        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(540), 0.85*res_y_comp, 0,
         "Vá buscar seu ouro rapaz, e volte depois!");
-        store=false;
     }
     
 }
