@@ -51,8 +51,11 @@ void loja();
 bool keys[ALLEGRO_KEY_MAX] = {0};
 short int mov_cont = 0;
 ALLEGRO_EVENT ev0;
+ALLEGRO_EVENT ev1;
 short int contGalinha = 0;
 bool store=false;
+short int buy;
+
 
 int main(int argc, char **argv){
 
@@ -253,7 +256,6 @@ void posicao(ALLEGRO_BITMAP *img1, ALLEGRO_BITMAP *img2, ALLEGRO_BITMAP *img3, A
 /*FUNCAO QUE FAZ A MOVIMENTACAO DO PERSONAGEM*/
 bool to_move(){
     if (ev0.type == ALLEGRO_EVENT_KEY_DOWN) {
-        store=false;
         keys[ev0.keyboard.keycode] = true;
 
         if(keys[ALLEGRO_KEY_ESCAPE]) {
@@ -315,6 +317,12 @@ bool to_move(){
             }
             parado = player_d1;
             posicao(player_d1, player_d2, player_d3, player_d4);
+        }
+        else if (keys[ALLEGRO_KEY_C] && store){
+            buy=2;
+        }
+        else if (keys[ALLEGRO_KEY_B]&& store){
+            buy=3;
         }
     }
     else if(ev0.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
@@ -382,6 +390,38 @@ void galinha(){
     }
 }
 
+/* FUNCAO QUE GERENCIA A LOJA*/
+void loja(){
+
+    if(Player->getDinheiro()>=5 && buy==1){
+        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(300), 0.80*res_y_comp, 0,
+        "Vendedor: Olá rapaz! Bem vindo à loja! Deseja adquirir comida por $5?");
+        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(560), 0.85*res_y_comp, 0,
+        "Aperte C para comprar ou B para sair da loja");
+
+    }
+    if(Player->getDinheiro()<5){
+        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(340), 0.80*res_y_comp, 0,
+        "Oh! Parece que você não possui dinheiro suficiente para investir!");
+        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(540), 0.85*res_y_comp, 0,
+        "Vá buscar seu ouro rapaz, e volte depois!");
+        
+    }
+    if (buy==2){
+        Player->setDinheiro(Player->getDinheiro()-5);
+        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(760), 0.85*res_y_comp, 0,
+        "Prontinho! Foi bom fazer negócios com você!");
+        buy=0;
+    }
+    if(buy==3)
+    {
+        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(800), 0.85*res_y_comp, 0,
+        "Até logo!");
+        buy=0;
+    }   
+    
+}
+
 /* FUNCAO PARA COLETAR O ITEM */
 void interagir(){
     if(Relogio->itemProximo('1'))
@@ -394,11 +434,6 @@ void interagir(){
         std::cout << Pocao->getNome() << std::endl;
         Player->addItem(Pocao->getNome(), 1);
         std::cout << Pocao->getNome() << " " << Player->qtdItem("Pocao") << std::endl;
-    }
-
-    else if(Loja->itemProximo()){
-        std::cout << Loja->getNome() << std::endl;
-        store=true;
     }
     
     else if(Dinheiro1 != nullptr && Dinheiro1->itemProximo('1')){
@@ -423,6 +458,12 @@ void interagir(){
         Player->setDinheiro(Player->getDinheiro()+10);
         delete Dinheiro4;
         Dinheiro4 = nullptr;
+    }
+
+    else if(Loja->itemProximo()){
+        std::cout << Loja->getNome() << std::endl;
+        store=true;
+        buy=1;
     }
 }
 
@@ -449,34 +490,6 @@ void hud(){
     if(Player->qtdItem("Pocao") != 0){
         al_draw_scaled_bitmap(pocaohud, 0, 0, 16, 16, RES_WIDTH(115*CELULA), RES_WIDTH(250), RES_WIDTH(16*ZOOM), RES_HEIGHT(16*ZOOM), 0);
     }
-}
-
-/* FUNCAO QUE GERENCIA A LOJA*/
-void loja(){
-    if(Player->getDinheiro()>=100){
-        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(190), 0.85*res_y_comp, 0,
-        "Olá rapaz! Bem vindo à loja! Deseja adquirir comida por $5? Aperte C para comprar ou B para sair da loja");
-        al_wait_for_event(event_queue, &ev0);
-        if (ev0.type == ALLEGRO_EVENT_KEY_DOWN && ALLEGRO_KEY_C)
-        {
-            Player->setDinheiro(Player->getDinheiro()-5);
-            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(760), 0.85*res_y_comp, 0,
-            "Prontinho! Foi bom fazer negócios com você!");
-        }
-        else if (ev0.type == ALLEGRO_EVENT_KEY_DOWN && ALLEGRO_KEY_B)
-        {
-            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(760), 0.85*res_y_comp, 0,
-            "Até logo!");
-        }       
-        
-    }
-    else{
-        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(340), 0.80*res_y_comp, 0,
-        "Oh! Parece que você não possui dinheiro suficiente para investir!");
-        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(540), 0.85*res_y_comp, 0,
-        "Vá buscar seu ouro rapaz, e volte depois!");
-    }
-    
 }
 
 void redesenhar(){
