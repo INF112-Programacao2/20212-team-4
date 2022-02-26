@@ -45,7 +45,7 @@ void galinha();
 void itens();
 void interagir();
 void hud();
-void loja();
+void loja(); //funcao que gerencia a loja
 
 /* VARIAVEIS */
 bool keys[ALLEGRO_KEY_MAX] = {0};
@@ -53,9 +53,9 @@ short int mov_cont = 0;
 ALLEGRO_EVENT ev0;
 ALLEGRO_EVENT ev1;
 short int contGalinha = 0;
-bool store=false;
-short int buy;
-bool buy_made;
+bool store=false; //variavel que define se o personagem esta ou nao na loja
+short int buy; //variavel para gerenciar a compra 
+bool buy_made; //variavel que define se o player ja fez ou nao a compra
 
 
 int main(int argc, char **argv){
@@ -270,8 +270,8 @@ bool to_move(){
     }
 
     if(ev0.type == ALLEGRO_EVENT_TIMER){  
-        if (keys[ALLEGRO_KEY_E])
-            interagir();    
+        if (keys[ALLEGRO_KEY_E]) //se o usuario apertar E
+            interagir(); //chamamos a funcao para verificar com o que ele quer interagir 
 
         else if(keys[ALLEGRO_KEY_W]){
             if(MAPA[i][j] == '1' && camera('C')){
@@ -320,10 +320,12 @@ bool to_move(){
             posicao(player_d1, player_d2, player_d3, player_d4);
         }
         else if (keys[ALLEGRO_KEY_C] && store){
-            buy=2;
+            //se o player aperta C para comprar quando ele estiver interagindo com a loja
+            buy=2; //buy==2 significa que ele quer comprar
         }
         else if (keys[ALLEGRO_KEY_J]&& store){
-            buy=3;
+            //se o player aperta J para comprar quando ele estiver interagindo com a loja
+            buy=3; //buy==3 significa que ele quer parar de interagir com a loja
         }
     }
     else if(ev0.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
@@ -393,16 +395,17 @@ void galinha(){
 
 /* FUNCAO QUE GERENCIA A LOJA*/
 void loja(){
-    if(buy==1){
+    if(buy==1){ //quando o player decicide interagir com o loja, ele recebe a seguinte mensagem:
         al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(300), 0.80*res_y_comp, 0,
         "Vendedor: Olá rapaz! Bem vindo à loja! Deseja adquirir comida por $5?");
         al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(560), 0.85*res_y_comp, 0,
         "Aperte C para comprar ou J para voltar ao jogo");
-        buy_made=false;
+        buy_made=false; //ou seja, a compra ainda não foi feita
     }
 
-    else if(buy==2){
-        if(Player->getDinheiro()<5 && !buy_made){
+    else if(buy==2){ //quando o player aperta C na loja, ou seja, quer fazer uma compra
+        if(Player->getDinheiro()<5 && !buy_made){//se ele não tiver dinheiro suficiente para comprar e ainda não fez a compra
+            //ele recebe a seguinte mensagem:
             al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(260), 0.75*res_y_comp, 0,
             "Vendedor: Oh! Parece que você não possui dinheiro suficiente para investir!");
             al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(540), 0.80*res_y_comp, 0,
@@ -410,8 +413,8 @@ void loja(){
             al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(700), 0.85*res_y_comp, 0,
             "Aperte J para voltar ao jogo"); 
         }
-
         else{
+            //caso o player apertou C, tem dinheiro suficiente e ainda não realizou a compra 
             if(!buy_made){
                 Player->setDinheiro(Player->getDinheiro()-5);
                 Player->addItem("Comida", 1);
@@ -469,10 +472,10 @@ void interagir(){
         Dinheiro4 = nullptr;
     }
 
-    else if(Loja->itemProximo()){
-        std::cout << Loja->getNome() << std::endl;
-        store=true;
-        buy=1;
+    else if(Loja->interacaoProxima('y')){ //caso a interacao proxima seja a loja
+        std::cout << Loja->getNome() << std::endl; //escrevemos loja no terminal
+        store=true; //o personagem agora está interagindo com a loja
+        buy=1; //o personagem vai para a parte 1 da compra
     }
 }
 
@@ -512,11 +515,11 @@ void redesenhar(){
     al_draw_scaled_bitmap(general_player, 0, 0, res_x_player, res_y_player, RES_WIDTH(EIXO_X_PLAYER_TELA), 
         RES_HEIGHT(EIXO_Y_PLAYER_TELA), RES_WIDTH(res_x_player*ZOOM), RES_HEIGHT(res_y_player*ZOOM), 0);
 
-    if(Botao_Interagir->itemProximo() && !store){
+    if(Botao_Interagir->interacaoProxima('2') && !store){//caso haja uma interacao proxima e o personagem não esteja na loja
         al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(760), 0.85*res_y_comp, 0,"Aperte          para Interagir");
         al_draw_scaled_bitmap(botaointeracao, 0,  0, 18, 18, RES_WIDTH(920), 0.85*res_y_comp, RES_WIDTH(18*ZOOM), RES_HEIGHT(18*ZOOM), 0);
     }
-    else if(store){
-        loja();
+    else if(store){//caso o personagem esteja interagindo com a loja
+        loja();// chamamos a funcao loja
     }
 }
