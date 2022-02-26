@@ -55,6 +55,7 @@ ALLEGRO_EVENT ev1;
 short int contGalinha = 0;
 bool store=false;
 short int buy;
+bool buy_made;
 
 
 int main(int argc, char **argv){
@@ -321,7 +322,7 @@ bool to_move(){
         else if (keys[ALLEGRO_KEY_C] && store){
             buy=2;
         }
-        else if (keys[ALLEGRO_KEY_B]&& store){
+        else if (keys[ALLEGRO_KEY_J]&& store){
             buy=3;
         }
     }
@@ -392,34 +393,38 @@ void galinha(){
 
 /* FUNCAO QUE GERENCIA A LOJA*/
 void loja(){
-
     if(Player->getDinheiro()>=5 && buy==1){
         al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(300), 0.80*res_y_comp, 0,
         "Vendedor: Olá rapaz! Bem vindo à loja! Deseja adquirir comida por $5?");
         al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(560), 0.85*res_y_comp, 0,
-        "Aperte C para comprar ou B para sair da loja");
+        "Aperte C para comprar ou J para voltar ao jogo");
 
     }
     if(Player->getDinheiro()<5){
-        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(340), 0.80*res_y_comp, 0,
+        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(340), 0.75*res_y_comp, 0,
         "Oh! Parece que você não possui dinheiro suficiente para investir!");
-        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(540), 0.85*res_y_comp, 0,
+        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(540), 0.80*res_y_comp, 0,
         "Vá buscar seu ouro rapaz, e volte depois!");
-        
+        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(700), 0.85*res_y_comp, 0,
+        "Aperte J para voltar ao jogo"); 
     }
-    if (buy==2){
-        Player->setDinheiro(Player->getDinheiro()-5);
-        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(760), 0.85*res_y_comp, 0,
+
+    if(Player->getDinheiro()>=5 && buy==2){
+        if(!buy_made){
+            Player->setDinheiro(Player->getDinheiro()-5);
+            Player->addItem("Comida", 1);
+            buy_made=true;
+        }
+        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(540), 0.80*res_y_comp, 0,
         "Prontinho! Foi bom fazer negócios com você!");
-        buy=0;
+        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(700), 0.85*res_y_comp, 0,
+        "Aperte J para voltar ao jogo");
     }
-    if(buy==3)
+    else if(buy==3)
     {
-        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(800), 0.85*res_y_comp, 0,
-        "Até logo!");
         buy=0;
+        store=false;
     }   
-    
 }
 
 /* FUNCAO PARA COLETAR O ITEM */
