@@ -416,10 +416,11 @@ void loja(){
         else{
             //caso o player apertou C, tem dinheiro suficiente e ainda não realizou a compra 
             if(!buy_made){
-                Player->setDinheiro(Player->getDinheiro()-5);
-                Player->addItem("Comida", 1);
-                buy_made=true;
+                Player->setDinheiro(Player->getDinheiro()-5); //diminui o dinheiro
+                Player->addItem("Comida", 1); //aumenta a quantidade de comida
+                buy_made=true; //agora a compra foi feita
             }
+            //exibimos a seguinte mensagem:
             al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(460), 0.80*res_y_comp, 0,
             "Vendendor: Prontinho! Foi bom fazer negócios com você!");
             al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(700), 0.85*res_y_comp, 0,
@@ -427,10 +428,9 @@ void loja(){
         }
     }
 
-    else if(buy==3)
-    {
-        buy=0;
-        store=false;
+    else if(buy==3){ //quando o player aperta C na loja, ou seja, quer quer voltar ao jogo
+        buy=0; //reiniciamos o estado da compra
+        store=false; //terminamos a interacao com a loja 
     }   
 }
 
