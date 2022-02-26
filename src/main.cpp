@@ -398,9 +398,10 @@ void loja(){
         "Vendedor: Olá rapaz! Bem vindo à loja! Deseja adquirir comida por $5?");
         al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(560), 0.85*res_y_comp, 0,
         "Aperte C para comprar ou J para voltar ao jogo");
-
+        buy_made=false;
     }
-    if(Player->getDinheiro()<5){
+
+    else if(Player->getDinheiro()<5){
         al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(340), 0.75*res_y_comp, 0,
         "Oh! Parece que você não possui dinheiro suficiente para investir!");
         al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(540), 0.80*res_y_comp, 0,
@@ -409,7 +410,7 @@ void loja(){
         "Aperte J para voltar ao jogo"); 
     }
 
-    if(Player->getDinheiro()>=5 && buy==2){
+    else if(Player->getDinheiro()>=5 && buy==2){
         if(!buy_made){
             Player->setDinheiro(Player->getDinheiro()-5);
             Player->addItem("Comida", 1);
@@ -420,6 +421,7 @@ void loja(){
         al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(700), 0.85*res_y_comp, 0,
         "Aperte J para voltar ao jogo");
     }
+
     else if(buy==3)
     {
         buy=0;
