@@ -28,8 +28,8 @@
 <br>
 
 <h2 id="devs">:cowboy_hat_face: Desenvolvedores:</h3>
-<a href="https://github.com/mvictoriaufv25"><img alt="André Luiz" title="André Luiz" src="https://user-images.githubusercontent.com/92737180/155859397-1b3ea701-f098-45c8-822a-6ca773ec52c8.png"></a>
-<a href="https://github.com/mvictoriaufv25"><img alt="Bárbara Cristina" title="Bárbara Cristina" src="https://user-images.githubusercontent.com/92737180/155859414-82c46baa-a4d4-4d7e-af15-d9314aa7bae3.png"></a>
-<a href="https://github.com/mvictoriaufv25"><img alt="Lara Colorida" title="Lara Colorida" src="https://user-images.githubusercontent.com/92737180/155859416-edf4d200-608d-4564-a8d2-943c25eb775c.png"></a>
-<a href="https://github.com/mvictoriaufv25"><img alt="Mavi" title="Mavi" src="https://user-images.githubusercontent.com/92737180/155859470-7748a1de-0fcc-47a2-9cb2-2673232c4c1f.png"></a>
-<a href="https://github.com/mvictoriaufv25"><img alt="Saulo Henrique" title="Saulo Henrique" src="https://user-images.githubusercontent.com/92737180/155859419-4415a4f3-2113-463f-8bef-02612f37f1f4.png"></a>
+<a href="https://github.com/andrefeijosantos"><img alt="André Luiz" title="André Luiz" src="https://user-images.githubusercontent.com/92737180/155859397-1b3ea701-f098-45c8-822a-6ca773ec52c8.png"></a>
+<a href="https://github.com/barbcristina"><img alt="Bárbara Cristina" title="Bárbara Cristina" src="https://user-images.githubusercontent.com/92737180/155859414-82c46baa-a4d4-4d7e-af15-d9314aa7bae3.png"></a>
+<a href="https://github.com/laracolorida"><img alt="Lara Colorida" title="Lara Colorida" src="https://user-images.githubusercontent.com/92737180/155859416-edf4d200-608d-4564-a8d2-943c25eb775c.png"></a>
+<a href="https://github.com/mvictoriaufv25"><img alt="Maria Victória" title="Maria Victória" src="https://user-images.githubusercontent.com/92737180/155859470-7748a1de-0fcc-47a2-9cb2-2673232c4c1f.png"></a>
+<a href="https://github.com/Saulinhohh"><img alt="Saulo Henrique" title="Saulo Henrique" src="https://user-images.githubusercontent.com/92737180/155859419-4415a4f3-2113-463f-8bef-02612f37f1f4.png"></a>
