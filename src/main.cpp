@@ -393,7 +393,7 @@ void galinha(){
 
 /* FUNCAO QUE GERENCIA A LOJA*/
 void loja(){
-    if(Player->getDinheiro()>=5 && buy==1){
+    if(buy==1){
         al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(300), 0.80*res_y_comp, 0,
         "Vendedor: Olá rapaz! Bem vindo à loja! Deseja adquirir comida por $5?");
         al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(560), 0.85*res_y_comp, 0,
@@ -401,25 +401,27 @@ void loja(){
         buy_made=false;
     }
 
-    else if(Player->getDinheiro()<5){
-        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(340), 0.75*res_y_comp, 0,
-        "Oh! Parece que você não possui dinheiro suficiente para investir!");
-        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(540), 0.80*res_y_comp, 0,
-        "Vá buscar seu ouro rapaz, e volte depois!");
-        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(700), 0.85*res_y_comp, 0,
-        "Aperte J para voltar ao jogo"); 
-    }
-
-    else if(Player->getDinheiro()>=5 && buy==2){
-        if(!buy_made){
-            Player->setDinheiro(Player->getDinheiro()-5);
-            Player->addItem("Comida", 1);
-            buy_made=true;
+    else if(buy==2){
+        if(Player->getDinheiro()<5 && !buy_made){
+            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(260), 0.75*res_y_comp, 0,
+            "Vendedor: Oh! Parece que você não possui dinheiro suficiente para investir!");
+            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(540), 0.80*res_y_comp, 0,
+            "Vá buscar seu ouro rapaz, e volte depois!");
+            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(700), 0.85*res_y_comp, 0,
+            "Aperte J para voltar ao jogo"); 
         }
-        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(540), 0.80*res_y_comp, 0,
-        "Prontinho! Foi bom fazer negócios com você!");
-        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(700), 0.85*res_y_comp, 0,
-        "Aperte J para voltar ao jogo");
+
+        else{
+            if(!buy_made){
+                Player->setDinheiro(Player->getDinheiro()-5);
+                Player->addItem("Comida", 1);
+                buy_made=true;
+            }
+            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(460), 0.80*res_y_comp, 0,
+            "Vendendor: Prontinho! Foi bom fazer negócios com você!");
+            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(700), 0.85*res_y_comp, 0,
+            "Aperte J para voltar ao jogo");
+        }
     }
 
     else if(buy==3)
