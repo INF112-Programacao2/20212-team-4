@@ -1,3 +1,3 @@
 cd ./src
-g++ main.cpp Personagens.cpp data.cpp interacao.cpp Save.cpp -lallegro -lallegro_image -lallegro_font -lallegro_ttf -o teste
+g++ main.cpp Personagens.cpp data.cpp interacao.cpp Save.cpp Grafico.cpp -lallegro -lallegro_image -lallegro_font -lallegro_ttf -o teste
 teste

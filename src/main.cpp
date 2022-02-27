@@ -5,6 +5,7 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 #include "Save.hpp"
+#include "Grafico.hpp"
 #include <math.h>
 
 /* GAME SAVE */
@@ -39,24 +40,21 @@ MissaoSecundaria *Missao_Pocao = new MissaoSecundaria("Pocao", 0, 0, 'P', 10, "C
 /* FUNCOES */
 bool camera(char mov);
 void posicao(ALLEGRO_BITMAP *img1, ALLEGRO_BITMAP *img2, ALLEGRO_BITMAP *img3, ALLEGRO_BITMAP *img4);
-void redesenhar();
 bool to_move();
-void galinha();
-void itens();
 void interagir();
-void hud();
 void loja(); //funcao que gerencia a loja
 
 /* VARIAVEIS */
-bool keys[ALLEGRO_KEY_MAX] = {0};
+std::string *dialogo_atual;
+bool *fluxo_dialogo_atual;
+short int **incremento_dialogo_atual;
+std::string *nomes_dialogo;
+std::string **opcoes_dialogo;
+
 short int mov_cont = 0;
 ALLEGRO_EVENT ev0;
 ALLEGRO_EVENT ev1;
 short int contGalinha = 0;
-bool store=false; //variavel que define se o personagem esta ou nao na loja
-short int buy; //variavel para gerenciar a compra 
-bool buy_made; //variavel que define se o player ja fez ou nao a compra
-
 
 int main(int argc, char **argv){
 
@@ -72,7 +70,8 @@ int main(int argc, char **argv){
         while(Player->getNivel()==1){
             al_wait_for_event(event_queue, &ev0);
             if(!to_move()) break;   
-            redesenhar();
+            redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), (Dinheiro1 != NULL), (Dinheiro2 != NULL), (Dinheiro3 != NULL),
+                (Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
 
             al_flip_display();
         }
@@ -87,7 +86,8 @@ int main(int argc, char **argv){
         while(Player->getNivel()==2){
             al_wait_for_event(event_queue, &ev0);
             if(!to_move()) break;   
-            redesenhar();
+            redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), (Dinheiro1 != NULL), (Dinheiro2 != NULL), (Dinheiro3 != NULL),
+                (Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
 
             al_flip_display();
         }
@@ -102,7 +102,8 @@ int main(int argc, char **argv){
         while(Player->getNivel()==3){
             al_wait_for_event(event_queue, &ev0);
             if(!to_move()) break;   
-            redesenhar();
+            redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), (Dinheiro1 != NULL), (Dinheiro2 != NULL), (Dinheiro3 != NULL),
+                (Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
 
             al_flip_display();
         }
@@ -117,7 +118,8 @@ int main(int argc, char **argv){
         while(Player->getNivel()==4){
             al_wait_for_event(event_queue, &ev0);
             if(!to_move()) break;   
-            redesenhar();
+            redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), (Dinheiro1 != NULL), (Dinheiro2 != NULL), (Dinheiro3 != NULL),
+                (Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
 
             al_flip_display();
         }
@@ -134,7 +136,8 @@ int main(int argc, char **argv){
         while(Player->getNivel()==5){
             al_wait_for_event(event_queue, &ev0);
             if(!to_move()) break;   
-            redesenhar();
+            redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), (Dinheiro1 != NULL), (Dinheiro2 != NULL), (Dinheiro3 != NULL),
+                (Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
 
             al_flip_display();
         }
@@ -280,7 +283,7 @@ bool to_move(){
             }
             /*SE O PERSONAGEM ENCOSTA EM UM CACTO, ELE SOFRE UM DANO */
             else if(MAPA[i][j] == '*'){   
-                Player -> setVida(Player -> getVida() -0.5);
+                Player -> setVida(Player -> getVida() - 0.25);
             }
 
             parado = player_c1;
@@ -292,7 +295,7 @@ bool to_move(){
                 EIXO_Y_PLAYER_TELA += 16*ZOOM;
             }
             else if(MAPA[i+2][j] == '*'){
-                Player -> setVida(Player -> getVida() -0.5);
+                Player -> setVida(Player -> getVida() - 0.25);
             }
             parado = player_f1;
             posicao(player_f1, player_f2, player_f3, player_f4);
@@ -303,7 +306,7 @@ bool to_move(){
                 EIXO_X_PLAYER_TELA -= 16*ZOOM;
             }  
             else if(MAPA[i+1][j-1] == '*'){
-                Player -> setVida(Player -> getVida() -0.5);
+                Player -> setVida(Player -> getVida() - 0.25);
             }
             parado = player_e1;
             posicao(player_e1, player_e2, player_e3, player_e4);
@@ -314,18 +317,10 @@ bool to_move(){
                 EIXO_X_PLAYER_TELA += 16*ZOOM;
             }
             else if(MAPA[i+1][j+1] == '*'){
-                Player -> setVida(Player -> getVida() -0.5);
+                Player -> setVida(Player -> getVida() - 0.25);
             }
             parado = player_d1;
             posicao(player_d1, player_d2, player_d3, player_d4);
-        }
-        else if (keys[ALLEGRO_KEY_C] && store){
-            //se o player aperta C para comprar quando ele estiver interagindo com a loja
-            buy=2; //buy==2 significa que ele quer comprar
-        }
-        else if (keys[ALLEGRO_KEY_J]&& store){
-            //se o player aperta J para comprar quando ele estiver interagindo com a loja
-            buy=3; //buy==3 significa que ele quer parar de interagir com a loja
         }
     }
     else if(ev0.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
@@ -335,104 +330,15 @@ bool to_move(){
     return true;
 }
 
-/* FUNCAO QUE DESENHA OS ITENS COLETAVEIS */
-void itens(){
-    if (!Relogio->completo())
-        al_draw_scaled_bitmap(relogio, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 
-            0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
-    
-    if (!Chave->completo())
-        al_draw_scaled_bitmap(chave, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 
-            0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
-
-    if (!Pocao->completo())
-        al_draw_scaled_bitmap(pocao, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 
-            0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
-    
-    if (Dinheiro1!=nullptr)
-        al_draw_scaled_bitmap(dinheiro1, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 
-            0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
-    
-    if (Dinheiro2!=nullptr)
-        al_draw_scaled_bitmap(dinheiro2, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 
-            0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
-    
-    if (Dinheiro3!=nullptr)
-        al_draw_scaled_bitmap(dinheiro3, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 
-            0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
-    
-    if (Dinheiro4!=nullptr)
-        al_draw_scaled_bitmap(dinheiro4, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 
-            0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
-    
-}
-
-/* FUNCAO QUE DESENHA AS GALINHAS */
-void galinha(){
-    switch(contGalinha){
-        case 0:
-            al_draw_scaled_bitmap(galinha1, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, 
-                res_y_comp, 0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
-            contGalinha++;
-            break;
-        case 1:
-            al_draw_scaled_bitmap(galinha2, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, 
-                res_y_comp, 0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
-            contGalinha++;
-            break;
-        case 2:
-            al_draw_scaled_bitmap(galinha3, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, 
-                res_y_comp, 0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
-            contGalinha++;
-            break;
-        case 3:
-            al_draw_scaled_bitmap(galinha4, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, 
-                res_y_comp, 0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
-            contGalinha = 0;
-            break;
-    }
-}
-
 /* FUNCAO QUE GERENCIA A LOJA*/
 void loja(){
-    if(buy==1){ //quando o player decicide interagir com o loja, ele recebe a seguinte mensagem:
-        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(300), 0.80*res_y_comp, 0,
-        "Vendedor: Olá rapaz! Bem vindo à loja! Deseja adquirir comida por $5?");
-        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(560), 0.85*res_y_comp, 0,
-        "Aperte C para comprar ou J para voltar ao jogo");
-        buy_made=false; //ou seja, a compra ainda não foi feita
-    }
+    Dialogo *dialogoLoja = new Dialogo();
 
-    else if(buy==2){ //quando o player aperta C na loja, ou seja, quer fazer uma compra
-        if(Player->getDinheiro()<5 && !buy_made){//se ele não tiver dinheiro suficiente para comprar e ainda não fez a compra
-            //ele recebe a seguinte mensagem:
-            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(260), 0.75*res_y_comp, 0,
-            "Vendedor: Oh! Parece que você não possui dinheiro suficiente para investir!");
-            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(540), 0.80*res_y_comp, 0,
-            "Vá buscar seu ouro rapaz, e volte depois!");
-            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(700), 0.85*res_y_comp, 0,
-            "Aperte J para voltar ao jogo"); 
-        }
-        else{
-            //caso o player apertou C, tem dinheiro suficiente e ainda não realizou a compra 
-            if(!buy_made){
-                Player->setDinheiro(Player->getDinheiro()-5);
-                Player->addItem("Comida", 1);
-                buy_made=true;
-            }
-            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(460), 0.80*res_y_comp, 0,
-            "Vendendor: Prontinho! Foi bom fazer negócios com você!");
-            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(700), 0.85*res_y_comp, 0,
-            "Aperte J para voltar ao jogo");
-        }
-    }
+    dialogoLoja->dialogar_lojista(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), (Dinheiro1 != NULL), (Dinheiro2 != NULL), (Dinheiro3 != NULL),
+        (Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
 
-    else if(buy==3)
-    {
-        buy=0;
-        store=false;
-    }   
-}
+    delete dialogoLoja;
+}   
 
 /* FUNCAO PARA COLETAR O ITEM */
 void interagir(){
@@ -442,11 +348,9 @@ void interagir(){
     else if(Chave->itemProximo('1'))
         Player->addItem(Chave->getNome(), 1);
     
-    else if(Pocao->itemProximo('1')){
-        std::cout << Pocao->getNome() << std::endl;
+    else if(Pocao->itemProximo('1'))
         Player->addItem(Pocao->getNome(), 1);
-        std::cout << Pocao->getNome() << " " << Player->qtdItem("Pocao") << std::endl;
-    }
+
     
     else if(Dinheiro1 != nullptr && Dinheiro1->itemProximo('1')){
         Player->setDinheiro(Player->getDinheiro()+10);
@@ -473,53 +377,6 @@ void interagir(){
     }
 
     else if(Loja->interacaoProxima('y')){ //caso a interacao proxima seja a loja
-        std::cout << Loja->getNome() << std::endl; //escrevemos loja no terminal
-        store=true; //o personagem agora está interagindo com a loja
-        buy=1; //o personagem vai para a parte 1 da compra
-    }
-}
-
-/* FUNCAO QUE DESENHA O HUD */
-void hud(){
-    al_draw_scaled_bitmap(fundo, 0, 0, 322, 73, RES_WIDTH(99*CELULA), RES_HEIGHT(15), RES_WIDTH(322), RES_HEIGHT(73), 0);
-    al_draw_scaled_bitmap(lifebar, 0, 0, 322, 73, RES_WIDTH(99*CELULA), RES_HEIGHT(15), RES_WIDTH(322*((double)Player->getVida()/Player->getMaxVida())), RES_HEIGHT(73), 0);
-    al_draw_scaled_bitmap(contorno, 0, 0, 322, 73, RES_WIDTH(99*CELULA), RES_HEIGHT(15), RES_WIDTH(322), RES_HEIGHT(73), 0);
-
-    al_draw_textf(font15, al_map_rgb(60,25,97), RES_WIDTH(110*CELULA), RES_HEIGHT(105), 0,"$ %d", Player->getDinheiro());
-
-    al_draw_textf(font15, al_map_rgb(60,25,97), RES_WIDTH(105*CELULA), RES_HEIGHT(105), 0,"%d", Player->qtdItem("Comida"));
-    al_draw_scaled_bitmap(frango, 0, 0, 16, 16, RES_WIDTH(100*CELULA), RES_HEIGHT(105), RES_WIDTH(16*ZOOM), RES_HEIGHT(16*ZOOM), 0);
-
-    if(Player->qtdItem("Relogio") != 0){
-        al_draw_scaled_bitmap(relogiohud, 0, 0, 16, 16, RES_WIDTH(115*CELULA), RES_WIDTH(180), RES_WIDTH(16*ZOOM), RES_HEIGHT(16*ZOOM), 0);
-    }
-    if(Player->qtdItem("Chave") != 0){
-        al_draw_scaled_bitmap(chavehud, 0, 0, 16, 16, RES_WIDTH(110*CELULA), RES_WIDTH(180), RES_WIDTH(16*ZOOM), RES_HEIGHT(16*ZOOM), 0);
-    }
-    if(Player->qtdItem("Espingarda") != 0){
-        al_draw_scaled_bitmap(espingarda, 0, 0, 34, 16, RES_WIDTH(101*CELULA), RES_WIDTH(180), RES_WIDTH(34*ZOOM), RES_HEIGHT(16*ZOOM), 0);
-    }
-    if(Player->qtdItem("Pocao") != 0){
-        al_draw_scaled_bitmap(pocaohud, 0, 0, 16, 16, RES_WIDTH(115*CELULA), RES_WIDTH(250), RES_WIDTH(16*ZOOM), RES_HEIGHT(16*ZOOM), 0);
-    }
-}
-
-void redesenhar(){
-    al_draw_scaled_bitmap(map, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 0, 
-        0, res_x_comp*(res_x_comp/1920.0)*ZOOM, res_y_comp*(res_y_comp/1080.0)*ZOOM, 0);
-
-    itens();
-    galinha();
-    hud();
-
-    al_draw_scaled_bitmap(general_player, 0, 0, res_x_player, res_y_player, RES_WIDTH(EIXO_X_PLAYER_TELA), 
-        RES_HEIGHT(EIXO_Y_PLAYER_TELA), RES_WIDTH(res_x_player*ZOOM), RES_HEIGHT(res_y_player*ZOOM), 0);
-
-    if(Botao_Interagir->interacaoProxima('2') && !store){//caso haja uma interacao proxima e o personagem não esteja na loja
-        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(760), 0.85*res_y_comp, 0,"Aperte          para Interagir");
-        al_draw_scaled_bitmap(botaointeracao, 0,  0, 18, 18, RES_WIDTH(920), 0.85*res_y_comp, RES_WIDTH(18*ZOOM), RES_HEIGHT(18*ZOOM), 0);
-    }
-    else if(store){//caso o personagem esteja interagindo com a loja
-        loja();// chamamos a funcao loja
+        loja();
     }
 }
