@@ -334,44 +334,11 @@ bool to_move(){
 void loja(){
     Dialogo *dialogoLoja = new Dialogo();
 
-<<<<<<< HEAD
     dialogoLoja->dialogar_lojista(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), (Dinheiro1 != NULL), (Dinheiro2 != NULL), (Dinheiro3 != NULL),
         (Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
 
     delete dialogoLoja;
 }   
-=======
-    else if(buy==2){ //quando o player aperta C na loja, ou seja, quer fazer uma compra
-        if(Player->getDinheiro()<5 && !buy_made){//se ele não tiver dinheiro suficiente para comprar e ainda não fez a compra
-            //ele recebe a seguinte mensagem:
-            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(260), 0.75*res_y_comp, 0,
-            "Vendedor: Oh! Parece que você não possui dinheiro suficiente para investir!");
-            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(540), 0.80*res_y_comp, 0,
-            "Vá buscar seu ouro rapaz, e volte depois!");
-            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(700), 0.85*res_y_comp, 0,
-            "Aperte J para voltar ao jogo"); 
-        }
-        else{
-            //caso o player apertou C, tem dinheiro suficiente e ainda não realizou a compra 
-            if(!buy_made){
-                Player->setDinheiro(Player->getDinheiro()-5); //diminui o dinheiro
-                Player->addItem("Comida", 1); //aumenta a quantidade de comida
-                buy_made=true; //agora a compra foi feita
-            }
-            //exibimos a seguinte mensagem:
-            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(460), 0.80*res_y_comp, 0,
-            "Vendendor: Prontinho! Foi bom fazer negócios com você!");
-            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(700), 0.85*res_y_comp, 0,
-            "Aperte J para voltar ao jogo");
-        }
-    }
-
-    else if(buy==3){ //quando o player aperta C na loja, ou seja, quer quer voltar ao jogo
-        buy=0; //reiniciamos o estado da compra
-        store=false; //terminamos a interacao com a loja 
-    }   
-}
->>>>>>> 950523d1ea74ebb3e39c4340b44acf16fc613a8b
 
 /* FUNCAO PARA COLETAR O ITEM */
 void interagir(){
