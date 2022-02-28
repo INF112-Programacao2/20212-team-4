@@ -280,47 +280,62 @@ bool to_move(){
             if(MAPA[i][j] == '1' && camera('C')){
                 i--;
                 EIXO_Y_PLAYER_TELA -= 16*ZOOM;
+                //serao desenhadas as imagens do personagem
+                img1=player_c1; img2=player_c2; img3=player_c3; img4=player_c4;
             }
             /*SE O PERSONAGEM ENCOSTA EM UM CACTO, ELE SOFRE UM DANO */
             else if(MAPA[i][j] == '*'){   
                 Player -> setVida(Player -> getVida() - 0.25);
+                //serao desenhadas as imagens do personagem levando dano
+                img1=dano_costas; img2=dano_costas; img3=dano_costas; img4=dano_costas; 
             }
-
             parado = player_c1;
-            posicao(player_c1, player_c2, player_c3, player_c4);    
+            posicao(img1, img2, img3, img4);    
         }
         else if (keys[ALLEGRO_KEY_S]){
             if(MAPA[i+2][j] == '1' && camera('B')){
                 i++;
                 EIXO_Y_PLAYER_TELA += 16*ZOOM;
+                //serao desenhadas as imagens do personagem
+                img1=player_f1; img2=player_f2; img3=player_f3; img4=player_f4;
             }
             else if(MAPA[i+2][j] == '*'){
                 Player -> setVida(Player -> getVida() - 0.25);
+                //serao desenhadas as imagens do personagem levando dano
+                img1=dano_frente; img2=dano_frente; img3=dano_frente; img4=dano_frente; 
             }
             parado = player_f1;
-            posicao(player_f1, player_f2, player_f3, player_f4);
+            posicao(img1, img2, img3, img4);
         }
         else if (keys[ALLEGRO_KEY_A]){
             if(MAPA[i+1][j-1] == '1' && camera('E')){
                 j--;
                 EIXO_X_PLAYER_TELA -= 16*ZOOM;
+                //serao desenhadas as imagens do personagem
+                img1=player_e1; img2=player_e2; img3=player_e3; img4=player_e4;
             }  
             else if(MAPA[i+1][j-1] == '*'){
                 Player -> setVida(Player -> getVida() - 0.25);
+                //serao desenhadas as imagens do personagem levando dano
+                img1=dano_esquerda; img2=dano_esquerda; img3=dano_esquerda; img4=dano_esquerda;
             }
             parado = player_e1;
-            posicao(player_e1, player_e2, player_e3, player_e4);
+            posicao(img1, img2, img3, img4);
         }
         else if (keys[ALLEGRO_KEY_D]){
             if(MAPA[i+1][j+1] == '1' && camera('D')){
                 j++;
                 EIXO_X_PLAYER_TELA += 16*ZOOM;
+                //serao desenhadas as imagens do personagem
+                img1=player_d1; img2=player_d2; img3=player_d3; img4=player_d4;
             }
             else if(MAPA[i+1][j+1] == '*'){
                 Player -> setVida(Player -> getVida() - 0.25);
+                //serao desenhadas as imagens do personagem levando dano
+                img1=dano_direita; img2=dano_direita; img3=dano_direita; img4=dano_direita;
             }
             parado = player_d1;
-            posicao(player_d1, player_d2, player_d3, player_d4);
+            posicao(img1, img2, img3, img4);
         }
         else if (keys[ALLEGRO_KEY_F]){
             //se o player apertar F

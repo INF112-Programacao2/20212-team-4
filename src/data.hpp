@@ -42,6 +42,10 @@ extern ALLEGRO_BITMAP *player_f4; //variavel que vai receber a imagem do persona
 extern ALLEGRO_BITMAP *player_c4; //variavel que vai receber a imagem do personagem
 extern ALLEGRO_BITMAP *player_d4; //variavel que vai receber a imagem do personagem
 extern ALLEGRO_BITMAP *player_e4; //variavel que vai receber a imagem do personagem
+extern ALLEGRO_BITMAP *img1; //variavel que vai receber a imagem do personagem
+extern ALLEGRO_BITMAP *img2; //variavel que vai receber a imagem do personagem
+extern ALLEGRO_BITMAP *img3; //variavel que vai receber a imagem do personagem
+extern ALLEGRO_BITMAP *img4; //variavel que vai receber a imagem do personagem
 extern ALLEGRO_BITMAP *dano_costas; //variavel que vai receber a imagem do personagem recebendo dano
 extern ALLEGRO_BITMAP *dano_frente; //variavel que vai receber a imagem do personagem recebendo dano
 extern ALLEGRO_BITMAP *dano_direita; //variavel que vai receber a imagem do personagem recebendo dano
@@ -65,6 +69,7 @@ extern ALLEGRO_BITMAP *galinha3; //variavel que vai receber a imagem das galinha
 extern ALLEGRO_BITMAP *galinha4; //variavel que vai receber a imagem das galinhas
 extern ALLEGRO_BITMAP *galinha4; //variavel que vai receber a imagem das galinhas
 extern ALLEGRO_BITMAP *botaointeracao; // variavel que vai receber a imagem do botao de interacao
+extern ALLEGRO_BITMAP *botaocomer; // variavel que vai receber a imagem do botao para comer
 extern ALLEGRO_BITMAP *fundo; // variavel que vai receber a imagem do fundo da barra de vida
 extern ALLEGRO_BITMAP *lifebar; // variavel que vai receber a imagem da barra de vida
 extern ALLEGRO_BITMAP *contorno; // variavel que vai receber a imagem do contorno da barra de vida

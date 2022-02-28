@@ -88,10 +88,11 @@ void redesenhar(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d
         al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(760), 0.85*res_y_comp, 0,"Aperte          para Interagir");
         al_draw_scaled_bitmap(botaointeracao, 0,  0, 18, 18, RES_WIDTH(920), 0.85*res_y_comp, RES_WIDTH(18*ZOOM), RES_HEIGHT(18*ZOOM), 0);
     }
-    else if(Player->getVida()<10 && Player->qtdItem("Comida")>0){
+    else if(Player->getVida()<Player->getMaxVida() && Player->qtdItem("Comida")>0){
         //caso o player tenha comida no inventário e não esteja com a vida completa
         //ele recebe a seguinte mensagem:
-        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(760), 0.85*res_y_comp, 0,"Aperte    F      para comer");
+        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(760), 0.85*res_y_comp, 0,"Aperte          para comer");
+        al_draw_scaled_bitmap(botaocomer, 0,  0, 18, 18, RES_WIDTH(920), 0.85*res_y_comp, RES_WIDTH(18*ZOOM), RES_HEIGHT(18*ZOOM), 0);
         
     }    
 }
