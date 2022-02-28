@@ -23,6 +23,10 @@ ALLEGRO_BITMAP *player_f4= NULL; //variavel que vai receber a imagem do personag
 ALLEGRO_BITMAP *player_c4= NULL; //variavel que vai receber a imagem do personagem
 ALLEGRO_BITMAP *player_d4= NULL; //variavel que vai receber a imagem do personagem
 ALLEGRO_BITMAP *player_e4= NULL; //variavel que vai receber a imagem do personagem
+ALLEGRO_BITMAP *dano_costas= NULL; //variavel que vai receber a imagem do personagem recebendo dano
+ALLEGRO_BITMAP *dano_frente= NULL; //variavel que vai receber a imagem do personagem recebendo dano
+ALLEGRO_BITMAP *dano_direita= NULL; //variavel que vai receber a imagem do personagem recebendo dano
+ALLEGRO_BITMAP *dano_esquerda= NULL; //variavel que vai receber a imagem do personagem recebendo dano
 ALLEGRO_TIMER *timer = NULL; //Declarando o temporizador do jogo
 ALLEGRO_BITMAP *relogio = NULL; //variavel que vai receber a imagem do relogio
 ALLEGRO_BITMAP *relogiohud = NULL; // variavel que vai receber a imagem do relogio do hud
@@ -249,6 +253,10 @@ bool inicializaJogo() {
     player_c4=al_load_bitmap("./../assets/costas4.bmp");
     player_d4=al_load_bitmap("./../assets/direita4.bmp");
     player_e4=al_load_bitmap("./../assets/esquerda4.bmp");
+    dano_costas=al_load_bitmap("./../assets/dano-costas.bmp");
+    dano_direita=al_load_bitmap("./../assets/dano-direita.bmp");
+    dano_esquerda=al_load_bitmap("./../assets/dano-esquerda.bmp");
+    dano_frente=al_load_bitmap("./../assets/dano-frente.bmp");
 
 
     al_register_event_source(event_queue, al_get_display_event_source(game));

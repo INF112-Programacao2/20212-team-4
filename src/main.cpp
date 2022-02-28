@@ -322,6 +322,14 @@ bool to_move(){
             parado = player_d1;
             posicao(player_d1, player_d2, player_d3, player_d4);
         }
+        else if (keys[ALLEGRO_KEY_F]){
+            //se o player apertar F
+            //e caso o player tenha comida no inventário e não esteja com a vida completa
+            if(Player->getVida()<10 && Player->qtdItem("Comida")>0){
+                Player->addItem("Comida", -1); //reduz a quantidade de comida
+                Player->curarVida(1); //aumenta um ponto de vida
+            }
+        }
     }
     else if(ev0.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
         return false;

@@ -42,6 +42,10 @@ extern ALLEGRO_BITMAP *player_f4; //variavel que vai receber a imagem do persona
 extern ALLEGRO_BITMAP *player_c4; //variavel que vai receber a imagem do personagem
 extern ALLEGRO_BITMAP *player_d4; //variavel que vai receber a imagem do personagem
 extern ALLEGRO_BITMAP *player_e4; //variavel que vai receber a imagem do personagem
+extern ALLEGRO_BITMAP *dano_costas; //variavel que vai receber a imagem do personagem recebendo dano
+extern ALLEGRO_BITMAP *dano_frente; //variavel que vai receber a imagem do personagem recebendo dano
+extern ALLEGRO_BITMAP *dano_direita; //variavel que vai receber a imagem do personagem recebendo dano
+extern ALLEGRO_BITMAP *dano_esquerda; //variavel que vai receber a imagem do personagem recebendo dano
 extern ALLEGRO_TIMER *timer; //Declarando o temporizador do jogo
 extern ALLEGRO_BITMAP *relogio; //variavel que vai receber a imagem do relogio
 extern ALLEGRO_BITMAP *relogiohud; // variavel que vai receber a imagem do relogio do hud
