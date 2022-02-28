@@ -54,11 +54,11 @@ bool Interacao::itemProximo(unsigned char novoValor){
     return false;
 }
 
-bool Interacao::itemProximo(){
-    if((int)MAPA[i+2][j] > 50) return true;
-    else if((int)MAPA[i+1][j-1] > 50) return true;
-    else if((int)MAPA[i+1][j+1] > 50) return true;
-    else if((int)MAPA[i][j] > 50) return true;
+bool Interacao::interacaoProxima(unsigned char c){
+    if((int)MAPA[i+2][j] > (int)c) return true;
+    else if((int)MAPA[i+1][j-1] > (int)c) return true;
+    else if((int)MAPA[i+1][j+1] > (int)c) return true;
+    else if((int)MAPA[i][j] > (int)c) return true;
 
     return false;
 }

@@ -42,6 +42,14 @@ extern ALLEGRO_BITMAP *player_f4; //variavel que vai receber a imagem do persona
 extern ALLEGRO_BITMAP *player_c4; //variavel que vai receber a imagem do personagem
 extern ALLEGRO_BITMAP *player_d4; //variavel que vai receber a imagem do personagem
 extern ALLEGRO_BITMAP *player_e4; //variavel que vai receber a imagem do personagem
+extern ALLEGRO_BITMAP *img1; //variavel que vai receber a imagem do personagem
+extern ALLEGRO_BITMAP *img2; //variavel que vai receber a imagem do personagem
+extern ALLEGRO_BITMAP *img3; //variavel que vai receber a imagem do personagem
+extern ALLEGRO_BITMAP *img4; //variavel que vai receber a imagem do personagem
+extern ALLEGRO_BITMAP *dano_costas; //variavel que vai receber a imagem do personagem recebendo dano
+extern ALLEGRO_BITMAP *dano_frente; //variavel que vai receber a imagem do personagem recebendo dano
+extern ALLEGRO_BITMAP *dano_direita; //variavel que vai receber a imagem do personagem recebendo dano
+extern ALLEGRO_BITMAP *dano_esquerda; //variavel que vai receber a imagem do personagem recebendo dano
 extern ALLEGRO_TIMER *timer; //Declarando o temporizador do jogo
 extern ALLEGRO_BITMAP *relogio; //variavel que vai receber a imagem do relogio
 extern ALLEGRO_BITMAP *relogiohud; // variavel que vai receber a imagem do relogio do hud
@@ -61,10 +69,14 @@ extern ALLEGRO_BITMAP *galinha3; //variavel que vai receber a imagem das galinha
 extern ALLEGRO_BITMAP *galinha4; //variavel que vai receber a imagem das galinhas
 extern ALLEGRO_BITMAP *galinha4; //variavel que vai receber a imagem das galinhas
 extern ALLEGRO_BITMAP *botaointeracao; // variavel que vai receber a imagem do botao de interacao
+extern ALLEGRO_BITMAP *botaocomer; // variavel que vai receber a imagem do botao para comer
 extern ALLEGRO_BITMAP *fundo; // variavel que vai receber a imagem do fundo da barra de vida
 extern ALLEGRO_BITMAP *lifebar; // variavel que vai receber a imagem da barra de vida
 extern ALLEGRO_BITMAP *contorno; // variavel que vai receber a imagem do contorno da barra de vida
 extern ALLEGRO_FONT *font15;  // variavel que vai receber a fonte do hud
+extern ALLEGRO_FONT *font10;  // variavel que vai receber a fonte do hud
+extern bool keys[ALLEGRO_KEY_MAX];
+extern ALLEGRO_BITMAP *caixa_texto;
 
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
@@ -90,8 +102,6 @@ extern short int EIXO_Y_PLAYER_TELA;
 extern double TELA_X_MAPA;
 extern double TELA_Y_MAPA;
 
-
-
 /**
  * @brief tenta inicializar todas as variáveis Allegro que serão utilizadas. 
  * Caso consiga, retorna true.
@@ -99,5 +109,7 @@ extern double TELA_Y_MAPA;
  */
 bool inicializaJogo();
 void resetCamera(short int x, short int y);
+
+void inicializaMissaoEscopeta(std::string *dialogo, bool *fluxo, short int **incremento, std::string *nomes, std::string **opcoes);
 
 #endif

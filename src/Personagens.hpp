@@ -81,6 +81,8 @@ class Protagonista : public Personagem{
         std::map<std::string, short int> _inventario;
 
     public:
+        bool _dialogo;
+
         // Método Construtor.
         Protagonista(short int vida, short int dinheiro);
 
@@ -143,6 +145,12 @@ class Protagonista : public Personagem{
         *
         */
         void comer();
+
+        /**
+         * @brief Retorna se está dialogando.
+         * 
+         */
+        bool dialogando();
 };
 
 /* CLASSE QUE DEFINE ATRIBUTOS DOS INIMIGOS */
