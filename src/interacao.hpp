@@ -26,17 +26,4 @@ class Interacao {
         bool interacaoProxima(unsigned char c);
 };
 
-class MissaoSecundaria : public Interacao{
-    private:
-        short int _recompensa;
-        std::string _nomeNPC;
-        bool _coletado;
-    
-    public:
-        MissaoSecundaria(std::string nome, short int X, short int Y, unsigned char valor, short int recompensa, std::string npc);
-        void get();
-        void finish();
-        bool got();
-};
-
 #endif

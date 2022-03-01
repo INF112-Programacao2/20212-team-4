@@ -2,6 +2,7 @@
 #define DATA_HPP
 
 #include "Personagens.hpp"
+#include "Missoes.hpp"
 /* CAMPO DE BIBLIOTECAS ALLEGRO */
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>

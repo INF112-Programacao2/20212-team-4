@@ -32,10 +32,10 @@ Interacao *Loja = new Interacao("Loja", 42, 45, '4'); //criando ponteiro para ob
 Interacao *Botao_Interagir = new Interacao("Botaointeracao", 0, 0, '1');
 
 /* MISSOES SECUNDARIAS */
-MissaoSecundaria *Missao_Espingarda = new MissaoSecundaria("Espingarda", 0, 0, 'E', 10, "Andrew");
-MissaoSecundaria *Missao_Chave = new MissaoSecundaria("Chave", 0, 0, 'C', 10, "Cris");
-MissaoSecundaria *Missao_Relogio = new MissaoSecundaria("Relogio", 0, 0, 'R', 10, "Saul");
-MissaoSecundaria *Missao_Pocao = new MissaoSecundaria("Pocao", 0, 0, 'P', 10, "Clara");
+MissaoSecundaria *Missao_Espingarda = new MissaoSecundaria(0, 0, 'E', 10);
+MissaoSecundaria *Missao_Chave = new MissaoSecundaria(0, 0, 'C', 10);
+MissaoSecundaria *Missao_Relogio = new MissaoSecundaria(0, 0, 'R', 10);
+MissaoSecundaria *Missao_Pocao = new MissaoSecundaria( 0, 0, 'P', 10);
 
 /* FUNCOES */
 bool camera(char mov);

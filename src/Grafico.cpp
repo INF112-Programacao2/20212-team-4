@@ -129,7 +129,7 @@ bool Dialogo::verificarTecla(){
 }
 
 /* DIALOGOS DO JOGO */
-Dialogo::Dialogo(std::string *dialogos, bool *fluxo, short int **incrementos){
+Dialogo::Dialogo(std::string *dialogos, std::map <short int, bool> fluxo, short int **incrementos){
     this->_dialogos = dialogos;
     this->_fluxo = fluxo;
     this->_fluxo_incremento = incrementos;
@@ -140,10 +140,9 @@ Dialogo::Dialogo(std::string *dialogos, bool *fluxo, short int **incrementos){
 }
 
 Dialogo::Dialogo(){
-    this->_fluxo = new bool[3];
-    this->_fluxo[0] = true;
-    this->_fluxo[1] = false;
-    this->_fluxo[2] = false;
+    std::map<short int, bool> fluxo_loja = {{0, true}, {1, false}, {1, false}};
+
+    this->_fluxo = fluxo_loja;
 
     this->posicao_atual_dialogo = 0;
     this->incremento_dialogoZ = this->incremento_dialogoSPACE = 1;
@@ -182,7 +181,7 @@ void ajustarCamera(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, boo
     }
 }
 
-void Dialogo::dialogar(std::string *npc, std::string **opcoes, bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int &cont, Protagonista *Player, Interacao *botao){
+void Dialogo::dialogar(std::string npc, std::string **opcoes, bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int &cont, Protagonista *Player, Interacao *botao){
     keys[ALLEGRO_KEY_E] = false;
     Player->_dialogo = true;
 
@@ -190,18 +189,15 @@ void Dialogo::dialogar(std::string *npc, std::string **opcoes, bool rel, bool ch
 
     while(true){
         al_wait_for_event(event_queue, &evdialogo);
+        redesenhar(rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
 
-        if(this->_dialogos[this->posicao_atual_dialogo][0] == '*'){
-            redesenhar(rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+        if(this->_dialogos[this->posicao_atual_dialogo][1] == '*'){
             al_draw_scaled_bitmap(caixa_texto, 0, 0, 1520, 1080, 0, 0, 1520*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
-            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(520), 0.8*res_y_comp, 0, this->_dialogos[posicao_atual_dialogo].c_str());
             
-            al_flip_display();
             if(verificarTecla()) break;
         }
 
         else{
-            redesenhar(rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
             if(!this->_fluxo[this->posicao_atual_dialogo]){
                 al_draw_scaled_bitmap(caixa_texto, 0, 0, 1520, 1080, 0, 0, 1520*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
                 al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(1360), 0.91*res_y_comp, 0, "Espaço >");
@@ -216,12 +212,15 @@ void Dialogo::dialogar(std::string *npc, std::string **opcoes, bool rel, bool ch
                 al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1550), 0.905*res_y_comp, 0, opcoes[this->posicao_atual_incremento][0].c_str());                
             }
 
-            al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(355), 0.895*res_y_comp, 0, npc[this->posicao_atual_dialogo].c_str());
+            if(this->_dialogos[this->posicao_atual_dialogo][0] == '1') al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(355), 0.895*res_y_comp, 0, Player->getNome().c_str());
+            else al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(355), 0.895*res_y_comp, 0, npc.c_str());
+
             al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(520), 0.80*res_y_comp, 0, this->_dialogos[this->posicao_atual_dialogo].c_str());
-            al_flip_display();
 
             verificarTecla();
         }
+
+        al_flip_display();
     }
 
     Player->_dialogo = false;
