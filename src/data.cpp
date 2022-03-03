@@ -509,7 +509,7 @@ void dialogoMissaoChavesExtra(bool rel, bool chav, bool poc, bool d1, bool d2, b
 
 void dialogoMissaoPocaoPt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao, MissaoSecundaria *missao){
     std::map<short int, bool> fluxo;
-    fluxo.insert(std::pair<short int, bool> (3, true));
+    fluxo.insert(std::pair<short int, bool> (4, true));
 
     std::string **opcoes = new std::string*;
     opcoes[0] = new std::string[2] {"O QUE? (Z)", "NÃO (X)"};
