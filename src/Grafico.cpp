@@ -209,13 +209,13 @@ void Dialogo::dialogar(std::string npc, std::string **opcoes, bool rel, bool cha
                 this->incremento_dialogoX = this->_fluxo_incremento[this->posicao_atual_incremento][1];
 
                 al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1550), 0.80*res_y_comp, 0, opcoes[this->posicao_atual_incremento][0].c_str());
-                al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1550), 0.905*res_y_comp, 0, opcoes[this->posicao_atual_incremento][0].c_str());                
+                al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1550), 0.905*res_y_comp, 0, opcoes[this->posicao_atual_incremento][1].c_str());                
             }
 
             if(this->_dialogos[this->posicao_atual_dialogo][0] == '1') al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(355), 0.895*res_y_comp, 0, Player->getNome().c_str());
             else al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(355), 0.895*res_y_comp, 0, npc.c_str());
 
-            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(520), 0.80*res_y_comp, 0, this->_dialogos[this->posicao_atual_dialogo].c_str());
+            al_draw_multiline_text(font15, al_map_rgb(58,15,43), RES_WIDTH(520), 0.80*res_y_comp, RES_WIDTH(950), 40, 0, this->_dialogos[this->posicao_atual_dialogo].c_str());
 
             verificarTecla();
         }

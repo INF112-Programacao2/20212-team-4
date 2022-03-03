@@ -5,6 +5,7 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 #include "Save.hpp"
+#include "data.hpp"
 #include "Grafico.hpp"
 #include <math.h>
 
@@ -44,12 +45,6 @@ bool to_move();
 void interagir();
 void loja(); //funcao que gerencia a loja
 
-/* VARIAVEIS */
-std::string *dialogo_atual;
-bool *fluxo_dialogo_atual;
-short int **incremento_dialogo_atual;
-std::string *nomes_dialogo;
-std::string **opcoes_dialogo;
 
 short int mov_cont = 0;
 ALLEGRO_EVENT ev0;
@@ -269,7 +264,6 @@ bool to_move(){
     else if (ev0.type == ALLEGRO_EVENT_KEY_UP) {
         keys[ev0.keyboard.keycode] = false;
         general_player = parado;
-        mov_cont = 0;
     }
 
     if(ev0.type == ALLEGRO_EVENT_TIMER){  
@@ -349,7 +343,7 @@ bool to_move(){
         else if (keys[ALLEGRO_KEY_F]){
             //se o player apertar F
             //e caso o player tenha comida no inventário e não esteja com a vida completa
-            if(Player->getVida()<10 && Player->qtdItem("Comida")>0){
+            if(Player->getVida()<Player->getMaxVida() && Player->qtdItem("Comida")>0){
                 Player->addItem("Comida", -1); //reduz a quantidade de comida
                 Player->curarVida(1); //aumenta um ponto de vida
             }
@@ -410,5 +404,24 @@ void interagir(){
 
     else if(Loja->interacaoProxima('y')){ //caso a interacao proxima seja a loja
         loja();
+    }
+    else if(Missao_Chave->missaoProxima('A')){
+
+        if(Missao_Chave->getinicializada() == false){
+
+        dialogoMissaoChavesPt1(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), (Dinheiro1 != NULL), (Dinheiro2 != NULL), (Dinheiro3 != NULL),
+        (Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
+
+        Missao_Chave->setinicializada();
+        }
+
+        if(Missao_Chave->getinicializada() == true && Player->qtdItem("Chave") == 1){
+
+            dialogoMissaoChavesPt2(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), (Dinheiro1 != NULL), (Dinheiro2 != NULL), (Dinheiro3 != NULL), (Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
+            Player->subItem(Chave->getNome(), 1);
+            Missao_Chave->pay(Player);
+            Missao_Chave->finish();
+
+        }
     }
 }

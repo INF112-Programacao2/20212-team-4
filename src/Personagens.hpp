@@ -138,7 +138,8 @@ class Protagonista : public Personagem{
          * @param objeto o nome do ítem que se deseja adicionar.
          * @param recompensa valor da recompensa.
          */
-        void entregar(/*MissaoSecundaria &missao*/);
+
+        //void entregar(MissaoSecundaria &missao);
 
         /**
         * @brief Consome alimento para curar a vida do protagonista

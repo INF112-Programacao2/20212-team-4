@@ -216,10 +216,8 @@ short int Protagonista::qtdItem(std::string item){
     else return 0;
 }
 
-void Protagonista::entregar(/*MissaoSecundaria &missao*/){
-    // if(this->qtdItem(missao.getNome()) == 1){
-    //     this->subItem(missao.getNome(), 1);
-        // missao.pay(*this);
-        // missao.get();
-    // }
-}
+//void Protagonista::entregar(MissaoSecundaria &missao){
+ //        this->subItem(missao.getNome(), 1);
+ //        missao.pay(*this);
+ //        missao.finish();
+ //    }

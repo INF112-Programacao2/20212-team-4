@@ -24,6 +24,7 @@ class Interacao {
         void removeItem(unsigned char novoValor);
         bool itemProximo(unsigned char novoValor);
         bool interacaoProxima(unsigned char c);
+        bool missaoProxima(unsigned char c);
 };
 
 #endif

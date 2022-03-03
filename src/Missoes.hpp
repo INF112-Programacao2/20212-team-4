@@ -7,10 +7,13 @@
 class Missao : public Interacao{
     protected:
         Dialogo _dialogo_missao;
+        bool inicializada;
 
     public:
         Missao(short int X, short int Y, unsigned char valor);
         void setDialogo(Dialogo *falas);
+        void setinicializada();
+        bool getinicializada();
 };
 
 class MissaoSecundaria : public Missao{
@@ -23,6 +26,7 @@ class MissaoSecundaria : public Missao{
         void get();
         void finish();
         bool got();
+        void pay(Protagonista *Player);
 };
 
 #endif

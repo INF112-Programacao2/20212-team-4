@@ -440,78 +440,54 @@ void resetCamera(short int x, short int y){ //Reseta a camera ao passar de níve
     camI = y;
 }
 
-void inicializaMissaoEscopetaPt1(std::string *dialogo, bool *fluxo, short int **incremento, std::string *nomes, std::string **opcoes){
-    dialogo = new std::string[17];
-    nomes = new std::string[17];
-    fluxo = new bool[17];
-    incremento = new short int*[2];
+void dialogoMissaoChavesPt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
+    std::map<short int, bool> fluxo;
+    fluxo.insert(std::pair<short int, bool> (0, true));
+    fluxo.insert(std::pair<short int, bool> (5, true));
 
-    incremento[0] = new short int[2];
-    incremento[0][0] = 1;
-    incremento[0][1] = 9;
+    std::string **opcoes = new std::string*[2];
+    opcoes[0] = new std::string[2] {"FECHADA?(Z)", "OK(X)"};
+    opcoes[1] = new std::string[2] {"SIM(Z)", "NÃO(X)"};
 
-    incremento[1] = new short int[2];
-    incremento[1][0] = 1;
-    incremento[1][1] = 5;
+    short int **incrementos = new short int*[2];
+    incrementos[0] = new short int[2] {1, 8};
+    incrementos[1] = new short int[2] {1, 2};
 
-    nomes[0] = "ANDREW";
-    fluxo[0] = false;
-    dialogo[0] = "Malditos pistoleiros! Estão levando nosso dinheiro, nossas moças e nosso Whisky!";
-    nomes[1] = "ANDREW";
-    fluxo[1] = false;
-    dialogo[1] = "E o pior... Sem a Sandra ao meu lado, me sinto indefeso, como se faltasse uma parte de mim...";
-    nomes[2] = "-";
-    fluxo[2] = false;
-    dialogo[2] = "Sandra...? É a sua esposa?";
-    nomes[3] = "ANDREW";
-    fluxo[3] = false;
-    dialogo[3] = "Que esposa o que, garoto! Sandra Rosa é a minha espingarda!";
-    nomes[4] = "-";
-    fluxo[4] = false;
-    dialogo[4] = "E o que houve com ela?";
-    nomes[5] = "ANDREW";
-    fluxo[5] = false;
-    dialogo[5] = "Eu e um irmão estávamos praticando tiro ao alvo no racho dele, quando o bando de invasores nos abordaram.";
-    nomes[6] = "ANDREW";
-    fluxo[6] = false;
-    dialogo[6] = "Enquanto lutávamos por nossas vidas, um deles atirou nele e tive que soltar a Sandra para carregá-lo no colo e poder salvar ele...";
-    nomes[7] = "ANDREW";
-    fluxo[7] = false;
-    dialogo[7] = "Desde então, não os vejo mais. ";
-    nomes[8] = "ANDREW";
-    fluxo[8] = true;
-    dialogo[8] = "Fiquei sabendo que você foi chamado para ajudar a cidade contra aqueles bandidos. Pode me ajudar a encontrar a Sandra?";
-    nomes[9] = "-";
-    fluxo[9] = false;
-    dialogo[9] = "Claro.";
-    nomes[10] = "ANDREW";
-    fluxo[10] = false;
-    dialogo[10] = "Ótimo! Prometo lhe pagar uma boa recompensa.";
-    nomes[11] = "-";
-    fluxo[11] = false;
-    dialogo[11] = "Aliás, qual o nome de seu irmão?";
-    nomes[12] = "ANDREW";
-    fluxo[12] = true;
-    dialogo[12] = "Mario";
-    nomes[13] = "-";
-    fluxo[13] = false;
-    dialogo[13] = "Que Mario?";
-    nomes[14] = "ANDREW";
-    fluxo[14] = false;
-    dialogo[14] = "Mario Victor, o rancheiro da cidade.";
-    nomes[15] = "-";
-    fluxo[15] = false;
-    dialogo[15] = "*Vou falar com ele";
-    nomes[16] = "-";
-    fluxo[16] = false;
-    dialogo[16] = "*Eu tenho mais o que fazer!";
+    std::string *falas = new std::string [9] {
+        "2Com licença, parceiro, a loja está fechada até segunda ordem. Caso precise de algo, abrimos uma venda na chegada da cidade.",
+        "1O que houve?",
+        "2Os invasores ocuparam nosso estoque. Quando sairam, deixamos alguns moradores lá dentro para ficarem seguros. Fechamos a entrada principal e dos fundos.",
+        "2O problema é que preciso entrar lá para levar alguns produtos para a venda e ver se precisam de algo",
+        "2Só que joguei a chave dos fundos no deserto, para não acharem. Agora eu que não me lembro onde está.",
+        "2Acha que pode procurar por mim?",
+        "1*Nobre de sua parte salvá-los, tentarei encontrar.",
+        "1*Ir para o deserto não está nos meus agora planos.",
+        "1*OK."
+    };
 
-    opcoes = new std::string*[2];
-    opcoes[0] = new std::string[2];
-    opcoes[0][0] = "SIM (Z)";
-    opcoes[0][1] = "NÃO (X)";
-
-    opcoes[1] = new std::string[2];
-    opcoes[1][0] = "OK (Z)";
-    opcoes[1][1] = "MARIO? (X)";
+    Dialogo dialogo(falas, fluxo, incrementos);
+    dialogo.dialogar("CRIS", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
 }
+
+void dialogoMissaoChavesPt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
+    std::map<short int, bool> fluxo;
+    fluxo.insert(std::pair<short int, bool> (2, true));
+
+    std::string **opcoes = new std::string*;
+    opcoes[0] = new std::string[2] {"SIM", "NÃO"};
+
+    short int **incrementos = new short int*;
+    incrementos[0] = new short int[2] {1, 2};
+
+    std::string *falas = new std::string [5] {
+        "2Com licença, parceiro, a loja está... Ah, é o senhor. Conseguiu as chaves?",
+        "1Aqui estão, cuidem bem deles.",
+        "2Tome uma recompensa por acha-las.",
+        "2*Obrigado.",
+        "2*Não se preocupe com isso.",
+    };
+
+    Dialogo dialogo(falas, fluxo, incrementos);
+    dialogo.dialogar("CRIS", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+}
+

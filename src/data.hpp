@@ -111,6 +111,7 @@ extern double TELA_Y_MAPA;
 bool inicializaJogo();
 void resetCamera(short int x, short int y);
 
-void inicializaMissaoEscopeta(std::string *dialogo, bool *fluxo, short int **incremento, std::string *nomes, std::string **opcoes);
+void dialogoMissaoChavesPt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao);
+void dialogoMissaoChavesPt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao);
 
 #endif
