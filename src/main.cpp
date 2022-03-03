@@ -55,7 +55,7 @@ int main(int argc, char **argv){
 
     /* COMECANDO A EXECUCAO DO JOGO*/
     if(inicializaJogo()){
-        Save->read_save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Chave, Relogio, Pocao);
+        Save->read_save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Chave, Relogio, Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
         Player->setNome("Barbara");
 
         /* === NÍVEL UM === */
@@ -65,11 +65,12 @@ int main(int argc, char **argv){
         while(Player->getNivel()==1){
             al_wait_for_event(event_queue, &ev0);
             if(!to_move()) break;   
-            redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), (Dinheiro1 != NULL), (Dinheiro2 != NULL), (Dinheiro3 != NULL),
-                (Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
+            redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
 
             al_flip_display();
         }
+        if(Player->getNivel() == 1) Player->nextLevel();
 
         delete Silvio;
         Silvio = nullptr;
@@ -81,8 +82,8 @@ int main(int argc, char **argv){
         while(Player->getNivel()==2){
             al_wait_for_event(event_queue, &ev0);
             if(!to_move()) break;   
-            redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), (Dinheiro1 != NULL), (Dinheiro2 != NULL), (Dinheiro3 != NULL),
-                (Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
+            redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
 
             al_flip_display();
         }
@@ -97,8 +98,8 @@ int main(int argc, char **argv){
         while(Player->getNivel()==3){
             al_wait_for_event(event_queue, &ev0);
             if(!to_move()) break;   
-            redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), (Dinheiro1 != NULL), (Dinheiro2 != NULL), (Dinheiro3 != NULL),
-                (Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
+            redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
 
             al_flip_display();
         }
@@ -113,8 +114,8 @@ int main(int argc, char **argv){
         while(Player->getNivel()==4){
             al_wait_for_event(event_queue, &ev0);
             if(!to_move()) break;   
-            redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), (Dinheiro1 != NULL), (Dinheiro2 != NULL), (Dinheiro3 != NULL),
-                (Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
+            redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
 
             al_flip_display();
         }
@@ -131,19 +132,17 @@ int main(int argc, char **argv){
         while(Player->getNivel()==5){
             al_wait_for_event(event_queue, &ev0);
             if(!to_move()) break;   
-            redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), (Dinheiro1 != NULL), (Dinheiro2 != NULL), (Dinheiro3 != NULL),
-                (Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
+            redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
 
             al_flip_display();
         }
 
         delete Johnny_Cash;
         Johnny_Cash = nullptr;
-
-        Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao);
     }
 
-    Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao);
+    Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
     if(Player != nullptr) delete Player;
     if(Silvio != nullptr) delete Silvio;
     if(Xerife_Espeto != nullptr) delete Xerife_Espeto;
@@ -360,8 +359,8 @@ bool to_move(){
 void loja(){
     Dialogo *dialogoLoja = new Dialogo();
 
-    dialogoLoja->dialogar_lojista(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), (Dinheiro1 != NULL), (Dinheiro2 != NULL), (Dinheiro3 != NULL),
-        (Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
+    dialogoLoja->dialogar_lojista(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
 
     delete dialogoLoja;
 }   
@@ -378,50 +377,40 @@ void interagir(){
         Player->addItem(Pocao->getNome(), 1);
 
     
-    else if(Dinheiro1 != nullptr && Dinheiro1->itemProximo('1')){
+    else if(Dinheiro1->itemProximo('1'))
         Player->setDinheiro(Player->getDinheiro()+10);
-        delete Dinheiro1;
-        Dinheiro1 = nullptr;
-    }
     
-    else if(Dinheiro2 != nullptr && Dinheiro2->itemProximo('1')){
+    else if(Dinheiro2->itemProximo('1'))
         Player->setDinheiro(Player->getDinheiro()+10);
-        delete Dinheiro2;
-        Dinheiro2 = nullptr;
-    }   
     
-    else if(Dinheiro3 != nullptr && Dinheiro3->itemProximo('1')){
+    else if(Dinheiro3->itemProximo('1'))
         Player->setDinheiro(Player->getDinheiro()+10);
-        delete Dinheiro3;
-        Dinheiro3 = nullptr;
-    }
     
-    else if(Dinheiro4 != nullptr && Dinheiro4->itemProximo('1')){
+    else if(Dinheiro4->itemProximo('1'))
         Player->setDinheiro(Player->getDinheiro()+10);
-        delete Dinheiro4;
-        Dinheiro4 = nullptr;
-    }
 
     else if(Loja->interacaoProxima('y')){ //caso a interacao proxima seja a loja
         loja();
     }
-    else if(Missao_Chave->missaoProxima('A')){
 
+    else if(Missao_Chave->missaoProxima('F')){
         if(Missao_Chave->getinicializada() == false){
-
-        dialogoMissaoChavesPt1(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), (Dinheiro1 != NULL), (Dinheiro2 != NULL), (Dinheiro3 != NULL),
-        (Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
-
-        Missao_Chave->setinicializada();
+            dialogoMissaoChavesPt1(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir, Missao_Chave);
         }
 
-        if(Missao_Chave->getinicializada() == true && Player->qtdItem("Chave") == 1){
+        else if(Missao_Chave->getinicializada() == true && Player->qtdItem("Chave") == 0){
+            dialogoMissaoChavesExtra(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+        }
 
-            dialogoMissaoChavesPt2(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), (Dinheiro1 != NULL), (Dinheiro2 != NULL), (Dinheiro3 != NULL), (Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
+        else if(Missao_Chave->getinicializada() == true && Player->qtdItem("Chave") == 1){
+            dialogoMissaoChavesPt2(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
             Player->subItem(Chave->getNome(), 1);
             Missao_Chave->pay(Player);
             Missao_Chave->finish();
-
+            MAPA[28][54] = '1';
         }
     }
 }

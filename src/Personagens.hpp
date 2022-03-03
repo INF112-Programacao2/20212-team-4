@@ -128,20 +128,6 @@ class Protagonista : public Personagem{
         short int qtdItem(std::string item);
 
         /**
-         * @brief Entrega um objeto para um NPC.
-         * 
-         * @details Ao verificar se o ítem está no inventário, retorna true dizendo que é
-         * possível entregar ou false, se não. Acrescenta ao protagonista a recompensa e informa
-         * a quantidade como -1. Isto é, não há no inventário e também não é mais possível pegá-lo
-         * no mapa.
-         * 
-         * @param objeto o nome do ítem que se deseja adicionar.
-         * @param recompensa valor da recompensa.
-         */
-
-        //void entregar(MissaoSecundaria &missao);
-
-        /**
         * @brief Consome alimento para curar a vida do protagonista
         *
         */

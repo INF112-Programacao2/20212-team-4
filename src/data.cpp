@@ -90,7 +90,7 @@ unsigned char MAPA[][97]=
 "111111111111111111111111111111111100000000000001000000000000000001000000000000111110110000000000",
 "000000000000000000000000111111111100000000000001000000000000000001000000000000111110111111110000",
 "000000000000000000000000000111111100000000000001000000000000033301000000000000111110000011000000",
-"0000000000000000000000000000111111111000000011111111000111111333111111111111J1111110000011000000",
+"0000000000000000000000000000111111111000000011111110001111111333111111111111J1111110000011000000",
 "0000000000000000000000000000111111111111A1111111111111111111111111111111111111111110111111111100",
 "000000000000000000000000000011111111111111111111111111111111111111111111111111111111111111000000",
 "000000000000000000000000000011111111111111111111111111111000000000000000000000111110111111000000",
@@ -440,14 +440,14 @@ void resetCamera(short int x, short int y){ //Reseta a camera ao passar de níve
     camI = y;
 }
 
-void dialogoMissaoChavesPt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
+void dialogoMissaoChavesPt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao, MissaoSecundaria *missao){
     std::map<short int, bool> fluxo;
     fluxo.insert(std::pair<short int, bool> (0, true));
     fluxo.insert(std::pair<short int, bool> (5, true));
 
     std::string **opcoes = new std::string*[2];
-    opcoes[0] = new std::string[2] {"FECHADA?(Z)", "OK(X)"};
-    opcoes[1] = new std::string[2] {"SIM(Z)", "NÃO(X)"};
+    opcoes[0] = new std::string[2] {"FECHADA? (Z)", "OK (X)"};
+    opcoes[1] = new std::string[2] {"SIM (Z)", "NÃO (X)"};
 
     short int **incrementos = new short int*[2];
     incrementos[0] = new short int[2] {1, 8};
@@ -456,17 +456,18 @@ void dialogoMissaoChavesPt1(bool rel, bool chav, bool poc, bool d1, bool d2, boo
     std::string *falas = new std::string [9] {
         "2Com licença, parceiro, a loja está fechada até segunda ordem. Caso precise de algo, abrimos uma venda na chegada da cidade.",
         "1O que houve?",
-        "2Os invasores ocuparam nosso estoque. Quando sairam, deixamos alguns moradores lá dentro para ficarem seguros. Fechamos a entrada principal e dos fundos.",
-        "2O problema é que preciso entrar lá para levar alguns produtos para a venda e ver se precisam de algo",
+        "2Os invasores ocuparam nosso estoque. Quando sairam, deixamos alguns moradores lá dentro para ficarem seguros.",
+        "2Fechamos a entrada principal e dos fundos. Agora, preciso entrar lá para ver se precisam de algo",
         "2Só que joguei a chave dos fundos no deserto, para não acharem. Agora eu que não me lembro onde está.",
         "2Acha que pode procurar por mim?",
         "1*Nobre de sua parte salvá-los, tentarei encontrar.",
         "1*Ir para o deserto não está nos meus agora planos.",
-        "1*OK."
+        "1*!OK."
     };
 
     Dialogo dialogo(falas, fluxo, incrementos);
-    dialogo.dialogar("CRIS", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+    if(!dialogo.dialogar("CRIS", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao))
+        missao->setinicializadaTrue();
 }
 
 void dialogoMissaoChavesPt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
@@ -474,17 +475,32 @@ void dialogoMissaoChavesPt2(bool rel, bool chav, bool poc, bool d1, bool d2, boo
     fluxo.insert(std::pair<short int, bool> (2, true));
 
     std::string **opcoes = new std::string*;
-    opcoes[0] = new std::string[2] {"SIM", "NÃO"};
+    opcoes[0] = new std::string[2] {"SIM (Z)", "NÃO (X)"};
 
     short int **incrementos = new short int*;
     incrementos[0] = new short int[2] {1, 2};
 
-    std::string *falas = new std::string [5] {
+    std::string *falas = new std::string [6] {
         "2Com licença, parceiro, a loja está... Ah, é o senhor. Conseguiu as chaves?",
         "1Aqui estão, cuidem bem deles.",
         "2Tome uma recompensa por acha-las.",
         "2*Obrigado.",
-        "2*Não se preocupe com isso.",
+        "2Não se preocupe com isso.",
+        "2*Eu faço questão."
+    };
+
+    Dialogo dialogo(falas, fluxo, incrementos);
+    dialogo.dialogar("CRIS", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+}
+
+void dialogoMissaoChavesExtra(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
+    std::map<short int, bool> fluxo;
+    std::string **opcoes;
+    short int **incrementos;
+
+    std::string *falas = new std::string [2] {
+        "2Conseguiu as chaves?",
+        "1*Não."
     };
 
     Dialogo dialogo(falas, fluxo, incrementos);

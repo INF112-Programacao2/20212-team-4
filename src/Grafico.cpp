@@ -181,9 +181,11 @@ void ajustarCamera(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, boo
     }
 }
 
-void Dialogo::dialogar(std::string npc, std::string **opcoes, bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int &cont, Protagonista *Player, Interacao *botao){
+bool Dialogo::dialogar(std::string npc, std::string **opcoes, bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int &cont, Protagonista *Player, Interacao *botao){
+    bool retorno = false;
     keys[ALLEGRO_KEY_E] = false;
     Player->_dialogo = true;
+    std::string fala;
 
     ajustarCamera(rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
 
@@ -192,12 +194,21 @@ void Dialogo::dialogar(std::string npc, std::string **opcoes, bool rel, bool cha
         redesenhar(rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
 
         if(this->_dialogos[this->posicao_atual_dialogo][1] == '*'){
+            fala = this->_dialogos[this->posicao_atual_dialogo].substr(2, this->_dialogos[this->posicao_atual_dialogo].length()-2);
+
+            if(this->_dialogos[this->posicao_atual_dialogo][2] == '!'){
+                fala = this->_dialogos[this->posicao_atual_dialogo].substr(3, this->_dialogos[this->posicao_atual_dialogo].length()-3);
+                retorno = true; 
+            }
+
             al_draw_scaled_bitmap(caixa_texto, 0, 0, 1520, 1080, 0, 0, 1520*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+            al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(1360), 0.91*res_y_comp, 0, "Espaço >");
             
             if(verificarTecla()) break;
         }
 
         else{
+            fala = this->_dialogos[this->posicao_atual_dialogo].substr(1, this->_dialogos[this->posicao_atual_dialogo].length()-1);
             if(!this->_fluxo[this->posicao_atual_dialogo]){
                 al_draw_scaled_bitmap(caixa_texto, 0, 0, 1520, 1080, 0, 0, 1520*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
                 al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(1360), 0.91*res_y_comp, 0, "Espaço >");
@@ -211,19 +222,20 @@ void Dialogo::dialogar(std::string npc, std::string **opcoes, bool rel, bool cha
                 al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1550), 0.80*res_y_comp, 0, opcoes[this->posicao_atual_incremento][0].c_str());
                 al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1550), 0.905*res_y_comp, 0, opcoes[this->posicao_atual_incremento][1].c_str());                
             }
-
-            if(this->_dialogos[this->posicao_atual_dialogo][0] == '1') al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(355), 0.895*res_y_comp, 0, Player->getNome().c_str());
-            else al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(355), 0.895*res_y_comp, 0, npc.c_str());
-
-            al_draw_multiline_text(font15, al_map_rgb(58,15,43), RES_WIDTH(520), 0.80*res_y_comp, RES_WIDTH(950), 40, 0, this->_dialogos[this->posicao_atual_dialogo].c_str());
-
-            verificarTecla();
         }
+
+
+        if(this->_dialogos[this->posicao_atual_dialogo][0] == '1') al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(355), 0.895*res_y_comp, 0, Player->getNome().c_str());
+        else al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(355), 0.895*res_y_comp, 0, npc.c_str());
+
+        al_draw_multiline_text(font15, al_map_rgb(58,15,43), RES_WIDTH(520), 0.80*res_y_comp, RES_WIDTH(950), RES_HEIGHT(40), 0, fala.c_str());
+        verificarTecla();
 
         al_flip_display();
     }
 
     Player->_dialogo = false;
+    return retorno;
 }
 
 /* INTERACAO DO PLAYER COM A LOJA*/

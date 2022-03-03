@@ -100,6 +100,11 @@ void Protagonista::nextLevel(){
         this->_vida += 10;        
 
         resetCamera(15, 5);
+
+        MAPA[28][54] = 'F';
+        MAPA[13][31] = 'I';
+        MAPA[39][65] = 'G';
+        MAPA[38][44] = 'H';
     }
 
     else if(this->_nivel == 3){
@@ -131,7 +136,9 @@ void Protagonista::nextLevel(){
         EIXO_X_PLAYER_TELA = 958;
         EIXO_Y_PLAYER_TELA = 380;    
 
-        resetCamera(12, 2);  
+        resetCamera(12, 2); 
+
+        MAPA[50][17] = 'C'; 
     }
 
     else if(this->_nivel == 5){
@@ -215,9 +222,3 @@ short int Protagonista::qtdItem(std::string item){
         return it->second;
     else return 0;
 }
-
-//void Protagonista::entregar(MissaoSecundaria &missao){
- //        this->subItem(missao.getNome(), 1);
- //        missao.pay(*this);
- //        missao.finish();
- //    }

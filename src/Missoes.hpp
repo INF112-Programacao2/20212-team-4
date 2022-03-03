@@ -12,7 +12,7 @@ class Missao : public Interacao{
     public:
         Missao(short int X, short int Y, unsigned char valor);
         void setDialogo(Dialogo *falas);
-        void setinicializada();
+        void setinicializadaTrue();
         bool getinicializada();
 };
 

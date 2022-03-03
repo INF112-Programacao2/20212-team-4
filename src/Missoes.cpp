@@ -7,7 +7,7 @@ bool Missao::getinicializada(){
     return inicializada;
 }
 
-void Missao::setinicializada(){
+void Missao::setinicializadaTrue(){
     inicializada = true;
 }
 
