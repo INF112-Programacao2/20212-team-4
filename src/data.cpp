@@ -517,10 +517,11 @@ void dialogoMissaoPocaoPt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool
     short int **incrementos = new short int*;
     incrementos[0] = new short int[2] {1, 5};
 
-    std::string *falas = new std::string [9]{ 
+    std::string *falas = new std::string [10]{ 
         "2",
+        "1Como você sabe meu nome?"
         "2Você é bem conhecido pela região... Eu sou apenas... observadora...",
-        "2Vejo no seu futuno, ",
+        "2Vejo no seu futuro, ",
         "2Mas, se me fizer um favor, acho que posso lhe ajudar.",
         "1O que você quer?",
         "2Eu deixei uma poção na cabana da floresta para um velho amigo... Mas estou precisando dela de novo.",
@@ -530,7 +531,7 @@ void dialogoMissaoPocaoPt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool
     };
 
     falas[0] += (Player->getNome() + "?");
-    falas[2] += (Player->getNome() + ", assombrações... maldições!");
+    falas[3] += (Player->getNome() + ", assombrações... maldições!");
 
     Dialogo dialogo(falas, fluxo, incrementos);
     if(!dialogo.dialogar("CLARA", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao)){

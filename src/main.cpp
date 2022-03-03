@@ -429,7 +429,6 @@ void interagir(){
             dialogoMissaoPocaoPt2(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
             Player->subItem(Pocao->getNome(), 1);
-            Missao_Chave->pay(Player);
             Missao_Chave->finish();
         }
 
@@ -437,7 +436,6 @@ void interagir(){
             dialogoMissaoPocaoPt2Level5(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
             Player->subItem(Pocao->getNome(), 1);
-            Missao_Chave->pay(Player);
             Missao_Chave->finish();
 
         }
