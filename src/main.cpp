@@ -413,4 +413,34 @@ void interagir(){
             MAPA[28][54] = '1';
         }
     }
+
+    else if(Missao_Pocao->missaoProxima('I')){
+        if(Missao_Pocao->getinicializada() == false){
+            dialogoMissaoPocaoPt1(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir, Missao_Pocao);
+        }
+
+        else if(Missao_Pocao->getinicializada() == true && Player->qtdItem("Pocao") == 0){
+            dialogoMissaoPocaoPt2Extra(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+        }
+
+        else if(Missao_Pocao->getinicializada() == true && Player->qtdItem("Pocao") == 1 && Player->getNivel() < 5){
+            dialogoMissaoPocaoPt2(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+            Player->subItem(Pocao->getNome(), 1);
+            Missao_Chave->pay(Player);
+            Missao_Chave->finish();
+        }
+
+        else if(Missao_Pocao->getinicializada() == true && Player->qtdItem("Pocao") == 1 && Player->getNivel() == 5){
+            dialogoMissaoPocaoPt2Level5(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+            Player->subItem(Pocao->getNome(), 1);
+            Missao_Chave->pay(Player);
+            Missao_Chave->finish();
+
+        }
+        
+    }
 }

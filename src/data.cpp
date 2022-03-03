@@ -507,3 +507,91 @@ void dialogoMissaoChavesExtra(bool rel, bool chav, bool poc, bool d1, bool d2, b
     dialogo.dialogar("CRIS", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
 }
 
+void dialogoMissaoPocaoPt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao, MissaoSecundaria *missao){
+    std::map<short int, bool> fluxo;
+    fluxo.insert(std::pair<short int, bool> (3, true));
+
+    std::string **opcoes = new std::string*;
+    opcoes[0] = new std::string[2] {"O QUE? (Z)", "NÃO (X)"};
+
+    short int **incrementos = new short int*;
+    incrementos[0] = new short int[2] {1, 5};
+
+    std::string *falas = new std::string [9]{ 
+        "2",
+        "2Você é bem conhecido pela região... Eu sou apenas... observadora...",
+        "2Vejo no seu futuno, ",
+        "2Mas, se me fizer um favor, acho que posso lhe ajudar.",
+        "1O que você quer?",
+        "2Eu deixei uma poção na cabana da floresta para um velho amigo... Mas estou precisando dela de novo.",
+        "2Poderia pegar para mim? Lhe darei uma recompensa Muito útil.",
+        "1*Vou tentar.",
+        "1*!Eu não faço negócios com bruxas."
+    };
+
+    falas[0] += (Player->getNome() + "?");
+    falas[2] += (Player->getNome() + ", assombrações... maldições!");
+
+    Dialogo dialogo(falas, fluxo, incrementos);
+    if(!dialogo.dialogar("CLARA", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao)){
+        missao->setinicializadaTrue();
+    }
+}
+
+void dialogoMissaoPocaoPt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
+    std::map<short int, bool> fluxo;
+    std::string **opcoes;
+    short int **incrementos;
+
+    std::string *falas = new std::string [6] {
+        "2Olá, ",
+        "2Encontrou o que eu pedi?",
+        "1Tome.",
+        "2Muito obrigada, fique com isso. Para vencer as suas assombrações.",
+        "1Munições?.",
+        "2*Você saberá quando usar.",
+    };
+
+    falas[0] += (Player->getNome() + ".");
+
+    Dialogo dialogo(falas, fluxo, incrementos);
+    dialogo.dialogar("CLARA", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+}
+
+void dialogoMissaoPocaoPt2Level5(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
+    std::map<short int, bool> fluxo;
+    std::string **opcoes;
+    short int **incrementos;
+
+    std::string *falas = new std::string [7] {
+        "2Olá, ",
+        "2Encontrou o que eu pedi?",
+        "1Tome.",
+        "2Muito obrigada, fique com isso. Para vencer as suas assombrações.",
+        "1Munição contra fantasma.",
+        "2Já conhecia?.",
+        "1*Um amigo me apresentou."
+    };
+
+    falas[0] += (Player->getNome() + ".");
+
+    Dialogo dialogo(falas, fluxo, incrementos);
+    dialogo.dialogar("CLARA", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+}
+
+void dialogoMissaoPocaoPt2Extra(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
+    std::map<short int, bool> fluxo;
+    std::string **opcoes;
+    short int **incrementos;
+
+    std::string *falas = new std::string [2] {
+        "2Conseguiu a Poção?",
+        "1*Não."
+    };
+
+    Dialogo dialogo(falas, fluxo, incrementos);
+    dialogo.dialogar("CLARA", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+}
+
+
+
