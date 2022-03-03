@@ -519,7 +519,7 @@ void dialogoMissaoPocaoPt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool
 
     std::string *falas = new std::string [10]{ 
         "2",
-        "1Como você sabe meu nome?"
+        "1Como você sabe meu nome?",
         "2Você é bem conhecido pela região... Eu sou apenas... observadora...",
         "2Vejo no seu futuro, ",
         "2Mas, se me fizer um favor, acho que posso lhe ajudar.",
