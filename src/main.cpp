@@ -473,4 +473,21 @@ void interagir(){
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
         }
     }
+    else if(Missao_Relogio->missaoProxima('G')){
+        if(Missao_Relogio->getinicializada() == false){
+            dialogoMissaoRelogioPt1(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir, Missao_Relogio);
+        }
+        else if(Missao_Relogio->getinicializada() == true && Player->qtdItem("Relogio") == 0){
+            dialogoMissaoRelogioPt2Extra(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+        }
+        else if(Missao_Relogio->getinicializada() == true && Player->qtdItem("Relogio") == 1){
+            dialogoMissaoRelogioPt2(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+            Player->subItem(Relogio->getNome(), 1);
+            Missao_Relogio->pay(Player);
+            Missao_Relogio->finish();
+        }
+    }
 }
