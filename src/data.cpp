@@ -750,21 +750,14 @@ void dialogoMissaoRelogioPt1(bool rel, bool chav, bool poc, bool d1, bool d2, bo
 
 void dialogoMissaoRelogioPt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
     std::map<short int, bool> fluxo;
-    fluxo.insert(std::pair<short int, bool> (2, true));
+    std::string **opcoes;
+    short int **incrementos;
 
-    std::string **opcoes = new std::string*;
-    opcoes[0] = new std::string[2] {"OK (Z)", "NÃO (X)"};
-
-    short int **incrementos = new short int*;
-    incrementos[0] = new short int[2] {1, 2};
-
-    std::string *falas = new std::string [6] {
-        "2Com licença, parceiro, a loja está... Ah, é o senhor. Conseguiu as chaves?",
-        "1Aqui estão, cuidem bem deles.",
-        "2Tome uma recompensa por achá-lo.",
-        "1*Obrigado.",
-        "1Não se preocupe com isso.",
-        "2*Eu faço questão."
+    std::string *falas = new std::string [4] {
+        "1Encontrei o seu relógio. Agora você pode sair daqui.",
+        "2Muito obrigado! Mesmo!",
+        "2Para ti! Você merece isso! Muito obrigado! Agora... tenho que ir!",
+        "2*Ah! E mais uma coisa. Cuidado com as redondezas, dizem que tem uma BRUXA morando por aí, próximo ao rio."
     };
 
     Dialogo dialogo(falas, fluxo, incrementos);
@@ -777,7 +770,7 @@ void dialogoMissaoRelogioPt2Extra(bool rel, bool chav, bool poc, bool d1, bool d
     short int **incrementos;
 
     std::string *falas = new std::string [2] {
-        "2Com licença, parceiro, a loja está... Ah, é o senhor. Conseguiu as chaves?",
+        "2Encontrou o Relógio?",
         "1*Não."
     };
 
