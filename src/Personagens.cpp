@@ -138,7 +138,7 @@ void Protagonista::nextLevel(){
 
         resetCamera(12, 2); 
 
-        MAPA[50][17] = 'C'; 
+        MAPA[48][17] = 'C'; 
     }
 
     else if(this->_nivel == 5){

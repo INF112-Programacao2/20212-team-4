@@ -480,17 +480,17 @@ void dialogoMissaoChavesPt2(bool rel, bool chav, bool poc, bool d1, bool d2, boo
     short int **incrementos = new short int*;
     incrementos[0] = new short int[2] {1, 2};
 
-    std::string *falas = new std::string [6] {
+    std::string *falas = new std::string [5] {
         "2Com licença, parceiro, a loja está... Ah, é o senhor. Conseguiu as chaves?",
         "1Aqui estão, cuidem bem deles.",
         "2Tome uma recompensa por acha-las.",
         "2*Obrigado.",
-        "2Não se preocupe com isso.",
-        "2*Eu faço questão."
+        "2*!Não se preocupe com isso.",
     };
 
     Dialogo dialogo(falas, fluxo, incrementos);
-    dialogo.dialogar("CRIS", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+    if(!dialogo.dialogar("CRIS", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao))
+        Player->setDinheiro(Player->getDinheiro() + 10);
 }
 
 void dialogoMissaoChavesExtra(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
@@ -580,7 +580,7 @@ void dialogoMissaoPocaoPt2Level5(bool rel, bool chav, bool poc, bool d1, bool d2
     dialogo.dialogar("CLARA", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
 }
 
-void dialogoMissaoPocaoPt2Extra(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
+void dialogoMissaoPocaoExtra(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
     std::map<short int, bool> fluxo;
     std::string **opcoes;
     short int **incrementos;
@@ -594,5 +594,129 @@ void dialogoMissaoPocaoPt2Extra(bool rel, bool chav, bool poc, bool d1, bool d2,
     dialogo.dialogar("CLARA", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
 }
 
+void dialogoMissaoEspingardaPt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao, MissaoSecundaria *missao){
+    std::map<short int, bool> fluxo;
+    fluxo.insert(std::pair<short int, bool> (7, true));
+    fluxo.insert(std::pair<short int, bool> (10, true));
+
+    std::string **opcoes = new std::string*[2];
+    opcoes[0] = new std::string[2] {"DETALHES? (Z)", "TE AJUDO (X)"};
+    opcoes[1] = new std::string[2] {"SIM (Z)", "NÃO (X)"};
+
+    short int **incrementos = new short int*[2];
+    incrementos[0] = new short int[2] {1, 4};
+    incrementos[1] = new short int[2] {1, 7};
+
+    std::string *falas = new std::string [18]{ 
+        "2Malditos pistoleiros! Estão levando nosso dinheiro, nossas moças e nosso Whisky!",
+        "2E o pior... Sem a Sandra ao meu lado, me sinto indefeso, como se faltasse uma parte de mim...",
+        "1Sandra...? É a sua esposa?",
+        "2Que esposa o que, garoto! Sandra Rosa é a minha espingarda!",
+        "1E o que houve com ela?",
+        "2Eu e um irmão estávamos no racho dele, quando o bando dos invasores nos abordaram.",
+        "2Enquanto lutávamos por nossas vidas, um deles atirou nele e tive que soltar a Sandra para carregá-lo no colo e poder salvar ele...",
+        "2Desde então, não o vejo mais nenhum dos dois.",
+        "1E com o quê praticavam tiro ao alvo?",
+        "2Ahm... Isso não vem ao caso, garoto...", 
+        "2Mas... Fiquei sabendo que você foi chamado para ajudar a cidade contra aqueles bandidos. Pode me ajudar a encontrar a Sandra?",
+        "1Eu posso te ajudar.",
+        "2Ótimo! Prometo lhe pagar uma boa recompensa.",
+        "1E qual o nome do seu irmão?",
+        "2Mario.",
+        "1Que Mario?",
+        "2*Mario Victor, o rancheiro da cidade.",
+        "1*Eu tenho mais o que fazer!"
+    };
+
+    Dialogo dialogo(falas, fluxo, incrementos);
+    dialogo.dialogar("ANDREW", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+
+    missao->setinicializadaTrue();
+}
+
+void dialogoMissaoEspingardaPt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
+    std::map<short int, bool> fluxo;
+    fluxo.insert(std::pair<short int, bool> (3, true));
+
+    std::string **opcoes = new std::string*;
+    opcoes[0] = new std::string[2] {"INVASORES? (Z)", "OBRIGADO (X)"};
+
+    short int **incrementos = new short int*;
+    incrementos[0] = new short int[2] {2, 1};
+
+    std::string *falas = new std::string [11] {
+        "1O senhor é o... Ahm... Mario?",
+        "2Sim, senhor.",
+        "1Seu irmão, Andrew, me pediu para que pegasse a... Sandra... com o senhor.",
+        "2Ah, claro, tome aqui.",
+        "1*Obrigado!",
+        "1Obrigado! E... mais uma coisa. Seu irmão falou algo de invasores pelo seu rancho quando ele perdeu a espingarda.",
+        "2Invasores? Que eu me lembre, só o coiote.",
+        "1Disse que estavam praticando tiro ao alvo e eles chegaram para tomar sua coisas. Que ele salvou sua vida.",
+        "2Hahahaha, ele inventa cada coisa. Ele apostou a espingarda no tiro ao alvo e perdeu. Mas ela não me serve de muito.",
+        "1Mas ainda assim acabou que seu rancho foi invadido. Por que não usou a espingarda pra se defender?",
+        "2*Eu sou contra a violência animal."
+    };
+
+    Dialogo dialogo(falas, fluxo, incrementos);
+    dialogo.dialogar("MARIO VICTOR", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+}
+
+void dialogoMissaoEspingardaPt3(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
+    std::map<short int, bool> fluxo;
+    fluxo.insert(std::pair<short int, bool> (3, true));
+
+    std::string **opcoes = new std::string*;
+    opcoes[0] = new std::string[2] {"INFORMAÇÃO (Z)", "DINHEIRO (X)"};
+
+    short int **incrementos = new short int*;
+    incrementos[0] = new short int[2] {3, 1};
+
+    std::string *falas = new std::string [10] {
+        "1Aqui, consegui sua espingarda de volta.",
+        "2Sandra, meu amor! Prometa que nunca mais vai se afastar de mim, viu?",
+        "2Então, garoto. Te prometi uma recompensa... Tome.",
+        "2Mas, antes, posso lhe dar esses trocados ou... uma informação... valiosa.",
+        "1Eu acho que prefiro o dinheiro mesmo.",
+        "2*Tome aqui, garoto. Faça bom uso.",
+        "1Informação valiosa? Conte-me mais.",
+        "2Boatos que alguns sacos de dinheiro estão espalhados pela região. Eu mesmo vi um! Mas sentia que alguém estava me seguindo.",
+        "1Vou averiguar melhor, obrigado!",
+        "2*!Tome aqui uma moeda, de qualquer forma. Pela Sandra."
+    };
+
+    Dialogo dialogo(falas, fluxo, incrementos);
+    if(!dialogo.dialogar("ANDREW", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao))
+        Player->setDinheiro(Player->getDinheiro() + 10);
+    else
+        Player->setDinheiro(Player->getDinheiro() + 1);
+}
+
+void dialogoMissaoEspingardaExtra(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
+    std::map<short int, bool> fluxo;
+    std::string **opcoes;
+    short int **incrementos;
+
+    std::string *falas = new std::string {
+        "2*Ah... Sandra... Que saudade d'ocê...",
+    };
+
+    Dialogo dialogo(falas, fluxo, incrementos);
+    dialogo.dialogar("ANDREW", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+}
+
+void dialogoMissaoEspingardaExtra2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
+    std::map<short int, bool> fluxo;
+    std::string **opcoes;
+    short int **incrementos;
+
+    std::string *falas = new std::string[2] {
+        "2Aoba",
+        "1*Opa"
+    };
+
+    Dialogo dialogo(falas, fluxo, incrementos);
+    dialogo.dialogar("MARIO VICTOR", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+}
 
 

@@ -407,10 +407,9 @@ void interagir(){
         else if(Missao_Chave->getinicializada() == true && Player->qtdItem("Chave") == 1){
             dialogoMissaoChavesPt2(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+            
             Player->subItem(Chave->getNome(), 1);
-            Missao_Chave->pay(Player);
             Missao_Chave->finish();
-            MAPA[28][54] = '1';
         }
     }
 
@@ -421,7 +420,7 @@ void interagir(){
         }
 
         else if(Missao_Pocao->getinicializada() == true && Player->qtdItem("Pocao") == 0){
-            dialogoMissaoPocaoPt2Extra(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+            dialogoMissaoPocaoExtra(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
         }
 
@@ -439,6 +438,39 @@ void interagir(){
             Missao_Chave->finish();
 
         }
+    }
+
+    else if(Missao_Espingarda->missaoProxima('H')){
+        if(Missao_Espingarda->getinicializada() == false){
+            dialogoMissaoEspingardaPt1(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir, Missao_Espingarda);
+        }
+
+        else if(Missao_Espingarda->getinicializada() == true && Player->qtdItem("Espingarda") == 1){
+            dialogoMissaoEspingardaPt3(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+            
+            Player->subItem("Espingarda", 1);
+            Missao_Espingarda->finish();
+        }
         
+        else if(Missao_Espingarda->getinicializada() == true && !Missao_Espingarda->completo()){
+            dialogoMissaoEspingardaExtra(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+        }
+    }
+
+    else if(Missao_Espingarda->missaoProxima('C')){
+        if(Missao_Espingarda->getinicializada() && !Missao_Espingarda->completo() && Player->qtdItem("Espingarda") == 0){
+            dialogoMissaoEspingardaPt2(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
+
+            Player->addItem("Espingarda", 1);
+        }
+
+        else{
+            dialogoMissaoEspingardaExtra2(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
+        }
     }
 }
