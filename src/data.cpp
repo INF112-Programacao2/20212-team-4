@@ -1085,3 +1085,19 @@ void dialogoNivel4Pt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
     Dialogo dialogo(falas, fluxo, incrementos);
     dialogo.dialogar("MÁRIO VICTOR", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
 }
+void dialogoNivel4Pt3(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
+    std::map<short int, bool> fluxo;
+    std::string **opcoes;
+    short int **incrementos;
+
+    std::string *falas = new std::string[5] {
+        "2Funerária Viçosa: Seu destino é aqui! O que precisa, cavalheiro?",
+        "1Imagino que seja o tal José do Caixão.",
+        "2Eu mesmo.",
+        "1Blá blá blá, eu to aqui pra acabar com vocês, pipipi popopo, pega o revólver e vamos.",
+        "2*Pessoal do roteiro  tá numa preguiça danada, hein."
+    };
+
+    Dialogo dialogo(falas, fluxo, incrementos);
+    dialogo.dialogar("JOSÉ DO CAIXÃO", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+}
