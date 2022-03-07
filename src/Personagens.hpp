@@ -16,7 +16,7 @@ class Personagem{
         std::string _nome;
         short int _maxVida;
         short int _vida;
-        std::map <std::string, short int> _ataques;
+        std::map <std::string, short int*> _ataques;
 
     public:
         /** Getters dos atributos de um personagem qualquer.
@@ -39,7 +39,23 @@ class Personagem{
          * @param ataque nome do ataque.
          * @param dano dano que o ataque dá, SEMPRE NEGATIVO.
          */
-        void addAtaque(std::string ataque, short int dano);
+        void addAtaque(std::string ataque, short int min, short int max);
+
+        /**
+         * @brief Remove um ataque da lista.
+         * 
+         * @param ataque nome do ataque.
+         */
+        void subAtaque(std::string ataque);
+
+        /**
+         * @brief Retorna se o personagem tem esse ataque para usar
+         * 
+         * @param ataque nome do ataque.
+         * @return true Existe o ataque.
+         * @return false Não existe o ataque.
+         */
+        bool hasAtaque(std::string ataque);
 
         /**
          * @brief Verifica se um personagem, inimigo ou protagonista morreu.
@@ -55,7 +71,7 @@ class Personagem{
          * @param dano dano que o ataque dá, SEMPRE NEGATIVO.
          */
         template<class ENEMY_OR_PLAYER>
-        void atacar(ENEMY_OR_PLAYER &alvo, short int dano);
+        void atacar(ENEMY_OR_PLAYER *atacante, ENEMY_OR_PLAYER *alvo, std::string ataque);
 
         /**
          * @brief Ao invés de atacar, em um turno, o inimigo ou player pode acrescentar um
@@ -82,6 +98,8 @@ class Protagonista : public Personagem{
 
     public:
         bool _dialogo;
+        bool _assombrado;
+        bool _sortudo;
 
         // Método Construtor.
         Protagonista(short int vida, short int dinheiro);
