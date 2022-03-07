@@ -980,3 +980,32 @@ void dialogoNivel2Pt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
     Dialogo dialogo(falas, fluxo, incrementos);
     dialogo.dialogar("AMBRÓSIO", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
 }
+
+void dialogoNivel2Pt3(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
+    std::map<short int, bool> fluxo;
+    fluxo.insert(std::pair<short int, bool> (3, true));
+
+    std::string **opcoes = new std::string*;
+    opcoes[0] = new std::string[2] {"XERIFE? (Z)", "MENTIRA (X)"};
+
+    short int **incrementos = new short int*;
+    incrementos[0] = new short int[2] {1, 8};
+
+    std::string *falas = new std::string[12] {
+        "2Oi, garoto! Eu estava indo agora mesmo resolver a invasão ao rancho.",
+        "1Invasão ao rancho?",
+        "2Ah, achei que morava por aqui. Não é nada, não. Nada a que se preocupe!"
+        "1Então, o senhor é o xerife da cidade?",
+        "2Isso mesmo. Agora, circulando, cidadão.",
+        "1Calma, senhor! Como assim invasão?",
+        "2Parece que um coiote invadiu o rancho. Deve ter cansado de procurar coelhos rápidos e foi atrás de galinhas.",
+        "2Pode deixar que vou lidar com isso, tá. De novo, nada que o garoto precise se preocupar.",
+        "1Eu acho que devo me preocupar, sim, e nós dois sabemos que você não e xerife nada.",
+        "2*Droga!",
+        "1Nós dois sabemos que você não é xerife de nada.",
+        "2*Droga!"
+    };
+
+    Dialogo dialogo(falas, fluxo, incrementos);
+    dialogo.dialogar("XERIFE ESPETO", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+}
