@@ -119,6 +119,12 @@ bool Dialogo::verificarTecla(){
 
             return true;
         }
+
+        else if(keys[ALLEGRO_KEY_ENTER]){
+            reiniciar = true;
+            
+            return true;
+        }
     }
 
     else if (evdialogo.type == ALLEGRO_EVENT_KEY_UP) 
@@ -324,4 +330,71 @@ void Dialogo::dialogar_lojista(bool rel, bool chav, bool poc, bool d1, bool d2, 
     }
 
     Player->_dialogo = false; //o dialogo com o lojista termina
+}
+
+void telaGameOver(bool reiniciar){
+    int cont = 0;
+    while (!reiniciar){
+        switch(cont){
+            case 0:
+                al_draw_scaled_bitmap(game_over1, 0, 0, 416, 304, 0, 0, RES_WIDTH(res_x_comp)*ZOOM, 
+                RES_HEIGHT(res_y_comp)*ZOOM, 0);
+                cont++;
+                break;
+            case 1:
+                al_draw_scaled_bitmap(game_over2, 0, 0, 416, 304, 0, 0, RES_WIDTH(res_x_comp)*ZOOM, 
+                RES_HEIGHT(res_y_comp)*ZOOM, 0);
+                cont++;
+                break;
+            case 2:
+                al_draw_scaled_bitmap(game_over3, 0, 0, 416, 304, 0, 0, RES_WIDTH(res_x_comp)*ZOOM, 
+                RES_HEIGHT(res_y_comp)*ZOOM, 0);
+                cont++;
+                break;
+            case 3:
+                al_draw_scaled_bitmap(game_over4, 0, 0, 416, 304, 0, 0, RES_WIDTH(res_x_comp)*ZOOM, 
+                RES_HEIGHT(res_y_comp)*ZOOM, 0);
+                cont++;
+                break;
+            case 4:
+                al_draw_scaled_bitmap(game_over5, 0, 0, 416, 304, 0, 0, RES_WIDTH(res_x_comp)*ZOOM, 
+                RES_HEIGHT(res_y_comp)*ZOOM, 0);
+                cont++;
+                break;
+            case 5:
+                al_draw_scaled_bitmap(game_over6, 0, 0, 416, 304, 0, 0, RES_WIDTH(res_x_comp)*ZOOM, 
+                RES_HEIGHT(res_y_comp)*ZOOM, 0);
+                cont++;
+                break;
+            case 6:
+                al_draw_scaled_bitmap(game_over7, 0, 0, 416, 304, 0, 0, RES_WIDTH(res_x_comp)*ZOOM, 
+                RES_HEIGHT(res_y_comp)*ZOOM, 0);
+                cont++;
+                break;
+            case 7:
+                al_draw_scaled_bitmap(game_over8, 0, 0, 416, 304, 0, 0, RES_WIDTH(res_x_comp)*ZOOM, 
+                RES_HEIGHT(res_y_comp)*ZOOM, 0);
+                cont++;
+                break;
+            case 8:
+                al_draw_scaled_bitmap(game_over9, 0, 0, 416, 304, 0, 0, RES_WIDTH(res_x_comp)*ZOOM, 
+                RES_HEIGHT(res_y_comp)*ZOOM, 0);
+                cont++;
+                break;
+            case 9:
+                al_draw_scaled_bitmap(game_over10, 0, 0, 416, 304, 0, 0, RES_WIDTH(res_x_comp)*ZOOM, 
+                RES_HEIGHT(res_y_comp)*ZOOM, 0);
+                cont++;
+                break;
+            case 10:
+                al_draw_scaled_bitmap(game_over11, 0, 0, 416, 304, 0, 0, RES_WIDTH(res_x_comp)*ZOOM, 
+                RES_HEIGHT(res_y_comp)*ZOOM, 0);
+                cont++;
+                break;
+            default:
+                al_draw_scaled_bitmap(game_over12, 0, 0, 416, 304, 0, 0, RES_WIDTH(res_x_comp)*ZOOM, 
+                RES_HEIGHT(res_y_comp)*ZOOM, 0);
+                break;
+        }
+    }
 }

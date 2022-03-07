@@ -44,6 +44,7 @@ void posicao(ALLEGRO_BITMAP *img1, ALLEGRO_BITMAP *img2, ALLEGRO_BITMAP *img3, A
 bool to_move();
 void interagir();
 void loja(); //funcao que gerencia a loja
+void resetGame();
 
 
 short int mov_cont = 0;
@@ -55,6 +56,7 @@ int main(int argc, char **argv){
 
     /* COMECANDO A EXECUCAO DO JOGO*/
     if(inicializaJogo()){
+        inicio:
         Save->read_save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Chave, Relogio, Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
         Player->setNome("Barbara");
 
@@ -67,6 +69,11 @@ int main(int argc, char **argv){
             if(!to_move()) break;   
             redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+            resetGame();
+            if(reiniciar){
+                reiniciar = false;
+                goto inicio;
+            }
 
             al_flip_display();
         }
@@ -281,6 +288,7 @@ bool to_move(){
             /*SE O PERSONAGEM ENCOSTA EM UM CACTO, ELE SOFRE UM DANO */
             else if(MAPA[i][j] == '*'){   
                 Player -> setVida(Player -> getVida() - 0.25);
+                std::cout << Player->getVida();
                 //serao desenhadas as imagens do personagem levando dano
                 img1= dano_costas; img3=dano_costas; 
             }
@@ -489,5 +497,12 @@ void interagir(){
             Missao_Relogio->pay(Player);
             Missao_Relogio->finish();
         }
+    }
+}
+
+void resetGame(){
+    if(Player->isDead()){
+        Player->setVida(Player->getMaxVida());
+        telaGameOver(reiniciar);
     }
 }

@@ -57,6 +57,18 @@ ALLEGRO_BITMAP *caixa_texto = NULL;
 ALLEGRO_FONT *font15 = NULL; // variavel que vai receber a fonte do hud
 ALLEGRO_FONT *font10 = NULL; 
 bool keys[ALLEGRO_KEY_MAX] = {0};
+ALLEGRO_BITMAP *game_over1 = NULL; //variavel que vai receber a imagem do game over
+ALLEGRO_BITMAP *game_over2 = NULL; //variavel que vai receber a imagem do game over
+ALLEGRO_BITMAP *game_over3 = NULL; //variavel que vai receber a imagem do game over
+ALLEGRO_BITMAP *game_over4 = NULL; //variavel que vai receber a imagem do game over
+ALLEGRO_BITMAP *game_over5 = NULL; //variavel que vai receber a imagem do game over
+ALLEGRO_BITMAP *game_over6 = NULL; //variavel que vai receber a imagem do game over
+ALLEGRO_BITMAP *game_over7 = NULL; //variavel que vai receber a imagem do game over
+ALLEGRO_BITMAP *game_over8 = NULL; //variavel que vai receber a imagem do game over
+ALLEGRO_BITMAP *game_over9 = NULL; //variavel que vai receber a imagem do game over
+ALLEGRO_BITMAP *game_over10 = NULL; //variavel que vai receber a imagem do game over
+ALLEGRO_BITMAP *game_over11 = NULL; //variavel que vai receber a imagem do game over
+ALLEGRO_BITMAP *game_over12 = NULL; //variavel que vai receber a imagem do game over
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
 // Matriz do mapa.
@@ -153,6 +165,7 @@ std::string CAMERA[10] = {
 short int camI = 5;
 short int camJ = 14;
 short int valueIJcam = '0';
+bool reiniciar = false;
 
 // Tamanho de uma célula do mapa.
 bool redraw = true;
@@ -420,6 +433,90 @@ bool inicializaJogo() {
     caixa_texto = al_load_bitmap("./../assets/caixa_texto.bmp");
     if(!caixa_texto){
         std::cout << "Falha ao carregar o caixa_texto" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
+    game_over1 = al_load_bitmap("./../assets/batalha/go1.bmp");
+    if(!game_over1){
+        std::cout << "Falha ao carregar o game_over1" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
+    game_over2 = al_load_bitmap("./../assets/batalha/go2.bmp");
+    if(!game_over2){
+        std::cout << "Falha ao carregar o game_over2" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
+    game_over3 = al_load_bitmap("./../assets/batalha/go3.bmp");
+    if(!game_over3){
+        std::cout << "Falha ao carregar o game_over3" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
+    game_over4 = al_load_bitmap("./../assets/batalha/go4.bmp");
+    if(!game_over4){
+        std::cout << "Falha ao carregar o game_over4" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
+    game_over5 = al_load_bitmap("./../assets/batalha/go5.bmp");
+    if(!game_over5){
+        std::cout << "Falha ao carregar o game_over5" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
+    game_over6 = al_load_bitmap("./../assets/batalha/go6.bmp");
+    if(!game_over6){
+        std::cout << "Falha ao carregar o game_over6" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
+    game_over7 = al_load_bitmap("./../assets/batalha/go7.bmp");
+    if(!game_over7){
+        std::cout << "Falha ao carregar o game_over7" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
+    game_over8 = al_load_bitmap("./../assets/batalha/go8.bmp");
+    if(!game_over8){
+        std::cout << "Falha ao carregar o game_over8" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
+    game_over9 = al_load_bitmap("./../assets/batalha/go9.bmp");
+    if(!game_over9){
+        std::cout << "Falha ao carregar o game_over9" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
+    game_over10 = al_load_bitmap("./../assets/batalha/go10.bmp");
+    if(!game_over10){
+        std::cout << "Falha ao carregar o game_over10" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
+    game_over11 = al_load_bitmap("./../assets/batalha/go11.bmp");
+    if(!game_over11){
+        std::cout << "Falha ao carregar o game_over11" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
+    game_over12 = al_load_bitmap("./../assets/batalha/go12.bmp");
+    if(!game_over12){
+        std::cout << "Falha ao carregar o game_over12" << std::endl;
         al_destroy_display(game);
         return false;
     }

@@ -78,6 +78,18 @@ extern ALLEGRO_FONT *font15;  // variavel que vai receber a fonte do hud
 extern ALLEGRO_FONT *font10;  // variavel que vai receber a fonte do hud
 extern bool keys[ALLEGRO_KEY_MAX];
 extern ALLEGRO_BITMAP *caixa_texto;
+extern ALLEGRO_BITMAP *game_over1; //variavel que vai receber a imagem do game over
+extern ALLEGRO_BITMAP *game_over2; //variavel que vai receber a imagem do game over
+extern ALLEGRO_BITMAP *game_over3; //variavel que vai receber a imagem do game over
+extern ALLEGRO_BITMAP *game_over4; //variavel que vai receber a imagem do game over
+extern ALLEGRO_BITMAP *game_over5; //variavel que vai receber a imagem do game over
+extern ALLEGRO_BITMAP *game_over6; //variavel que vai receber a imagem do game over
+extern ALLEGRO_BITMAP *game_over7; //variavel que vai receber a imagem do game over
+extern ALLEGRO_BITMAP *game_over8; //variavel que vai receber a imagem do game over
+extern ALLEGRO_BITMAP *game_over9; //variavel que vai receber a imagem do game over
+extern ALLEGRO_BITMAP *game_over10; //variavel que vai receber a imagem do game over
+extern ALLEGRO_BITMAP *game_over11; //variavel que vai receber a imagem do game over
+extern ALLEGRO_BITMAP *game_over12; //variavel que vai receber a imagem do game over
 
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
@@ -91,6 +103,7 @@ extern short int res_x_comp;
 extern short int res_y_comp;
 extern short int j; //posicao do personagem na matriz
 extern short int i; //posicao do personagem na matriz
+extern bool reiniciar;
 
 // Tamanho de uma célula do mapa.
 extern const short int TELA_ALT;
