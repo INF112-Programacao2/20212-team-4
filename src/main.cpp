@@ -53,10 +53,10 @@ ALLEGRO_EVENT ev1;
 short int contGalinha = 0;
 
 int main(int argc, char **argv){
-
+    
     /* COMECANDO A EXECUCAO DO JOGO*/
     if(inicializaJogo()){
-        inicio:
+        INICIO:
         Save->read_save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Chave, Relogio, Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
         Player->setNome("Barbara");
 
@@ -66,18 +66,18 @@ int main(int argc, char **argv){
 
         while(Player->getNivel()==1){
             al_wait_for_event(event_queue, &ev0);
+
             if(!to_move()) break;   
             redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
             resetGame();
             if(reiniciar){
                 reiniciar = false;
-                goto inicio;
+                goto INICIO;
             }
 
             al_flip_display();
         }
-        if(Player->getNivel() == 1) Player->nextLevel();
 
         delete Silvio;
         Silvio = nullptr;
@@ -287,10 +287,9 @@ bool to_move(){
 
             /*SE O PERSONAGEM ENCOSTA EM UM CACTO, ELE SOFRE UM DANO */
             else if(MAPA[i][j] == '*'){   
-                Player -> setVida(Player -> getVida() - 0.25);
-                std::cout << Player->getVida();
+                Player -> setVida(Player -> getVida() - 0.1);
                 //serao desenhadas as imagens do personagem levando dano
-                img1= dano_costas; img3=dano_costas; 
+                img1=dano_costas; img3=dano_costas;
             }
 
             parado = player_c1;
@@ -305,7 +304,7 @@ bool to_move(){
                 EIXO_Y_PLAYER_TELA += 16*ZOOM;
             }
             else if(MAPA[i+2][j] == '*'){
-                Player -> setVida(Player -> getVida() - 0.25);
+                Player -> setVida(Player -> getVida() - 0.1);
                 //serao desenhadas as imagens do personagem levando dano
                 img1=dano_frente; img3=dano_frente; 
             }
@@ -322,7 +321,7 @@ bool to_move(){
                 EIXO_X_PLAYER_TELA -= 16*ZOOM;
             }  
             else if(MAPA[i+1][j-1] == '*'){
-                Player -> setVida(Player -> getVida() - 0.25);
+                Player -> setVida(Player -> getVida() - 0.1);
                 //serao desenhadas as imagens do personagem levando dano
                 img1=dano_esquerda; img3=dano_esquerda;
             }
@@ -339,7 +338,7 @@ bool to_move(){
                 EIXO_X_PLAYER_TELA += 16*ZOOM;
             }
             else if(MAPA[i+1][j+1] == '*'){
-                Player -> setVida(Player -> getVida() - 0.25);
+                Player -> setVida(Player -> getVida() - 0.1);
                 //serao desenhadas as imagens do personagem levando dano
                 img1=dano_direita; img3=dano_direita;
             }

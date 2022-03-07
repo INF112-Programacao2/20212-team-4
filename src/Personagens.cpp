@@ -89,9 +89,24 @@ void Personagem::atacar(ENEMY_OR_PLAYER &alvo, short int dano){
 
 void Protagonista::nextLevel(){
     this->_nivel++;
+    resetTeclas();
+
+    if(this->_nivel == 1){
+        EIXO_X_PLAYER_TELA = 1216;
+        EIXO_Y_PLAYER_TELA = 572;
+
+        j = 69;
+        i = 29;
+
+        TELA_X_MAPA = 56;
+        TELA_Y_MAPA = 23;
+
+        this->_vida = 10;
+        this->_dinheiro = 3;
+    }
 
     // Define as posições iniciais pra cada nível.
-    if(this->_nivel == 2){
+    else if(this->_nivel == 2){
         i = 29;
         j = 48;
         TELA_X_MAPA = 35;
@@ -155,7 +170,9 @@ void Protagonista::nextLevel(){
         EIXO_Y_PLAYER_TELA = 572;  
 
         resetCamera(16, 5); 
-    }    
+    }   
+
+    general_player = player_f1;
 }
 
 void Protagonista::setNivel(short int nivel){

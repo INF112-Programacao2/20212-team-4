@@ -2,6 +2,7 @@
 #include "data.hpp"
 
 ALLEGRO_EVENT evdialogo;
+ALLEGRO_EVENT evmorte;
 bool buy_made; //variavel que define se o player ja fez ou nao a compra
 
 void redesenhar(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int &cont, Protagonista *Player, Interacao *botao){
@@ -85,14 +86,14 @@ void redesenhar(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d
         RES_HEIGHT(EIXO_Y_PLAYER_TELA), RES_WIDTH(res_x_player*ZOOM), RES_HEIGHT(res_y_player*ZOOM), 0);
 
     if(botao->interacaoProxima('2') && !Player->_dialogo){//caso haja uma interacao proxima e o personagem não esteja na loja
-        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(760), 0.85*res_y_comp, 0,"Aperte          para Interagir");
-        al_draw_scaled_bitmap(botaointeracao, 0,  0, 18, 18, RES_WIDTH(920), 0.85*res_y_comp, RES_WIDTH(18*ZOOM), RES_HEIGHT(18*ZOOM), 0);
+        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(610), 0.85*res_y_comp, 0,"Aperte          para Interagir");
+        al_draw_scaled_bitmap(botaointeracao, 0,  0, 18, 18, RES_WIDTH(770), 0.85*res_y_comp, RES_WIDTH(18*ZOOM), RES_HEIGHT(18*ZOOM), 0);
     }
     else if(Player->getVida()<Player->getMaxVida() && Player->qtdItem("Comida")>0){
         //caso o player tenha comida no inventário e não esteja com a vida completa
         //ele recebe a seguinte mensagem:
-        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(760), 0.85*res_y_comp, 0,"Aperte          para comer");
-        al_draw_scaled_bitmap(botaocomer, 0,  0, 18, 18, RES_WIDTH(920), 0.85*res_y_comp, RES_WIDTH(18*ZOOM), RES_HEIGHT(18*ZOOM), 0);
+        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(610), 0.85*res_y_comp, 0,"Aperte          para comer");
+        al_draw_scaled_bitmap(botaocomer, 0,  0, 18, 18, RES_WIDTH(770), 0.85*res_y_comp, RES_WIDTH(18*ZOOM), RES_HEIGHT(18*ZOOM), 0);
         
     }    
 }
@@ -103,12 +104,15 @@ bool Dialogo::verificarTecla(){
 
         if(this->_fluxo[posicao_atual_dialogo] == false && keys[ALLEGRO_KEY_SPACE]){
             this->posicao_atual_dialogo += this->incremento_dialogoSPACE;
+            keys[evdialogo.keyboard.keycode] = false;
+
             return true;
         }
 
         else if(this->_fluxo[posicao_atual_dialogo] == true && keys[ALLEGRO_KEY_X]){
             this->posicao_atual_dialogo += this->incremento_dialogoX;
             this->posicao_atual_incremento++;
+            keys[evdialogo.keyboard.keycode] = false;
 
             return true;
         }
@@ -116,20 +120,11 @@ bool Dialogo::verificarTecla(){
         else if(this->_fluxo[posicao_atual_dialogo] == true && keys[ALLEGRO_KEY_Z]){
             this->posicao_atual_dialogo += this->incremento_dialogoZ;
             this->posicao_atual_incremento++;
+            keys[evdialogo.keyboard.keycode] = false;
 
-            return true;
-        }
-
-        else if(keys[ALLEGRO_KEY_ENTER]){
-            reiniciar = true;
-            
             return true;
         }
     }
-
-    else if (evdialogo.type == ALLEGRO_EVENT_KEY_UP) 
-        keys[evdialogo.keyboard.keycode] = false;
-
 
     return false;
 }
@@ -332,69 +327,104 @@ void Dialogo::dialogar_lojista(bool rel, bool chav, bool poc, bool d1, bool d2, 
     Player->_dialogo = false; //o dialogo com o lojista termina
 }
 
-void telaGameOver(bool reiniciar){
-    int cont = 0;
-    while (!reiniciar){
-        switch(cont){
-            case 0:
-                al_draw_scaled_bitmap(game_over1, 0, 0, 416, 304, 0, 0, RES_WIDTH(res_x_comp)*ZOOM, 
-                RES_HEIGHT(res_y_comp)*ZOOM, 0);
-                cont++;
-                break;
-            case 1:
-                al_draw_scaled_bitmap(game_over2, 0, 0, 416, 304, 0, 0, RES_WIDTH(res_x_comp)*ZOOM, 
-                RES_HEIGHT(res_y_comp)*ZOOM, 0);
-                cont++;
-                break;
-            case 2:
-                al_draw_scaled_bitmap(game_over3, 0, 0, 416, 304, 0, 0, RES_WIDTH(res_x_comp)*ZOOM, 
-                RES_HEIGHT(res_y_comp)*ZOOM, 0);
-                cont++;
-                break;
-            case 3:
-                al_draw_scaled_bitmap(game_over4, 0, 0, 416, 304, 0, 0, RES_WIDTH(res_x_comp)*ZOOM, 
-                RES_HEIGHT(res_y_comp)*ZOOM, 0);
-                cont++;
-                break;
-            case 4:
-                al_draw_scaled_bitmap(game_over5, 0, 0, 416, 304, 0, 0, RES_WIDTH(res_x_comp)*ZOOM, 
-                RES_HEIGHT(res_y_comp)*ZOOM, 0);
-                cont++;
-                break;
-            case 5:
-                al_draw_scaled_bitmap(game_over6, 0, 0, 416, 304, 0, 0, RES_WIDTH(res_x_comp)*ZOOM, 
-                RES_HEIGHT(res_y_comp)*ZOOM, 0);
-                cont++;
-                break;
-            case 6:
-                al_draw_scaled_bitmap(game_over7, 0, 0, 416, 304, 0, 0, RES_WIDTH(res_x_comp)*ZOOM, 
-                RES_HEIGHT(res_y_comp)*ZOOM, 0);
-                cont++;
-                break;
-            case 7:
-                al_draw_scaled_bitmap(game_over8, 0, 0, 416, 304, 0, 0, RES_WIDTH(res_x_comp)*ZOOM, 
-                RES_HEIGHT(res_y_comp)*ZOOM, 0);
-                cont++;
-                break;
-            case 8:
-                al_draw_scaled_bitmap(game_over9, 0, 0, 416, 304, 0, 0, RES_WIDTH(res_x_comp)*ZOOM, 
-                RES_HEIGHT(res_y_comp)*ZOOM, 0);
-                cont++;
-                break;
-            case 9:
-                al_draw_scaled_bitmap(game_over10, 0, 0, 416, 304, 0, 0, RES_WIDTH(res_x_comp)*ZOOM, 
-                RES_HEIGHT(res_y_comp)*ZOOM, 0);
-                cont++;
-                break;
-            case 10:
-                al_draw_scaled_bitmap(game_over11, 0, 0, 416, 304, 0, 0, RES_WIDTH(res_x_comp)*ZOOM, 
-                RES_HEIGHT(res_y_comp)*ZOOM, 0);
-                cont++;
-                break;
-            default:
-                al_draw_scaled_bitmap(game_over12, 0, 0, 416, 304, 0, 0, RES_WIDTH(res_x_comp)*ZOOM, 
-                RES_HEIGHT(res_y_comp)*ZOOM, 0);
-                break;
+bool enterToReset(){
+    if(evmorte.type == ALLEGRO_EVENT_KEY_DOWN){
+        keys[evmorte.keyboard.keycode] = true;
+
+        if(keys[ALLEGRO_KEY_ENTER]){
+            reiniciar = true;
+            keys[evmorte.keyboard.keycode] = false;
+
+            return true;
         }
     }
+
+    return false;
+}
+
+void telaGameOver(bool reiniciar){
+    resetTeclas();
+    
+    int cont = -1;
+    timer = al_create_timer(1);
+    while (!reiniciar){
+        al_wait_for_event(event_queue, &evmorte);
+
+        if(evmorte.type == ALLEGRO_EVENT_TIMER){
+            switch(cont){
+                case -1:
+                    al_draw_scaled_bitmap(game_over1, 0, 0, 416, 304, 0, 0, res_x_comp, 
+                    res_y_comp, 0);
+                    cont++;
+                    break;
+                case 0:
+                    al_draw_scaled_bitmap(game_over1, 0, 0, 416, 304, 0, 0, res_x_comp, 
+                    res_y_comp, 0);
+                    cont++;
+                    break;
+                case 1:
+                    al_draw_scaled_bitmap(game_over2, 0, 0, 416, 304, 0, 0, res_x_comp, 
+                    res_y_comp, 0);
+                    cont++;
+                    break;
+                case 2:
+                    al_draw_scaled_bitmap(game_over3, 0, 0, 416, 304, 0, 0, res_x_comp, 
+                    res_y_comp, 0);
+                    cont++;
+                    break;
+                case 3:
+                    al_draw_scaled_bitmap(game_over4, 0, 0, 416, 304, 0, 0, res_x_comp, 
+                    res_y_comp, 0);
+                    cont++;
+                    break;
+                case 4:
+                    al_draw_scaled_bitmap(game_over5, 0, 0, 416, 304, 0, 0, res_x_comp, 
+                    res_y_comp, 0);
+                    cont++;
+                    break;
+                case 5:
+                    al_draw_scaled_bitmap(game_over6, 0, 0, 416, 304, 0, 0, res_x_comp, 
+                    res_y_comp, 0);
+                    cont++;
+                    break;
+                case 6:
+                    al_draw_scaled_bitmap(game_over7, 0, 0, 416, 304, 0, 0, res_x_comp, 
+                    res_y_comp, 0);
+                    cont++;
+                    break;
+                case 7:
+                    al_draw_scaled_bitmap(game_over8, 0, 0, 416, 304, 0, 0, res_x_comp, 
+                    res_y_comp, 0);
+                    cont++;
+                    break;
+                case 8:
+                    al_draw_scaled_bitmap(game_over9, 0, 0, 416, 304, 0, 0, res_x_comp, 
+                    res_y_comp, 0);
+                    cont++;
+                    break;
+                case 9:
+                    al_draw_scaled_bitmap(game_over10, 0, 0, 416, 304, 0, 0, res_x_comp, 
+                    res_y_comp, 0);
+                    cont++;
+                    break;
+                case 10:
+                    al_draw_scaled_bitmap(game_over11, 0, 0, 416, 304, 0, 0, res_x_comp, 
+                    res_y_comp, 0);
+                    cont++;
+                    break;
+                default:
+                    al_draw_scaled_bitmap(game_over12, 0, 0, 416, 304, 0, 0, res_x_comp, 
+                    res_y_comp, 0);
+                    al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(610), 0.85*res_y_comp, 0,"Aperte               para reiniciar");
+                    al_draw_scaled_bitmap(botaoreiniciar, 0,  0, 34, 18, RES_WIDTH(770), 0.85*res_y_comp, RES_WIDTH(34*ZOOM), RES_HEIGHT(18*ZOOM), 0);
+                    break;
+            }
+        }
+
+        al_flip_display();
+        if(enterToReset()) break;
+    }
+
+    general_player = player_f1;
+    timer = al_create_timer(1.0/FPS);
 }

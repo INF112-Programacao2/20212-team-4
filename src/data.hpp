@@ -90,6 +90,7 @@ extern ALLEGRO_BITMAP *game_over9; //variavel que vai receber a imagem do game o
 extern ALLEGRO_BITMAP *game_over10; //variavel que vai receber a imagem do game over
 extern ALLEGRO_BITMAP *game_over11; //variavel que vai receber a imagem do game over
 extern ALLEGRO_BITMAP *game_over12; //variavel que vai receber a imagem do game over
+extern ALLEGRO_BITMAP *botaoreiniciar; // variavel que vai receber o botao para reiniciar
 
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
@@ -123,6 +124,7 @@ extern double TELA_Y_MAPA;
  */
 bool inicializaJogo();
 void resetCamera(short int x, short int y);
+void resetTeclas();
 
 void dialogoMissaoChavesPt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao, MissaoSecundaria *missao);
 void dialogoMissaoChavesPt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao);

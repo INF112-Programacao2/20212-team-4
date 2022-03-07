@@ -69,6 +69,7 @@ ALLEGRO_BITMAP *game_over9 = NULL; //variavel que vai receber a imagem do game o
 ALLEGRO_BITMAP *game_over10 = NULL; //variavel que vai receber a imagem do game over
 ALLEGRO_BITMAP *game_over11 = NULL; //variavel que vai receber a imagem do game over
 ALLEGRO_BITMAP *game_over12 = NULL; //variavel que vai receber a imagem do game over
+ALLEGRO_BITMAP *botaoreiniciar = NULL; // variavel que vai receber o botao para reiniciar
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
 // Matriz do mapa.
@@ -521,6 +522,13 @@ bool inicializaJogo() {
         return false;
     }
 
+    botaoreiniciar = al_load_bitmap("./../assets/enter.bmp");
+    if(!botaoreiniciar){
+        std::cout << "Falha ao carregar o botao de reiniciar" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
     return true;
 }
 
@@ -535,6 +543,17 @@ void resetCamera(short int x, short int y){ //Reseta a camera ao passar de níve
     CAMERA[y][x] = 'P';
     camJ = x;
     camI = y;
+}
+
+void resetTeclas(){
+    keys[ALLEGRO_KEY_W] = false;
+    keys[ALLEGRO_KEY_A] = false;
+    keys[ALLEGRO_KEY_S] = false;
+    keys[ALLEGRO_KEY_D] = false;
+    keys[ALLEGRO_KEY_X] = false;
+    keys[ALLEGRO_KEY_Z] = false;
+    keys[ALLEGRO_KEY_SPACE] = false;
+    keys[ALLEGRO_KEY_ESCAPE] = false;
 }
 
 void dialogoMissaoChavesPt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao, MissaoSecundaria *missao){
@@ -874,5 +893,3 @@ void dialogoMissaoRelogioPt2Extra(bool rel, bool chav, bool poc, bool d1, bool d
     Dialogo dialogo(falas, fluxo, incrementos);
     dialogo.dialogar("SAUL", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
 }
-
-
