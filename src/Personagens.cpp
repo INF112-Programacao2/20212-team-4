@@ -54,6 +54,9 @@ Protagonista::Protagonista(short int vida, short int dinheiro){
     this->_maxVida = vida;
     this->_dinheiro = dinheiro;
     this->_nivel = 1;
+    this->_sortudo = false;
+    this->_dialogo = false;
+    this->_assombrado = false;
 }
 
 Inimigo::Inimigo(std::string nome, short int vida, short int total_ataques, short int cura){
@@ -65,6 +68,17 @@ Inimigo::Inimigo(std::string nome, short int vida, short int total_ataques, shor
 
 /* Outros métodos importantes para o funcionamento do jogo
 **/
+void Personagem::subAtaque(std::string ataque){
+    std::map <std::string, short int*>::iterator it = this->_ataques.find(ataque);
+
+    if(it != this->_ataques.end()){ // Caso encontre o ataque em questão, adiciona dano.
+        throw std::out_of_range("out of range\n");
+    }
+    else{ // se não, insere
+        this->_ataques.erase(it);
+    }
+}
+
 void Personagem::addAtaque(std::string ataque, short int min, short int max){
     std::map <std::string, short int*>::iterator it = this->_ataques.find(ataque);
 
@@ -72,12 +86,27 @@ void Personagem::addAtaque(std::string ataque, short int min, short int max){
         it->second[0] = min;
         it->second[0] = max;
     }
-     else{ // se não, insere
+    else{ // se não, insere
         short int *dano = new short int[2];
         dano[0] = min;
         dano[1] = max;
         this->_ataques.insert(std::pair<std::string, short int*>(ataque, dano));
-     }
+    }
+    
+    if(ataque == "Coquetel Molotov")
+        this->subAtaque("Coquetel Molotov");
+    else if(ataque == "Pé de Coelho")
+        this->subAtaque("Pé de Coelho");
+}
+
+bool Personagem::hasAtaque(std::string ataque){
+    std::map <std::string, short int*>::iterator it = this->_ataques.find(ataque);
+
+    if(it != this->_ataques.end()) // Caso encontre o ataque em questão, adiciona dano.
+        return false;
+
+    else // se não, insere
+        return true;
 }
 
 bool Personagem::isDead(){
@@ -88,11 +117,17 @@ bool Personagem::isDead(){
 }
 
 template<class ENEMY_OR_PLAYER>
-void Personagem::atacar(ENEMY_OR_PLAYER &alvo, std::string ataque){
-     std::map<std::string, short int*>::iterator it = this->_ataques.find(ataque);
+void Personagem::atacar(ENEMY_OR_PLAYER *atacante, ENEMY_OR_PLAYER *alvo, std::string ataque){
+    std::map<std::string, short int*>::iterator it = this->_ataques.find(ataque);
+    short int dano;
     
-    short int dano = rand()%(it->second[1] - it->second[0]) + it->second[0] + 1;
-    alvo.setVida(alvo.getVida() - dano);
+    if(!atacante->_sortudo)
+        dano = it->second[1];
+    
+    else
+        dano = rand()%(it->second[1] - it->second[0]) + it->second[0] + 1;
+
+    alvo->setVida(alvo->getVida() - dano);
 }
 
 void Protagonista::nextLevel(){
