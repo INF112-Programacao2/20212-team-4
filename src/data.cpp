@@ -1101,3 +1101,55 @@ void dialogoNivel4Pt3(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
     Dialogo dialogo(falas, fluxo, incrementos);
     dialogo.dialogar("JOSÉ DO CAIXÃO", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
 }
+
+void dialogoNivel5Pt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
+    std::map<short int, bool> fluxo;
+    fluxo.insert(std::pair<short int, bool> (2, true));
+
+    std::string **opcoes = new std::string*;
+    opcoes[0] = new std::string[2] {"JOHNNY? (Z)", "ONDE? (X)"};
+
+    short int **incrementos = new short int*;
+    incrementos[0] = new short int[2] {1, 9};
+
+    std::string *falas = new std::string[15] {
+        "1A coiote disse que você sabe quem começou isso tudo aqui.",
+        "1É o fim da linha, parceiro. Quem é o líder disso tudo?",
+        "2O nome dele é Johnny.",
+        "1Quem diabos é Johnny?"
+        "2Cash...",
+        "1Não, pera, o cantor?",
+        "2Sua alma estava há dias me assombrando, dizendo que queria voltar para este mundo.",
+        "1E por que permitiu isso? Sua gangue aterrorizou toda a cidade, matou pessoas!",
+        "2O meu caixãozinho... Ele estava tão triste... Há tempos não enterrava ninguém!",
+        "1...",
+        "2Eu fiz isso por ele! Só por ele...",
+        "1E onde ele está?",
+        "2Na cabana mal assombrada da floresta... Ele comandou isso tudo por lá.",
+        "2Mas antes de ir... Tome isso... São munições especiais, contra fantasmas.",
+        "1*Obrigado, José"
+    };
+
+    Dialogo dialogo(falas, fluxo, incrementos);
+    dialogo.dialogar("JOSÉ DO CAIXÃO", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+}
+
+void dialogoNivel5Pt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
+    std::map<short int, bool> fluxo;
+    std::string **opcoes;
+    short int **incrementos;
+
+    std::string *falas = new std::string[8] {
+        "1Então, é você que tá orquestrando isso tudo.",
+        "2E, se não fosse por você, meu plano estaria funcionando perfeitamente.",
+        "1Agradeço o reconhecimento.",
+        "1Mas qual o seu problema? Do nada sua alma resolve voltar pro mundo pra por terror numa vila?"
+        "2Assim que eu atingi o outro lado, tentei encontrar um lugar pra descansar meu espírito, se eu conseguisse.",
+        "2Mas eu nasci para ser um fora da lei e prometi que eu voltaria.",
+        "2Não importava se como um forasteiro ou uma simples gota de chuva, mas eu voltaria pra esse mundo.",
+        "1*Você vai voltar pra prisão de Folsom, Johnny."
+    };
+
+    Dialogo dialogo(falas, fluxo, incrementos);
+    dialogo.dialogar("JOHNNY CASH", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+}
