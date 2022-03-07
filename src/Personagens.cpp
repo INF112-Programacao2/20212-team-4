@@ -101,6 +101,8 @@ void Protagonista::nextLevel(){
         TELA_X_MAPA = 56;
         TELA_Y_MAPA = 23;
 
+        resetCamera(14, 5);
+        
         this->_vida = 10;
         this->_dinheiro = 3;
     }

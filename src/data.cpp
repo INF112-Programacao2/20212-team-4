@@ -893,3 +893,48 @@ void dialogoMissaoRelogioPt2Extra(bool rel, bool chav, bool poc, bool d1, bool d
     Dialogo dialogo(falas, fluxo, incrementos);
     dialogo.dialogar("SAUL", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
 }
+void dialogoNivel1Pt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
+    std::map<short int, bool> fluxo;
+    std::string **opcoes;
+    short int **incrementos;
+
+    std::string *falas = new std::string[12] {
+        "2",
+        "1Eu mesmo.",
+        "2Prazer, César. O xerife me pediu para ser seu guia aqui na cidade durante o serviço.",
+        "1E você fica aí à vista enquanto a cidade é invadida?",
+        "2Ora, eu sou só uma iguana.",
+        "1...",
+        "2Então, o seu amigo xerife pediu para que você verificasse o saloon.",
+        "1Primeiro que eu não exatamente que ele é meu amigo. Segundo, o que tem no saloon?",
+        "2O saloon foi invadido por um dos pistoleiros, tomou o lugar do cervejeiro. Foi o primeiro golpe.",
+        "2Os outros, não sabemos onde estão exatamente, devem estar escondidos.",
+        "2Vencer ele talvez deixe alguns moradores mais livres para sair de casa.",
+        "1*Vou ver o que posso fazer."
+    };
+
+    falas[0] += Player->getNome() + "! " + Player->getNome() + "!";
+
+    Dialogo dialogo(falas, fluxo, incrementos);
+    dialogo.dialogar("CÉSAR JÚLIO", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+}
+
+void dialogoNivel1Pt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
+    std::map<short int, bool> fluxo;
+    std::string **opcoes;
+    short int **incrementos;
+
+    std::string *falas = new std::string[8] {
+        "2Você! Vai pra casa! Estamos fazendo revista no estoque do saloon.",
+        "1Eu não moro aqui.",
+        "2Ah... Forasteiro... Lamento informar, mas a cidade está interditada.",
+        "1Lamento informar, mas preciso que você se retire.",
+        "2Isso é um convite para um duelo?",
+        "1Estamos na frente de um saloon... É meio dia... Não é o que Hollywood te ensinou?",
+        "2O que é Hollywood?",
+        "1*Nada não."
+    };
+
+    Dialogo dialogo(falas, fluxo, incrementos);
+    dialogo.dialogar("BILLY", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+}
