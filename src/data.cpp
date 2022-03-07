@@ -938,3 +938,45 @@ void dialogoNivel1Pt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
     Dialogo dialogo(falas, fluxo, incrementos);
     dialogo.dialogar("BILLY", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
 }
+
+void dialogoNivel2Pt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
+    std::map<short int, bool> fluxo;
+    std::string **opcoes;
+    short int **incrementos;
+
+    std::string *falas = new std::string[7] {
+        "2Muito obrigado por salvar o meu saloon, eu te devo uma bebida. De graça! Por minha conta!",
+        "1Não precisa se preocupar.",
+        "2Mas tome isso, um coquetel Molotov! Ele é poderoso, mas use com responsabilidade, só tenho este",
+        "1Obrigado.",
+        "2Devo uma pro banqueiro também. Ele que pediu para que o xerife te chamasse.",
+        "2Aliás, você deveria falar com ele a qualquer momento.",
+        "1*Pode deixar"
+    };
+
+    Dialogo dialogo(falas, fluxo, incrementos);
+    dialogo.dialogar("AMBRÓSIO", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+}
+
+void dialogoNivel2Pt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
+    std::map<short int, bool> fluxo;
+    std::string **opcoes;
+    short int **incrementos;
+
+    std::string *falas = new std::string[9] {
+        "1Olá?",
+        "2Você deve ser o ",
+        "1As vezes.",
+        "2É um prazer conhece-lo, mas terei que ser breve."
+        "2Um dos invasores roubou a estrela do xerife e está passando por ele pela região.",
+        "1E você sabe onde ele está?",
+        "2Me informaram que ele foi encontrado soltando alguns bandidos pelo deserto.",
+        "1Vou dar uma passada lá.",
+        "2*Quando terminar de resolver, não esqueça de passar aqui para trazer o crachá."
+    };
+
+    falas[1] += Player->getNome() + ".";
+
+    Dialogo dialogo(falas, fluxo, incrementos);
+    dialogo.dialogar("AMBRÓSIO", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+}
