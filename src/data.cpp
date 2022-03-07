@@ -1048,3 +1048,40 @@ void dialogoNivel3Pt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
     Dialogo dialogo(falas, fluxo, incrementos);
     dialogo.dialogar("GERALDINA", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
 }
+
+void dialogoNivel4Pt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
+    std::map<short int, bool> fluxo;
+    std::string **opcoes;
+    short int **incrementos;
+
+    std::string *falas = new std::string[9] {
+        "1Onde tá o seu líder? Eu já perdi a paciência com o grupo de vocês.",
+        "2Eu não sei.",
+        "1Fala logo, lobinha. Eu não quero precisar duelar com você de novo.",
+        "2Eu não sei!"
+        "1Alguma coisa eu sei que você sabe.",
+        "2O máximo que eu sei é que você pode ter mais informações com o coveiro.",
+        "1Qual o nome do coveiro?",
+        "2José...",
+        "2*José do caixão."
+    };
+
+    Dialogo dialogo(falas, fluxo, incrementos);
+    dialogo.dialogar("GERALDINA", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+}
+
+void dialogoNivel4Pt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
+    std::map<short int, bool> fluxo;
+    std::string **opcoes;
+    short int **incrementos;
+
+    std::string *falas = new std::string[4] {
+        "2Pode deixar que eu cuido dela agora. Faz tempo que eu não faço um churrasco",
+        "2Isso aqui estava com ela, um pé de coelho. Pode te trazer sorte. Imagino que um garoto não tenha o tiro tão preciso ainda",
+        "1Ah, obrigado.",
+        "2*É... Eu que agradeço"
+    };
+
+    Dialogo dialogo(falas, fluxo, incrementos);
+    dialogo.dialogar("MÁRIO VICTOR", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+}
