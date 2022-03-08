@@ -3,7 +3,7 @@
 
 ALLEGRO_EVENT evdialogo;
 ALLEGRO_EVENT evmorte;
-bool buy_made; //variavel que define se o player ja fez ou nao a compra
+bool bought; //variavel que define se o player ja fez ou nao a compra
 
 void redesenhar(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int &cont, Protagonista *Player, Interacao *botao){
     al_draw_scaled_bitmap(map, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 0, 
@@ -55,7 +55,7 @@ void redesenhar(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d
             break;
         case 3:
             al_draw_scaled_bitmap(galinha4, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, 
-                res_y_comp, 0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
+                 res_y_comp, 0, 0, RES_WIDTH(res_x_comp*ZOOM), RES_HEIGHT(res_y_comp*ZOOM), 0);
             cont = 0;
             break;
     }
@@ -204,6 +204,7 @@ bool Dialogo::dialogar(std::string npc, std::string **opcoes, bool rel, bool cha
 
             al_draw_scaled_bitmap(caixa_texto, 0, 0, 1520, 1080, 0, 0, 1520*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
             al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(1360), 0.91*res_y_comp, 0, "Espaço >");
+            al_draw_scaled_bitmap(icone, 0, 0, 18, 18, 348, 825, RES_WIDTH(128), RES_HEIGHT(128), 0);
             
             if(verificarTecla()) break;
         }
@@ -225,14 +226,19 @@ bool Dialogo::dialogar(std::string npc, std::string **opcoes, bool rel, bool cha
             }
         }
 
-
-        if(this->_dialogos[this->posicao_atual_dialogo][0] == '1') al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(355), 0.895*res_y_comp, 0, Player->getNome().c_str());
-        else al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(355), 0.895*res_y_comp, 0, npc.c_str());
-
         al_draw_multiline_text(font15, al_map_rgb(58,15,43), RES_WIDTH(520), 0.80*res_y_comp, RES_WIDTH(950), RES_HEIGHT(40), 0, fala.c_str());
-        verificarTecla();
 
+        if(this->_dialogos[this->posicao_atual_dialogo][0] == '1'){
+            al_draw_scaled_bitmap(icone, 0, 0, 18, 18, 348, 825, RES_WIDTH(128), RES_HEIGHT(128), 0);
+            al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(355), 0.895*res_y_comp, 0, Player->getNome().c_str());
+        }
+        else {
+            al_draw_scaled_bitmap(icone, 0, 0, 18, 18, 348, 825, RES_WIDTH(128), RES_HEIGHT(128), 0);
+            al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(355), 0.895*res_y_comp, 0, npc.c_str());
+        }
         al_flip_display();
+
+        verificarTecla();
     }
 
     Player->_dialogo = false;
@@ -245,6 +251,7 @@ void Dialogo::dialogar_lojista(bool rel, bool chav, bool poc, bool d1, bool d2, 
     Player->_dialogo = true; //o dialogo com o lojista esta em andamento
 
     ajustarCamera(rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);//efeito de reposicionar a camera
+    icone = al_load_bitmap("./../assets/icone-comerciante.bmp");
 
     while(true){//enquanto o player estiver interagindo com a loja
         al_wait_for_event(event_queue, &evdialogo);//capturando um evento
@@ -260,24 +267,26 @@ void Dialogo::dialogar_lojista(bool rel, bool chav, bool poc, bool d1, bool d2, 
             "comida por $5? Você pode recarregar suas");
             al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(520), 0.90*res_y_comp, 0, 
             "energias com ela.");
-            buy_made=false; //ou seja, a compra ainda não foi feita
+            bought=false; //ou seja, a compra ainda não foi feita
             al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(355), 0.895*res_y_comp, 0, "VENDEDOR");
             al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1550), 0.80*res_y_comp, 0, "SIM (Z)");
             al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1550), 0.905*res_y_comp, 0, "NÃO (X)");
+            al_draw_scaled_bitmap(icone, 0, 0, 18, 18, 348, 825, RES_WIDTH(128), RES_HEIGHT(128), 0);
+
             al_flip_display();
 
             verificarTecla();//dependendo da tecla que for pressionada, a posicao_atual_dialogo muda de valor
         }
 
-        else if(this->posicao_atual_dialogo == 1 && (Player->getDinheiro() > 4 || buy_made)){
+        else if(this->posicao_atual_dialogo == 1 && (Player->getDinheiro() > 4 || bought)){
             //caso o usuario aperte Z, possua dinheiro suficiente, ou já tenha realizado a compra
             redesenhar(rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);//todos os elementos do mapa são redesenhados
             al_draw_scaled_bitmap(caixa_texto, 0, 0, 1520, 1080, 0, 0, 1520*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
 
-            if(!buy_made){//se a compra ainda não foi feita
+            if(!bought){//se a compra ainda não foi feita
                 Player->setDinheiro(Player->getDinheiro()-5); //diminui o dinheiro
                 Player->addItem("Comida", 1); //aumenta a quantidade de comida
-                buy_made=true; //agora a compra foi feita
+                bought=true; //agora a compra foi feita
             }
             //mostramos essa mensagem na tela depois que a compra for feita e enquanto o usuario
             //não apertar espaco para sair 
@@ -285,12 +294,14 @@ void Dialogo::dialogar_lojista(bool rel, bool chav, bool poc, bool d1, bool d2, 
             "Prontinho! Foi bom fazer negócios com você!");
             al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(355), 0.895*res_y_comp, 0, "VENDEDOR");
             al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(1360), 0.91*res_y_comp, 0, "Espaço >");
+            al_draw_scaled_bitmap(icone, 0, 0, 18, 18, 348, 825, RES_WIDTH(128), RES_HEIGHT(128), 0);
+
             al_flip_display();
 
             if(verificarTecla()) break; //se o usuario apertar espaco, a interacao com a loja termina
         }
 
-        else if(this->posicao_atual_dialogo == 1 && !buy_made){
+        else if(this->posicao_atual_dialogo == 1 && !bought){
             //caso o usuario aperte Z, ainda não realizou uma compra, nem possui dinheiro para tal
             redesenhar(rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);//todos os elementos do mapa são redesenhados
             al_draw_scaled_bitmap(caixa_texto, 0, 0, 1520, 1080, 0, 0, 1520*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
@@ -304,6 +315,8 @@ void Dialogo::dialogar_lojista(bool rel, bool chav, bool poc, bool d1, bool d2, 
             "depois!");
             al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(355), 0.895*res_y_comp, 0, "VENDEDOR");
             al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(1360), 0.91*res_y_comp, 0, "Espaço >");
+            al_draw_scaled_bitmap(icone, 0, 0, 18, 18, 348, 825, RES_WIDTH(128), RES_HEIGHT(128), 0);
+
             al_flip_display();            
 
             if(verificarTecla()) break; //se o usuario apertar espaco, a interacao com a loja termina
@@ -318,6 +331,8 @@ void Dialogo::dialogar_lojista(bool rel, bool chav, bool poc, bool d1, bool d2, 
             al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(520), 0.80*res_y_comp, 0, "Até logo!");
             al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(355), 0.895*res_y_comp, 0, "VENDEDOR");
             al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(1360), 0.91*res_y_comp, 0, "Espaço >");
+            al_draw_scaled_bitmap(icone, 0, 0, 18, 18, 348, 825, RES_WIDTH(128), RES_HEIGHT(128), 0);
+
             al_flip_display();
 
             if(verificarTecla()) break; //se o usuario apertar espaco, a interacao com a loja termina

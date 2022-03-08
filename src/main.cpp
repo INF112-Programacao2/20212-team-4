@@ -38,6 +38,13 @@ MissaoSecundaria *Missao_Chave = new MissaoSecundaria(0, 0, 'C', 10);
 MissaoSecundaria *Missao_Relogio = new MissaoSecundaria(0, 0, 'R', 10);
 MissaoSecundaria *Missao_Pocao = new MissaoSecundaria( 0, 0, 'P', 10);
 
+/* DIÁLOGOS DA HISTÓRIA */
+Missao *Nivel1 = new Missao(0, 0, '3');
+Missao *Nivel2 = new Missao(0, 0, 'A');
+Missao *Nivel3 = new Missao(0, 0, 'J');
+Missao *Nivel4 = new Missao(0, 0, 'C');
+Missao *Nivel5 = new Missao(0, 0, 'E');
+
 /* FUNCOES */
 bool camera(char mov);
 void posicao(ALLEGRO_BITMAP *img1, ALLEGRO_BITMAP *img2, ALLEGRO_BITMAP *img3, ALLEGRO_BITMAP *img4);
@@ -46,14 +53,13 @@ void interagir();
 void loja(); //funcao que gerencia a loja
 void resetGame();
 
-
+/* VARIÁVEIS IMPORTANTES */
 short int mov_cont = 0;
 ALLEGRO_EVENT ev0;
 ALLEGRO_EVENT ev1;
 short int contGalinha = 0;
 
 int main(int argc, char **argv){
-    
     /* COMECANDO A EXECUCAO DO JOGO*/
     if(inicializaJogo()){
         INICIO:
@@ -383,7 +389,6 @@ void interagir(){
     else if(Pocao->itemProximo('1'))
         Player->addItem(Pocao->getNome(), 1);
 
-    
     else if(Dinheiro1->itemProximo('1'))
         Player->setDinheiro(Player->getDinheiro()+10);
     
@@ -400,7 +405,64 @@ void interagir(){
         loja();
     }
 
-    else if(Missao_Chave->missaoProxima('F')){
+    else if(Player->getNivel() == 1){
+        if(Nivel1->missaoProxima('3') && Nivel1->_etapa == 1){
+            dialogoNivel1Pt1(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
+
+            Nivel1->_etapa++;
+            MAPA[29][31] = 'J'; // Adiciona Billy/Ambrósio na matriz
+        }
+        else if(Nivel1->missaoProxima('A') && Nivel1->_etapa == 2){
+            dialogoNivel1Pt2(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
+        }
+    }
+
+    else if(Player->getNivel() == 2){
+        if(Nivel2->missaoProxima('A') && Nivel2->_etapa == 1){
+
+            Nivel2->_etapa++;
+            MAPA[28][77] = 'J'; // Adiciona Renato na matriz
+        }
+        else if(Nivel2->missaoProxima('J') && Nivel2->_etapa == 2){
+
+            MAPA[56][73] = MAPA[56][74] = MAPA[57][73] = MAPA[57][74] = 'B'; // Adiciona Xerife Espeto na matriz
+        }
+        else if(Nivel2->missaoProxima('B') && Nivel2->_etapa == 3){
+
+        }
+    }
+
+    else if(Player->getNivel() == 3){
+        if(Nivel3->missaoProxima('J') && Nivel3->_etapa == 1){
+
+            Nivel2->_etapa++;
+            MAPA[49][17] = MAPA[49][18] = 'C'; // Adiciona Geraldina na matriz
+        }
+        else if(Nivel3->missaoProxima('C') && Nivel3->_etapa == 2){
+
+        } 
+    }
+
+    else if(Player->getNivel() == 4){
+        if(Nivel4->missaoProxima('C') && Nivel4->_etapa == 1){
+
+            Nivel2->_etapa++;
+            MAPA[27][89] = MAPA[28][89] = 'D'; // Adiciona Geraldina na matriz
+        }
+        else if(Nivel4->missaoProxima('C') && Nivel4->_etapa == 2){
+
+        } 
+    }
+
+    else if(Player->getNivel() == 5){
+        if(Nivel5->missaoProxima('E')){
+
+        }
+    }
+
+    if(Missao_Chave->missaoProxima('F')){
         if(Missao_Chave->getinicializada() == false){
             dialogoMissaoChavesPt1(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir, Missao_Chave);
@@ -417,6 +479,7 @@ void interagir(){
             
             Player->subItem(Chave->getNome(), 1);
             Missao_Chave->finish();
+            MAPA[28][54] = '0';
         }
     }
 
@@ -441,9 +504,10 @@ void interagir(){
         else if(Missao_Pocao->getinicializada() == true && Player->qtdItem("Pocao") == 1 && Player->getNivel() == 5){
             dialogoMissaoPocaoPt2Level5(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+            
             Player->subItem(Pocao->getNome(), 1);
             Missao_Chave->finish();
-
+            MAPA[13][31] = '0';
         }
     }
 
@@ -459,6 +523,7 @@ void interagir(){
             
             Player->subItem("Espingarda", 1);
             Missao_Espingarda->finish();
+            MAPA[38][44] = '0';
         }
         
         else if(Missao_Espingarda->getinicializada() == true && !Missao_Espingarda->completo()){
@@ -492,9 +557,11 @@ void interagir(){
         else if(Missao_Relogio->getinicializada() == true && Player->qtdItem("Relogio") == 1){
             dialogoMissaoRelogioPt2(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+            
             Player->subItem(Relogio->getNome(), 1);
             Missao_Relogio->pay(Player);
             Missao_Relogio->finish();
+            MAPA[39][65] = '0';
         }
     }
 }

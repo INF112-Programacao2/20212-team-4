@@ -19,6 +19,8 @@ class Interacao {
         std::string getNome();
         short int getPosicaoX();
         short int getPosicaoY();
+        void setPosicaoX(short int x);
+        void setPosicaoY(short int y);
         char getValor();
         bool completo();
         void removeItem(unsigned char novoValor);

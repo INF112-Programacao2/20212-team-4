@@ -27,6 +27,14 @@ short int Interacao::getPosicaoY(){
     return _y;
 }
 
+void Interacao::setPosicaoX(short int x){
+    this->_x = x;
+}
+
+void Interacao::setPosicaoY(short int y){
+    this->_y = y;
+}
+
 char Interacao::getValor(){
     return _valor;
 }
