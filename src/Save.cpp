@@ -79,7 +79,7 @@ void GameSave::read_save(Protagonista *Player, MissaoSecundaria *Sec1, MissaoSec
     data >> value;
     if(value == 1){
         Sec1->finish();
-        MAPA[38][44] = '1';
+        MAPA[38][44] = '0';
     }
     data >> value;
     if(value == 1) Sec1->setinicializadaTrue();
@@ -87,7 +87,7 @@ void GameSave::read_save(Protagonista *Player, MissaoSecundaria *Sec1, MissaoSec
     data >> value;
     if(value == 1){
         Sec2->finish();
-        MAPA[28][54] = '1';
+        MAPA[28][54] = '0';
     }
     data >> value;
     if(value == 1) Sec2->setinicializadaTrue();
@@ -95,7 +95,7 @@ void GameSave::read_save(Protagonista *Player, MissaoSecundaria *Sec1, MissaoSec
     data >> value;
     if(value == 1) {
         Sec3->finish();
-        MAPA[39][65] = '1';
+        MAPA[39][65] = '0';
     }
     data >> value;
     if(value == 1) Sec3->setinicializadaTrue();
@@ -103,7 +103,7 @@ void GameSave::read_save(Protagonista *Player, MissaoSecundaria *Sec1, MissaoSec
     data >> value;
     if(value == 1) {
         Sec4->finish();
-        MAPA[13][31] = '1';
+        MAPA[13][31] = '0';
     }
     data >> value;
     if(value == 1) Sec4->setinicializadaTrue();

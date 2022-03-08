@@ -70,6 +70,7 @@ ALLEGRO_BITMAP *game_over10 = NULL; //variavel que vai receber a imagem do game 
 ALLEGRO_BITMAP *game_over11 = NULL; //variavel que vai receber a imagem do game over
 ALLEGRO_BITMAP *game_over12 = NULL; //variavel que vai receber a imagem do game over
 ALLEGRO_BITMAP *botaoreiniciar = NULL; // variavel que vai receber o botao para reiniciar
+ALLEGRO_BITMAP *icone = NULL; // variavel que vai receber o botao para reiniciar
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
 // Matriz do mapa.
@@ -103,8 +104,8 @@ unsigned char MAPA[][97]=
 "111111111111111111111111111111111100000000000001000000000000000001000000000000111110110000000000",
 "000000000000000000000000111111111100000000000001000000000000000001000000000000111110111111110000",
 "000000000000000000000000000111111100000000000001000000000000033301000000000000111110000011000000",
-"0000000000000000000000000000111111111000000011111110001111111333111111111111J1111110000011000000",
-"0000000000000000000000000000111111111111A1111111111111111111111111111111111111111110111111111100",
+"000000000000000000000000000011111111100000001111111000111111133311111111111111111110000011000000",
+"000000000000000000000000000011111111111111111111111111111111111111111111111111111110111111111100",
 "000000000000000000000000000011111111111111111111111111111111111111111111111111111111111111000000",
 "000000000000000000000000000011111111111111111111111111111000000000000000000000111110111111000000",
 "000000000000000000000000000011110000000110000011110000000000000000000000000000111110111100000000",
@@ -569,6 +570,7 @@ void dialogoMissaoChavesPt1(bool rel, bool chav, bool poc, bool d1, bool d2, boo
     incrementos[0] = new short int[2] {1, 8};
     incrementos[1] = new short int[2] {1, 2};
 
+    icone = al_load_bitmap("./../assets/icone-comerciante.bmp");
     std::string *falas = new std::string [9] {
         "2Com licença, parceiro, a loja está fechada até segunda ordem. Caso precise de algo, abrimos uma venda na chegada da cidade.",
         "1O que houve?",
@@ -596,6 +598,7 @@ void dialogoMissaoChavesPt2(bool rel, bool chav, bool poc, bool d1, bool d2, boo
     short int **incrementos = new short int*;
     incrementos[0] = new short int[2] {1, 2};
 
+    icone = al_load_bitmap("./../assets/icone-comerciante.bmp");
     std::string *falas = new std::string [5] {
         "2Com licença, parceiro, a loja está... Ah, é o senhor. Conseguiu as chaves?",
         "1Aqui estão, cuidem bem deles.",
@@ -614,6 +617,7 @@ void dialogoMissaoChavesExtra(bool rel, bool chav, bool poc, bool d1, bool d2, b
     std::string **opcoes;
     short int **incrementos;
 
+    icone = al_load_bitmap("./../assets/icone-comerciante.bmp");
     std::string *falas = new std::string [2] {
         "2Conseguiu as chaves?",
         "1*Não."
@@ -633,6 +637,7 @@ void dialogoMissaoPocaoPt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool
     short int **incrementos = new short int*;
     incrementos[0] = new short int[2] {1, 5};
 
+    icone = al_load_bitmap("./../assets/icone-comerciante.bmp");
     std::string *falas = new std::string [10]{ 
         "2",
         "1Como você sabe meu nome?",
@@ -660,6 +665,7 @@ void dialogoMissaoPocaoPt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool
     std::string **opcoes;
     short int **incrementos;
 
+    icone = al_load_bitmap("./../assets/icone-comerciante.bmp");
     std::string *falas = new std::string [6] {
         "2Olá, ",
         "2Encontrou o que eu pedi?",
@@ -680,6 +686,7 @@ void dialogoMissaoPocaoPt2Level5(bool rel, bool chav, bool poc, bool d1, bool d2
     std::string **opcoes;
     short int **incrementos;
 
+    icone = al_load_bitmap("./../assets/icone-comerciante.bmp");
     std::string *falas = new std::string [7] {
         "2Olá, ",
         "2Encontrou o que eu pedi?",
@@ -701,6 +708,7 @@ void dialogoMissaoPocaoExtra(bool rel, bool chav, bool poc, bool d1, bool d2, bo
     std::string **opcoes;
     short int **incrementos;
 
+    icone = al_load_bitmap("./../assets/icone-comerciante.bmp");
     std::string *falas = new std::string [2] {
         "2Conseguiu a Poção?",
         "1*Não."
@@ -723,6 +731,7 @@ void dialogoMissaoEspingardaPt1(bool rel, bool chav, bool poc, bool d1, bool d2,
     incrementos[0] = new short int[2] {1, 4};
     incrementos[1] = new short int[2] {1, 7};
 
+    icone = al_load_bitmap("./../assets/icone-comerciante.bmp");
     std::string *falas = new std::string [18]{ 
         "2Malditos pistoleiros! Estão levando nosso dinheiro, nossas moças e nosso Whisky!",
         "2E o pior... Sem a Sandra ao meu lado, me sinto indefeso, como se faltasse uma parte de mim...",
@@ -760,6 +769,7 @@ void dialogoMissaoEspingardaPt2(bool rel, bool chav, bool poc, bool d1, bool d2,
     short int **incrementos = new short int*;
     incrementos[0] = new short int[2] {2, 1};
 
+    icone = al_load_bitmap("./../assets/icone-comerciante.bmp");
     std::string *falas = new std::string [11] {
         "1O senhor é o... Ahm... Mario?",
         "2Sim, senhor.",
@@ -788,6 +798,7 @@ void dialogoMissaoEspingardaPt3(bool rel, bool chav, bool poc, bool d1, bool d2,
     short int **incrementos = new short int*;
     incrementos[0] = new short int[2] {3, 1};
 
+    icone = al_load_bitmap("./../assets/icone-comerciante.bmp");
     std::string *falas = new std::string [10] {
         "1Aqui, consegui sua espingarda de volta.",
         "2Sandra, meu amor! Prometa que nunca mais vai se afastar de mim, viu?",
@@ -813,6 +824,7 @@ void dialogoMissaoEspingardaExtra(bool rel, bool chav, bool poc, bool d1, bool d
     std::string **opcoes;
     short int **incrementos;
 
+    icone = al_load_bitmap("./../assets/icone-comerciante.bmp");
     std::string *falas = new std::string {
         "2*Ah... Sandra... Que saudade d'ocê...",
     };
@@ -845,6 +857,7 @@ void dialogoMissaoRelogioPt1(bool rel, bool chav, bool poc, bool d1, bool d2, bo
     short int **incrementos = new short int*;
     incrementos[0] = new short int[2] {1, 2};
 
+    icone = al_load_bitmap("./../assets/icone-comerciante.bmp");
     std::string *falas = new std::string [10]{ 
         "2Ei! Você! Garoto!",
         "1Sim?",
@@ -855,7 +868,7 @@ void dialogoMissaoRelogioPt1(bool rel, bool chav, bool poc, bool d1, bool d2, bo
         "2Consegui um relógio de ouro que carregava, mas os bandidos me encontraram. Tentei fugir, mas acabei deixando ele cair.",
         "2Caso esbarre nele, pode trazê-lo pra mim? Por favor, que seja o mais rápido possível!",
         "1*Vou ver o que posso fazer.",
-        "1*!Eu tenho mais o que fazer."
+        "1*Eu tenho mais o que fazer."
     };
 
     Dialogo dialogo(falas, fluxo, incrementos);
@@ -869,6 +882,7 @@ void dialogoMissaoRelogioPt2(bool rel, bool chav, bool poc, bool d1, bool d2, bo
     std::string **opcoes;
     short int **incrementos;
 
+    icone = al_load_bitmap("./../assets/icone-comerciante.bmp");
     std::string *falas = new std::string [4] {
         "1Encontrei o seu relógio. Agora você pode sair daqui.",
         "2Muito obrigado! Mesmo!",
@@ -885,6 +899,7 @@ void dialogoMissaoRelogioPt2Extra(bool rel, bool chav, bool poc, bool d1, bool d
     std::string **opcoes;
     short int **incrementos;
 
+    icone = al_load_bitmap("./../assets/icone-comerciante.bmp");
     std::string *falas = new std::string [2] {
         "2Encontrou o Relógio?",
         "1*Não."
@@ -898,6 +913,7 @@ void dialogoNivel1Pt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
     std::string **opcoes;
     short int **incrementos;
 
+    icone = al_load_bitmap("./../assets/icone-comerciante.bmp");
     std::string *falas = new std::string[12] {
         "2",
         "1Eu mesmo.",
@@ -906,7 +922,7 @@ void dialogoNivel1Pt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
         "2Ora, eu sou só uma iguana.",
         "1...",
         "2Então, o seu amigo xerife pediu para que você verificasse o saloon.",
-        "1Primeiro que eu não exatamente que ele é meu amigo. Segundo, o que tem no saloon?",
+        "1Primeiro que ele não é exatamente meu amigo. Segundo, o que tem no saloon?",
         "2O saloon foi invadido por um dos pistoleiros, tomou o lugar do cervejeiro. Foi o primeiro golpe.",
         "2Os outros, não sabemos onde estão exatamente, devem estar escondidos.",
         "2Vencer ele talvez deixe alguns moradores mais livres para sair de casa.",
@@ -924,6 +940,7 @@ void dialogoNivel1Pt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
     std::string **opcoes;
     short int **incrementos;
 
+    icone = al_load_bitmap("./../assets/icone-comerciante.bmp");
     std::string *falas = new std::string[8] {
         "2Você! Vai pra casa! Estamos fazendo revista no estoque do saloon.",
         "1Eu não moro aqui.",
@@ -944,6 +961,7 @@ void dialogoNivel2Pt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
     std::string **opcoes;
     short int **incrementos;
 
+    icone = al_load_bitmap("./../assets/icone-comerciante.bmp");
     std::string *falas = new std::string[7] {
         "2Muito obrigado por salvar o meu saloon, eu te devo uma bebida. De graça! Por minha conta!",
         "1Não precisa se preocupar.",
@@ -963,6 +981,7 @@ void dialogoNivel2Pt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
     std::string **opcoes;
     short int **incrementos;
 
+    icone = al_load_bitmap("./../assets/icone-comerciante.bmp");
     std::string *falas = new std::string[9] {
         "1Olá?",
         "2Você deve ser o ",
@@ -991,6 +1010,7 @@ void dialogoNivel2Pt3(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
     short int **incrementos = new short int*;
     incrementos[0] = new short int[2] {1, 8};
 
+    icone = al_load_bitmap("./../assets/icone-comerciante.bmp");
     std::string *falas = new std::string[12] {
         "2Oi, garoto! Eu estava indo agora mesmo resolver a invasão ao rancho.",
         "1Invasão ao rancho?",
@@ -1015,6 +1035,7 @@ void dialogoNivel3Pt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
     std::string **opcoes;
     short int **incrementos;
 
+    icone = al_load_bitmap("./../assets/icone-comerciante.bmp");
     std::string *falas = new std::string[9] {
         "1Aqui, a estrela do xerife.",
         "2Ótimo!",
@@ -1036,6 +1057,7 @@ void dialogoNivel3Pt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
     std::string **opcoes;
     short int **incrementos;
 
+    icone = al_load_bitmap("./../assets/icone-comerciante.bmp");
     std::string *falas = new std::string[6] {
         "2Auuuuuu!!!",
         "1Ei, você! Deixa as galinhas em paz!",
@@ -1054,6 +1076,7 @@ void dialogoNivel4Pt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
     std::string **opcoes;
     short int **incrementos;
 
+    icone = al_load_bitmap("./../assets/icone-comerciante.bmp");
     std::string *falas = new std::string[9] {
         "1Onde tá o seu líder? Eu já perdi a paciência com o grupo de vocês.",
         "2Eu não sei.",
@@ -1075,6 +1098,7 @@ void dialogoNivel4Pt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
     std::string **opcoes;
     short int **incrementos;
 
+    icone = al_load_bitmap("./../assets/icone-comerciante.bmp");
     std::string *falas = new std::string[4] {
         "2Pode deixar que eu cuido dela agora. Faz tempo que eu não faço um churrasco",
         "2Isso aqui estava com ela, um pé de coelho. Pode te trazer sorte. Imagino que um garoto não tenha o tiro tão preciso ainda",
@@ -1090,6 +1114,7 @@ void dialogoNivel4Pt3(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
     std::string **opcoes;
     short int **incrementos;
 
+    icone = al_load_bitmap("./../assets/icone-comerciante.bmp");
     std::string *falas = new std::string[5] {
         "2Funerária Viçosa: Seu destino é aqui! O que precisa, cavalheiro?",
         "1Imagino que seja o tal José do Caixão.",
@@ -1112,6 +1137,7 @@ void dialogoNivel5Pt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
     short int **incrementos = new short int*;
     incrementos[0] = new short int[2] {1, 9};
 
+    icone = al_load_bitmap("./../assets/icone-comerciante.bmp");
     std::string *falas = new std::string[15] {
         "1A coiote disse que você sabe quem começou isso tudo aqui.",
         "1É o fim da linha, parceiro. Quem é o líder disso tudo?",
@@ -1139,6 +1165,7 @@ void dialogoNivel5Pt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
     std::string **opcoes;
     short int **incrementos;
 
+    icone = al_load_bitmap("./../assets/icone-comerciante.bmp");
     std::string *falas = new std::string[8] {
         "1Então, é você que tá orquestrando isso tudo.",
         "2E, se não fosse por você, meu plano estaria funcionando perfeitamente.",

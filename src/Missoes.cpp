@@ -1,7 +1,9 @@
 #include "Missoes.hpp"
 
 Missao::Missao(short int X, short int Y, unsigned char valor):
-    Interacao("missao", X, Y, valor), inicializada(false) {}
+    Interacao("missao", X, Y, valor), inicializada(false) {
+    this->_etapa = 1;
+}
 
 bool Missao::getinicializada(){
     return inicializada;

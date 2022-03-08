@@ -161,6 +161,7 @@ void Protagonista::nextLevel(){
 
         resetCamera(15, 5);
 
+        // Adiciona personagens secundários na matriz
         MAPA[28][54] = 'F';
         MAPA[13][31] = 'I';
         MAPA[39][65] = 'G';
@@ -181,6 +182,9 @@ void Protagonista::nextLevel(){
         EIXO_Y_PLAYER_TELA = 572;    
 
         resetCamera(11, 5); 
+
+        MAPA[29][31] = '1'; // Remove Ambrósio da matriz
+        MAPA[56][73] = MAPA[56][74] = MAPA[57][73] = MAPA[57][74] = '1'; // Remove xerife espeto da matriz
     }
 
     else if(this->_nivel == 4){
@@ -198,7 +202,7 @@ void Protagonista::nextLevel(){
 
         resetCamera(12, 2); 
 
-        MAPA[48][17] = 'C'; 
+        MAPA[28][77] = '1'; // Remove Renato da matriz
     }
 
     else if(this->_nivel == 5){
@@ -215,6 +219,9 @@ void Protagonista::nextLevel(){
         EIXO_Y_PLAYER_TELA = 572;  
 
         resetCamera(16, 5); 
+
+        MAPA[27][89] = MAPA[28][89] = '1'; // Remove José do Caixão da matriz
+        MAPA[16][8] = MAPA[16][9] = MAPA[17][8] = MAPA[17][9] = 'E'; // Adiciona Johnny Cash na matriz
     }   
 
     general_player = player_f1;
