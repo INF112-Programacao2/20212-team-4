@@ -8,6 +8,7 @@
 #include "data.hpp"
 #include "Grafico.hpp"
 #include <math.h>
+#include "Batalha.hpp"
 
 /* GAME SAVE */
 GameSave *Save = new GameSave();
@@ -37,6 +38,10 @@ MissaoSecundaria *Missao_Espingarda = new MissaoSecundaria(0, 0, 'E', 10);
 MissaoSecundaria *Missao_Chave = new MissaoSecundaria(0, 0, 'C', 10);
 MissaoSecundaria *Missao_Relogio = new MissaoSecundaria(0, 0, 'R', 10);
 MissaoSecundaria *Missao_Pocao = new MissaoSecundaria( 0, 0, 'P', 10);
+
+/* BATALHAS */
+Batalha1x1 *Batalha_Nivel1 = new Batalha1x1();
+
 
 /* FUNCOES */
 bool camera(char mov);
