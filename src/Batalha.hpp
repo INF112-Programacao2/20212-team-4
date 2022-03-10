@@ -5,7 +5,6 @@
 #include <string>
 #include "interacao.hpp"
 #include "Personagens.hpp"
-#include "IBatalha.hpp"
 
 class IBatalha {
 public:
