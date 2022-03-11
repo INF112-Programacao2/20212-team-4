@@ -14,6 +14,7 @@ class Missao : public Interacao{
         void setDialogo(Dialogo *falas);
         void setinicializadaTrue();
         bool getinicializada();
+        short int _etapa;
 };
 
 class MissaoSecundaria : public Missao{

@@ -11,10 +11,10 @@
 #include "Grafico.hpp"
 
 
-void Batalha1x1 :: batalhar(){
+// void Batalha1x1 :: batalhar(){
     
 
     
-}
+// }
 
 

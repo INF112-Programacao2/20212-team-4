@@ -41,8 +41,15 @@ MissaoSecundaria *Missao_Chave = new MissaoSecundaria(0, 0, 'C', 10);
 MissaoSecundaria *Missao_Relogio = new MissaoSecundaria(0, 0, 'R', 10);
 MissaoSecundaria *Missao_Pocao = new MissaoSecundaria( 0, 0, 'P', 10);
 
+/* DIALOGOS MISSOES */
+Missao *Nivel1 = new Missao(0, 0, '3');
+Missao *Nivel2 = new Missao(0, 0, 'A');
+Missao *Nivel3 = new Missao(0, 0, 'J');
+Missao *Nivel4 = new Missao(0, 0, 'C');
+Missao *Nivel5 = new Missao(0, 0, 'F');
+
 /* BATALHAS */
-Batalha1x1 *Batalha_Nivel1 = new Batalha1x1();
+// Batalha1x1 *Batalha_Nivel1 = new Batalha1x1();
 
 
 /* FUNCOES */
