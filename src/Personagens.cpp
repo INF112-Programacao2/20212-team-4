@@ -209,6 +209,7 @@ void Protagonista::nextLevel(){
 
         resetCamera(11, 2); 
 
+
         MAPA[28][76] = '0'; // Remove Renato da matriz
         map= al_load_bitmap("./../assets/map4.bmp");
     }

@@ -10,7 +10,6 @@ class Missao : public Interacao{
         bool inicializada;
 
     public:
-        short int _etapa;
         Missao(short int X, short int Y, unsigned char valor);
         void setDialogo(Dialogo *falas);
         void setinicializadaTrue();

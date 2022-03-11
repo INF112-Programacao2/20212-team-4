@@ -27,14 +27,6 @@ short int Interacao::getPosicaoY(){
     return _y;
 }
 
-void Interacao::setPosicaoX(short int x){
-    this->_x = x;
-}
-
-void Interacao::setPosicaoY(short int y){
-    this->_y = y;
-}
-
 char Interacao::getValor(){
     return _valor;
 }
@@ -68,6 +60,15 @@ bool Interacao::interacaoProxima(unsigned char c){
 }
 
 bool Interacao::missaoProxima(unsigned char c){
+    if(MAPA[i+2][j] == c) return true;
+    else if(MAPA[i+1][j-1] == c) return true;
+    else if(MAPA[i+1][j+1] == c) return true;
+    else if(MAPA[i][j] == c) return true;
+
+    return false;
+}
+
+bool Interacao::batalhaProxima(unsigned char c){
     if(MAPA[i+2][j] == c) return true;
     else if(MAPA[i+1][j-1] == c) return true;
     else if(MAPA[i+1][j+1] == c) return true;

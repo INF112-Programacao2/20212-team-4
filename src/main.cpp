@@ -8,6 +8,7 @@
 #include "data.hpp"
 #include "Grafico.hpp"
 #include <math.h>
+#include "Batalha.hpp"
 
 /* GAME SAVE */
 GameSave *Save = new GameSave();
@@ -31,6 +32,8 @@ Interacao *Dinheiro3 = new Interacao("Dinheiro3", 2, 46, '8');
 Interacao *Dinheiro4 = new Interacao("Dinheiro4", 68, 67, '8');
 Interacao *Loja = new Interacao("Loja", 42, 45, '4'); //criando ponteiro para objeto loja do tipo interecao
 Interacao *Botao_Interagir = new Interacao("Botaointeracao", 0, 0, '1');
+Interacao *Batalha1 = new Interacao("Batalha1", 29, 31, 'S');
+
 
 /* MISSOES SECUNDARIAS */
 MissaoSecundaria *Missao_Espingarda = new MissaoSecundaria(0, 0, 'E', 10);
@@ -38,12 +41,9 @@ MissaoSecundaria *Missao_Chave = new MissaoSecundaria(0, 0, 'C', 10);
 MissaoSecundaria *Missao_Relogio = new MissaoSecundaria(0, 0, 'R', 10);
 MissaoSecundaria *Missao_Pocao = new MissaoSecundaria( 0, 0, 'P', 10);
 
-/* DIÁLOGOS DA HISTÓRIA */
-Missao *Nivel1 = new Missao(0, 0, '3');
-Missao *Nivel2 = new Missao(0, 0, 'A');
-Missao *Nivel3 = new Missao(0, 0, 'J');
-Missao *Nivel4 = new Missao(0, 0, 'C');
-Missao *Nivel5 = new Missao(0, 0, 'E');
+/* BATALHAS */
+Batalha1x1 *Batalha_Nivel1 = new Batalha1x1();
+
 
 /* FUNCOES */
 bool camera(char mov);
@@ -53,13 +53,14 @@ void interagir();
 void loja(); //funcao que gerencia a loja
 void resetGame();
 
-/* VARIÁVEIS IMPORTANTES */
+
 short int mov_cont = 0;
 ALLEGRO_EVENT ev0;
 ALLEGRO_EVENT ev1;
 short int contGalinha = 0;
 
 int main(int argc, char **argv){
+    
     /* COMECANDO A EXECUCAO DO JOGO*/
     if(inicializaJogo()){
         INICIO:
@@ -68,6 +69,8 @@ int main(int argc, char **argv){
         /* === NÍVEL UM === */
         // Neste nível, o jogador tem a batalha contra o pistoleiro Silvio, em frente ao Saloon. Não há NPCs 
         // no mapa para passar missões.
+
+        MAPA[29][31]='S'; //colocando o Silvio no mapa de colisão
 
         while(Player->getNivel()==1){
             al_wait_for_event(event_queue, &ev0);
@@ -86,6 +89,7 @@ int main(int argc, char **argv){
             al_flip_display();
         }
 
+        MAPA[29][31]='1'; //retirando o Silvio do mapa de colisão 
         delete Silvio;
         Silvio = nullptr;
 
@@ -428,6 +432,7 @@ void interagir(){
     else if(Pocao->itemProximo('1'))
         Player->addItem(Pocao->getNome(), 1);
 
+    
     else if(Dinheiro1->itemProximo('1'))
         Player->setDinheiro(Player->getDinheiro()+10);
     
@@ -442,6 +447,10 @@ void interagir(){
 
     else if(Loja->interacaoProxima('y')){ //caso a interacao proxima seja a loja
         loja();
+    }
+  
+    else if(Batalha1->batalhaProxima('S')){
+       
     }
 
     else if(Missao_Chave->missaoProxima('F')){
@@ -486,7 +495,6 @@ void interagir(){
         else if(Missao_Pocao->getinicializada() == true && Player->qtdItem("Pocao") == 1 && Player->getNivel() == 5){
             dialogoMissaoPocaoPt2Level5(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
-            
             Player->subItem(Pocao->getNome(), 1);
             Missao_Chave->finish();
             MAPA[13][30] = '0';
@@ -505,7 +513,6 @@ void interagir(){
             
             Player->subItem("Espingarda", 1);
             Missao_Espingarda->finish();
-            MAPA[38][44] = '0';
         }
         
         else if(Missao_Espingarda->getinicializada() == true && !Missao_Espingarda->completo()){
@@ -539,7 +546,6 @@ void interagir(){
         else if(Missao_Relogio->getinicializada() == true && Player->qtdItem("Relogio") == 1){
             dialogoMissaoRelogioPt2(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
-            
             Player->subItem(Relogio->getNome(), 1);
             Missao_Relogio->pay(Player);
             Missao_Relogio->finish();
