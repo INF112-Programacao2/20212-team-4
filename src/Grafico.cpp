@@ -5,6 +5,13 @@ ALLEGRO_EVENT evdialogo;
 ALLEGRO_EVENT evmorte;
 bool bought; //variavel que define se o player ja fez ou nao a compra
 
+void minimap(){
+    if(keys[ALLEGRO_KEY_M]){
+        al_draw_scaled_bitmap(mini_map, 0, 0, 1714, 1282, 256, 10, RES_WIDTH(1714)*0.85, RES_HEIGHT(1282)*0.85, 0);
+        al_draw_scaled_bitmap(player_minimap, 0, 0, 12, 12, EIXO_X_MINIMAP, EIXO_Y_MINIMAP, RES_WIDTH(12), RES_HEIGHT(12), 0);
+    }
+}
+
 void redesenhar(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int &cont, Protagonista *Player, Interacao *botao){
     al_draw_scaled_bitmap(map, TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 0, 
         0, res_x_comp*(res_x_comp/1920.0)*ZOOM, res_y_comp*(res_y_comp/1080.0)*ZOOM, 0);
@@ -85,6 +92,28 @@ void redesenhar(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d
     al_draw_scaled_bitmap(general_player, 0, 0, res_x_player, res_y_player, RES_WIDTH(EIXO_X_PLAYER_TELA), 
         RES_HEIGHT(EIXO_Y_PLAYER_TELA), RES_WIDTH(res_x_player*ZOOM), RES_HEIGHT(res_y_player*ZOOM), 0);
 
+    if(i == 64){
+        if(j == 16)
+            al_draw_scaled_bitmap(portao, 0, 0, 80, 64, RES_WIDTH(EIXO_X_PLAYER_TELA-64), RES_HEIGHT(EIXO_Y_PLAYER_TELA+4), RES_WIDTH(80*ZOOM), RES_HEIGHT(64*ZOOM), 0);
+
+        else if(j == 17)
+            al_draw_scaled_bitmap(portao, 0, 0, 80, 64, RES_WIDTH(EIXO_X_PLAYER_TELA-128), RES_HEIGHT(EIXO_Y_PLAYER_TELA+4), RES_WIDTH(80*ZOOM), RES_HEIGHT(64*ZOOM), 0);
+
+        else if(j == 18)
+            al_draw_scaled_bitmap(portao, 0, 0, 80, 64, RES_WIDTH(EIXO_X_PLAYER_TELA-192), RES_HEIGHT(EIXO_Y_PLAYER_TELA+4), RES_WIDTH(80*ZOOM), RES_HEIGHT(64*ZOOM), 0);
+    }
+    else if(i == 63){
+        if(j == 16)
+            al_draw_scaled_bitmap(portao, 0, 0, 80, 64, RES_WIDTH(EIXO_X_PLAYER_TELA-64), RES_HEIGHT(EIXO_Y_PLAYER_TELA+68), RES_WIDTH(80*ZOOM), RES_HEIGHT(64*ZOOM), 0);
+
+        else if(j == 17)
+            al_draw_scaled_bitmap(portao, 0, 0, 80, 64, RES_WIDTH(EIXO_X_PLAYER_TELA-128), RES_HEIGHT(EIXO_Y_PLAYER_TELA+68), RES_WIDTH(80*ZOOM), RES_HEIGHT(64*ZOOM), 0);
+
+        else if(j == 18)
+            al_draw_scaled_bitmap(portao, 0, 0, 80, 64, RES_WIDTH(EIXO_X_PLAYER_TELA-192), RES_HEIGHT(EIXO_Y_PLAYER_TELA+68), RES_WIDTH(80*ZOOM), RES_HEIGHT(64*ZOOM), 0);
+    }
+
+
     if(botao->interacaoProxima('2') && !Player->_dialogo){//caso haja uma interacao proxima e o personagem não esteja na loja
         al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(610), 0.85*res_y_comp, 0,"Aperte          para Interagir");
         al_draw_scaled_bitmap(botaointeracao, 0,  0, 18, 18, RES_WIDTH(770), 0.85*res_y_comp, RES_WIDTH(18*ZOOM), RES_HEIGHT(18*ZOOM), 0);
@@ -95,7 +124,7 @@ void redesenhar(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d
         al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(610), 0.85*res_y_comp, 0,"Aperte          para comer");
         al_draw_scaled_bitmap(botaocomer, 0,  0, 18, 18, RES_WIDTH(770), 0.85*res_y_comp, RES_WIDTH(18*ZOOM), RES_HEIGHT(18*ZOOM), 0);
         
-    }    
+    }   
 }
 
 bool Dialogo::verificarTecla(){
@@ -241,13 +270,13 @@ bool Dialogo::dialogar(std::string npc, std::string **opcoes, bool rel, bool cha
         verificarTecla();
     }
 
+    resetTeclas();
     Player->_dialogo = false;
     return retorno;
 }
 
 /* INTERACAO DO PLAYER COM A LOJA*/
 void Dialogo::dialogar_lojista(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int &cont, Protagonista *Player, Interacao *botao){
-    keys[ALLEGRO_KEY_E] = false;
     Player->_dialogo = true; //o dialogo com o lojista esta em andamento
 
     ajustarCamera(rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);//efeito de reposicionar a camera
@@ -339,6 +368,7 @@ void Dialogo::dialogar_lojista(bool rel, bool chav, bool poc, bool d1, bool d2, 
         }
     }
 
+    resetTeclas();
     Player->_dialogo = false; //o dialogo com o lojista termina
 }
 

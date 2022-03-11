@@ -5,6 +5,7 @@
 ALLEGRO_DISPLAY *game = NULL; // ALLEGRO_DISPLAY é um tipo de variável que guarda uma janela a ser desenhada
 ALLEGRO_EVENT_QUEUE *event_queue = NULL; // Declarando a fila de enventos 
 ALLEGRO_BITMAP *map = NULL; // Variável que vai receber uma imagem
+ALLEGRO_BITMAP *mini_map = NULL; // Variável que vai receber uma imagem
 ALLEGRO_BITMAP *general_player = NULL; //variavel que vai receber a imagem do personagem
 ALLEGRO_BITMAP *parado = NULL; //variavel que vai receber a imagem do personagem
 ALLEGRO_BITMAP *player_f1= NULL; //variavel que vai receber a imagem do personagem
@@ -72,6 +73,8 @@ ALLEGRO_BITMAP *game_over12 = NULL; //variavel que vai receber a imagem do game 
 ALLEGRO_BITMAP *botaoreiniciar = NULL; // variavel que vai receber o botao para reiniciar
 ALLEGRO_BITMAP *icone = NULL; // variavel que vai receber o botao para reiniciar
 ALLEGRO_BITMAP *icone_player = NULL; // variavel que vai receber o botao para reiniciar
+ALLEGRO_BITMAP *player_minimap = NULL;
+ALLEGRO_BITMAP *portao = NULL;
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
 // Matriz do mapa.
@@ -106,7 +109,7 @@ unsigned char MAPA[][97]=
 "000000000000000000000000111111111100000000000001000000000000000001000000000000111110111111110000",
 "000000000000000000000000000111111100000000000001000000000000033301000000000000111110000011000000",
 "000000000000000000000000000011111111100000001111111000111111133311111111111111111110000011000000",
-"000000000000000000000000000011111111111111111111111111111111111111111111111111111110111111111100",
+"000000000000000000000000000011111111111101111111111111111111111111111111111111111110111111111100",
 "000000000000000000000000000011111111111111111111111111111111111111111111111111111111111111000000",
 "000000000000000000000000000011111111111111111111111111111000000000000000000000111110111111000000",
 "000000000000000000000000000011110000000110000011110000000000000000000000000000111110111100000000",
@@ -122,7 +125,7 @@ unsigned char MAPA[][97]=
 "000000000000000000000000000011111110001111111111111111111111111111111111111111111111111111111110",
 "000000000000000000000000000011111100000001111111111111111111111111111111111111111111111111111110",
 "111001111111110000000000111111111100000000111111111111111111111111111111111111111111111111111110",
-"111001111111110000000000111111111100000zzz*11111111111111111111111111111111111111111111111111110",
+"111001111111110000000000111111111100000000*11111111111111111111111111111111111111111111111111110",
 "111111111111110000000000111111111110011111*11111111111111111111111111111111111111111111111111110",
 "100000000000000000000000001111111111111111111111111111111111111111111111111111111111111111111110",
 "100000000000000000000000001111111111111111111111111111111111**1111111111111111111111111111111110",
@@ -141,8 +144,8 @@ unsigned char MAPA[][97]=
 "101111111111111111111111101111111111111111111111111111111111111111111111111111111111111111111110",
 "101111111111111111111111101111111111111111**1111111111111111111111111111111111111**1111111111110",
 "10111111111111111111111110111111111111111111111111111111111**11111111111111111111111111111111110",
-"10111111111111111111111110111111111111*1111111111111111111111111111111111111*1111111111111111110",
-"1011111111111112111011111011111111111**111111111*11111111111111111111111111**1111111111111111110",
+"10111111111111101110111110111111111111*1111111111111111111111111111111111111*1111111111111111110",
+"1011111111111110111011111011111111111**111111111*11111111111111111111111111**1111111111111111110",
 "10000000000000001110000000111111111111111111111111111111111111111111*111111111111111111*11111110",
 "1111111111111111111111111111111111111111111111111111111111111111111*1111111111111111111111111110",
 "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111110",
@@ -154,19 +157,19 @@ unsigned char MAPA[][97]=
 };
 
 std::string CAMERA[10] = {
-    "1111111111111111111111",
-    "1000000000000000000001",
-    "1000000000000000000001",
-    "1000000000000000000001",
-    "1000000000000000000001",
-    "10000000000000P0000001",
-    "1000000000000000000001",
-    "1000000000000000000001",
-    "1000000000000000000001",
+    "111111111111111111111",
+    "100000000000000000001",
+    "100000000000000000001",
+    "100000000000000000001",
+    "100000000000000000001",
+    "1000000000000P0000001",
+    "100000000000000000001",
+    "100000000000000000001",
+    "100000000000000000001",
     "1111111111111111111111"
 };
-short int camI = 5;
-short int camJ = 14;
+short int camI = 4;
+short int camJ = 13;
 short int valueIJcam = '0';
 bool reiniciar = false;
 
@@ -181,6 +184,8 @@ short int i = 29; //posicao do personagem na matriz
 
 short int EIXO_X_PLAYER_TELA;
 short int EIXO_Y_PLAYER_TELA;
+double EIXO_X_MINIMAP;
+double EIXO_Y_MINIMAP;
 double TELA_X_MAPA = 56;
 double TELA_Y_MAPA = 23;
 
@@ -230,9 +235,23 @@ bool inicializaJogo() {
         return false;
     }
 
-    map= al_load_bitmap("./../assets/map.bmp");
+    map= al_load_bitmap("./../assets/map1.bmp");
     if(!map){
         std::cout << "Falha ao carregar o mapa" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
+    mini_map = al_load_bitmap("./../assets/map.bmp");
+    if(!mini_map){
+        std::cout << "Falha ao carregar o mini mapa" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
+    player_minimap = al_load_bitmap("./../assets/player_minimap.bmp");
+    if(!player_minimap){
+        std::cout << "Falha ao carregar o personagem do mini mapa" << std::endl;
         al_destroy_display(game);
         return false;
     }
@@ -290,6 +309,8 @@ bool inicializaJogo() {
     EIXO_X_PLAYER_TELA = 1216;
     EIXO_Y_PLAYER_TELA = 572;
 
+    EIXO_X_MINIMAP = 1280;
+    EIXO_Y_MINIMAP = 462;
 
     /* ATRIBUINDO AS IMAGENS DOS ITENS AS RESPECTIVAS VARIAVEIS */
     relogio = al_load_bitmap("./../assets/relogio-map.bmp");
@@ -496,6 +517,13 @@ bool inicializaJogo() {
         return false;
     }
 
+    portao = al_load_bitmap("./../assets/portao.bmp");
+    if(!portao){
+        std::cout << "Falha ao carregar o portao" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
     game_over8 = al_load_bitmap("./../assets/batalha/go8.bmp");
     if(!game_over8){
         std::cout << "Falha ao carregar o game_over8" << std::endl;
@@ -544,9 +572,9 @@ bool inicializaJogo() {
 void resetCamera(short int x, short int y){ //Reseta a camera ao passar de nível
     for(int i = 0; i < 10; i++){
         if(i == 0 || i == 9)
-            CAMERA[i] = "1111111111111111111111";
+            CAMERA[i] = "111111111111111111111";
         else
-            CAMERA[i] = "1000000000000000000001";
+            CAMERA[i] = "100000000000000000001";
     }
 
     CAMERA[y][x] = 'P';
@@ -558,9 +586,11 @@ void resetTeclas(){
     keys[ALLEGRO_KEY_W] = false;
     keys[ALLEGRO_KEY_A] = false;
     keys[ALLEGRO_KEY_S] = false;
+    keys[ALLEGRO_KEY_E] = false;
     keys[ALLEGRO_KEY_D] = false;
     keys[ALLEGRO_KEY_X] = false;
     keys[ALLEGRO_KEY_Z] = false;
+    keys[ALLEGRO_KEY_M] = false;
     keys[ALLEGRO_KEY_SPACE] = false;
     keys[ALLEGRO_KEY_ESCAPE] = false;
 }
@@ -611,8 +641,8 @@ void dialogoMissaoChavesPt2(bool rel, bool chav, bool poc, bool d1, bool d2, boo
         "2Com licença, parceiro, a loja está... Ah, é o senhor. Conseguiu as chaves?",
         "1Aqui estão, cuidem bem deles.",
         "2Tome uma recompensa por acha-las.",
-        "2*Obrigado.",
-        "2*!Não se preocupe com isso.",
+        "1*Obrigado.",
+        "1*!Não se preocupe com isso.",
     };
 
     Dialogo dialogo(falas, fluxo, incrementos);
@@ -846,7 +876,7 @@ void dialogoMissaoEspingardaExtra2(bool rel, bool chav, bool poc, bool d1, bool 
     std::string **opcoes;
     short int **incrementos;
 
-    icone = al_load_bitmap("./../assets/icone-maria.bmp");
+    icone = al_load_bitmap("./../assets/icone-mario.bmp");
     std::string *falas = new std::string[2] {
         "2Aoba",
         "1*Opa"
