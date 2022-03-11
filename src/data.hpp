@@ -90,6 +90,12 @@ extern ALLEGRO_BITMAP *game_over9; //variavel que vai receber a imagem do game o
 extern ALLEGRO_BITMAP *game_over10; //variavel que vai receber a imagem do game over
 extern ALLEGRO_BITMAP *game_over11; //variavel que vai receber a imagem do game over
 extern ALLEGRO_BITMAP *game_over12; //variavel que vai receber a imagem do game over
+extern ALLEGRO_BITMAP *botaoreiniciar; // variavel que vai receber o botao para reiniciar
+extern ALLEGRO_BITMAP *icone;
+extern ALLEGRO_BITMAP *icone_player;
+extern ALLEGRO_BITMAP *mini_map;
+extern ALLEGRO_BITMAP *player_minimap;
+extern ALLEGRO_BITMAP *portao;
 extern ALLEGRO_BITMAP *botaoreiniciar;   // variavel que vai receber o botao para reiniciar
 extern ALLEGRO_BITMAP *player_batalha;   // imagem do jogador para a batalha
 extern ALLEGRO_BITMAP *silvio_batalha;   // imagem do inimigo para a batalha
@@ -97,7 +103,6 @@ extern ALLEGRO_BITMAP *caixa_de_ataques; // opcoes de ataque
 extern ALLEGRO_BITMAP *ataques;          // ataques
 extern ALLEGRO_BITMAP *vida_player;      // vida do protagonista   
 extern ALLEGRO_BITMAP *vida_vilao;       // vida do vilao
-
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
 // Matriz do mapa.
@@ -120,6 +125,8 @@ extern bool redraw;
 // Posição atual do player
 extern short int EIXO_X_PLAYER_TELA;
 extern short int EIXO_Y_PLAYER_TELA;
+extern double EIXO_X_MINIMAP;
+extern double EIXO_Y_MINIMAP;
 extern double TELA_X_MAPA;
 extern double TELA_Y_MAPA;
 

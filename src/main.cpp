@@ -65,7 +65,6 @@ int main(int argc, char **argv){
     if(inicializaJogo()){
         INICIO:
         Save->read_save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Chave, Relogio, Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
-        Player->setNome("Barbara");
 
         /* === NÍVEL UM === */
         // Neste nível, o jogador tem a batalha contra o pistoleiro Silvio, em frente ao Saloon. Não há NPCs 
@@ -79,6 +78,8 @@ int main(int argc, char **argv){
             if(!to_move()) break;   
             redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+            minimap();
+
             resetGame();
             if(reiniciar){
                 reiniciar = false;
@@ -101,6 +102,13 @@ int main(int argc, char **argv){
             if(!to_move()) break;   
             redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+            minimap();
+
+            resetGame();
+            if(reiniciar){
+                reiniciar = false;
+                goto INICIO;
+            }
 
             al_flip_display();
         }
@@ -117,6 +125,13 @@ int main(int argc, char **argv){
             if(!to_move()) break;   
             redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+            minimap();
+
+            resetGame();
+            if(reiniciar){
+                reiniciar = false;
+                goto INICIO;
+            }
 
             al_flip_display();
         }
@@ -133,6 +148,13 @@ int main(int argc, char **argv){
             if(!to_move()) break;   
             redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+            minimap();
+
+            resetGame();
+            if(reiniciar){
+                reiniciar = false;
+                goto INICIO;
+            }
 
             al_flip_display();
         }
@@ -151,6 +173,13 @@ int main(int argc, char **argv){
             if(!to_move()) break;   
             redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+            minimap();
+
+            resetGame();
+            if(reiniciar){
+                reiniciar = false;
+                goto INICIO;
+            }
 
             al_flip_display();
         }
@@ -181,6 +210,7 @@ bool camera(char mov){
         if(camI == 0){
             TELA_Y_MAPA -= 1;
             i--;
+            EIXO_Y_MINIMAP -= 13.5; 
             return false;
         }
 
@@ -199,6 +229,7 @@ bool camera(char mov){
         if(camI == 9){
             TELA_Y_MAPA += 1;
             i++;
+            EIXO_Y_MINIMAP += 13.5; 
             return false;
         }
 
@@ -217,6 +248,8 @@ bool camera(char mov){
         if(camJ == 0){
             TELA_X_MAPA -= 1;
             j--;
+            EIXO_X_MINIMAP -= 13.5; 
+
             return false;
         }
         else{
@@ -234,6 +267,8 @@ bool camera(char mov){
             // Caso esteja na borda da direita.
             TELA_X_MAPA += 1;
             j++;
+            EIXO_X_MINIMAP += 13.5; 
+
             return false;
         }
 
@@ -293,6 +328,7 @@ bool to_move(){
             if(MAPA[i][j] == '1' && camera('C')){
                 i--;
                 EIXO_Y_PLAYER_TELA -= 16*ZOOM;
+                EIXO_Y_MINIMAP -= 13.5; 
             }
 
             /*SE O PERSONAGEM ENCOSTA EM UM CACTO, ELE SOFRE UM DANO */
@@ -312,11 +348,12 @@ bool to_move(){
             if(MAPA[i+2][j] == '1' && camera('B')){
                 i++;
                 EIXO_Y_PLAYER_TELA += 16*ZOOM;
+                EIXO_Y_MINIMAP += 13.5; 
             }
             else if(MAPA[i+2][j] == '*'){
                 Player -> setVida(Player -> getVida() - 0.1);
                 //serao desenhadas as imagens do personagem levando dano
-                img1=dano_frente; img3=dano_frente; 
+                img1=dano_frente; img3=dano_frente;
             }
 
             parado = player_f1;
@@ -329,6 +366,7 @@ bool to_move(){
             if(MAPA[i+1][j-1] == '1' && camera('E')){
                 j--;
                 EIXO_X_PLAYER_TELA -= 16*ZOOM;
+                EIXO_X_MINIMAP -= 13.5;
             }  
             else if(MAPA[i+1][j-1] == '*'){
                 Player -> setVida(Player -> getVida() - 0.1);
@@ -346,6 +384,7 @@ bool to_move(){
             if(MAPA[i+1][j+1] == '1' && camera('D')){
                 j++;
                 EIXO_X_PLAYER_TELA += 16*ZOOM;
+                EIXO_X_MINIMAP += 13.5;
             }
             else if(MAPA[i+1][j+1] == '*'){
                 Player -> setVida(Player -> getVida() - 0.1);
@@ -409,6 +448,7 @@ void interagir(){
     else if(Loja->interacaoProxima('y')){ //caso a interacao proxima seja a loja
         loja();
     }
+  
     else if(Batalha1->batalhaProxima('S')){
        
     }
@@ -430,6 +470,7 @@ void interagir(){
             
             Player->subItem(Chave->getNome(), 1);
             Missao_Chave->finish();
+            MAPA[28][50] = '0';
         }
     }
 
@@ -456,7 +497,7 @@ void interagir(){
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
             Player->subItem(Pocao->getNome(), 1);
             Missao_Chave->finish();
-
+            MAPA[13][30] = '0';
         }
     }
 
@@ -508,6 +549,59 @@ void interagir(){
             Player->subItem(Relogio->getNome(), 1);
             Missao_Relogio->pay(Player);
             Missao_Relogio->finish();
+            MAPA[39][63] = '0';
+        }
+    }
+
+    else if(Player->getNivel() == 1){
+        if(Nivel1->missaoProxima('3') && Nivel1->_etapa == 1){
+            dialogoNivel1Pt1(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
+
+            Nivel1->_etapa++;
+            MAPA[29][40] = 'J'; // Adiciona Billy/Ambrósio na matriz
+        }
+        else if(Nivel1->missaoProxima('A') && Nivel1->_etapa == 2){
+            dialogoNivel1Pt2(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
+        }
+    }
+
+    else if(Player->getNivel() == 2){
+        if(Nivel2->missaoProxima('A') && Nivel2->_etapa == 1){
+
+            Nivel2->_etapa++;
+            MAPA[28][76] = 'J'; // Adiciona Renato na matriz
+        }
+        else if(Nivel2->missaoProxima('J') && Nivel2->_etapa == 2){
+
+            MAPA[56][70] = MAPA[56][71] = MAPA[57][70] = MAPA[57][71] = 'B'; // Adiciona Xerife Espeto na matriz
+        }
+        else if(Nivel2->missaoProxima('B') && Nivel2->_etapa == 3){
+
+        }
+    }
+
+    else if(Player->getNivel() == 3){
+        if(Nivel3->missaoProxima('J') && Nivel3->_etapa == 1){
+
+            Nivel2->_etapa++;
+            MAPA[49][17] = MAPA[49][18] = 'C'; // Adiciona Geraldina na matriz
+        }
+        else if(Nivel3->missaoProxima('C') && Nivel3->_etapa == 2){
+
+        } 
+    }
+
+    else if(Player->getNivel() == 4){
+        if(Nivel4->missaoProxima('C')){
+
+        }
+    }
+
+    else if(Player->getNivel() == 5){
+        if(Nivel5->missaoProxima('E')){
+
         }
     }
 }
