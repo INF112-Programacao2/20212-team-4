@@ -70,6 +70,14 @@ ALLEGRO_BITMAP *game_over10 = NULL; //variavel que vai receber a imagem do game 
 ALLEGRO_BITMAP *game_over11 = NULL; //variavel que vai receber a imagem do game over
 ALLEGRO_BITMAP *game_over12 = NULL; //variavel que vai receber a imagem do game over
 ALLEGRO_BITMAP *botaoreiniciar = NULL; // variavel que vai receber o botao para reiniciar
+ALLEGRO_BITMAP *player_batalha = NULL; // imagem do jogador para a batalha
+ALLEGRO_BITMAP *silvio_batalha = NULL; // imagem do inimigo para a batalha
+ALLEGRO_BITMAP *fundo_batalha = NULL;  // tela de batalha
+ALLEGRO_BITMAP *caixa_de_ataques = NULL; // opcoes de ataque
+ALLEGRO_BITMAP *ataques = NULL;          // ataques
+ALLEGRO_BITMAP *vida_player = NULL;      // vida do protagonista   
+ALLEGRO_BITMAP *vida_vilao = NULL;       // vida do vilao
+
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
 // Matriz do mapa.
@@ -277,6 +285,17 @@ bool inicializaJogo() {
     dano_direita=al_load_bitmap("./../assets/dano-direita.bmp");
     dano_esquerda=al_load_bitmap("./../assets/dano-esquerda.bmp");
     dano_frente=al_load_bitmap("./../assets/dano-frente.bmp");
+    caixa_de_ataques=al_load_bitmap("./../assets/caixa_ataques.bmp"); 
+    ataques=al_load_bitmap("./../assets/ataques.bmp");          
+    vida_player=al_load_bitmap("./../assets/vida-player.bmp");         
+    vida_vilao=al_load_bitmap("./../assets/vida-vilao.bmp");       
+
+
+    //atribuindo as imagens das batalhas
+
+    player_batalha = al_load_bitmap("./../assets/batalha/player-batalha.bmp"); // imagem do jogador para a batalha
+    silvio_batalha = al_load_bitmap("./../assets/batalha/pistoleiro.bmp"); // imagem do inimigo para a batalha
+   
 
 
     al_register_event_source(event_queue, al_get_display_event_source(game));
