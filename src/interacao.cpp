@@ -68,4 +68,13 @@ bool Interacao::missaoProxima(unsigned char c){
     return false;
 }
 
+bool Interacao::batalhaProxima(unsigned char c){
+    if(MAPA[i+2][j] == c) return true;
+    else if(MAPA[i+1][j-1] == c) return true;
+    else if(MAPA[i+1][j+1] == c) return true;
+    else if(MAPA[i][j] == c) return true;
+
+    return false;
+}
+
 
