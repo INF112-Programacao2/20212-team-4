@@ -229,7 +229,7 @@ bool Dialogo::dialogar(std::string npc, std::string **opcoes, bool rel, bool cha
         al_draw_multiline_text(font15, al_map_rgb(58,15,43), RES_WIDTH(520), 0.80*res_y_comp, RES_WIDTH(950), RES_HEIGHT(40), 0, fala.c_str());
 
         if(this->_dialogos[this->posicao_atual_dialogo][0] == '1'){
-            al_draw_scaled_bitmap(icone, 0, 0, 18, 18, 348, 825, RES_WIDTH(128), RES_HEIGHT(128), 0);
+            al_draw_scaled_bitmap(icone_player, 0, 0, 18, 18, 348, 825, RES_WIDTH(128), RES_HEIGHT(128), 0);
             al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(355), 0.895*res_y_comp, 0, Player->getNome().c_str());
         }
         else {

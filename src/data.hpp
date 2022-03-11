@@ -92,6 +92,7 @@ extern ALLEGRO_BITMAP *game_over11; //variavel que vai receber a imagem do game 
 extern ALLEGRO_BITMAP *game_over12; //variavel que vai receber a imagem do game over
 extern ALLEGRO_BITMAP *botaoreiniciar; // variavel que vai receber o botao para reiniciar
 extern ALLEGRO_BITMAP *icone;
+extern ALLEGRO_BITMAP *icone_player;
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
 // Matriz do mapa.
