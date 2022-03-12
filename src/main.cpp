@@ -32,7 +32,7 @@ Interacao *Dinheiro3 = new Interacao("Dinheiro3", 2, 46, '8');
 Interacao *Dinheiro4 = new Interacao("Dinheiro4", 68, 67, '8');
 Interacao *Loja = new Interacao("Loja", 42, 45, '4'); //criando ponteiro para objeto loja do tipo interecao
 Interacao *Botao_Interagir = new Interacao("Botaointeracao", 0, 0, '1');
-Interacao *Batalha1 = new Interacao("Batalha1", 29, 31, 'S');
+Interacao *Batalha1 = new Interacao("Batalha1", 29, 40, 'S');
 
 
 /* MISSOES SECUNDARIAS */
@@ -77,7 +77,7 @@ int main(int argc, char **argv){
         // Neste nível, o jogador tem a batalha contra o pistoleiro Silvio, em frente ao Saloon. Não há NPCs 
         // no mapa para passar missões.
 
-        MAPA[29][31]='S'; //colocando o Silvio no mapa de colisão
+        MAPA[29][40]='S'; //colocando o Silvio no mapa de colisão
 
         while(Player->getNivel()==1){
             al_wait_for_event(event_queue, &ev0);
@@ -96,7 +96,7 @@ int main(int argc, char **argv){
             al_flip_display();
         }
 
-        MAPA[29][31]='1'; //retirando o Silvio do mapa de colisão 
+        MAPA[29][40]='1'; //retirando o Silvio do mapa de colisão 
         delete Silvio;
         Silvio = nullptr;
 
@@ -452,13 +452,15 @@ void interagir(){
     else if(Dinheiro4->itemProximo('1'))
         Player->setDinheiro(Player->getDinheiro()+10);
 
+    else if(Batalha1->batalhaProxima('S')){
+       
+    }
+
     else if(Loja->interacaoProxima('y')){ //caso a interacao proxima seja a loja
         loja();
     }
   
-    else if(Batalha1->batalhaProxima('S')){
-       
-    }
+
 
     else if(Missao_Chave->missaoProxima('F')){
         if(Missao_Chave->getinicializada() == false){
