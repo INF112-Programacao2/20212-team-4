@@ -74,9 +74,9 @@ int main(int argc, char **argv){
         Save->read_save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Chave, Relogio, Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
 
         /* === NÍVEL UM === */
-        // Neste nível, o jogador tem a batalha contra o pistoleiro Silvio, em frente ao Saloon. Não há NPCs 
+        // Neste nível, o jogador tem a batalha contra o pistoleiro Billy, em frente ao Saloon. Não há NPCs 
         // no mapa para passar missões.
-
+        
         MAPA[29][40]='S'; //colocando o Silvio no mapa de colisão
 
         while(Player->getNivel()==1){

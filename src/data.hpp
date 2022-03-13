@@ -98,7 +98,7 @@ extern ALLEGRO_BITMAP *player_minimap;
 extern ALLEGRO_BITMAP *portao;
 extern ALLEGRO_BITMAP *botaoreiniciar;   // variavel que vai receber o botao para reiniciar
 extern ALLEGRO_BITMAP *player_batalha;   // imagem do jogador para a batalha
-extern ALLEGRO_BITMAP *silvio_batalha;   // imagem do inimigo para a batalha
+extern ALLEGRO_BITMAP *billy_batalha;   // imagem do inimigo para a batalha
 extern ALLEGRO_BITMAP *caixa_de_ataques; // opcoes de ataque
 extern ALLEGRO_BITMAP *ataques;          // ataques
 extern ALLEGRO_BITMAP *vida_player;      // vida do protagonista   
