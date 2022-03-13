@@ -49,7 +49,7 @@ Missao *Nivel4 = new Missao(0, 0, 'C');
 Missao *Nivel5 = new Missao(0, 0, 'F');
 
 /* BATALHAS */
-// Batalha1x1 *Batalha_Nivel1 = new Batalha1x1();
+Batalha1x1 Batalha_Nivel1;
 
 
 /* FUNCOES */
@@ -453,7 +453,7 @@ void interagir(){
         Player->setDinheiro(Player->getDinheiro()+10);
 
     else if(Batalha1->batalhaProxima('S')){
-       
+       Batalha_Nivel1.batalhar();
     }
 
     else if(Loja->interacaoProxima('y')){ //caso a interacao proxima seja a loja

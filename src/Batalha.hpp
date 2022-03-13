@@ -1,11 +1,6 @@
 #ifndef INF112_BATALHA
 #define INF112_BATALHA
 
-
-#include <string>
-#include "interacao.hpp"
-#include "Personagens.hpp"
-
 class IBatalha {
 public:
     virtual void batalhar() = 0;
@@ -18,7 +13,6 @@ public:
     
 
 };
-
 
 class Batalha1x2 : public IBatalha{
 public:

@@ -305,10 +305,10 @@ bool inicializaJogo() {
     dano_direita=al_load_bitmap("./../assets/dano-direita.bmp");
     dano_esquerda=al_load_bitmap("./../assets/dano-esquerda.bmp");
     dano_frente=al_load_bitmap("./../assets/dano-frente.bmp");
-    caixa_de_ataques=al_load_bitmap("./../assets/caixa_ataques.bmp"); 
-    ataques=al_load_bitmap("./../assets/ataques.bmp");          
-    vida_player=al_load_bitmap("./../assets/vida-player.bmp");         
-    vida_vilao=al_load_bitmap("./../assets/vida-vilao.bmp");       
+    caixa_de_ataques=al_load_bitmap("./../assets/batalha/caixa_ataques.bmp"); 
+    ataques=al_load_bitmap("./../assets/batalha/ataques.bmp");          
+    vida_player=al_load_bitmap("./../assets/batalha/vida-player.bmp");         
+    vida_vilao=al_load_bitmap("./../assets/batalha/vida-vilao.bmp");       
 
 
     //atribuindo as imagens das batalhas
