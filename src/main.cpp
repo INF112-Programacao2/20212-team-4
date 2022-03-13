@@ -454,6 +454,7 @@ void interagir(){
 
     else if(Batalha1->batalhaProxima('S')){
        Batalha_Nivel1.batalhar();
+       keys[ALLEGRO_KEY_E]=false;
     }
 
     else if(Loja->interacaoProxima('y')){ //caso a interacao proxima seja a loja
