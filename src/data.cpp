@@ -77,6 +77,7 @@ ALLEGRO_BITMAP *player_minimap = NULL;
 ALLEGRO_BITMAP *portao = NULL;
 ALLEGRO_BITMAP *player_batalha = NULL; // imagem do jogador para a batalha
 ALLEGRO_BITMAP *silvio_batalha = NULL; // imagem do inimigo para a batalha
+ALLEGRO_BITMAP *fundo_batalha = NULL;  // tela de batalha
 ALLEGRO_BITMAP *caixa_de_ataques = NULL; // opcoes de ataque
 ALLEGRO_BITMAP *ataques = NULL;          // ataques
 ALLEGRO_BITMAP *vida_player = NULL;      // vida do protagonista   
