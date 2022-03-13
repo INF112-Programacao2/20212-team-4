@@ -33,5 +33,6 @@ void redesenhar(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d
 void ajustarCamera(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int &cont, Protagonista *Player, Interacao *botao);
 void telaGameOver(bool reiniciar);
 void minimap();
+void telaMenu(bool iniciar);
 
 #endif

@@ -379,6 +379,23 @@ bool enterToReset(){
     return false;
 }
 
+void telaMenu(bool iniciar){
+    resetTeclas();
+    timer = al_create_timer(1);
+    while (!iniciar){
+        al_wait_for_event(event_queue, &evmorte);
+        if(evmorte.type == ALLEGRO_EVENT_TIMER){
+            al_draw_scaled_bitmap(menu, 0, 0, 416, 304, 0, 0, res_x_comp, res_y_comp, 0);
+            al_draw_scaled_bitmap(titulo, 0, 0, 172, 17, RES_WIDTH(res_x_comp/5), RES_HEIGHT(res_y_comp/4), RES_WIDTH(172*2*ZOOM), RES_HEIGHT(18*2*ZOOM), 0);
+        }
+        al_flip_display();
+        if(enterToReset()) break;
+    }
+
+    general_player = player_f1;
+    timer = al_create_timer(1.0/FPS);
+}
+
 void telaGameOver(bool reiniciar){
     resetTeclas();
     

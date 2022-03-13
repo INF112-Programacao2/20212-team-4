@@ -70,6 +70,18 @@ int main(int argc, char **argv){
     
     /* COMECANDO A EXECUCAO DO JOGO*/
     if(inicializaJogo()){
+
+        while(Player->getNivel()==0){
+            al_wait_for_event(event_queue, &ev0);
+            telaMenu(reiniciar);
+            Player->nextLevel();
+            if(reiniciar){
+                reiniciar = false;
+                goto INICIO;
+            }
+            al_flip_display();
+        }
+
         INICIO:
         Save->read_save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Chave, Relogio, Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
 
