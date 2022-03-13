@@ -82,7 +82,7 @@ ALLEGRO_BITMAP *caixa_de_ataques = NULL; // opcoes de ataque
 ALLEGRO_BITMAP *ataques = NULL;          // ataques
 ALLEGRO_BITMAP *vida_player = NULL;      // vida do protagonista   
 ALLEGRO_BITMAP *vida_vilao = NULL;       // vida do vilao
-ALLEGRO_BITMAP *base_pistoleiro = NULL;  // base do personagem na batalha
+ALLEGRO_BITMAP *base = NULL;  // base do personagem na batalha
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
 // Matriz do mapa.
@@ -310,7 +310,7 @@ bool inicializaJogo() {
     ataques=al_load_bitmap("./../assets/batalha/ataques.bmp");          
     vida_player=al_load_bitmap("./../assets/batalha/vida-player.bmp");         
     vida_vilao=al_load_bitmap("./../assets/batalha/vida-vilao.bmp");
-    base_pistoleiro=al_load_bitmap("./../assets/batalha/base-pistoleiro.bmp");
+    base=al_load_bitmap("./../assets/batalha/base-pistoleiro.bmp");
     player_batalha=al_load_bitmap("./../assets/batalha/player-batalha.bmp");        
     silvio_batalha=al_load_bitmap("./../assets/batalha/pistoleiro.bmp"); 
 
