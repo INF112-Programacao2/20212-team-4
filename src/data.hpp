@@ -103,7 +103,7 @@ extern ALLEGRO_BITMAP *caixa_de_ataques; // opcoes de ataque
 extern ALLEGRO_BITMAP *ataques;          // ataques
 extern ALLEGRO_BITMAP *vida_player;      // vida do protagonista   
 extern ALLEGRO_BITMAP *vida_vilao;       // vida do vilao
-extern ALLEGRO_BITMAP *base_pistoleiro;  // base pistoleiro
+extern ALLEGRO_BITMAP *base;  // base pistoleiro
 
 
 
