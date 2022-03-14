@@ -94,21 +94,24 @@ int main(int argc, char **argv){
         Billy->addAtaque("Revólver", 0, -3);
         Billy->addAtaque("Cura", 0, 2);
 
+        al_start_timer(timer);
         while(Player->getNivel()==1){
             al_wait_for_event(event_queue, &ev0);
 
-            if(!to_move()) break;   
-            redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
-                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
-            minimap();
+            if(!to_move()) break; 
+            if(ev0.type == ALLEGRO_EVENT_TIMER){  
+                redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                    !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+                minimap();
 
-            resetGame();
-            if(reiniciar){
-                reiniciar = false;
-                goto INICIO;
+                resetGame();
+                if(reiniciar){
+                    reiniciar = false;
+                    goto INICIO;
+                }
+
+                al_flip_display();
             }
-
-            al_flip_display();
         }
 
         delete Billy;
@@ -126,18 +129,21 @@ int main(int argc, char **argv){
 
         while(Player->getNivel()==2){
             al_wait_for_event(event_queue, &ev0);
-            if(!to_move()) break;   
-            redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
-                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
-            minimap();
 
-            resetGame();
-            if(reiniciar){
-                reiniciar = false;
-                goto INICIO;
+            if(!to_move()) break; 
+            if(ev0.type == ALLEGRO_EVENT_TIMER){  
+                redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                    !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+                minimap();
+
+                resetGame();
+                if(reiniciar){
+                    reiniciar = false;
+                    goto INICIO;
+                }
+
+                al_flip_display();
             }
-
-            al_flip_display();
         }
 
 
@@ -156,18 +162,21 @@ int main(int argc, char **argv){
 
         while(Player->getNivel()==3){
             al_wait_for_event(event_queue, &ev0);
-            if(!to_move()) break;   
-            redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
-                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
-            minimap();
 
-            resetGame();
-            if(reiniciar){
-                reiniciar = false;
-                goto INICIO;
+            if(!to_move()) break; 
+            if(ev0.type == ALLEGRO_EVENT_TIMER){  
+                redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                    !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+                minimap();
+
+                resetGame();
+                if(reiniciar){
+                    reiniciar = false;
+                    goto INICIO;
+                }
+
+                al_flip_display();
             }
-
-            al_flip_display();
         }
 
         delete Geraldina;
@@ -189,18 +198,21 @@ int main(int argc, char **argv){
 
         while(Player->getNivel()==4){
             al_wait_for_event(event_queue, &ev0);
-            if(!to_move()) break;   
-            redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
-                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
-            minimap();
 
-            resetGame();
-            if(reiniciar){
-                reiniciar = false;
-                goto INICIO;
+            if(!to_move()) break; 
+            if(ev0.type == ALLEGRO_EVENT_TIMER){  
+                redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                    !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+                minimap();
+
+                resetGame();
+                if(reiniciar){
+                    reiniciar = false;
+                    goto INICIO;
+                }
+
+                al_flip_display();
             }
-
-            al_flip_display();
         }
 
         delete Jose_do_Caixao;
@@ -221,18 +233,21 @@ int main(int argc, char **argv){
 
         while(Player->getNivel()==5){
             al_wait_for_event(event_queue, &ev0);
-            if(!to_move()) break;   
-            redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
-                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
-            minimap();
 
-            resetGame();
-            if(reiniciar){
-                reiniciar = false;
-                goto INICIO;
+            if(!to_move()) break; 
+            if(ev0.type == ALLEGRO_EVENT_TIMER){  
+                redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                    !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+                minimap();
+
+                resetGame();
+                if(reiniciar){
+                    reiniciar = false;
+                    goto INICIO;
+                }
+
+                al_flip_display();
             }
-
-            al_flip_display();
         }
 
         delete Johnny_Cash;
