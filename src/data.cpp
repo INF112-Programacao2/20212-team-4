@@ -85,6 +85,7 @@ ALLEGRO_BITMAP *vida_vilao = NULL;       // vida do vilao
 ALLEGRO_BITMAP *base = NULL;  // base do personagem na batalha
 ALLEGRO_BITMAP *menu = NULL;  // tela inicial
 ALLEGRO_BITMAP *titulo = NULL;  // titulo da tela inicial
+ALLEGRO_BITMAP *mapmenu = NULL;  // mapa da tela inicial
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
 // Matriz do mapa.
@@ -593,6 +594,13 @@ bool inicializaJogo() {
     titulo = al_load_bitmap("./../assets/titulo.bmp");
     if(!titulo){
         std::cout << "Falha ao carregar o titulo" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
+    mapmenu = al_load_bitmap("./../assets/map-menu.bmp");
+    if(!mapmenu){
+        std::cout << "Falha ao carregar o mapa do menu" << std::endl;
         al_destroy_display(game);
         return false;
     }

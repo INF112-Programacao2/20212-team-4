@@ -381,12 +381,36 @@ bool enterToReset(){
 
 void telaMenu(bool iniciar){
     resetTeclas();
+    double posicao_X = 39;
+    double posicao_Y = 19;
+    bool esquerda = true;
+    bool baixo = true;
     timer = al_create_timer(1);
     while (!iniciar){
         al_wait_for_event(event_queue, &evmorte);
         if(evmorte.type == ALLEGRO_EVENT_TIMER){
-            al_draw_scaled_bitmap(menu, 0, 0, 416, 304, 0, 0, res_x_comp, res_y_comp, 0);
+            al_draw_scaled_bitmap(mapmenu, posicao_X*CELULA, posicao_Y*CELULA, res_x_comp, res_y_comp, 0, 
+                0, res_x_comp*(res_x_comp/1920.0)*ZOOM, res_y_comp*(res_y_comp/1080.0)*ZOOM, 0);
+            al_draw_scaled_bitmap(menu, 0, 0, 1920, 1080, 0, 0, res_x_comp, res_y_comp, 0);
             al_draw_scaled_bitmap(titulo, 0, 0, 172, 17, RES_WIDTH(res_x_comp/5), RES_HEIGHT(res_y_comp/4), RES_WIDTH(172*2*ZOOM), RES_HEIGHT(18*2*ZOOM), 0);
+            
+            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(635), 0.91*res_y_comp, 0,"Aperte               para iniciar");
+            al_draw_scaled_bitmap(botaoreiniciar, 0,  0, 34, 18, RES_WIDTH(795), 0.91*res_y_comp, RES_WIDTH(34*ZOOM), RES_HEIGHT(18*ZOOM), 0);
+            
+            if (esquerda){
+                posicao_X++;
+                if(posicao_X==56){
+                    esquerda=false;
+                }
+            }
+            else{
+                if(posicao_X>39){
+                    posicao_X--;
+                }
+                else{
+                    esquerda=true;
+                }
+            }
         }
         al_flip_display();
         if(enterToReset()) break;
