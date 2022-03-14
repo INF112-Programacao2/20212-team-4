@@ -3,6 +3,8 @@
 #include <cstdlib>
 #include "data.hpp"
 
+ALLEGRO_EVENT evnome;
+
 /** Getters dos atributos de um personagem qualquer.
 */
 std::string Personagem::getNome(){
@@ -53,7 +55,7 @@ Protagonista::Protagonista(short int vida, short int dinheiro){
     this->_vida = vida;
     this->_maxVida = vida;
     this->_dinheiro = dinheiro;
-    this->_nivel = 0;
+    this->_nivel = 1;
     this->_sortudo = false;
     this->_dialogo = false;
     this->_assombrado = false;
@@ -300,4 +302,122 @@ short int Protagonista::qtdItem(std::string item){
     if(it != this->_inventario.end())
         return it->second;
     else return 0;
+}
+
+void Protagonista::escolherNome(){
+    this->_nome = "";
+
+    while(true){
+        al_wait_for_event(event_queue, &evnome);
+
+        al_draw_scaled_bitmap(tela_fundo, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+        al_draw_textf(font_titulo, al_map_rgb(60,25,97), RES_WIDTH(620), RES_HEIGHT(200), 0,"ESCOLHA SEU NOME");
+        al_draw_scaled_bitmap(player_f1, 0, 0, res_x_player, res_y_player, RES_WIDTH(880), RES_HEIGHT(400), RES_WIDTH(res_x_player*7), RES_HEIGHT(res_y_player*7), 0);
+
+        al_draw_scaled_bitmap(caixa_nome, 0, 0, 322, 73, 650, 710, 322*(res_x_comp/1920.0)*2, 73*(res_y_comp/1080.0)*2, 0);
+        al_draw_textf(font_titulo, al_map_rgb(60,25,97), RES_WIDTH(720), RES_HEIGHT(700), 0, "%s", this->_nome.c_str());
+
+        if(this->_nome != ""){
+            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(610), 0.85*res_y_comp, 0,"Aperte               para continuar");
+            al_draw_scaled_bitmap(botaoreiniciar, 0,  0, 34, 18, RES_WIDTH(770), 0.85*res_y_comp, RES_WIDTH(34*ZOOM), RES_HEIGHT(18*ZOOM), 0);
+        }
+
+        if(verificarTeclaNome()) break;
+        al_flip_display();
+    }
+}
+
+bool Protagonista::verificarTeclaNome(){
+    if(evnome.type == ALLEGRO_EVENT_KEY_DOWN){
+        keys[evnome.keyboard.keycode] = true;
+
+        if(this->_nome.length() < 11 && keys[ALLEGRO_KEY_A]){
+            this->_nome += "A";
+        }
+        else if(this->_nome.length() < 11 && keys[ALLEGRO_KEY_B]){
+            this->_nome += "B";
+        }
+        else if(this->_nome.length() < 11 && keys[ALLEGRO_KEY_C]){
+            this->_nome += "C";
+        }
+        else if(this->_nome.length() < 11 && keys[ALLEGRO_KEY_D]){
+            this->_nome += "D";
+        }
+        else if(this->_nome.length() < 11 && keys[ALLEGRO_KEY_E]){
+            this->_nome += "E";
+        }
+        else if(this->_nome.length() < 11 && keys[ALLEGRO_KEY_F]){
+            this->_nome += "F";
+        }
+        else if(this->_nome.length() < 11 && keys[ALLEGRO_KEY_G]){
+            this->_nome += "G";
+        }
+        else if(this->_nome.length() < 11 && keys[ALLEGRO_KEY_H]){
+            this->_nome += "H";
+        }
+        else if(this->_nome.length() < 11 && keys[ALLEGRO_KEY_I]){
+            this->_nome += "I";
+        }
+        else if(this->_nome.length() < 11 && keys[ALLEGRO_KEY_J]){
+            this->_nome += "J";
+        }
+        else if(this->_nome.length() < 11 && keys[ALLEGRO_KEY_K]){
+            this->_nome += "K";
+        }
+        else if(this->_nome.length() < 11 && keys[ALLEGRO_KEY_L]){
+            this->_nome += "L";
+        }
+        else if(this->_nome.length() < 11 && keys[ALLEGRO_KEY_M]){
+            this->_nome += "M";
+        }
+        else if(this->_nome.length() < 11 && keys[ALLEGRO_KEY_N]){
+            this->_nome += "N";
+        }
+        else if(this->_nome.length() < 11 && keys[ALLEGRO_KEY_O]){
+            this->_nome += "O";
+        }
+        else if(this->_nome.length() < 11 && keys[ALLEGRO_KEY_P]){
+            this->_nome += "P";
+        }
+        else if(this->_nome.length() < 11 && keys[ALLEGRO_KEY_Q]){
+            this->_nome += "Q";
+        }
+        else if(this->_nome.length() < 11 && keys[ALLEGRO_KEY_R]){
+            this->_nome += "R";
+        }
+        else if(this->_nome.length() < 11 && keys[ALLEGRO_KEY_S]){
+            this->_nome += "S";
+        }
+        else if(this->_nome.length() < 11 && keys[ALLEGRO_KEY_T]){
+            this->_nome += "T";
+        }
+        else if(this->_nome.length() < 11 && keys[ALLEGRO_KEY_U]){
+            this->_nome += "U";
+        }
+        else if(this->_nome.length() < 11 && keys[ALLEGRO_KEY_V]){
+            this->_nome += "V";
+        }
+        else if(this->_nome.length() < 11 && keys[ALLEGRO_KEY_W]){
+            this->_nome += "W";
+        }
+        else if(this->_nome.length() < 11 && keys[ALLEGRO_KEY_X]){
+            this->_nome += "X";
+        }
+        else if(this->_nome.length() < 11 && keys[ALLEGRO_KEY_Y]){
+            this->_nome += "Y";
+        }
+        else if(this->_nome.length() < 11 && keys[ALLEGRO_KEY_Z]){
+            this->_nome += "Z";
+        }
+        else if(keys[ALLEGRO_KEY_BACKSPACE] && this->_nome.length() > 0){
+            this->_nome = this->_nome.substr(0, this->_nome.length()-1);
+        }
+        else if(this->_nome.length() > 0 && keys[ALLEGRO_KEY_ENTER]){
+            return true;
+        }
+
+        keys[evnome.keyboard.keycode] = false;
+    }
+
+    return false;
 }

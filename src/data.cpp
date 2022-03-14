@@ -57,6 +57,7 @@ ALLEGRO_BITMAP *contorno = NULL; // variavel que vai receber a imagem do contorn
 ALLEGRO_BITMAP *caixa_texto = NULL;
 ALLEGRO_FONT *font15 = NULL; // variavel que vai receber a fonte do hud
 ALLEGRO_FONT *font10 = NULL; 
+ALLEGRO_FONT *font_titulo = NULL;
 bool keys[ALLEGRO_KEY_MAX] = {0};
 ALLEGRO_BITMAP *game_over1 = NULL; //variavel que vai receber a imagem do game over
 ALLEGRO_BITMAP *game_over2 = NULL; //variavel que vai receber a imagem do game over
@@ -86,6 +87,8 @@ ALLEGRO_BITMAP *base = NULL;  // base do personagem na batalha
 ALLEGRO_BITMAP *menu = NULL;  // tela inicial
 ALLEGRO_BITMAP *titulo = NULL;  // titulo da tela inicial
 ALLEGRO_BITMAP *mapmenu = NULL;  // mapa da tela inicial
+ALLEGRO_BITMAP *tela_fundo = NULL;  // base do personagem na batalha
+ALLEGRO_BITMAP *caixa_nome = NULL;
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
 // Matriz do mapa.
@@ -285,6 +288,13 @@ bool inicializaJogo() {
         return false;
     }
 
+    font_titulo = al_load_font("./../assets/alterebro-pixel-font.ttf", RES_HEIGHT(150), 0);
+    if(!font_titulo)
+    {
+        std::cout << "Falha ao inicializar a fonte" << std::endl;
+        return false;
+    }
+
     //atribuindo as imagens do personagem as variaveis
     player_f1=al_load_bitmap("./../assets/frente1.bmp");
     general_player = player_f1;
@@ -316,6 +326,12 @@ bool inicializaJogo() {
     base=al_load_bitmap("./../assets/batalha/base-pistoleiro.bmp");
     player_batalha=al_load_bitmap("./../assets/batalha/player-batalha.bmp");        
     billy_batalha=al_load_bitmap("./../assets/batalha/billy-batalha.bmp"); 
+
+    //atribuindo as imagens das batalhas
+
+    player_batalha = al_load_bitmap("./../assets/batalha/player-batalha.bmp"); // imagem do jogador para a batalha
+    billy_batalha = al_load_bitmap("./../assets/batalha/pistoleiro.bmp"); // imagem do inimigo para a batalha
+   
 
 
     al_register_event_source(event_queue, al_get_display_event_source(game));
@@ -454,6 +470,20 @@ bool inicializaJogo() {
     fundo = al_load_bitmap("./../assets/fundo_HUD.bmp");
     if(!fundo){
         std::cout << "Falha ao carregar o fundo da barra de vida" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
+    tela_fundo = al_load_bitmap("./../assets/fundo.bmp");
+    if(!tela_fundo){
+        std::cout << "Falha ao carregar o fundo da tela" << std::endl;
+        al_destroy_display(game);
+        return false;
+    }
+
+    caixa_nome = al_load_bitmap("./../assets/escrever_nome.bmp");
+    if(!caixa_nome){
+        std::cout << "Falha ao carregar o fundo da caixa de nome" << std::endl;
         al_destroy_display(game);
         return false;
     }

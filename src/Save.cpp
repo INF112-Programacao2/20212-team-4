@@ -37,7 +37,11 @@ void GameSave::read_save(Protagonista *Player, MissaoSecundaria *Sec1, MissaoSec
 
     // Lê nome do jogador.
     getline(data, nome);
-    Player->setNome(nome);
+
+    if(nome == "(escolher)")
+        Player->escolherNome();
+    else
+        Player->setNome(nome);
 
     // Lê nível e dados do player.
     data >> value;

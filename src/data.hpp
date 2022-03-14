@@ -107,6 +107,9 @@ extern ALLEGRO_BITMAP *base;  // base pistoleiro
 extern ALLEGRO_BITMAP *menu;  // tela inicial
 extern ALLEGRO_BITMAP *titulo;  // titulo da tela inicial
 extern ALLEGRO_BITMAP *mapmenu;  // mapa da tela inicial
+extern ALLEGRO_BITMAP *tela_fundo;
+extern ALLEGRO_FONT *font_titulo;
+extern ALLEGRO_BITMAP *caixa_nome;
 
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */

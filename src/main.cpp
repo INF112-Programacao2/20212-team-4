@@ -74,13 +74,13 @@ int main(int argc, char **argv){
     /* COMECANDO A EXECUCAO DO JOGO*/
     if(inicializaJogo()){
 
-        while(Player->getNivel()==0){
+        while(1){
             al_wait_for_event(event_queue, &ev0);
             telaMenu(reiniciar);
-            Player->nextLevel();
             if(reiniciar){
                 reiniciar = false;
                 goto INICIO;
+                break;
             }
             al_flip_display();
         }
