@@ -79,7 +79,6 @@ int main(int argc, char **argv){
         /* === NÍVEL UM === */
         // Neste nível, o jogador tem a batalha contra o pistoleiro Billy, em frente ao Saloon. Não há NPCs 
         // no mapa para passar missões.
-        Batalha_Nivel1.batalhar();
 
         MAPA[29][40]='B'; //colocando o Billy no mapa de colisão
 
@@ -457,6 +456,7 @@ void interagir(){
         Player->setDinheiro(Player->getDinheiro()+10);
 
     else if(Batalha1->batalhaProxima('B')){
+       Player->addAtaque("Tiro",1,5);
        Batalha_Nivel1.batalhar();
        keys[ALLEGRO_KEY_E]=false;
        keys[ALLEGRO_KEY_A]=false;
