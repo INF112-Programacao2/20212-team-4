@@ -15,7 +15,7 @@ GameSave *Save = new GameSave();
 
 /* PERSONAGENS  */
 Protagonista *Player = new Protagonista(10, 3);
-Inimigo *Silvio = new Inimigo("Silvio", 12, 3, 2);
+Inimigo *Billy = new Inimigo("Billy", 12, 3, 2);
 Inimigo *Xerife_Espeto = new Inimigo("Xerife Espeto", 24, 4, 4);
 Inimigo *Jose_do_Caixao = new Inimigo("Jose do caixao", 32, 4, 3);
 Inimigo *Caixao_do_Jose = new Inimigo("Caixao do Jose", 15, 2, 1);
@@ -71,13 +71,13 @@ int main(int argc, char **argv){
     /* COMECANDO A EXECUCAO DO JOGO*/
     if(inicializaJogo()){
 
-        while(Player->getNivel()==0){
+        while(1){
             al_wait_for_event(event_queue, &ev0);
             telaMenu(reiniciar);
-            Player->nextLevel();
             if(reiniciar){
                 reiniciar = false;
                 goto INICIO;
+                break;
             }
             al_flip_display();
         }
@@ -88,8 +88,8 @@ int main(int argc, char **argv){
         /* === NÍVEL UM === */
         // Neste nível, o jogador tem a batalha contra o pistoleiro Billy, em frente ao Saloon. Não há NPCs 
         // no mapa para passar missões.
-        
-        MAPA[29][40]='S'; //colocando o Silvio no mapa de colisão
+
+        MAPA[29][40]='S'; //colocando o Billy no mapa de colisão
 
         while(Player->getNivel()==1){
             al_wait_for_event(event_queue, &ev0);
@@ -108,9 +108,9 @@ int main(int argc, char **argv){
             al_flip_display();
         }
 
-        MAPA[29][40]='1'; //retirando o Silvio do mapa de colisão 
-        delete Silvio;
-        Silvio = nullptr;
+        MAPA[29][40]='1'; //retirando o Billy do mapa de colisão 
+        delete Billy;
+        Billy = nullptr;
 
         /* === NÍVEL DOIS === */
         // Neste nível, o jogador tem a batalha contra o Xerife Espeto, no deserto. Estão presentes todos
@@ -209,7 +209,7 @@ int main(int argc, char **argv){
 
     Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
     if(Player != nullptr) delete Player;
-    if(Silvio != nullptr) delete Silvio;
+    if(Billy != nullptr) delete Billy;
     if(Xerife_Espeto != nullptr) delete Xerife_Espeto;
     if(Geraldina != nullptr) delete Geraldina;
     if(Jose_do_Caixao != nullptr) delete Jose_do_Caixao;

@@ -156,6 +156,10 @@ class Protagonista : public Personagem{
          * 
          */
         bool dialogando();
+
+        void  escolherNome();
+
+        bool verificarTeclaNome(); 
 };
 
 /* CLASSE QUE DEFINE ATRIBUTOS DOS INIMIGOS */
