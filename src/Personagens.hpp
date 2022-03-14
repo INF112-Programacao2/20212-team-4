@@ -64,16 +64,6 @@ class Personagem{
         bool isDead();
 
         /**
-         * @brief Reduzir a vida do alvo, seja ele inimigo ou player.
-         * 
-         * @param ENEMY_OR_PLAYER a classe que será atacada: protagonista ou inimigo.
-         * @param alvo quem será atacado.
-         * @param dano dano que o ataque dá, SEMPRE NEGATIVO.
-         */
-        template<class ENEMY_OR_PLAYER>
-        void atacar(ENEMY_OR_PLAYER *atacante, ENEMY_OR_PLAYER *alvo, std::string ataque);
-
-        /**
          * @brief Ao invés de atacar, em um turno, o inimigo ou player pode acrescentar um
          * valor à sua vida atual.
          * 
@@ -160,6 +150,16 @@ class Protagonista : public Personagem{
         void  escolherNome();
 
         bool verificarTeclaNome(); 
+
+        /**
+         * @brief Reduzir a vida do alvo.
+         * 
+         * @param ENEMY a classe que será atacada.
+         * @param alvo quem será atacado.
+         * @param dano o ataque que será utilizado.
+         */
+        template<class ENEMY>
+        void atacar(ENEMY *alvo, std::string ataque);
 };
 
 /* CLASSE QUE DEFINE ATRIBUTOS DOS INIMIGOS */

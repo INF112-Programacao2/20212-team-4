@@ -94,11 +94,6 @@ void Personagem::addAtaque(std::string ataque, short int min, short int max){
         dano[1] = max;
         this->_ataques.insert(std::pair<std::string, short int*>(ataque, dano));
     }
-    
-    if(ataque == "Coquetel Molotov")
-        this->subAtaque("Coquetel Molotov");
-    else if(ataque == "Pé de Coelho")
-        this->subAtaque("Pé de Coelho");
 }
 
 bool Personagem::hasAtaque(std::string ataque){
@@ -118,18 +113,28 @@ bool Personagem::isDead(){
         return false;
 }
 
-template<class ENEMY_OR_PLAYER>
-void Personagem::atacar(ENEMY_OR_PLAYER *atacante, ENEMY_OR_PLAYER *alvo, std::string ataque){
-    std::map<std::string, short int*>::iterator it = this->_ataques.find(ataque);
-    short int dano;
-    
-    if(!atacante->_sortudo)
-        dano = it->second[1];
-    
-    else
-        dano = rand()%(it->second[1] - it->second[0]) + it->second[0] + 1;
+template<class ENEMY>
+void Protagonista::atacar(ENEMY *alvo, std::string ataque){
+    if(ataque == "Pé de Coelho"){
+        this->_sortudo = true;
+        this->subAtaque("Pé de Coelho");
+    }
 
-    alvo->setVida(alvo->getVida() - dano);
+    else{
+        std::map<std::string, short int*>::iterator it = this->_ataques.find(ataque);
+        short int dano;
+
+        if(this->_sortudo)
+            dano = it->second[1];
+        
+        else
+            dano = rand()%(it->second[1] - it->second[0]) + it->second[0] + 1;
+
+        alvo->setVida(alvo->getVida() - dano);
+
+        if(ataque == "Coquetel Molotov")
+            this->subAtaque("Coquetel Molotov");
+    }
 }
 
 void Protagonista::nextLevel(){
@@ -154,14 +159,17 @@ void Protagonista::nextLevel(){
 
     // Define as posições iniciais pra cada nível.
     else if(this->_nivel == 2){
-        i = 29;
-        j = 48;
+        i = 30;
+        j = 40;
         TELA_X_MAPA = 35;
+        TELA_Y_MAPA = 24;
 
-        this->_maxVida += 10;
-        this->_vida += 10;        
+        EIXO_X_PLAYER_TELA = 704;
+        EIXO_Y_PLAYER_TELA = 572;
 
-        resetCamera(14, 5);
+        this->_maxVida = 20;      
+
+        resetCamera(5, 5);
 
         // Adiciona personagens secundários na matriz
         MAPA[28][50] = 'F';
@@ -169,6 +177,7 @@ void Protagonista::nextLevel(){
         MAPA[39][63] = 'G';
         MAPA[39][44] = MAPA[39][43] = 'H';
         MAPA[56][70] = MAPA[56][71] = MAPA[57][70] = MAPA[57][71] = '0'; 
+        MAPA[29][40] = 'A';
 
         MAPA[45][39] = MAPA[45][40] = 'z';
 
@@ -179,34 +188,33 @@ void Protagonista::nextLevel(){
         i = 56;
         j = 69;
 
-        this->_maxVida += 10;
-        this->_vida += 10;  
+        this->_maxVida = 30;  
 
         TELA_X_MAPA = 60;
         TELA_Y_MAPA = 50;
 
-        EIXO_X_PLAYER_TELA = 958;
+        EIXO_X_PLAYER_TELA = 960;
         EIXO_Y_PLAYER_TELA = 572;    
 
         resetCamera(10, 5); 
 
-        MAPA[49][16] = MAPA[49][17] = 'C'; // Adiciona Mario / Geraldina
+        MAPA[49][16] = MAPA[49][17] = '0'; // Adiciona colisão em Mario / Geraldina
         MAPA[29][40] = '0'; // Remove Ambrósio da matriz
         MAPA[56][70] = MAPA[56][71] = MAPA[57][70] = MAPA[57][71] = '1'; // Remove xerife espeto da matriz
         map= al_load_bitmap("./../assets/map3.bmp");
+        MAPA[28][76] = 'J';
     }
 
     else if(this->_nivel == 4){
         i = 48;
         j = 19;
 
-        this->_maxVida += 10;
-        this->_vida += 10;  
+        this->_maxVida = 40;
 
-        TELA_X_MAPA = 10;
+        TELA_X_MAPA = 11;
         TELA_Y_MAPA = 45;
 
-        EIXO_X_PLAYER_TELA = 960;
+        EIXO_X_PLAYER_TELA = 896;
         EIXO_Y_PLAYER_TELA = 380;    
 
         resetCamera(11, 2); 
@@ -220,8 +228,7 @@ void Protagonista::nextLevel(){
         i = 29;
         j = 86;
 
-        this->_maxVida += 10;
-        this->_vida += 10;  
+        this->_maxVida = 50;  
 
         TELA_X_MAPA = 72;
         TELA_Y_MAPA = 23;
@@ -231,8 +238,8 @@ void Protagonista::nextLevel(){
 
         resetCamera(15, 5); 
 
-        MAPA[27][89] = MAPA[28][89] = '1'; // Remove José do Caixão da matriz
-        MAPA[16][7] = MAPA[16][8] = MAPA[17][7] = MAPA[17][8] = 'E'; // Adiciona Johnny Cash na matriz
+        MAPA[27][88] = MAPA[28][88] = MAPA[27][89] = '1'; // Remove José do Caixão da matriz
+        MAPA[16][7] = MAPA[16][8] = MAPA[17][7] = MAPA[17][8] = MAPA[17][9] = 'E'; // Adiciona Johnny Cash na matriz
         map= al_load_bitmap("./../assets/map5.bmp");
     }   
 
@@ -275,7 +282,7 @@ void Inimigo::atacar(Protagonista &alvo){
         if(it->second[1] < 0)
             alvo.setVida(alvo.getVida() + it->second[1]);
         else if(it->second[1] > 0 && this->_vida != this->_maxVida)
-            this->curarVida(this->_cura);
+            this->curarVida(it->second[1]);
         else
             goto RANDOM;
 }
@@ -314,7 +321,7 @@ void Protagonista::escolherNome(){
         al_draw_textf(font_titulo, al_map_rgb(60,25,97), RES_WIDTH(620), RES_HEIGHT(200), 0,"ESCOLHA SEU NOME");
         al_draw_scaled_bitmap(player_f1, 0, 0, res_x_player, res_y_player, RES_WIDTH(880), RES_HEIGHT(400), RES_WIDTH(res_x_player*7), RES_HEIGHT(res_y_player*7), 0);
 
-        al_draw_scaled_bitmap(caixa_nome, 0, 0, 322, 73, 650, 710, 322*(res_x_comp/1920.0)*2, 73*(res_y_comp/1080.0)*2, 0);
+        al_draw_scaled_bitmap(caixa_nome, 0, 0, 322, 73, RES_WIDTH(650), RES_HEIGHT(710), 322*(res_x_comp/1920.0)*2, 73*(res_y_comp/1080.0)*2, 0);
         al_draw_textf(font_titulo, al_map_rgb(60,25,97), RES_WIDTH(720), RES_HEIGHT(700), 0, "%s", this->_nome.c_str());
 
         if(this->_nome != ""){
