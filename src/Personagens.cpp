@@ -53,7 +53,7 @@ Protagonista::Protagonista(short int vida, short int dinheiro){
     this->_vida = vida;
     this->_maxVida = vida;
     this->_dinheiro = dinheiro;
-    this->_nivel = 1;
+    this->_nivel = 0;
     this->_sortudo = false;
     this->_dialogo = false;
     this->_assombrado = false;

@@ -104,7 +104,9 @@ extern ALLEGRO_BITMAP *ataques;          // ataques
 extern ALLEGRO_BITMAP *vida_player;      // vida do protagonista   
 extern ALLEGRO_BITMAP *vida_vilao;       // vida do vilao
 extern ALLEGRO_BITMAP *base;  // base pistoleiro
-
+extern ALLEGRO_BITMAP *menu;  // tela inicial
+extern ALLEGRO_BITMAP *titulo;  // titulo da tela inicial
+extern ALLEGRO_BITMAP *mapmenu;  // mapa da tela inicial
 
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
