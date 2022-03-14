@@ -32,7 +32,7 @@ Interacao *Dinheiro3 = new Interacao("Dinheiro3", 2, 46, '8');
 Interacao *Dinheiro4 = new Interacao("Dinheiro4", 68, 67, '8');
 Interacao *Loja = new Interacao("Loja", 42, 45, '4'); //criando ponteiro para objeto loja do tipo interecao
 Interacao *Botao_Interagir = new Interacao("Botaointeracao", 0, 0, '1');
-Interacao *Batalha1 = new Interacao("Batalha1", 29, 40, 'S');
+// Interacao *Batalha1 = new Interacao("Batalha1", 29, 40, 'S');
 
 
 /* MISSOES SECUNDARIAS */
@@ -49,10 +49,7 @@ Missao *Nivel4 = new Missao(0, 0, 'C');
 Missao *Nivel5 = new Missao(0, 0, 'F');
 
 /* BATALHAS */
-Batalha1x1 Batalha_Nivel1(Billy, Player);
-//Batalha1x1 Batalha_Nivel2(Xerife_Espeto);
-//Batalha1x1 Batalha_Nivel4(Geraldina);
-
+// Batalha1x1 Batalha_Nivel1;
 
 
 /* FUNCOES */
@@ -74,7 +71,7 @@ int main(int argc, char **argv){
     /* COMECANDO A EXECUCAO DO JOGO*/
     if(inicializaJogo()){
 
-        while(1){
+        while(true){
             al_wait_for_event(event_queue, &ev0);
             telaMenu(reiniciar);
             if(reiniciar){
@@ -92,7 +89,10 @@ int main(int argc, char **argv){
         // Neste nível, o jogador tem a batalha contra o pistoleiro Billy, em frente ao Saloon. Não há NPCs 
         // no mapa para passar missões.
 
-        MAPA[29][40]='B'; //colocando o Billy no mapa de colisão
+        Player->addAtaque("Revólver", 2, 8);
+
+        Billy->addAtaque("Revólver", 0, -3);
+        Billy->addAtaque("Cura", 0, 2);
 
         while(Player->getNivel()==1){
             al_wait_for_event(event_queue, &ev0);
@@ -111,9 +111,14 @@ int main(int argc, char **argv){
             al_flip_display();
         }
 
-        MAPA[29][40]='1'; //retirando o Billy do mapa de colisão 
         delete Billy;
         Billy = nullptr;
+
+        Player->addAtaque("Coquetel Molotov", 10, 15);
+
+        Xerife_Espeto->addAtaque("Revólver", 0, -4);
+        Xerife_Espeto->addAtaque("Espinhos", 0, -1);
+        Xerife_Espeto->addAtaque("Cura", 0, 3);
 
         /* === NÍVEL DOIS === */
         // Neste nível, o jogador tem a batalha contra o Xerife Espeto, no deserto. Estão presentes todos
@@ -135,8 +140,15 @@ int main(int argc, char **argv){
             al_flip_display();
         }
 
+
         delete Xerife_Espeto;
         Xerife_Espeto = nullptr;
+
+        Player->addAtaque("Shurikens", 3, 5);
+
+        Geraldina->addAtaque("Garras", 0, -2);
+        Geraldina->addAtaque("Mordida", 0, -3);
+        Geraldina->addAtaque("Cura", 0, 4);
 
         /* === NÍVEL TRÊS === */
         // Neste nível, o jogador tem a batalha contra Geraldina, no rancho. Estão presentes todos
@@ -165,6 +177,16 @@ int main(int argc, char **argv){
         // Neste nível, o jogador tem a batalha contra José do Caixão e o Caixão do josé, na igreja. 
         // Estão presentes todos os NPCs no mapa para passar missões.
 
+        Player->addAtaque("Pé de Coelho", 0, 0);
+
+        Jose_do_Caixao->addAtaque("Revólver", 0, -5);
+        Jose_do_Caixao->addAtaque("Pá", 0, -2);
+        Jose_do_Caixao->addAtaque("Cura", 0, 3);
+
+        Caixao_do_Jose->addAtaque("Mordida Fúnebre", 0, -3);
+        Caixao_do_Jose->addAtaque("Pá", 0, -2);
+        Caixao_do_Jose->addAtaque("Cura", 0, 2);
+
         while(Player->getNivel()==4){
             al_wait_for_event(event_queue, &ev0);
             if(!to_move()) break;   
@@ -189,6 +211,13 @@ int main(int argc, char **argv){
         /* === NÍVEL QUATRO === */
         // Neste nível, o jogador tem a batalha contra Johnny Cash, na cabana. Estão presentes 
         // todos os NPCs no mapa para passar missões.
+
+        Player->addAtaque("Munições Fanstasma", 2, 8);
+
+        Johnny_Cash->addAtaque("Assombração", 0, -3);
+        Johnny_Cash->addAtaque("Desafinação", 0, -2);
+        Johnny_Cash->addAtaque("Tiro espectral", 0, -4);
+        Johnny_Cash->addAtaque("Cura", 0, 3);
 
         while(Player->getNivel()==5){
             al_wait_for_event(event_queue, &ev0);
@@ -467,21 +496,10 @@ void interagir(){
     else if(Dinheiro4->itemProximo('1'))
         Player->setDinheiro(Player->getDinheiro()+10);
 
-    else if(Batalha1->batalhaProxima('B')){
-       Player->addAtaque("Tiro",1,5);
-       Batalha_Nivel1.batalhar();
-       keys[ALLEGRO_KEY_E]=false;
-       keys[ALLEGRO_KEY_A]=false;
-       keys[ALLEGRO_KEY_W]=false;
-       keys[ALLEGRO_KEY_S]=false;
-       keys[ALLEGRO_KEY_D]=false;
-    }
 
     else if(Loja->interacaoProxima('y')){ //caso a interacao proxima seja a loja
         loja();
     }
-  
-
 
     else if(Missao_Chave->missaoProxima('F')){
         if(Missao_Chave->getinicializada() == false){
@@ -551,7 +569,7 @@ void interagir(){
         }
     }
 
-    else if(Missao_Espingarda->missaoProxima('C')){
+    else if(Missao_Espingarda->missaoProxima('C') && Nivel4->_etapa > 1){
         if(Missao_Espingarda->getinicializada() && !Missao_Espingarda->completo() && Player->qtdItem("Espingarda") == 0){
             dialogoMissaoEspingardaPt2(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
@@ -589,49 +607,82 @@ void interagir(){
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
 
             Nivel1->_etapa++;
-            MAPA[29][40] = 'J'; // Adiciona Billy/Ambrósio na matriz
+            MAPA[29][40] = 'A'; // Adiciona Billy/Ambrósio na matriz
         }
         else if(Nivel1->missaoProxima('A') && Nivel1->_etapa == 2){
             dialogoNivel1Pt2(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
+
+            Player->nextLevel();
+            Player->setVida(Player->getVida()+10);
         }
     }
 
     else if(Player->getNivel() == 2){
         if(Nivel2->missaoProxima('A') && Nivel2->_etapa == 1){
+            dialogoNivel2Pt1(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
 
             Nivel2->_etapa++;
             MAPA[28][76] = 'J'; // Adiciona Renato na matriz
+            MAPA[29][40] = '0'; // Adiciona Ambrósio na matriz
         }
         else if(Nivel2->missaoProxima('J') && Nivel2->_etapa == 2){
+            dialogoNivel2Pt2(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
 
+            Nivel2->_etapa++;
             MAPA[56][70] = MAPA[56][71] = MAPA[57][70] = MAPA[57][71] = 'B'; // Adiciona Xerife Espeto na matriz
+            MAPA[28][76] = '0'; // Remove Renato da matriz
         }
         else if(Nivel2->missaoProxima('B') && Nivel2->_etapa == 3){
+            dialogoNivel2Pt3(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
 
+            Player->nextLevel();
+            Player->setVida(Player->getVida()+10);
         }
     }
 
     else if(Player->getNivel() == 3){
         if(Nivel3->missaoProxima('J') && Nivel3->_etapa == 1){
+            dialogoNivel3Pt1(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
 
-            Nivel2->_etapa++;
-            MAPA[49][17] = MAPA[49][18] = 'C'; // Adiciona Geraldina na matriz
+            Nivel3->_etapa++;
+            MAPA[49][16] = MAPA[49][17] = 'C'; // Adiciona Geraldina na matriz
+            MAPA[28][76] = '0'; // Remove Renato da matriz
         }
         else if(Nivel3->missaoProxima('C') && Nivel3->_etapa == 2){
+            dialogoNivel3Pt2(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
 
+            Player->nextLevel();
+            Player->setVida(Player->getVida()+10);
         } 
     }
 
     else if(Player->getNivel() == 4){
-        if(Nivel4->missaoProxima('C')){
+        if(Nivel4->missaoProxima('C') && Nivel4->_etapa == 1){
+            dialogoNivel4Pt2(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
 
+            MAPA[27][88] = MAPA[28][88] = MAPA[27][89] = 'D';
+            Nivel4->_etapa++;
+        }
+        else if(Nivel4->missaoProxima('D') && Nivel4->_etapa == 2){
+            dialogoNivel4Pt3(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
+
+            Player->nextLevel();
+            Player->setVida(Player->getVida()+10);
         }
     }
 
     else if(Player->getNivel() == 5){
         if(Nivel5->missaoProxima('E')){
-
+            dialogoNivel5Pt2(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
         }
     }
 }
