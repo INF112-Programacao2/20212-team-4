@@ -398,14 +398,14 @@ void telaMenu(bool iniciar){
             al_draw_scaled_bitmap(botaoreiniciar, 0,  0, 34, 18, RES_WIDTH(795), 0.91*res_y_comp, RES_WIDTH(34*ZOOM), RES_HEIGHT(18*ZOOM), 0);
             
             if (esquerda){
-                posicao_X++;
+                posicao_X+=0.5;
                 if(posicao_X==56){
                     esquerda=false;
                 }
             }
             else{
                 if(posicao_X>39){
-                    posicao_X--;
+                    posicao_X-=0.5;
                 }
                 else{
                     esquerda=true;
