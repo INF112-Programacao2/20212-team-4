@@ -139,7 +139,7 @@ unsigned char MAPA[][97]=
 "000000000000000000000000000011111110001111111111111111111111111111111111111111111111111111111110",
 "000000000000000000000000000011111100000001111111111111111111111111111111111111111111111111111110",
 "111001111111110000000000111111111100000000111111111111111111111111111111111111111111111111111110",
-"1110011111111100000000001111111111000zzzzz*11111111111111111111111111111111111111111111111111110",
+"111001111111110000000000111111111100000000*11111111111111111111111111111111111111111111111111110",
 "111111111111110000000000111111111110011111*11111111111111111111111111111111111111111111111111110",
 "100000000000000000000000001111111111111111111111111111111111111111111111111111111111111111111110",
 "100000000000000000000000001111111111111111111111111111111111**1111111111111111111111111111111110",
@@ -1122,7 +1122,7 @@ void dialogoNivel2Pt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
 
 void dialogoNivel2Pt3(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
     std::map<short int, bool> fluxo;
-    fluxo.insert(std::pair<short int, bool> (3, true));
+    fluxo.insert(std::pair<short int, bool> (2, true));
 
     std::string **opcoes = new std::string*;
     opcoes[0] = new std::string[2] {"XERIFE? (Z)", "MENTIRA (X)"};
@@ -1135,7 +1135,7 @@ void dialogoNivel2Pt3(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
     std::string *falas = new std::string[12] {
         "2Oi, garoto! Eu estava indo agora mesmo resolver a invasão ao rancho.",
         "1Invasão ao rancho?",
-        "2Ah, achei que morava por aqui. Não é nada, não. Nada a que se preocupe!"
+        "2Ah, achei que morava por aqui. Não é nada, não. Nada a que se preocupe!",
         "1Então, o senhor é o xerife da cidade?",
         "2Isso mesmo. Agora, circulando, cidadão.",
         "1Calma, senhor! Como assim invasão?",
@@ -1148,7 +1148,7 @@ void dialogoNivel2Pt3(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
     };
 
     Dialogo dialogo(falas, fluxo, incrementos);
-    dialogo.dialogar("XERIFE ESPETO", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+    dialogo.dialogar("ESPETO", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
 }
 
 void dialogoNivel3Pt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
@@ -1184,7 +1184,7 @@ void dialogoNivel3Pt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
         "2Auuuuuu!!!",
         "1Ei, você! Deixa as galinhas em paz!",
         "2Auuuuuuuuuu!!!",
-        "1Acho que não falamos a mesma língua."
+        "1Acho que não falamos a mesma língua.",
         "2Na verdade, falamos, sim, mas assim fica mais dramático.",
         "2*E é na nossa língua que eu vou te mandar pra fora daqui.",
     };
@@ -1204,7 +1204,7 @@ void dialogoNivel4Pt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
         "1Onde tá o seu líder? Eu já perdi a paciência com o grupo de vocês.",
         "2Eu não sei.",
         "1Fala logo, lobinha. Eu não quero precisar duelar com você de novo.",
-        "2Eu não sei!"
+        "2Eu não sei!",
         "1Alguma coisa eu sei que você sabe.",
         "2O máximo que eu sei é que você pode ter mais informações com o coveiro.",
         "1Qual o nome do coveiro?",
@@ -1296,7 +1296,7 @@ void dialogoNivel5Pt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
         "1Então, é você que tá orquestrando isso tudo.",
         "2E, se não fosse por você, meu plano estaria funcionando perfeitamente.",
         "1Agradeço o reconhecimento.",
-        "1Mas qual o seu problema? Do nada sua alma resolve voltar pro mundo pra por terror numa vila?"
+        "1Mas qual o seu problema? Do nada sua alma resolve voltar pro mundo pra por terror numa vila?",
         "2Assim que eu atingi o outro lado, tentei encontrar um lugar pra descansar meu espírito, se eu conseguisse.",
         "2Mas eu nasci para ser um fora da lei e prometi que eu voltaria.",
         "2Não importava se como um forasteiro ou uma simples gota de chuva, mas eu voltaria pra esse mundo.",
