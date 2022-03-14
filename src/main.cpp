@@ -49,7 +49,10 @@ Missao *Nivel4 = new Missao(0, 0, 'C');
 Missao *Nivel5 = new Missao(0, 0, 'F');
 
 /* BATALHAS */
-Batalha1x1 Batalha_Nivel1;
+Batalha1x1 Batalha_Nivel1(Billy, Player);
+//Batalha1x1 Batalha_Nivel2(Xerife_Espeto);
+//Batalha1x1 Batalha_Nivel4(Geraldina);
+
 
 
 /* FUNCOES */
@@ -89,7 +92,7 @@ int main(int argc, char **argv){
         // Neste nível, o jogador tem a batalha contra o pistoleiro Billy, em frente ao Saloon. Não há NPCs 
         // no mapa para passar missões.
 
-        MAPA[29][40]='S'; //colocando o Billy no mapa de colisão
+        MAPA[29][40]='B'; //colocando o Billy no mapa de colisão
 
         while(Player->getNivel()==1){
             al_wait_for_event(event_queue, &ev0);
@@ -464,9 +467,14 @@ void interagir(){
     else if(Dinheiro4->itemProximo('1'))
         Player->setDinheiro(Player->getDinheiro()+10);
 
-    else if(Batalha1->batalhaProxima('S')){
+    else if(Batalha1->batalhaProxima('B')){
+       Player->addAtaque("Tiro",1,5);
        Batalha_Nivel1.batalhar();
        keys[ALLEGRO_KEY_E]=false;
+       keys[ALLEGRO_KEY_A]=false;
+       keys[ALLEGRO_KEY_W]=false;
+       keys[ALLEGRO_KEY_S]=false;
+       keys[ALLEGRO_KEY_D]=false;
     }
 
     else if(Loja->interacaoProxima('y')){ //caso a interacao proxima seja a loja
