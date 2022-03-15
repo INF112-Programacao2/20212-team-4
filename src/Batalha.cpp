@@ -11,7 +11,7 @@
 #include "Grafico.hpp"
 
 //FUNCOES
-void desenhar1x1();
+
 
 //VARIAVEIS
 bool d_ataques;
@@ -27,13 +27,15 @@ void Batalha1x1::batalhar(){
     ALLEGRO_EVENT ev2; //declarando o evento
     bool atacou=false;
     int cont=0;
-    int aux_ataque = 1;
+    short int aux_ataque = 0;
+    bool vilao_atacou=false;
     while (1)
     {
         desenhar1x1();
-        if(_vilao->getNome()=="Billy"){
+        if(!_Player -> isDead() && !_vilao -> isDead()){
+            if(_vilao->getNome()=="Billy"){
             al_draw_scaled_bitmap(billy_batalha, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
-            if(cont%2==0){
+            if(cont % 2 == 0 && !atacou){
                 al_draw_scaled_bitmap(ataques, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
                 al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(180), 0.80*res_y_comp, 0,"Revólver");
                 al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(180), 0.87*res_y_comp, 0,"Aperte 1");
@@ -50,14 +52,39 @@ void Batalha1x1::batalhar(){
                 al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1605), 0.80*res_y_comp, 0,"Cura");
                 al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1575), 0.87*res_y_comp, 0,"Aperte C");
             }else if(atacou){
-                al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(610), 0.79*res_y_comp, 0,"Você usou o tiro de revólver!");
+                if(aux_ataque == 1){
+                    al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(610), 0.79*res_y_comp, 0,"Você usou o tiro de revólver!");
+                    
+                }
+                else if(aux_ataque == 5){
+                    al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(610), 0.79*res_y_comp, 0,"Você usou um de item de cura!");
+                }
+                
                 al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(605), 0.85*res_y_comp, 0,"Aperte ESPAÇO para continuar");
             }
-            else if(cont%3==0){
-                //_vilao->atacar(*_Player);
+            else if(cont % 2 != 0){
+                if(!vilao_atacou){
+                    _vilao->atacar(*_Player);
+                    vilao_atacou=true;
+                }
                 al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(610), 0.79*res_y_comp, 0,"Billy usou o tiro de revólver!");
                 al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(605), 0.85*res_y_comp, 0,"Aperte ESPAÇO para continuar");
             }
+
+        }
+
+        else if(_Player -> isDead()){
+           
+            //telaGameOver(reiniciar);
+            //_Player->setVida(_Player->getMaxVida());
+
+        }
+
+        else if(_vilao -> isDead()){
+            break;
+
+        }
+        
 
             /*if(VerificaTeclaBatalha() && aux_ataque == 1){
                 atacar(billy_batalha, "Revólver");
@@ -93,13 +120,24 @@ void Batalha1x1::batalhar(){
             case ALLEGRO_KEY_1:
                 if(cont%2==0){
                     atacou=true;
-                    //_Player->atacar(_Player, _vilao, "Tiro");
-                    cont++;
+                    aux_ataque=1;
+                    //_Player->atacar<Inimigo>(*_vilao, "Revólver");
+                    
+                    
                 }
                 break;
+            case ALLEGRO_KEY_C:
+                if(cont%2==0 && _Player->qtdItem("Comida")>0 && _Player->getVida() < _Player->getMaxVida() ){
+                    atacou=true;
+                    _Player-> curarVida(10);
+                    _Player->addItem("Comida", -1);
+                    aux_ataque=5;
+                }
+                break;    
             case ALLEGRO_KEY_SPACE:
                 atacou=false;
                 cont++;
+                vilao_atacou=false;
                 break;
 
             }// fim do switch
@@ -118,6 +156,9 @@ void Batalha1x1::desenhar1x1(){
     al_draw_scaled_bitmap(vida_player, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
     al_draw_scaled_bitmap(lifebar, 0, 0, 322, 100, RES_WIDTH(17*CELULA), RES_HEIGHT(9*CELULA), RES_WIDTH(322*((double)_Player->getVida()/_Player->getMaxVida())), RES_HEIGHT(73), 0);
 }
+
+
+
 
 /*bool VerificaTeclaBatalha(){
     if(ev3.type == ALLEGRO_EVENT_KEY_DOWN){

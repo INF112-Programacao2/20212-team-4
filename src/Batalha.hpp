@@ -13,10 +13,9 @@ public:
 };
 
 class Batalha1x1 : public IBatalha {
-private:
+public:
     Inimigo *_vilao;
     Protagonista *_Player;
-public:
     Batalha1x1(Inimigo *vilao, Protagonista *player);
     virtual void batalhar();
     void desenhar1x1();

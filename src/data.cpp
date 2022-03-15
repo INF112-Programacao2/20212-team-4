@@ -329,8 +329,7 @@ bool inicializaJogo() {
 
     //atribuindo as imagens das batalhas
 
-    player_batalha = al_load_bitmap("./../assets/batalha/player-batalha.bmp"); // imagem do jogador para a batalha
-    billy_batalha = al_load_bitmap("./../assets/batalha/pistoleiro.bmp"); // imagem do inimigo para a batalha
+    
    
 
 

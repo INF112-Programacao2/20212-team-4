@@ -96,6 +96,8 @@ int main(int argc, char **argv){
         Billy->addAtaque("Cura", 0, 2);
 
         al_start_timer(timer);
+
+
         while(Player->getNivel()==1){
             al_wait_for_event(event_queue, &ev0);
 
@@ -629,6 +631,7 @@ void interagir(){
             dialogoNivel1Pt2(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
 
+            Batalha_Nivel1.batalhar();
             Player->nextLevel();
             Player->setVida(Player->getVida()+10);
         }
