@@ -330,9 +330,6 @@ bool inicializaJogo() {
 
     //atribuindo as imagens das batalhas
 
-    
-   
-
 
     al_register_event_source(event_queue, al_get_display_event_source(game));
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
@@ -736,6 +733,10 @@ void dialogoMissaoChavesExtra(bool rel, bool chav, bool poc, bool d1, bool d2, b
 }
 
 void dialogoMissaoPocaoPt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao, MissaoSecundaria *missao){
+    std::string player_nome = Player->getNome();
+    for(int i = 1; i < player_nome.length(); i++)
+        player_nome[i] += 32; 
+
     std::map<short int, bool> fluxo;
     fluxo.insert(std::pair<short int, bool> (4, true));
 
@@ -759,8 +760,8 @@ void dialogoMissaoPocaoPt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool
         "1*!Eu não faço negócios com bruxas."
     };
 
-    falas[0] += (Player->getNome() + "?");
-    falas[3] += (Player->getNome() + ", assombrações... maldições!");
+    falas[0] += (player_nome + "?");
+    falas[3] += (player_nome + ", assombrações... maldições!");
 
     Dialogo dialogo(falas, fluxo, incrementos);
     if(!dialogo.dialogar("CLARA", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao)){
@@ -769,6 +770,10 @@ void dialogoMissaoPocaoPt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool
 }
 
 void dialogoMissaoPocaoPt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
+    std::string player_nome = Player->getNome();
+    for(int i = 1; i < player_nome.length(); i++)
+        player_nome[i] += 32; 
+
     std::map<short int, bool> fluxo;
     std::string **opcoes;
     short int **incrementos;
@@ -783,13 +788,17 @@ void dialogoMissaoPocaoPt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool
         "2*Você saberá quando usar.",
     };
 
-    falas[0] += (Player->getNome() + ".");
+    falas[0] += (player_nome+ ".");
 
     Dialogo dialogo(falas, fluxo, incrementos);
     dialogo.dialogar("CLARA", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
 }
 
 void dialogoMissaoPocaoPt2Level5(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
+    std::string player_nome = Player->getNome();
+    for(int i = 1; i < player_nome.length(); i++)
+        player_nome[i] += 32; 
+
     std::map<short int, bool> fluxo;
     std::string **opcoes;
     short int **incrementos;
@@ -806,7 +815,7 @@ void dialogoMissaoPocaoPt2Level5(bool rel, bool chav, bool poc, bool d1, bool d2
         "1*Um amigo me apresentou."
     };
 
-    falas[0] += (Player->getNome() + ".");
+    falas[0] += player_nome + ".";
 
     Dialogo dialogo(falas, fluxo, incrementos);
     dialogo.dialogar("CLARA", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
@@ -1025,6 +1034,10 @@ void dialogoMissaoRelogioPt2Extra(bool rel, bool chav, bool poc, bool d1, bool d
     dialogo.dialogar("SAUL", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
 }
 void dialogoNivel1Pt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
+    std::string player_nome = Player->getNome();
+    for(int i = 1; i < player_nome.length(); i++)
+        player_nome[i] += 32; 
+
     std::map<short int, bool> fluxo;
     std::string **opcoes;
     short int **incrementos;
@@ -1046,7 +1059,7 @@ void dialogoNivel1Pt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
         "1*Vou ver o que posso fazer."
     };
 
-    falas[0] += Player->getNome() + "! " + Player->getNome() + "!";
+    falas[0] += player_nome + "! " + player_nome + "!";
 
     Dialogo dialogo(falas, fluxo, incrementos);
     dialogo.dialogar("CÉSAR JÚLIO", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
@@ -1096,6 +1109,10 @@ void dialogoNivel2Pt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
 }
 
 void dialogoNivel2Pt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
+    std::string player_nome = Player->getNome();
+    for(int i = 1; i < player_nome.length(); i++)
+        player_nome[i] += 32; 
+
     std::map<short int, bool> fluxo;
     std::string **opcoes;
     short int **incrementos;
@@ -1114,7 +1131,7 @@ void dialogoNivel2Pt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
         "2*Quando terminar de resolver, não esqueça de passar aqui para trazer o crachá."
     };
 
-    falas[1] += Player->getNome() + ".";
+    falas[1] += player_nome + ".";
 
     Dialogo dialogo(falas, fluxo, incrementos);
     dialogo.dialogar("RENATO", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);

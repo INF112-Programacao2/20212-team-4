@@ -10,6 +10,8 @@
 #include "Personagens.hpp"
 #include "Grafico.hpp"
 
+ALLEGRO_EVENT evfadebatalha;
+
 //FUNCOES
 
 
@@ -23,6 +25,36 @@ Batalha1x1::Batalha1x1(Inimigo *vilao, Protagonista *player){
     this->_Player=player;
 }
 
+void batalha_intro(Protagonista *Player, Inimigo* vilao){
+    timer = al_create_timer(0.4);
+    short int PLAYER_X = 27;
+    short int INIMIGO_X = -27;
+
+    while (PLAYER_X > 0){
+        al_wait_for_event(event_queue, &evfadebatalha);
+
+        if(evfadebatalha.type == ALLEGRO_EVENT_TIMER){
+            al_clear_to_color(al_map_rgb(238,202,169));
+            al_draw_scaled_bitmap(caixa_de_ataques, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+            al_draw_scaled_bitmap(vida_vilao, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+            al_draw_scaled_bitmap(lifebar, 0, 0, 800, 100, RES_WIDTH(63*CELULA), RES_HEIGHT(29.5*CELULA), RES_WIDTH(1230*((double)vilao->getVida()/vilao->getMaxVida())), RES_HEIGHT(73), 0);
+            al_draw_scaled_bitmap(vida_player, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+            al_draw_scaled_bitmap(lifebar, 0, 0, 322, 100, RES_WIDTH(17*CELULA), RES_HEIGHT(9*CELULA), RES_WIDTH(322*((double)Player->getVida()/Player->getMaxVida())), RES_HEIGHT(73), 0);
+
+            if(vilao->getNome() == "Billy")
+                al_draw_scaled_bitmap(billy_batalha, 0, 0, 1920, 1080, RES_WIDTH(INIMIGO_X*CELULA), 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+
+            al_draw_scaled_bitmap(player_batalha,  0, 0, 1920, 1080, RES_WIDTH(PLAYER_X*CELULA), 0,  1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+
+            PLAYER_X -= 3;
+            INIMIGO_X += 3;
+        }
+        al_flip_display();
+    }
+
+    timer = al_create_timer(1.0/FPS);
+}
+
 bool Batalha1x1::batalhar(){
 
     ALLEGRO_EVENT ev2; //declarando o evento
@@ -31,10 +63,11 @@ bool Batalha1x1::batalhar(){
     int cont=0;
     short int aux_ataque = 0;
 
+    batalha_intro(this -> _Player, this -> _vilao);
     while (1){
-        desenhar1x1(this -> _Player, this -> _vilao);
-
         if(!_Player -> isDead() && !_vilao -> isDead()){
+            desenhar1x1(_Player, _vilao);
+
             if(_vilao->getNome() == "Billy")
                 al_draw_scaled_bitmap(billy_batalha, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
 
@@ -45,19 +78,19 @@ bool Batalha1x1::batalhar(){
             if(cont % 2 == 0 && !atacou){
                 al_draw_scaled_bitmap(ataques, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
                 al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(180), 0.80*res_y_comp, 0,"Revólver");
-                al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(180), 0.87*res_y_comp, 0,"Aperte 1");
+                al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(180), 0.87*res_y_comp, 0,"A: (02/08)");
 
                 al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(540), 0.80*res_y_comp, 0,"????");
-                al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(535), 0.87*res_y_comp, 0,"Aperte 2");
+                al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(535), 0.87*res_y_comp, 0,"S: (10/15)");
 
                 al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(865), 0.80*res_y_comp, 0,"????");
-                al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(875), 0.87*res_y_comp, 0,"Aperte 3");
+                al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(875), 0.87*res_y_comp, 0,"D: (03/05)");
 
                 al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1180), 0.80*res_y_comp, 0,"????");
-                al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1215), 0.87*res_y_comp, 0,"Aperte 4");
+                al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1215), 0.87*res_y_comp, 0,"F: (sorte)");
 
                 al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1605), 0.80*res_y_comp, 0,"Cura");
-                al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1575), 0.87*res_y_comp, 0,"Aperte C");
+                al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1575), 0.87*res_y_comp, 0,"C: +5 P.V.");
             }
             
             else if(atacou){
@@ -89,6 +122,8 @@ bool Batalha1x1::batalhar(){
 
         else if(_vilao -> isDead()){
             break;
+
+            return true;
         }
 
         al_flip_display();
@@ -104,20 +139,20 @@ bool Batalha1x1::batalhar(){
             }
 
             switch (ev2.keyboard.keycode){
-                case ALLEGRO_KEY_1:
+                case ALLEGRO_KEY_A:
                     if(cont%2==0){
                         atacou=true;
                         aux_ataque=1;
                         nome_ataque = "Tiro de Revólver";
                         //std::string nome_ataque = "Revólver";
-                    // _Player->atacar<Inimigo>(_vilao, "Revólver");
+                        //_Player->atacar<Inimigo>(_vilao, "Revólver");
                         
                         
                     }
                     break;
 
                 case ALLEGRO_KEY_C:
-                    if(cont%2==0 && _Player->qtdItem("Comida")>0 && _Player->getVida() < _Player->getMaxVida() ){
+                    if(cont%2==0 && _Player->qtdItem("Comida") > 0 && _Player->getVida() < _Player->getMaxVida() ){
                         atacou=true;
                         nome_ataque = "Tiro de Revólver";
                         _Player-> curarVida(10);
@@ -136,7 +171,7 @@ bool Batalha1x1::batalhar(){
         }
     } //fim do while
 
-    return true;
+    return false;
 }
 
 void desenhar1x1(Protagonista *_Player, Inimigo *_vilao){

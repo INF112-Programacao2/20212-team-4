@@ -34,5 +34,6 @@ void ajustarCamera(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, boo
 void telaGameOver(bool reiniciar);
 void minimap();
 void telaMenu(bool iniciar);
+void fadeout();
 
 #endif

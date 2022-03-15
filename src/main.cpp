@@ -32,7 +32,6 @@ Interacao *Dinheiro3 = new Interacao("Dinheiro3", 2, 46, '8');
 Interacao *Dinheiro4 = new Interacao("Dinheiro4", 68, 67, '8');
 Interacao *Loja = new Interacao("Loja", 42, 45, '4'); //criando ponteiro para objeto loja do tipo interecao
 Interacao *Botao_Interagir = new Interacao("Botaointeracao", 0, 0, '1');
-Interacao *Batalha1 = new Interacao("Batalha1", 29, 40, 'S');
 
 
 /* MISSOES SECUNDARIAS */
@@ -647,6 +646,7 @@ void interagir(){
             dialogoNivel1Pt2(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
 
+            fadeout();
             if(Batalha_Nivel1.batalhar()){
                 Player->nextLevel();
                 ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);

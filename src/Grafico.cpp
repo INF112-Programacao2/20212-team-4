@@ -3,6 +3,7 @@
 
 ALLEGRO_EVENT evdialogo;
 ALLEGRO_EVENT evmorte;
+ALLEGRO_EVENT evfade;
 bool buy_made; //variavel que define se o player ja fez ou nao a compra
 
 void minimap(){
@@ -94,23 +95,23 @@ void redesenhar(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d
 
     if(i == 64){
         if(j == 16)
-            al_draw_scaled_bitmap(portao, 0, 0, 80, 64, RES_WIDTH(EIXO_X_PLAYER_TELA-64), RES_HEIGHT(EIXO_Y_PLAYER_TELA+4), RES_WIDTH(80*ZOOM), RES_HEIGHT(64*ZOOM), 0);
+            al_draw_scaled_bitmap(portao, 0, 0, 80, 64, RES_WIDTH(EIXO_X_PLAYER_TELA)-RES_WIDTH(64), RES_HEIGHT(EIXO_Y_PLAYER_TELA)+RES_HEIGHT(4), RES_WIDTH(80*ZOOM), RES_HEIGHT(64*ZOOM), 0);
 
         else if(j == 17)
-            al_draw_scaled_bitmap(portao, 0, 0, 80, 64, RES_WIDTH(EIXO_X_PLAYER_TELA-128), RES_HEIGHT(EIXO_Y_PLAYER_TELA+4), RES_WIDTH(80*ZOOM), RES_HEIGHT(64*ZOOM), 0);
+            al_draw_scaled_bitmap(portao, 0, 0, 80, 64, RES_WIDTH(EIXO_X_PLAYER_TELA)-RES_WIDTH(128), RES_HEIGHT(EIXO_Y_PLAYER_TELA)+RES_HEIGHT(4), RES_WIDTH(80*ZOOM), RES_HEIGHT(64*ZOOM), 0);
 
         else if(j == 18)
-            al_draw_scaled_bitmap(portao, 0, 0, 80, 64, RES_WIDTH(EIXO_X_PLAYER_TELA-192), RES_HEIGHT(EIXO_Y_PLAYER_TELA+4), RES_WIDTH(80*ZOOM), RES_HEIGHT(64*ZOOM), 0);
+            al_draw_scaled_bitmap(portao, 0, 0, 80, 64, RES_WIDTH(EIXO_X_PLAYER_TELA)-RES_WIDTH(192), RES_HEIGHT(EIXO_Y_PLAYER_TELA)+RES_HEIGHT(4), RES_WIDTH(80*ZOOM), RES_HEIGHT(64*ZOOM), 0);
     }
     else if(i == 63){
         if(j == 16)
-            al_draw_scaled_bitmap(portao, 0, 0, 80, 64, RES_WIDTH(EIXO_X_PLAYER_TELA-64), RES_HEIGHT(EIXO_Y_PLAYER_TELA+68), RES_WIDTH(80*ZOOM), RES_HEIGHT(64*ZOOM), 0);
+            al_draw_scaled_bitmap(portao, 0, 0, 80, 64, RES_WIDTH(EIXO_X_PLAYER_TELA)-RES_WIDTH(64), RES_HEIGHT(EIXO_Y_PLAYER_TELA)+RES_HEIGHT(68), RES_WIDTH(80*ZOOM), RES_HEIGHT(64*ZOOM), 0);
 
         else if(j == 17)
-            al_draw_scaled_bitmap(portao, 0, 0, 80, 64, RES_WIDTH(EIXO_X_PLAYER_TELA-128), RES_HEIGHT(EIXO_Y_PLAYER_TELA+68), RES_WIDTH(80*ZOOM), RES_HEIGHT(64*ZOOM), 0);
+            al_draw_scaled_bitmap(portao, 0, 0, 80, 64, RES_WIDTH(EIXO_X_PLAYER_TELA)-RES_WIDTH(128), RES_HEIGHT(EIXO_Y_PLAYER_TELA)+RES_HEIGHT(68), RES_WIDTH(80*ZOOM), RES_HEIGHT(64*ZOOM), 0);
 
         else if(j == 18)
-            al_draw_scaled_bitmap(portao, 0, 0, 80, 64, RES_WIDTH(EIXO_X_PLAYER_TELA-192), RES_HEIGHT(EIXO_Y_PLAYER_TELA+68), RES_WIDTH(80*ZOOM), RES_HEIGHT(64*ZOOM), 0);
+            al_draw_scaled_bitmap(portao, 0, 0, 80, 64, RES_WIDTH(EIXO_X_PLAYER_TELA)-RES_WIDTH(192), RES_HEIGHT(EIXO_Y_PLAYER_TELA)+RES_HEIGHT(68), RES_WIDTH(80*ZOOM), RES_HEIGHT(64*ZOOM), 0);
     }
 
 
@@ -125,6 +126,28 @@ void redesenhar(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d
         al_draw_scaled_bitmap(botaocomer, 0,  0, 18, 18, RES_WIDTH(770), 0.85*res_y_comp, RES_WIDTH(18*ZOOM), RES_HEIGHT(18*ZOOM), 0);
         
     }   
+}
+
+void fadeout(){
+    timer = al_create_timer(0.5);
+
+    int alfa = 130;
+    while (alfa <= 255){
+        al_wait_for_event(event_queue, &evfade);
+
+        if(evfade.type == ALLEGRO_EVENT_TIMER){
+            al_clear_to_color(al_map_rgba(0, 0, 0, 0));
+            al_draw_tinted_scaled_bitmap(map, al_map_rgba(255 - alfa, 255 - alfa, 255 - alfa, alfa), TELA_X_MAPA*CELULA, TELA_Y_MAPA*CELULA, res_x_comp, res_y_comp, 0, 
+                0, res_x_comp*(res_x_comp/1920.0)*ZOOM, res_y_comp*(res_y_comp/1080.0)*ZOOM, 0.8);
+            al_draw_tinted_scaled_bitmap(general_player, al_map_rgba(255 - alfa, 255 - alfa, 255 - alfa, alfa), 0, 0, res_x_player, res_y_player, RES_WIDTH(EIXO_X_PLAYER_TELA), 
+                RES_HEIGHT(EIXO_Y_PLAYER_TELA), RES_WIDTH(res_x_player*ZOOM), RES_HEIGHT(res_y_player*ZOOM), 0);
+
+            al_flip_display();
+            alfa += 15;
+        }
+    }
+
+    timer = al_create_timer(1.0/FPS);
 }
 
 bool Dialogo::verificarTecla(){
@@ -256,11 +279,11 @@ bool Dialogo::dialogar(std::string npc, std::string **opcoes, bool rel, bool cha
 
 
         if(this->_dialogos[this->posicao_atual_dialogo][0] == '1'){
-            al_draw_scaled_bitmap(icone_player, 0, 0, 18, 18, 348, 825, RES_WIDTH(128), RES_HEIGHT(128), 0);
+            al_draw_scaled_bitmap(icone_player, 0, 0, 18, 18, RES_WIDTH(348), RES_HEIGHT(825), RES_WIDTH(128), RES_HEIGHT(128), 0);
             al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(355), 0.895*res_y_comp, 0, Player->getNome().c_str());
         }
         else {
-            al_draw_scaled_bitmap(icone, 0, 0, 18, 18, 348, 825, RES_WIDTH(128), RES_HEIGHT(128), 0);
+            al_draw_scaled_bitmap(icone, 0, 0, 18, 18, RES_WIDTH(348), RES_HEIGHT(825), RES_WIDTH(128), RES_HEIGHT(128), 0);
             al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(355), 0.895*res_y_comp, 0, npc.c_str());
         }
         al_flip_display();
