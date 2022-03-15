@@ -89,6 +89,7 @@ ALLEGRO_BITMAP *titulo = NULL;  // titulo da tela inicial
 ALLEGRO_BITMAP *mapmenu = NULL;  // mapa da tela inicial
 ALLEGRO_BITMAP *tela_fundo = NULL;  // base do personagem na batalha
 ALLEGRO_BITMAP *caixa_nome = NULL;
+const char *ajuda_cesar = NULL;
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
 // Matriz do mapa.
@@ -1100,7 +1101,7 @@ void dialogoNivel2Pt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
     short int **incrementos;
 
 
-    icone = al_load_bitmap("./../assets/icone-cervejeiro.bmp");
+    icone = al_load_bitmap("./../assets/icone-renato.bmp");
     std::string *falas = new std::string[9] {
         "1Olá?",
         "2Você deve ser o ",
@@ -1116,7 +1117,7 @@ void dialogoNivel2Pt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
     falas[1] += Player->getNome() + ".";
 
     Dialogo dialogo(falas, fluxo, incrementos);
-    dialogo.dialogar("AMBRÓSIO", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+    dialogo.dialogar("RENATO", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
 }
 
 void dialogoNivel2Pt3(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
@@ -1304,4 +1305,43 @@ void dialogoNivel5Pt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
 
     Dialogo dialogo(falas, fluxo, incrementos);
     dialogo.dialogar("JOHNNY CASH", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+}
+
+const char *atualizaCesarJulio(Protagonista *player, Missao *n1, Missao *n2, Missao *n3, Missao *n4, Missao *n5){
+    if(player->getNivel() == 1){
+        if(n1->_etapa == 2) return "2*O que tá esperando pra ir derrotar o pistoleiro?";
+    }
+    else if(player->getNivel() == 2){
+        if(n2->_etapa == 1) return "2*O cervejeiro está feliz por recuperar o saloon, você deveria falar com ele.";
+        else if(n2->_etapa == 2) return "2*Ouvi o Ambrósio falar pra você ir até o bancário... Ele só fala gritando... Por que não vai lá?";
+        else if(n2->_etapa == 3) return "2*Hmm, um bandido roubou o cargo de xerife... Que trama fantástica da equipe de roteiro! Vai lá derrotar ele!";
+    }
+    else if(player->getNivel() == 3){
+        if(n3->_etapa == 1) return "2*O bancário está esperando a estrela... Lembra? Você tinha que prestar mais atenção nos diálogos.";
+        else if(n3->_etapa == 2) return "2*O rancho é seguindo a trilha à esquerda na saída da cidade. Tem um invasor esperando pra ser derrotado.";
+    }
+    else if(player->getNivel() == 4){
+        if(n4->_etapa == 1) return "2*O rancheiro deve estar todo bobo que você recuperou o rancho dele. Por que não fala com ele?";
+        else if(n4->_etapa == 2) return "2*Estava caminhando pelo rancho... Parece que o coveiro tá metido nisso... Mostra pra ele quem manda aqui!";
+    }
+    else if(player->getNivel() == 5){
+        return "2*Quando for derrotar o Johnny Cash, pede um autógrafo pra mim?";
+    }
+
+    return "";
+}
+
+void dialogoCesarJulio(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
+    std::map<short int, bool> fluxo;
+    std::string **opcoes;
+    short int **incrementos;
+
+    icone = al_load_bitmap("./../assets/icone-cesar.bmp");
+    std::string *falas = new std::string[1] {
+        ""
+    };
+    falas[0] += ajuda_cesar;
+
+    Dialogo dialogo(falas, fluxo, incrementos);
+    dialogo.dialogar("CESAR JÚLIO", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
 }

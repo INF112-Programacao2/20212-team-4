@@ -205,7 +205,7 @@ class Inimigo : public Personagem{
          * 
          * @param player o personagem que irá ser alvo do dano.
          */
-        void atacar(Protagonista &alvo);
+        std::string atacar(Protagonista &alvo);
 };
 
 #endif

@@ -113,30 +113,6 @@ bool Personagem::isDead(){
         return false;
 }
 
-// template<class ENEMY>
-// void Protagonista::atacar(ENEMY *alvo, const char *ataque){
-//     if(ataque == "Pé de Coelho"){
-//         this->_sortudo = true;
-//         this->subAtaque("Pé de Coelho");
-//     }
-
-//     else{
-//         std::map<std::string, short int*>::iterator it = this->_ataques.find(ataque);
-//         short int dano;
-
-//         if(this->_sortudo)
-//             dano = it->second[1];
-        
-//         else
-//             dano = rand()%(it->second[1] - it->second[0]) + it->second[0] + 1;
-
-//         alvo->setVida(alvo->getVida() - dano);
-
-//         if(ataque == "Coquetel Molotov")
-//             this->subAtaque("Coquetel Molotov");
-//     }
-// }
-
 void Protagonista::nextLevel(){
     this->_nivel++;
     resetTeclas();
@@ -153,6 +129,8 @@ void Protagonista::nextLevel(){
 
         resetCamera(13, 5);
         
+        MAPA[28][63] = MAPA[28][63] = MAPA[68][64] = '3';
+        MAPA[29][40] = '0'; // Adiciona colisão no Billy.
         this->_vida = 10;
         this->_dinheiro = 3;
     }
@@ -259,7 +237,7 @@ void Protagonista::comer(){
     this->subItem("Comida", 1);
 }
 
-void Inimigo::atacar(Protagonista &alvo){
+std::string Inimigo::atacar(Protagonista &alvo){
     std::map <std::string, short int*>::iterator it;
     
     RANDOM:
@@ -285,6 +263,8 @@ void Inimigo::atacar(Protagonista &alvo){
             this->curarVida(it->second[1]);
         else
             goto RANDOM;
+
+    return it->first;
 }
 
 void Protagonista::addItem(std::string item, short int qtd){

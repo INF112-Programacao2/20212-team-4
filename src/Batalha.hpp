@@ -8,7 +8,7 @@
 
 class IBatalha {
 public:
-    virtual void batalhar() = 0;
+    virtual bool batalhar() = 0;
     
 };
 
@@ -17,19 +17,19 @@ public:
     Inimigo *_vilao;
     Protagonista *_Player;
     Batalha1x1(Inimigo *vilao, Protagonista *player);
-    virtual void batalhar();
+    virtual bool batalhar();
     
 };
 
 class Batalha1x2 : public IBatalha{
 public:
-    virtual void batalhar();
+    virtual bool batalhar();
 
 };
 
 class BatalhaFantasma : public IBatalha{
 public:
-    virtual void batalhar();
+    virtual bool batalhar();
 };
 
 void desenhar1x1(Protagonista *_Player, Inimigo *_vilao);

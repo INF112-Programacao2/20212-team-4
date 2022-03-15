@@ -110,7 +110,7 @@ extern ALLEGRO_BITMAP *mapmenu;  // mapa da tela inicial
 extern ALLEGRO_BITMAP *tela_fundo;
 extern ALLEGRO_FONT *font_titulo;
 extern ALLEGRO_BITMAP *caixa_nome;
-
+extern const char *ajuda_cesar;
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
 // Matriz do mapa.
@@ -174,5 +174,7 @@ void dialogoNivel4Pt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
 void dialogoNivel4Pt3(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao);
 void dialogoNivel5Pt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao);
 void dialogoNivel5Pt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao);
+const char *atualizaCesarJulio(Protagonista *player, Missao *n1, Missao *n2, Missao *n3, Missao *n4, Missao *n5);
+void dialogoCesarJulio(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao);
 
 #endif

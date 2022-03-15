@@ -15,6 +15,7 @@
 
 //VARIAVEIS
 bool d_ataques;
+std::string nome_ataque;
 int ataque_do_vilao;
 
 Batalha1x1::Batalha1x1(Inimigo *vilao, Protagonista *player){
@@ -22,19 +23,25 @@ Batalha1x1::Batalha1x1(Inimigo *vilao, Protagonista *player){
     this->_Player=player;
 }
 
-void Batalha1x1::batalhar(){
+bool Batalha1x1::batalhar(){
 
     ALLEGRO_EVENT ev2; //declarando o evento
     bool atacou=false;
+    bool vilao_atacou=false;
     int cont=0;
     short int aux_ataque = 0;
-    bool vilao_atacou=false;
-    while (1)
-    {
+
+    while (1){
         desenhar1x1(this -> _Player, this -> _vilao);
+
         if(!_Player -> isDead() && !_vilao -> isDead()){
-            if(_vilao->getNome()=="Billy"){
-            al_draw_scaled_bitmap(billy_batalha, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+            if(_vilao->getNome() == "Billy")
+                al_draw_scaled_bitmap(billy_batalha, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+
+            // else if(_vilao->getNome()=="Xerife_Espeto")
+
+            // else if(_vilao->getNome()=="Geraldina")
+
             if(cont % 2 == 0 && !atacou){
                 al_draw_scaled_bitmap(ataques, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
                 al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(180), 0.80*res_y_comp, 0,"Revólver");
@@ -51,101 +58,85 @@ void Batalha1x1::batalhar(){
 
                 al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1605), 0.80*res_y_comp, 0,"Cura");
                 al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1575), 0.87*res_y_comp, 0,"Aperte C");
-            }else if(atacou){
-                if(aux_ataque == 1){
-                    al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(610), 0.79*res_y_comp, 0,"Você usou o tiro de revólver!");
-                    
-                }
-                else if(aux_ataque == 5){
-                    al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(610), 0.79*res_y_comp, 0,"Você usou um de item de cura!");
-                }
+            }
+            
+            else if(atacou){
+                std::string mensagem = "Você usou " + nome_ataque + "!";
+                al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(610), 0.79*res_y_comp, 0, mensagem.c_str());
                 
                 al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(605), 0.85*res_y_comp, 0,"Aperte ESPAÇO para continuar");
             }
+
             else if(cont % 2 != 0){
                 if(!vilao_atacou){
-                    _vilao->atacar(*_Player);
+                    nome_ataque = _vilao->atacar(*_Player);
                     vilao_atacou=true;
                 }
-                al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(610), 0.79*res_y_comp, 0,"Billy usou o tiro de revólver!");
+
+                std::string mensagem = _vilao->getNome() + " usou " + nome_ataque + "!";
+                al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(610), 0.79*res_y_comp, 0, mensagem.c_str());
+
                 al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(605), 0.85*res_y_comp, 0,"Aperte ESPAÇO para continuar");
             }
-
         }
 
         else if(_Player -> isDead()){
-           
             telaGameOver(reiniciar);
             _Player->setVida(_Player->getMaxVida());
-            break;
 
+            return false;
         }
 
         else if(_vilao -> isDead()){
             break;
-
-        }
-        
-
-            /*if(VerificaTeclaBatalha() && aux_ataque == 1){
-                atacar(billy_batalha, "Revólver");
-                aux_ataque = 2;
-            }*/
-
-        }
-        else if(_vilao->getNome()=="Xerife_Espeto"){
-            if(cont%2==0){
-
-            }else{
-                
-            }
-        }
-        else if(_vilao->getNome()=="Geraldina"){
-            if(cont%2==0){
-
-            }else{
-                
-            }
         }
 
-        al_flip_display();//trocando a tela
+        al_flip_display();
 
+
+
+        // ATAQUE DO PLAYER
         al_wait_for_event(event_queue, &ev2);
         if (ev2.type == ALLEGRO_EVENT_KEY_DOWN) {
-        keys[ev2.keyboard.keycode] = true;
+            keys[ev2.keyboard.keycode] = true;
             if(keys[ALLEGRO_KEY_ESCAPE]) {
                 break;
-            }  
-            switch (ev2.keyboard.keycode)
-            {
-            case ALLEGRO_KEY_1:
-                if(cont%2==0){
-                    atacou=true;
-                    aux_ataque=1;
-                    //std::string nome_ataque = "Revólver";
-                   // _Player->atacar<Inimigo>(_vilao, "Revólver");
-                    
-                    
-                }
-                break;
-            case ALLEGRO_KEY_C:
-                if(cont%2==0 && _Player->qtdItem("Comida")>0 && _Player->getVida() < _Player->getMaxVida() ){
-                    atacou=true;
-                    _Player-> curarVida(10);
-                    _Player->addItem("Comida", -1);
-                    aux_ataque=5;
-                }
-                break;    
-            case ALLEGRO_KEY_SPACE:
-                atacou=false;
-                cont++;
-                vilao_atacou=false;
-                break;
+            }
 
-            }// fim do switch
+            switch (ev2.keyboard.keycode){
+                case ALLEGRO_KEY_1:
+                    if(cont%2==0){
+                        atacou=true;
+                        aux_ataque=1;
+                        nome_ataque = "Tiro de Revólver";
+                        //std::string nome_ataque = "Revólver";
+                    // _Player->atacar<Inimigo>(_vilao, "Revólver");
+                        
+                        
+                    }
+                    break;
+
+                case ALLEGRO_KEY_C:
+                    if(cont%2==0 && _Player->qtdItem("Comida")>0 && _Player->getVida() < _Player->getMaxVida() ){
+                        atacou=true;
+                        nome_ataque = "Tiro de Revólver";
+                        _Player-> curarVida(10);
+                        _Player->addItem("Comida", -1);
+                        aux_ataque=5;
+                    }
+                    break;    
+
+                case ALLEGRO_KEY_SPACE:
+                    atacou=false;
+                    cont++;
+                    vilao_atacou=false;
+                    break;
+
+            } // fim do switch
         }
-    }//fim do while
- 
+    } //fim do while
+
+    return true;
 }
 
 void desenhar1x1(Protagonista *_Player, Inimigo *_vilao){

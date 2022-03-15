@@ -85,6 +85,7 @@ int main(int argc, char **argv){
 
         INICIO:
         Save->read_save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Chave, Relogio, Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
+        Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
 
         /* === NÍVEL UM === */
         // Neste nível, o jogador tem a batalha contra o pistoleiro Billy, em frente ao Saloon. Não há NPCs 
@@ -97,21 +98,22 @@ int main(int argc, char **argv){
 
         al_start_timer(timer);
 
-
+        Nivel1->_etapa = 1;
+        ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
         while(Player->getNivel()==1){
             al_wait_for_event(event_queue, &ev0);
 
             if(!to_move()) break; 
             if(ev0.type == ALLEGRO_EVENT_TIMER){  
-                redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
-                    !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
-                minimap();
-
                 resetGame();
                 if(reiniciar){
                     reiniciar = false;
                     goto INICIO;
                 }
+
+                redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                    !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+                minimap();
 
                 al_flip_display();
             }
@@ -130,6 +132,8 @@ int main(int argc, char **argv){
         // Neste nível, o jogador tem a batalha contra o Xerife Espeto, no deserto. Estão presentes todos
         // os NPCs no mapa para passar missões, porém, ainda não é possível completar a missão da espingarda.    
 
+        Nivel2->_etapa = 1;
+        ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
         while(Player->getNivel()==2){
             al_wait_for_event(event_queue, &ev0);
 
@@ -163,6 +167,8 @@ int main(int argc, char **argv){
         // Neste nível, o jogador tem a batalha contra Geraldina, no rancho. Estão presentes todos
         // os NPCs no mapa para passar missões, porém, ainda não é possível completar a missão da espingarda.  
 
+        Nivel3->_etapa = 1;
+        ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
         while(Player->getNivel()==3){
             al_wait_for_event(event_queue, &ev0);
 
@@ -199,6 +205,8 @@ int main(int argc, char **argv){
         Caixao_do_Jose->addAtaque("Pá", 0, -2);
         Caixao_do_Jose->addAtaque("Cura", 0, 2);
 
+        Nivel4->_etapa = 1;
+        ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
         while(Player->getNivel()==4){
             al_wait_for_event(event_queue, &ev0);
 
@@ -234,6 +242,8 @@ int main(int argc, char **argv){
         Johnny_Cash->addAtaque("Tiro espectral", 0, -4);
         Johnny_Cash->addAtaque("Cura", 0, 3);
 
+        Nivel5->_etapa = 1;
+        ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
         while(Player->getNivel()==5){
             al_wait_for_event(event_queue, &ev0);
 
@@ -619,6 +629,11 @@ void interagir(){
         }
     }
 
+    else if(Nivel5->missaoProxima('3') && (Player->getNivel() > 1 || Nivel1->_etapa > 1)){
+        dialogoCesarJulio(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+            !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
+    }
+
     else if(Player->getNivel() == 1){
         if(Nivel1->missaoProxima('3') && Nivel1->_etapa == 1){
             dialogoNivel1Pt1(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
@@ -626,14 +641,17 @@ void interagir(){
 
             Nivel1->_etapa++;
             MAPA[29][40] = 'A'; // Adiciona Billy/Ambrósio na matriz
+            ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
         }
         else if(Nivel1->missaoProxima('A') && Nivel1->_etapa == 2){
             dialogoNivel1Pt2(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
 
-            Batalha_Nivel1.batalhar();
-            Player->nextLevel();
-            Player->setVida(Player->getVida()+10);
+            if(Batalha_Nivel1.batalhar()){
+                Player->nextLevel();
+                ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
+                Player->setVida(Player->getVida()+10);
+            }
         }
     }
 
@@ -645,6 +663,7 @@ void interagir(){
             Nivel2->_etapa++;
             MAPA[28][76] = 'J'; // Adiciona Renato na matriz
             MAPA[29][40] = '0'; // Adiciona Ambrósio na matriz
+            ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
         }
         else if(Nivel2->missaoProxima('J') && Nivel2->_etapa == 2){
             dialogoNivel2Pt2(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
@@ -653,12 +672,14 @@ void interagir(){
             Nivel2->_etapa++;
             MAPA[56][70] = MAPA[56][71] = MAPA[57][70] = MAPA[57][71] = 'B'; // Adiciona Xerife Espeto na matriz
             MAPA[28][76] = '0'; // Remove Renato da matriz
+            ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
         }
         else if(Nivel2->missaoProxima('B') && Nivel2->_etapa == 3){
             dialogoNivel2Pt3(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
 
             Player->nextLevel();
+            ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
             Player->setVida(Player->getVida()+10);
         }
     }
@@ -671,6 +692,7 @@ void interagir(){
             Nivel3->_etapa++;
             MAPA[49][16] = MAPA[49][17] = 'C'; // Adiciona Geraldina na matriz
             MAPA[28][76] = '0'; // Remove Renato da matriz
+            ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
         }
         else if(Nivel3->missaoProxima('C') && Nivel3->_etapa == 2){
             dialogoNivel3Pt2(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
@@ -688,6 +710,7 @@ void interagir(){
 
             MAPA[27][88] = MAPA[28][88] = MAPA[27][89] = 'D';
             Nivel4->_etapa++;
+            ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
         }
         else if(Nivel4->missaoProxima('D') && Nivel4->_etapa == 2){
             dialogoNivel4Pt3(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
