@@ -33,5 +33,7 @@ class BatalhaFantasma : public IBatalha{
         virtual void batalhar();
 };
 
+
+//bool VerificaTeclaBatalha();
 #endif
 

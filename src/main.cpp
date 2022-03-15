@@ -32,7 +32,7 @@ Interacao *Dinheiro3 = new Interacao("Dinheiro3", 2, 46, '8');
 Interacao *Dinheiro4 = new Interacao("Dinheiro4", 68, 67, '8');
 Interacao *Loja = new Interacao("Loja", 42, 45, '4'); //criando ponteiro para objeto loja do tipo interecao
 Interacao *Botao_Interagir = new Interacao("Botaointeracao", 0, 0, '1');
-// Interacao *Batalha1 = new Interacao("Batalha1", 29, 40, 'S');
+Interacao *Batalha1 = new Interacao("Batalha1", 29, 40, 'S');
 
 
 /* MISSOES SECUNDARIAS */
@@ -49,7 +49,8 @@ Missao *Nivel4 = new Missao(0, 0, 'C');
 Missao *Nivel5 = new Missao(0, 0, 'F');
 
 /* BATALHAS */
-// Batalha1x1 Batalha_Nivel1;
+Batalha1x1 Batalha_Nivel1 (Billy, Player);
+//Batalha1x1 Batalha_Nivel1;
 
 
 /* FUNCOES */
