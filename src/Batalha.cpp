@@ -69,7 +69,7 @@ bool Batalha1x1::batalhar(){
             desenhar1x1(_Player, _vilao);
 
             if(_vilao->getNome() == "Billy")
-                al_draw_scaled_bitmap(billy_batalha, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+                al_draw_scaled_bitmap(billy_batalha, 0, 0, 240, 135, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
 
             // else if(_vilao->getNome()=="Xerife_Espeto")
 
@@ -177,7 +177,7 @@ bool Batalha1x1::batalhar(){
 void desenhar1x1(Protagonista *_Player, Inimigo *_vilao){
     //desenhando as imagens comuns a todos as batalhas 1x1
     al_clear_to_color(al_map_rgb(238,202,169));
-    al_draw_scaled_bitmap(player_batalha, 0, 0, 1920, 1080, 0, 0,  1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+    al_draw_scaled_bitmap(player_batalha, 0, 0, 129, 68, 0, 0,  1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
     al_draw_scaled_bitmap(caixa_de_ataques, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
     al_draw_scaled_bitmap(vida_vilao, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
     al_draw_scaled_bitmap(lifebar, 0, 0, 800, 100, RES_WIDTH(63*CELULA), RES_HEIGHT(29.5*CELULA), RES_WIDTH(1230*((double)_vilao->getVida()/_vilao->getMaxVida())), RES_HEIGHT(73), 0);

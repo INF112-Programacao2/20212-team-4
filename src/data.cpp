@@ -78,12 +78,25 @@ ALLEGRO_BITMAP *player_minimap = NULL;
 ALLEGRO_BITMAP *portao = NULL;
 ALLEGRO_BITMAP *player_batalha = NULL; // imagem do jogador para a batalha
 ALLEGRO_BITMAP *billy_batalha = NULL; // imagem do inimigo para a batalha
-ALLEGRO_BITMAP *fundo_batalha = NULL;  // tela de batalha
+ALLEGRO_BITMAP *espeto_batalha;   // imagem do inimigo para a batalha
+ALLEGRO_BITMAP *geraldina_batalha;   // imagem do inimigo para a batalha
+ALLEGRO_BITMAP *jose_batalha;   // imagem do inimigo para a batalha
+ALLEGRO_BITMAP *caixao_batalha;   // imagem do inimigo para a batalha
+ALLEGRO_BITMAP *fantasma_batalha;   // imagem do inimigo para a batalha
+ALLEGRO_BITMAP *player_dano;   // imagem do jogador para a batalha
+ALLEGRO_BITMAP *billy_dano;   // imagem do inimigo para a batalha
+ALLEGRO_BITMAP *espeto_dano;   // imagem do inimigo para a batalha
+ALLEGRO_BITMAP *geraldina_dano;   // imagem do inimigo para a batalha
+ALLEGRO_BITMAP *jose_dano;   // imagem do inimigo para a batalha
+ALLEGRO_BITMAP *caixao_dano;   // imagem do inimigo para a batalha
+ALLEGRO_BITMAP *espeto_morto;   // imagem do inimigo para a batalha
+ALLEGRO_BITMAP *geraldina_morta;   // imagem do inimigo para a batalha
+ALLEGRO_BITMAP *jose_morto;   // imagem do inimigo para a batalha
 ALLEGRO_BITMAP *caixa_de_ataques = NULL; // opcoes de ataque
 ALLEGRO_BITMAP *ataques = NULL;          // ataques
 ALLEGRO_BITMAP *vida_player = NULL;      // vida do protagonista   
 ALLEGRO_BITMAP *vida_vilao = NULL;       // vida do vilao
-ALLEGRO_BITMAP *base = NULL;  // base do personagem na batalha
+ALLEGRO_BITMAP *base_fantasma = NULL;  // base do fantasma na batalha
 ALLEGRO_BITMAP *menu = NULL;  // tela inicial
 ALLEGRO_BITMAP *titulo = NULL;  // titulo da tela inicial
 ALLEGRO_BITMAP *mapmenu = NULL;  // mapa da tela inicial
@@ -324,11 +337,24 @@ bool inicializaJogo() {
     ataques=al_load_bitmap("./../assets/batalha/ataques.bmp");          
     vida_player=al_load_bitmap("./../assets/batalha/vida-player.bmp");         
     vida_vilao=al_load_bitmap("./../assets/batalha/vida-vilao.bmp");
-    base=al_load_bitmap("./../assets/batalha/base-pistoleiro.bmp");
+    base_fantasma=al_load_bitmap("./../assets/batalha/base-fantasma.bmp");
     player_batalha=al_load_bitmap("./../assets/batalha/player-batalha.bmp");        
-    billy_batalha=al_load_bitmap("./../assets/batalha/billy-batalha.bmp"); 
-
-    //atribuindo as imagens das batalhas
+    billy_batalha=al_load_bitmap("./../assets/batalha/pistoleiro-batalha.bmp"); 
+    espeto_batalha=al_load_bitmap("./../assets/batalha/xerife-batalha.bmp"); 
+    geraldina_batalha=al_load_bitmap("./../assets/batalha/coiote-batalha.bmp"); 
+    jose_batalha=al_load_bitmap("./../assets/batalha/coveiro-batalha.bmp");
+    caixao_batalha=al_load_bitmap("./../assets/batalha/caixao-batalha.bmp");
+    fantasma_batalha=al_load_bitmap("./../assets/batalha/fantasma-batalha.bmp");
+    player_dano=al_load_bitmap("./../assets/batalha/player-dano.bmp");
+    billy_dano=al_load_bitmap("./../assets/batalha/pistoleiro-dano.bmp");
+    espeto_dano=al_load_bitmap("./../assets/batalha/xerife-dano.bmp");
+    geraldina_dano=al_load_bitmap("./../assets/batalha/coiote-dano.bmp");
+    jose_dano=al_load_bitmap("./../assets/batalha/jose-dano.bmp");
+    caixao_dano=al_load_bitmap("./../assets/batalha/caixao-dano.bmp");
+    espeto_morto=al_load_bitmap("./../assets/batalha/xerife-morto.bmp");
+    geraldina_morta=al_load_bitmap("./../assets/batalha/coiote-morta    .bmp"); 
+    jose_morto=al_load_bitmap("./../assets/batalha/coveiro-morto.bmp");
+    
 
 
     al_register_event_source(event_queue, al_get_display_event_source(game));

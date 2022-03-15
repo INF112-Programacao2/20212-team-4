@@ -99,11 +99,25 @@ extern ALLEGRO_BITMAP *portao;
 extern ALLEGRO_BITMAP *botaoreiniciar;   // variavel que vai receber o botao para reiniciar
 extern ALLEGRO_BITMAP *player_batalha;   // imagem do jogador para a batalha
 extern ALLEGRO_BITMAP *billy_batalha;   // imagem do inimigo para a batalha
+extern ALLEGRO_BITMAP *espeto_batalha;   // imagem do inimigo para a batalha
+extern ALLEGRO_BITMAP *geraldina_batalha;   // imagem do inimigo para a batalha
+extern ALLEGRO_BITMAP *jose_batalha;   // imagem do inimigo para a batalha
+extern ALLEGRO_BITMAP *caixao_batalha;   // imagem do inimigo para a batalha
+extern ALLEGRO_BITMAP *fantasma_batalha;   // imagem do inimigo para a batalha
+extern ALLEGRO_BITMAP *player_dano;   // imagem do jogador para a batalha
+extern ALLEGRO_BITMAP *billy_dano;   // imagem do inimigo para a batalha
+extern ALLEGRO_BITMAP *espeto_dano;   // imagem do inimigo para a batalha
+extern ALLEGRO_BITMAP *geraldina_dano;   // imagem do inimigo para a batalha
+extern ALLEGRO_BITMAP *jose_dano;   // imagem do inimigo para a batalha
+extern ALLEGRO_BITMAP *caixao_dano;   // imagem do inimigo para a batalha
+extern ALLEGRO_BITMAP *espeto_morto;   // imagem do inimigo para a batalha
+extern ALLEGRO_BITMAP *geraldina_morta;   // imagem do inimigo para a batalha
+extern ALLEGRO_BITMAP *jose_morto;   // imagem do inimigo para a batalha
 extern ALLEGRO_BITMAP *caixa_de_ataques; // opcoes de ataque
 extern ALLEGRO_BITMAP *ataques;          // ataques
 extern ALLEGRO_BITMAP *vida_player;      // vida do protagonista   
 extern ALLEGRO_BITMAP *vida_vilao;       // vida do vilao
-extern ALLEGRO_BITMAP *base;  // base pistoleiro
+extern ALLEGRO_BITMAP *base_fantasma;  // base do fantasma na batalha
 extern ALLEGRO_BITMAP *menu;  // tela inicial
 extern ALLEGRO_BITMAP *titulo;  // titulo da tela inicial
 extern ALLEGRO_BITMAP *mapmenu;  // mapa da tela inicial
