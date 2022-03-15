@@ -113,29 +113,29 @@ bool Personagem::isDead(){
         return false;
 }
 
-template<class ENEMY>
-void Protagonista::atacar(ENEMY *alvo, std::string ataque){
-    if(ataque == "Pé de Coelho"){
-        this->_sortudo = true;
-        this->subAtaque("Pé de Coelho");
-    }
+// template<class ENEMY>
+// void Protagonista::atacar(ENEMY *alvo, const char *ataque){
+//     if(ataque == "Pé de Coelho"){
+//         this->_sortudo = true;
+//         this->subAtaque("Pé de Coelho");
+//     }
 
-    else{
-        std::map<std::string, short int*>::iterator it = this->_ataques.find(ataque);
-        short int dano;
+//     else{
+//         std::map<std::string, short int*>::iterator it = this->_ataques.find(ataque);
+//         short int dano;
 
-        if(this->_sortudo)
-            dano = it->second[1];
+//         if(this->_sortudo)
+//             dano = it->second[1];
         
-        else
-            dano = rand()%(it->second[1] - it->second[0]) + it->second[0] + 1;
+//         else
+//             dano = rand()%(it->second[1] - it->second[0]) + it->second[0] + 1;
 
-        alvo->setVida(alvo->getVida() - dano);
+//         alvo->setVida(alvo->getVida() - dano);
 
-        if(ataque == "Coquetel Molotov")
-            this->subAtaque("Coquetel Molotov");
-    }
-}
+//         if(ataque == "Coquetel Molotov")
+//             this->subAtaque("Coquetel Molotov");
+//     }
+// }
 
 void Protagonista::nextLevel(){
     this->_nivel++;

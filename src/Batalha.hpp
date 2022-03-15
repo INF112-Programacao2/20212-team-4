@@ -18,7 +18,7 @@ public:
     Protagonista *_Player;
     Batalha1x1(Inimigo *vilao, Protagonista *player);
     virtual void batalhar();
-    void desenhar1x1();
+    
 };
 
 class Batalha1x2 : public IBatalha{
@@ -28,11 +28,11 @@ public:
 };
 
 class BatalhaFantasma : public IBatalha{
-    public:
-        virtual void batalhar();
+public:
+    virtual void batalhar();
 };
 
-
+void desenhar1x1(Protagonista *_Player, Inimigo *_vilao);
 //bool VerificaTeclaBatalha();
 #endif
 

@@ -31,7 +31,7 @@ void Batalha1x1::batalhar(){
     bool vilao_atacou=false;
     while (1)
     {
-        desenhar1x1();
+        desenhar1x1(this -> _Player, this -> _vilao);
         if(!_Player -> isDead() && !_vilao -> isDead()){
             if(_vilao->getNome()=="Billy"){
             al_draw_scaled_bitmap(billy_batalha, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
@@ -75,8 +75,9 @@ void Batalha1x1::batalhar(){
 
         else if(_Player -> isDead()){
            
-            //telaGameOver(reiniciar);
-            //_Player->setVida(_Player->getMaxVida());
+            telaGameOver(reiniciar);
+            _Player->setVida(_Player->getMaxVida());
+            break;
 
         }
 
@@ -121,7 +122,8 @@ void Batalha1x1::batalhar(){
                 if(cont%2==0){
                     atacou=true;
                     aux_ataque=1;
-                    //_Player->atacar<Inimigo>(*_vilao, "Revólver");
+                    //std::string nome_ataque = "Revólver";
+                   // _Player->atacar<Inimigo>(_vilao, "Revólver");
                     
                     
                 }
@@ -146,7 +148,7 @@ void Batalha1x1::batalhar(){
  
 }
 
-void Batalha1x1::desenhar1x1(){
+void desenhar1x1(Protagonista *_Player, Inimigo *_vilao){
     //desenhando as imagens comuns a todos as batalhas 1x1
     al_clear_to_color(al_map_rgb(238,202,169));
     al_draw_scaled_bitmap(player_batalha, 0, 0, 1920, 1080, 0, 0,  1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);

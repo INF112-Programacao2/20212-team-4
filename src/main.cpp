@@ -117,8 +117,8 @@ int main(int argc, char **argv){
             }
         }
 
-        delete Billy;
-        Billy = nullptr;
+        // delete Billy;
+        // Billy = nullptr;
 
         Player->addAtaque("Coquetel Molotov", 10, 15);
 
@@ -150,8 +150,8 @@ int main(int argc, char **argv){
         }
 
 
-        delete Xerife_Espeto;
-        Xerife_Espeto = nullptr;
+        // delete Xerife_Espeto;
+        // Xerife_Espeto = nullptr;
 
         Player->addAtaque("Shurikens", 3, 5);
 
@@ -182,8 +182,8 @@ int main(int argc, char **argv){
             }
         }
 
-        delete Geraldina;
-        Geraldina = nullptr;
+        // delete Geraldina;
+        // Geraldina = nullptr;
 
         /* === NÍVEL QUATRO === */
         // Neste nível, o jogador tem a batalha contra José do Caixão e o Caixão do josé, na igreja. 
@@ -218,10 +218,10 @@ int main(int argc, char **argv){
             }
         }
 
-        delete Jose_do_Caixao;
-        Jose_do_Caixao = nullptr;
-        delete Caixao_do_Jose;
-        Caixao_do_Jose = nullptr;
+        // delete Jose_do_Caixao;
+        // Jose_do_Caixao = nullptr;
+        // delete Caixao_do_Jose;
+        // Caixao_do_Jose = nullptr;
 
         /* === NÍVEL QUATRO === */
         // Neste nível, o jogador tem a batalha contra Johnny Cash, na cabana. Estão presentes 
@@ -253,8 +253,8 @@ int main(int argc, char **argv){
             }
         }
 
-        delete Johnny_Cash;
-        Johnny_Cash = nullptr;
+        // delete Johnny_Cash;
+        // Johnny_Cash = nullptr;
     }
 
     Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
