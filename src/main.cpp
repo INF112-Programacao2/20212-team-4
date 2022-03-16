@@ -49,7 +49,9 @@ Missao *Nivel5 = new Missao(0, 0, 'F');
 
 /* BATALHAS */
 Batalha1x1 Batalha_Nivel1 (Billy, Player);
-//Batalha1x1 Batalha_Nivel1;
+Batalha1x1 Batalha_Nivel2 (Xerife_Espeto, Player);
+Batalha1x1 Batalha_Nivel3 (Geraldina, Player);
+
 
 
 /* FUNCOES */
@@ -99,6 +101,7 @@ int main(int argc, char **argv){
 
         Nivel1->_etapa = 1;
         ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
+
         while(Player->getNivel()==1){
             al_wait_for_event(event_queue, &ev0);
 
@@ -678,9 +681,12 @@ void interagir(){
             dialogoNivel2Pt3(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
 
-            Player->nextLevel();
-            ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
-            Player->setVida(Player->getVida()+10);
+            fadeout();
+            if(Batalha_Nivel2.batalhar()){
+                Player->nextLevel();
+                ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
+                Player->setVida(Player->getVida()+10);
+            }
         }
     }
 
@@ -698,8 +704,11 @@ void interagir(){
             dialogoNivel3Pt2(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
 
-            Player->nextLevel();
-            Player->setVida(Player->getVida()+10);
+            fadeout();
+            if(Batalha_Nivel3.batalhar()){
+                Player->nextLevel();
+                Player->setVida(Player->getVida()+10);
+            }
         } 
     }
 

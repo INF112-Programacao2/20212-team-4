@@ -32,7 +32,7 @@ public:
     virtual bool batalhar();
 };
 
-void desenhar1x1(Protagonista *_Player, Inimigo *_vilao);
+void desenhar(Protagonista *_Player, Inimigo *_vilao);
 //bool VerificaTeclaBatalha();
 #endif
 
