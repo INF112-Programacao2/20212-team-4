@@ -44,6 +44,15 @@ void batalha_intro(Protagonista *Player, Inimigo* vilao){
             if(vilao->getNome() == "Billy")
                 al_draw_scaled_bitmap(billy_batalha, 0, 0, 1920, 1080, RES_WIDTH(INIMIGO_X*CELULA), 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
 
+            else if(vilao->getNome() == "Xerife Espeto")
+                al_draw_scaled_bitmap(espeto_batalha, 0, 0, 1920, 1080, RES_WIDTH(INIMIGO_X*CELULA), 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+
+            else if(vilao->getNome() == "Geraldina")
+                al_draw_scaled_bitmap(geraldina_batalha, 0, 0, 1920, 1080, RES_WIDTH(INIMIGO_X*CELULA), 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+
+            else if(vilao->getNome() == "Jose do caixao")
+                al_draw_scaled_bitmap(jose_batalha, 0, 0, 1920, 1080, RES_WIDTH(INIMIGO_X*CELULA), 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+
             al_draw_scaled_bitmap(player_batalha,  0, 0, 1920, 1080, RES_WIDTH(PLAYER_X*CELULA), 0,  1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
 
             PLAYER_X -= 3;
@@ -86,6 +95,7 @@ bool Batalha1x1::batalhar(){
                 al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(610), 0.79*res_y_comp, 0, mensagem.c_str());
                 
                 al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(605), 0.85*res_y_comp, 0,"Aperte ESPAÇO para continuar");
+
             }
 
             else if(cont % 2 != 0){
@@ -245,3 +255,9 @@ void desenhar(Protagonista *_Player, Inimigo *_vilao){
 
 
 }*/
+
+// al_draw_scaled_bitmap(billy_dano, 0, 0, 240, 135, 0, 0, 1920*(res_x_comp/1920.0), 1080*     (res_y_comp/1080.0), 0);
+//                 al_flip_display();
+//                 al_rest(0.2);
+//                 desenhar(_Player, _vilao);
+//                 al_rest(0.2);
