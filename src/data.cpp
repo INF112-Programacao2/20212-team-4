@@ -78,20 +78,20 @@ ALLEGRO_BITMAP *player_minimap = NULL;
 ALLEGRO_BITMAP *portao = NULL;
 ALLEGRO_BITMAP *player_batalha = NULL; // imagem do jogador para a batalha
 ALLEGRO_BITMAP *billy_batalha = NULL; // imagem do inimigo para a batalha
-ALLEGRO_BITMAP *espeto_batalha;   // imagem do inimigo para a batalha
-ALLEGRO_BITMAP *geraldina_batalha;   // imagem do inimigo para a batalha
-ALLEGRO_BITMAP *jose_batalha;   // imagem do inimigo para a batalha
-ALLEGRO_BITMAP *caixao_batalha;   // imagem do inimigo para a batalha
-ALLEGRO_BITMAP *fantasma_batalha;   // imagem do inimigo para a batalha
-ALLEGRO_BITMAP *player_dano;   // imagem do jogador para a batalha
-ALLEGRO_BITMAP *billy_dano;   // imagem do inimigo para a batalha
-ALLEGRO_BITMAP *espeto_dano;   // imagem do inimigo para a batalha
-ALLEGRO_BITMAP *geraldina_dano;   // imagem do inimigo para a batalha
-ALLEGRO_BITMAP *jose_dano;   // imagem do inimigo para a batalha
-ALLEGRO_BITMAP *caixao_dano;   // imagem do inimigo para a batalha
-ALLEGRO_BITMAP *espeto_morto;   // imagem do inimigo para a batalha
-ALLEGRO_BITMAP *geraldina_morta;   // imagem do inimigo para a batalha
-ALLEGRO_BITMAP *jose_morto;   // imagem do inimigo para a batalha
+ALLEGRO_BITMAP *espeto_batalha= NULL;   // imagem do inimigo para a batalha
+ALLEGRO_BITMAP *geraldina_batalha= NULL;   // imagem do inimigo para a batalha
+ALLEGRO_BITMAP *jose_batalha= NULL;   // imagem do inimigo para a batalha
+ALLEGRO_BITMAP *caixao_batalha= NULL;   // imagem do inimigo para a batalha
+ALLEGRO_BITMAP *fantasma_batalha= NULL;   // imagem do inimigo para a batalha
+ALLEGRO_BITMAP *player_dano= NULL;   // imagem do jogador para a batalha
+ALLEGRO_BITMAP *billy_dano= NULL;   // imagem do inimigo para a batalha
+ALLEGRO_BITMAP *espeto_dano= NULL;   // imagem do inimigo para a batalha
+ALLEGRO_BITMAP *geraldina_dano= NULL;   // imagem do inimigo para a batalha
+ALLEGRO_BITMAP *jose_dano= NULL;   // imagem do inimigo para a batalha
+ALLEGRO_BITMAP *caixao_dano= NULL;   // imagem do inimigo para a batalha
+ALLEGRO_BITMAP *espeto_morto= NULL;   // imagem do inimigo para a batalha
+ALLEGRO_BITMAP *geraldina_morta= NULL;   // imagem do inimigo para a batalha
+ALLEGRO_BITMAP *jose_morto= NULL;   // imagem do inimigo para a batalha
 ALLEGRO_BITMAP *caixa_de_ataques = NULL; // opcoes de ataque
 ALLEGRO_BITMAP *ataques = NULL;          // ataques
 ALLEGRO_BITMAP *vida_player = NULL;      // vida do protagonista   
