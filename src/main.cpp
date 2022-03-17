@@ -173,6 +173,7 @@ int main(int argc, char **argv){
 
         Nivel3->_etapa = 1;
         ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
+        if(Player->getNivel() == 3) Player->addItem("Estrela de Xerife", 1);
         while(Player->getNivel()==3){
             al_wait_for_event(event_queue, &ev0);
 
@@ -697,6 +698,7 @@ void interagir(){
             dialogoNivel3Pt1(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
 
+            Player->subItem("Estrela de Xerife", 1);
             Nivel3->_etapa++;
             MAPA[49][16] = MAPA[49][17] = 'C'; // Adiciona Geraldina na matriz
             MAPA[28][76] = '0'; // Remove Renato da matriz

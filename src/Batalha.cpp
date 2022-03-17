@@ -68,6 +68,45 @@ void batalha_intro(Protagonista *Player, Inimigo* vilao){
     timer = al_create_timer(1.0/FPS);
 }
 
+void batalha_fim(Protagonista *Player, Inimigo* vilao){
+    timer = al_create_timer(0.4);
+    int alfa = 130;
+
+    while (alfa <= 255){
+        al_wait_for_event(event_queue, &evfadebatalha);
+
+        if(evfadebatalha.type == ALLEGRO_EVENT_TIMER){
+            al_clear_to_color(al_map_rgba(0, 0, 0, 0));
+            al_clear_to_color(al_map_rgba(238, 202, 169, alfa));
+            al_draw_tinted_scaled_bitmap(vida_vilao, al_map_rgba(255 - alfa, 255 - alfa, 255 - alfa, alfa), 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+            al_draw_tinted_scaled_bitmap(lifebar, al_map_rgba(255 - alfa, 255 - alfa, 255 - alfa, alfa), 0, 0, 800, 100, RES_WIDTH(63*CELULA), RES_HEIGHT(29.5*CELULA), RES_WIDTH(1230*((double)vilao->getVida()/vilao->getMaxVida())), RES_HEIGHT(73), 0);
+            al_draw_tinted_scaled_bitmap(vida_player, al_map_rgba(255 - alfa, 255 - alfa, 255 - alfa, alfa), 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+            al_draw_tinted_scaled_bitmap(lifebar, al_map_rgba(255 - alfa, 255 - alfa, 255 - alfa, alfa), 0, 0, 322, 100, RES_WIDTH(17*CELULA), RES_HEIGHT(9*CELULA), RES_WIDTH(322*((double)Player->getVida()/Player->getMaxVida())), RES_HEIGHT(73), 0);
+
+            if(vilao->getNome() == "Billy")
+                al_draw_tinted_scaled_bitmap(billy_batalha, al_map_rgba(255 - alfa, 255 - alfa, 255 - alfa, alfa), 0, 0, 240, 135, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+
+            else if(vilao->getNome() == "Xerife Espeto")
+                al_draw_tinted_scaled_bitmap(espeto_batalha, al_map_rgba(255 - alfa, 255 - alfa, 255 - alfa, alfa), 0, 0, 240, 135, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+
+            else if(vilao->getNome() == "Geraldina")
+                al_draw_tinted_scaled_bitmap(geraldina_batalha, al_map_rgba(255 - alfa, 255 - alfa, 255 - alfa, alfa), 0, 0, 240, 135, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+
+            else if(vilao->getNome() == "Jose do caixao")
+                al_draw_tinted_scaled_bitmap(jose_batalha, al_map_rgba(255 - alfa, 255 - alfa, 255 - alfa, alfa), 0, 0, 240, 135, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+
+            al_draw_tinted_scaled_bitmap(player_batalha, al_map_rgba(255 - alfa, 255 - alfa, 255 - alfa, alfa), 0, 0, 120, 68,  0, 0,  1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+            al_draw_tinted_scaled_bitmap(caixa_de_ataques, al_map_rgba(255 - alfa, 255 - alfa, 255 - alfa, alfa), 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+
+            alfa += 15;
+        }
+
+        al_flip_display();
+    }
+
+    timer = al_create_timer(1.0/FPS);
+}
+
 bool Batalha1x1::batalhar(){
 
     ALLEGRO_EVENT ev2; //declarando o evento
@@ -193,11 +232,9 @@ bool Batalha1x1::batalhar(){
         }
 
     } //fim do while
-    keys[ALLEGRO_KEY_E]=false;
-    keys[ALLEGRO_KEY_A]=false;
-    keys[ALLEGRO_KEY_W]=false;
-    keys[ALLEGRO_KEY_S]=false;
-    keys[ALLEGRO_KEY_D]=false;
+    
+    resetTeclas();
+    batalha_fim(_Player, _vilao);
 
     return false;
 }

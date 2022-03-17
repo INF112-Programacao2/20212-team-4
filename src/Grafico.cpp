@@ -77,20 +77,20 @@ void redesenhar(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d
     al_draw_textf(font15, al_map_rgb(60,25,97), RES_WIDTH(105*CELULA), RES_HEIGHT(105), 0,"%d", Player->qtdItem("Comida"));
     al_draw_scaled_bitmap(frango, 0, 0, 16, 16, RES_WIDTH(100*CELULA), RES_HEIGHT(105), RES_WIDTH(16*ZOOM), RES_HEIGHT(16*ZOOM), 0);
 
-    if(Player->getNivel() == 3){
-        al_draw_scaled_bitmap(estrela, 0, 0, 32, 32, RES_WIDTH(110*CELULA), RES_WIDTH(250), RES_WIDTH(16*ZOOM), RES_HEIGHT(16*ZOOM), 0);
+    if(Player->qtdItem("Estrela de Xerife") > 0){
+        al_draw_scaled_bitmap(estrela, 0, 0, 32, 32, RES_WIDTH(109*CELULA), RES_HEIGHT(230), RES_WIDTH(16*6.5), RES_HEIGHT(16*6.5), 0);
     }
     if(Player->qtdItem("Relogio") != 0){
-        al_draw_scaled_bitmap(relogiohud, 0, 0, 16, 16, RES_WIDTH(115*CELULA), RES_WIDTH(180), RES_WIDTH(16*ZOOM), RES_HEIGHT(16*ZOOM), 0);
+        al_draw_scaled_bitmap(relogiohud, 0, 0, 16, 16, RES_WIDTH(115*CELULA), RES_HEIGHT(180), RES_WIDTH(16*ZOOM), RES_HEIGHT(16*ZOOM), 0);
     }
     if(Player->qtdItem("Chave") != 0){
-        al_draw_scaled_bitmap(chavehud, 0, 0, 16, 16, RES_WIDTH(110*CELULA), RES_WIDTH(180), RES_WIDTH(16*ZOOM), RES_HEIGHT(16*ZOOM), 0);
+        al_draw_scaled_bitmap(chavehud, 0, 0, 16, 16, RES_WIDTH(110*CELULA), RES_HEIGHT(180), RES_WIDTH(16*ZOOM), RES_HEIGHT(16*ZOOM), 0);
     }
     if(Player->qtdItem("Espingarda") != 0){
-        al_draw_scaled_bitmap(espingarda, 0, 0, 34, 16, RES_WIDTH(101*CELULA), RES_WIDTH(180), RES_WIDTH(34*ZOOM), RES_HEIGHT(16*ZOOM), 0);
+        al_draw_scaled_bitmap(espingarda, 0, 0, 34, 16, RES_WIDTH(101*CELULA), RES_HEIGHT(180), RES_WIDTH(34*ZOOM), RES_HEIGHT(16*ZOOM), 0);
     }
     if(Player->qtdItem("Pocao") != 0){
-        al_draw_scaled_bitmap(pocaohud, 0, 0, 16, 16, RES_WIDTH(115*CELULA), RES_WIDTH(250), RES_WIDTH(16*ZOOM), RES_HEIGHT(16*ZOOM), 0);
+        al_draw_scaled_bitmap(pocaohud, 0, 0, 16, 16, RES_WIDTH(115*CELULA), RES_HEIGHT(250), RES_WIDTH(16*ZOOM), RES_HEIGHT(16*ZOOM), 0);
     }
 
     al_draw_scaled_bitmap(general_player, 0, 0, res_x_player, res_y_player, RES_WIDTH(EIXO_X_PLAYER_TELA), 
