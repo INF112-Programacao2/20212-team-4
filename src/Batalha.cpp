@@ -148,7 +148,7 @@ bool Batalha1x1::batalhar(){
                         desenha_ataques=false;
                         aux_ataque=1;
                         nome_ataque = "Tiro de Revólver";
-                        //_Player->atacar<Inimigo>(_vilao, "Revólver");    
+                        _Player->atacar<Inimigo>(_vilao, "Revólver");    
                     }
                     break;
                 case ALLEGRO_KEY_S:
@@ -188,7 +188,10 @@ bool Batalha1x1::batalhar(){
                     break;
 
             } // fim do switch
+
+            keys[ev2.keyboard.keycode] = false;
         }
+
     } //fim do while
     keys[ALLEGRO_KEY_E]=false;
     keys[ALLEGRO_KEY_A]=false;

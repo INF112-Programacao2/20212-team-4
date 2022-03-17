@@ -77,6 +77,9 @@ void redesenhar(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d
     al_draw_textf(font15, al_map_rgb(60,25,97), RES_WIDTH(105*CELULA), RES_HEIGHT(105), 0,"%d", Player->qtdItem("Comida"));
     al_draw_scaled_bitmap(frango, 0, 0, 16, 16, RES_WIDTH(100*CELULA), RES_HEIGHT(105), RES_WIDTH(16*ZOOM), RES_HEIGHT(16*ZOOM), 0);
 
+    if(Player->getNivel() == 3){
+        al_draw_scaled_bitmap(estrela, 0, 0, 32, 32, RES_WIDTH(110*CELULA), RES_WIDTH(250), RES_WIDTH(16*ZOOM), RES_HEIGHT(16*ZOOM), 0);
+    }
     if(Player->qtdItem("Relogio") != 0){
         al_draw_scaled_bitmap(relogiohud, 0, 0, 16, 16, RES_WIDTH(115*CELULA), RES_WIDTH(180), RES_WIDTH(16*ZOOM), RES_HEIGHT(16*ZOOM), 0);
     }

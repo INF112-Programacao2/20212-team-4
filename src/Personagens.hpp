@@ -192,13 +192,12 @@ class Protagonista : public Personagem{
  */
 class Inimigo : public Personagem{
     private:
-        short int _cura;
         short int _total_ataques;
         
     public:
         /*Método Construtor
         **/
-        Inimigo(std::string nome, short int vida, short int total_ataques, short int cura);
+        Inimigo(std::string nome, short int vida, short int total_ataques);
 
         /**
          * @brief Gera um valor pseudo-aleatório, que irá definir qual ataque será realizado por um inimigo.

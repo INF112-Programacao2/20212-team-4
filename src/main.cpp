@@ -9,18 +9,19 @@
 #include "Grafico.hpp"
 #include <math.h>
 #include "Batalha.hpp"
+#include <time.h>
 
 /* GAME SAVE */
 GameSave *Save = new GameSave();
 
 /* PERSONAGENS  */
 Protagonista *Player = new Protagonista(10, 3);
-Inimigo *Billy = new Inimigo("Billy", 12, 3, 2);
-Inimigo *Xerife_Espeto = new Inimigo("Xerife Espeto", 24, 4, 4);
-Inimigo *Jose_do_Caixao = new Inimigo("Jose do caixao", 32, 4, 3);
-Inimigo *Caixao_do_Jose = new Inimigo("Caixao do Jose", 15, 2, 1);
-Inimigo *Geraldina = new Inimigo("Geraldina", 45, 4, 3);
-Inimigo *Johnny_Cash = new Inimigo("Johnny Cash", 60, 4, 5);
+Inimigo *Billy = new Inimigo("Billy", 15, 2);
+Inimigo *Xerife_Espeto = new Inimigo("Xerife Espeto", 25, 3);
+Inimigo *Jose_do_Caixao = new Inimigo("Jose do caixao", 32, 3);
+Inimigo *Caixao_do_Jose = new Inimigo("Caixao do Jose", 15, 3);
+Inimigo *Geraldina = new Inimigo("Geraldina", 45, 3);
+Inimigo *Johnny_Cash = new Inimigo("Johnny Cash", 60, 4);
 
 /* ITENS */
 Interacao *Chave = new Interacao("Chave", 81, 70, '5');
@@ -72,7 +73,7 @@ int main(int argc, char **argv){
     
     /* COMECANDO A EXECUCAO DO JOGO*/
     if(inicializaJogo()){
-
+        srand (time(NULL));
         while(true){
             al_wait_for_event(event_queue, &ev0);
             telaMenu(reiniciar);
@@ -92,9 +93,9 @@ int main(int argc, char **argv){
         // Neste nível, o jogador tem a batalha contra o pistoleiro Billy, em frente ao Saloon. Não há NPCs 
         // no mapa para passar missões.
 
-        Player->addAtaque("Revólver", 2, 8);
+        Player->addAtaque("Revólver", 1, 4);
 
-        Billy->addAtaque("Revólver", 0, -3);
+        Billy->addAtaque("Tiro de Revólver", 0, -3);
         Billy->addAtaque("Cura", 0, 2);
 
         al_start_timer(timer);
@@ -124,6 +125,7 @@ int main(int argc, char **argv){
         // delete Billy;
         // Billy = nullptr;
 
+        Player->addAtaque("Revólver", 2, 5);
         Player->addAtaque("Coquetel Molotov", 10, 15);
 
         Xerife_Espeto->addAtaque("Revólver", 0, -4);
@@ -158,7 +160,7 @@ int main(int argc, char **argv){
 
         // delete Xerife_Espeto;
         // Xerife_Espeto = nullptr;
-
+        Player->addAtaque("Revólver", 2, 7);
         Player->addAtaque("Shurikens", 3, 5);
 
         Geraldina->addAtaque("Garras", 0, -2);
@@ -196,7 +198,7 @@ int main(int argc, char **argv){
         /* === NÍVEL QUATRO === */
         // Neste nível, o jogador tem a batalha contra José do Caixão e o Caixão do josé, na igreja. 
         // Estão presentes todos os NPCs no mapa para passar missões.
-
+        Player->addAtaque("Revólver", 2, 7);
         Player->addAtaque("Pé de Coelho", 0, 0);
 
         Jose_do_Caixao->addAtaque("Revólver", 0, -5);

@@ -61,11 +61,10 @@ Protagonista::Protagonista(short int vida, short int dinheiro){
     this->_assombrado = false;
 }
 
-Inimigo::Inimigo(std::string nome, short int vida, short int total_ataques, short int cura){
+Inimigo::Inimigo(std::string nome, short int vida, short int total_ataques){
     this->_nome = nome;
     this->_vida = this->_maxVida = vida;
     this->_total_ataques = total_ataques;
-    this->_cura = cura;
 }
 
 /* Outros métodos importantes para o funcionamento do jogo
@@ -239,6 +238,7 @@ void Protagonista::comer(){
 
 std::string Inimigo::atacar(Protagonista &alvo){
     std::map <std::string, short int*>::iterator it;
+    std::string nome;
     
     RANDOM:
         // Gera um valor pseudo-aleatório que irá definir qual será o ataque do inimigo.
@@ -257,10 +257,12 @@ std::string Inimigo::atacar(Protagonista &alvo){
         * Se não, busca um novo valor pseudo-aleatório.
         * 
         */
-        if(it->second[1] < 0)
+        if(it->second[1] < 0){
             alvo.setVida(alvo.getVida() + it->second[1]);
-        else if(it->second[1] > 0 && this->_vida != this->_maxVida)
+        }
+        else if(it->second[1] > 0 && this->_vida != this->_maxVida){
             this->curarVida(it->second[1]);
+        }
         else
             goto RANDOM;
 

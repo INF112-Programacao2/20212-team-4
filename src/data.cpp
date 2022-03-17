@@ -102,6 +102,7 @@ ALLEGRO_BITMAP *titulo = NULL;  // titulo da tela inicial
 ALLEGRO_BITMAP *mapmenu = NULL;  // mapa da tela inicial
 ALLEGRO_BITMAP *tela_fundo = NULL;  // base do personagem na batalha
 ALLEGRO_BITMAP *caixa_nome = NULL;
+ALLEGRO_BITMAP *estrela = NULL;
 const char *ajuda_cesar = NULL;
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
@@ -219,23 +220,23 @@ double TELA_Y_MAPA = 23;
 
 bool inicializaJogo() {
     if(!al_init()){
-        std::cout << "Falha ao carregar Allegro" << std::endl;
+        throw InitNotDone();
         return false;
     }
 
     if(!al_install_keyboard()){
-        std::cout << "Falha ao inicializar o teclado" << std::endl;
+        throw InitNotDone();
         return false;
     }
 
     timer = al_create_timer(1.0/FPS);
     if(!timer){
-        std::cout << "Falha ao inicializar o temporizador" << std::endl;
+        throw TimerNotCreated();
         return false;
     }
 
     if(!al_init_image_addon()){
-        std::cout <<"Falha ao iniciar al_init_image_addon!" << std::endl;
+        throw InitNotDone();
         return false;
     }
 
@@ -248,39 +249,32 @@ bool inicializaJogo() {
 
     game = al_create_display(res_x_comp, res_y_comp);
     if(!game){
-        std::cout << "Falha ao inicializar a tela" << std::endl;
-        al_destroy_timer(timer);
-        
+        throw DisplayNotCreated(timer);
         return false;
     }
 
     event_queue = al_create_event_queue();
     if(!event_queue){
-        std::cout << "Falha ao criar a fila de eventos" << std::endl;
-        al_destroy_display(game);
-        al_destroy_timer(timer);
+        throw EventQeueNotCreated(game, timer);
 
         return false;
     }
 
     map= al_load_bitmap("./../assets/map1.bmp");
     if(!map){
-        std::cout << "Falha ao carregar o mapa" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     mini_map = al_load_bitmap("./../assets/map.bmp");
     if(!mini_map){
-        std::cout << "Falha ao carregar o mini mapa" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     player_minimap = al_load_bitmap("./../assets/player_minimap.bmp");
     if(!player_minimap){
-        std::cout << "Falha ao carregar o personagem do mini mapa" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
@@ -291,21 +285,21 @@ bool inicializaJogo() {
     font15 = al_load_font("./../assets/alterebro-pixel-font.ttf", RES_HEIGHT(75), 0);
     if(!font15)
     {
-        std::cout << "Falha ao inicializar a fonte" << std::endl;
+        throw InitNotDone();
         return false;
     }
 
     font10 = al_load_font("./../assets/alterebro-pixel-font.ttf", RES_HEIGHT(50), 0);
     if(!font10)
     {
-        std::cout << "Falha ao inicializar a fonte" << std::endl;
+        throw InitNotDone();
         return false;
     }
 
     font_titulo = al_load_font("./../assets/alterebro-pixel-font.ttf", RES_HEIGHT(150), 0);
     if(!font_titulo)
     {
-        std::cout << "Falha ao inicializar a fonte" << std::endl;
+        throw InitNotDone();
         return false;
     }
 
@@ -372,289 +366,254 @@ bool inicializaJogo() {
     /* ATRIBUINDO AS IMAGENS DOS ITENS AS RESPECTIVAS VARIAVEIS */
     relogio = al_load_bitmap("./../assets/relogio-map.bmp");
     if(!relogio){
-        std::cout << "Falha ao carregar o relogio" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     relogiohud = al_load_bitmap("./../assets/relogio.bmp");
     if(!relogiohud){
-        std::cout << "Falha ao carregar o relogio do hud" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     botaointeracao = al_load_bitmap("./../assets/aperteE.bmp");
     if(!botaointeracao){
-        std::cout << "Falha ao carregar a imagem de interacao" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     chave = al_load_bitmap("./../assets/chave-map.bmp");
     if(!chave){
-        std::cout << "Falha ao carregar a chave" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     chavehud = al_load_bitmap("./../assets/chave.bmp");
     if(!chavehud){
-        std::cout << "Falha ao carregar a chave do hud" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     espingarda = al_load_bitmap("./../assets/espingarda.bmp");
     if(!espingarda){
-        std::cout << "Falha ao carregar a espingarda" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
 
     pocao = al_load_bitmap("./../assets/pocao-map.bmp");
     if(!pocao){
-        std::cout << "Falha ao carregar a pocao" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     pocaohud = al_load_bitmap("./../assets/pocao.bmp");
     if(!pocaohud){
-        std::cout << "Falha ao carregar a pocao" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     dinheiro1 = al_load_bitmap("./../assets/dinheiro1-map.bmp");
     if(!dinheiro1){
-        std::cout << "Falha ao carregar o saco de dinheiro 1" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     dinheiro2 = al_load_bitmap("./../assets/dinheiro2-map.bmp");
     if(!dinheiro2){
-        std::cout << "Falha ao carregar o saco de dinheiro 2" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     dinheiro3 = al_load_bitmap("./../assets/dinheiro3-map.bmp");
     if(!dinheiro3){
-        std::cout << "Falha ao carregar o saco de dinheiro 3" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     dinheiro4 = al_load_bitmap("./../assets/dinheiro4-map.bmp");
     if(!dinheiro4){
-        std::cout << "Falha ao carregar o saco de dinheiro 4" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     icone_player = al_load_bitmap("./../assets/icone-player.bmp");
     if(!icone_player){
-        std::cout << "Falha ao carregar o icone do player" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     galinha1 = al_load_bitmap("./../assets/galinha1.bmp");
     if(!galinha1){
-        std::cout << "Falha ao carregar a imagem 1 das galinhas" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     galinha2 = al_load_bitmap("./../assets/galinha2.bmp");
     if(!galinha2){
-        std::cout << "Falha ao carregar a imagem 2 das galinhas" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     galinha3 = al_load_bitmap("./../assets/galinha3.bmp");
     if(!galinha3){
-        std::cout << "Falha ao carregar a imagem 3 das galinhas" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     galinha4 = al_load_bitmap("./../assets/galinha4.bmp");
     if(!galinha4){
-        std::cout << "Falha ao carregar a imagem 4 das galinhas" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     fundo = al_load_bitmap("./../assets/fundo_HUD.bmp");
     if(!fundo){
-        std::cout << "Falha ao carregar o fundo da barra de vida" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     tela_fundo = al_load_bitmap("./../assets/fundo.bmp");
     if(!tela_fundo){
-        std::cout << "Falha ao carregar o fundo da tela" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     caixa_nome = al_load_bitmap("./../assets/escrever_nome.bmp");
     if(!caixa_nome){
-        std::cout << "Falha ao carregar o fundo da caixa de nome" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     lifebar = al_load_bitmap("./../assets/Life_bar.bmp");
     if(!lifebar){
-        std::cout << "Falha ao carregar a barra de vida" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     contorno = al_load_bitmap("./../assets/HUD_contorno.bmp");
     if(!contorno){
-        std::cout << "Falha ao carregar o contorno da barra de vida" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     frango = al_load_bitmap("./../assets/frango.bmp");
     if(!frango){
-        std::cout << "Falha ao carregar o frango" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     caixa_texto = al_load_bitmap("./../assets/caixa_texto.bmp");
     if(!caixa_texto){
-        std::cout << "Falha ao carregar o caixa_texto" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     game_over1 = al_load_bitmap("./../assets/batalha/go1.bmp");
     if(!game_over1){
-        std::cout << "Falha ao carregar o game_over1" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     game_over2 = al_load_bitmap("./../assets/batalha/go2.bmp");
     if(!game_over2){
-        std::cout << "Falha ao carregar o game_over2" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     game_over3 = al_load_bitmap("./../assets/batalha/go3.bmp");
     if(!game_over3){
-        std::cout << "Falha ao carregar o game_over3" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     game_over4 = al_load_bitmap("./../assets/batalha/go4.bmp");
     if(!game_over4){
-        std::cout << "Falha ao carregar o game_over4" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     game_over5 = al_load_bitmap("./../assets/batalha/go5.bmp");
     if(!game_over5){
-        std::cout << "Falha ao carregar o game_over5" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     game_over6 = al_load_bitmap("./../assets/batalha/go6.bmp");
     if(!game_over6){
-        std::cout << "Falha ao carregar o game_over6" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     game_over7 = al_load_bitmap("./../assets/batalha/go7.bmp");
     if(!game_over7){
-        std::cout << "Falha ao carregar o game_over7" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     portao = al_load_bitmap("./../assets/portao.bmp");
     if(!portao){
-        std::cout << "Falha ao carregar o portao" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     game_over8 = al_load_bitmap("./../assets/batalha/go8.bmp");
     if(!game_over8){
-        std::cout << "Falha ao carregar o game_over8" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     game_over9 = al_load_bitmap("./../assets/batalha/go9.bmp");
     if(!game_over9){
-        std::cout << "Falha ao carregar o game_over9" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     game_over10 = al_load_bitmap("./../assets/batalha/go10.bmp");
     if(!game_over10){
-        std::cout << "Falha ao carregar o game_over10" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     game_over11 = al_load_bitmap("./../assets/batalha/go11.bmp");
     if(!game_over11){
-        std::cout << "Falha ao carregar o game_over11" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     game_over12 = al_load_bitmap("./../assets/batalha/go12.bmp");
     if(!game_over12){
-        std::cout << "Falha ao carregar o game_over12" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     botaoreiniciar = al_load_bitmap("./../assets/enter.bmp");
     if(!botaoreiniciar){
-        std::cout << "Falha ao carregar o botao de reiniciar" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     menu = al_load_bitmap("./../assets/home.bmp");
     if(!menu){
-        std::cout << "Falha ao carregar o menu" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     titulo = al_load_bitmap("./../assets/titulo.bmp");
     if(!titulo){
-        std::cout << "Falha ao carregar o titulo" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
     mapmenu = al_load_bitmap("./../assets/map-menu.bmp");
     if(!mapmenu){
-        std::cout << "Falha ao carregar o mapa do menu" << std::endl;
-        al_destroy_display(game);
+        throw BitmapNotFound(game, timer);
+        return false;
+    }
+
+    estrela = al_load_bitmap("./../assets/estrela.bmp");
+    if(!estrela){
+        throw BitmapNotFound(game, timer);
         return false;
     }
 
