@@ -16,7 +16,7 @@ ALLEGRO_EVENT evfadebatalha;
 bool desenha_ataques=true;
 bool player_atacou=false; //variavel que diz se o player fez o ataque ou não ***
 bool vilao_atacou=false; //variavel que diz se o vilao fez o ataque ou nao ***
-short int a=0, b=0; //auxiliares para desenhar a tela dos persoganes levando dano nas batalhas
+short int a=0, b=0, c=0, d=0; //auxiliares para desenhar a tela dos persoganes levando dano nas batalhas
 std::string mensagem;
 std::string nome_ataque;
 short int aux_ataque = 0;
@@ -25,6 +25,8 @@ int ataque_do_vilao;
 ALLEGRO_EVENT ev2; //declarando o evento
 ALLEGRO_BITMAP *img_vilao= NULL;
 ALLEGRO_BITMAP *img_vilao_dano= NULL;
+
+void al_init_timeout(ALLEGRO_TIMEOUT *timeout, double seconds);
 
 Batalha1x1::Batalha1x1(Inimigo *vilao, Protagonista *player){
     this->_vilao=vilao;
@@ -131,31 +133,48 @@ bool Batalha1x1::batalhar(){
     resetTeclas();
 
     while (1){
+        desenhar(_Player, _vilao);
         if(!_Player -> isDead() && !_vilao -> isDead()){
 
-            desenhar(_Player, _vilao);                
+            //desenhar(_Player, _vilao);                
 
             if(cont % 2 == 0 && !player_atacou){
                 desenha_ataques=true;
+                c=0;
+                d=0;
             }
             
-            else if(player_atacou){
+            else if(player_atacou && c < 20){
 
                 mensagem = "Você usou " + nome_ataque + "!";
-                al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(610), 0.79*res_y_comp, 0, mensagem.c_str());
+                al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(610), 0.82*res_y_comp, 0, mensagem.c_str());
+                if(c==19){
+                    player_atacou=false;
+                    desenha_ataques=false;
+                    cont++;
+                    vilao_atacou=false;
+                }
+                c++;
                 
-                al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(605), 0.85*res_y_comp, 0,"Aperte ESPAÇO para continuar");
+
             }
 
-            else if(cont % 2 != 0){
+            else if(cont % 2 != 0 && d < 20){
                 if(!vilao_atacou){
                     nome_ataque = _vilao->atacar(*_Player);
                     vilao_atacou=true;
                 }
                 mensagem = _vilao->getNome() + " usou " + nome_ataque + "!";
-                al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(610), 0.79*res_y_comp, 0, mensagem.c_str());
+                al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(610), 0.82*res_y_comp, 0, mensagem.c_str());
+               if(d==19){
+                    player_atacou=false;
+                    desenha_ataques=false;
+                    cont++;
+                    vilao_atacou=false;
+                }
+                d++;
+                
 
-                al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(605), 0.85*res_y_comp, 0,"Aperte ESPAÇO para continuar");
             }
         }
 
@@ -170,7 +189,7 @@ bool Batalha1x1::batalhar(){
 
             return true;
         }
-
+       
         al_flip_display();
 
         al_wait_for_event(event_queue, &ev2);
@@ -325,13 +344,7 @@ bool verificaTeclaBatalha(Protagonista *_Player, Inimigo *_vilao){
                 }
                 break;    
 
-            case ALLEGRO_KEY_SPACE:
-                player_atacou=false;
-                desenha_ataques=false;
-                cont++;
-                vilao_atacou=false;
-                break;
-
+           
         } // fim do switch
 
         keys[ev2.keyboard.keycode] = false;
