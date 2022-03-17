@@ -230,7 +230,7 @@ void desenhar(Protagonista *_Player, Inimigo *_vilao){
         al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(180), 0.88*res_y_comp, 0, dano_revolver.c_str());
 
         if(_Player->qtdItem("Comida")==0){
-            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1575), 0.80*res_y_comp, 0,"Esgotado!");
+            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1558), 0.80*res_y_comp, 0,"Esgotado!");
         }
         else{
             al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1605), 0.80*res_y_comp, 0,"Cura");
