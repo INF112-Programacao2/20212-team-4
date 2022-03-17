@@ -201,6 +201,7 @@ short int camI = 4;
 short int camJ = 13;
 short int valueIJcam = '0';
 bool reiniciar = false;
+std::string dano_revolver="";
 
 // Tamanho de uma célula do mapa.
 bool redraw = true;

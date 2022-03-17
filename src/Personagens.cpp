@@ -73,11 +73,9 @@ void Personagem::subAtaque(std::string ataque){
     std::map <std::string, short int*>::iterator it = this->_ataques.find(ataque);
 
     if(it != this->_ataques.end()){ // Caso encontre o ataque em questão, adiciona dano.
-        throw std::out_of_range("out of range\n");
-    }
-    else{ // se não, insere
         this->_ataques.erase(it);
     }
+
 }
 
 void Personagem::addAtaque(std::string ataque, short int min, short int max){
@@ -99,10 +97,10 @@ bool Personagem::hasAtaque(std::string ataque){
     std::map <std::string, short int*>::iterator it = this->_ataques.find(ataque);
 
     if(it != this->_ataques.end()) // Caso encontre o ataque em questão, adiciona dano.
-        return false;
+        return true;
 
     else // se não, insere
-        return true;
+        return false;
 }
 
 bool Personagem::isDead(){

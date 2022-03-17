@@ -16,7 +16,7 @@ GameSave *Save = new GameSave();
 
 /* PERSONAGENS  */
 Protagonista *Player = new Protagonista(10, 3);
-Inimigo *Billy = new Inimigo("Billy", 15, 2);
+Inimigo *Billy = new Inimigo("Billy", 19, 2);
 Inimigo *Xerife_Espeto = new Inimigo("Xerife Espeto", 25, 3);
 Inimigo *Jose_do_Caixao = new Inimigo("Jose do caixao", 32, 3);
 Inimigo *Caixao_do_Jose = new Inimigo("Caixao do Jose", 15, 3);
@@ -94,9 +94,10 @@ int main(int argc, char **argv){
         // no mapa para passar missões.
 
         Player->addAtaque("Revólver", 1, 4);
+        dano_revolver="A: (01/04)";
 
         Billy->addAtaque("Tiro de Revólver", 0, -3);
-        Billy->addAtaque("Cura", 0, 2);
+        Billy->addAtaque("Cura", 0, 1);
 
         al_start_timer(timer);
 
@@ -126,6 +127,7 @@ int main(int argc, char **argv){
         // Billy = nullptr;
 
         Player->addAtaque("Revólver", 2, 5);
+        dano_revolver="A: (02/05)";
         Player->addAtaque("Coquetel Molotov", 10, 15);
 
         Xerife_Espeto->addAtaque("Revólver", 0, -4);
@@ -160,7 +162,8 @@ int main(int argc, char **argv){
 
         // delete Xerife_Espeto;
         // Xerife_Espeto = nullptr;
-        Player->addAtaque("Revólver", 2, 7);
+        Player->addAtaque("Revólver", 2, 6);
+        dano_revolver="A: (02/06)";
         Player->addAtaque("Shurikens", 3, 5);
 
         Geraldina->addAtaque("Garras", 0, -2);
@@ -200,6 +203,7 @@ int main(int argc, char **argv){
         // Neste nível, o jogador tem a batalha contra José do Caixão e o Caixão do josé, na igreja. 
         // Estão presentes todos os NPCs no mapa para passar missões.
         Player->addAtaque("Revólver", 2, 7);
+        dano_revolver="A: (02/07)";
         Player->addAtaque("Pé de Coelho", 0, 0);
 
         Jose_do_Caixao->addAtaque("Revólver", 0, -5);
@@ -241,6 +245,7 @@ int main(int argc, char **argv){
         // todos os NPCs no mapa para passar missões.
 
         Player->addAtaque("Munições Fanstasma", 2, 8);
+        dano_revolver="A: (02/08)";
 
         Johnny_Cash->addAtaque("Assombração", 0, -3);
         Johnny_Cash->addAtaque("Desafinação", 0, -2);
@@ -653,6 +658,7 @@ void interagir(){
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
 
             fadeout();
+            resetTeclas();
             if(Batalha_Nivel1.batalhar()){
                 Player->nextLevel();
                 ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
@@ -685,6 +691,7 @@ void interagir(){
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
 
             fadeout();
+            resetTeclas();
             if(Batalha_Nivel2.batalhar()){
                 Player->nextLevel();
                 ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
@@ -709,6 +716,7 @@ void interagir(){
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
 
             fadeout();
+            resetTeclas();
             if(Batalha_Nivel3.batalhar()){
                 Player->nextLevel();
                 Player->setVida(Player->getVida()+10);

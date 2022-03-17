@@ -20,7 +20,9 @@ short int a=0, b=0; //auxiliares para desenhar a tela dos persoganes levando dan
 std::string mensagem;
 std::string nome_ataque;
 short int aux_ataque = 0;
+int cont;
 int ataque_do_vilao;
+ALLEGRO_EVENT ev2; //declarando o evento
 ALLEGRO_BITMAP *img_vilao= NULL;
 ALLEGRO_BITMAP *img_vilao_dano= NULL;
 
@@ -109,10 +111,7 @@ void batalha_fim(Protagonista *Player, Inimigo* vilao){
 
 bool Batalha1x1::batalhar(){
 
-    ALLEGRO_EVENT ev2; //declarando o evento
-    //***
-    //***
-    int cont=0;
+    cont=0;
 
     batalha_intro(this -> _Player, this -> _vilao);
 
@@ -128,6 +127,8 @@ bool Batalha1x1::batalhar(){
         img_vilao=geraldina_batalha;
         img_vilao_dano=geraldina_dano;
     }
+
+    resetTeclas();
 
     while (1){
         if(!_Player -> isDead() && !_vilao -> isDead()){
@@ -172,64 +173,9 @@ bool Batalha1x1::batalhar(){
 
         al_flip_display();
 
-        // ATAQUE DO PLAYER
         al_wait_for_event(event_queue, &ev2);
-        if (ev2.type == ALLEGRO_EVENT_KEY_DOWN) {
-            keys[ev2.keyboard.keycode] = true;
-            if(keys[ALLEGRO_KEY_ESCAPE]) {
-                break;
-            }
 
-            switch (ev2.keyboard.keycode){
-                case ALLEGRO_KEY_A:
-                    if(cont%2==0 && _Player->getNivel()>=1){
-                        player_atacou=true;
-                        desenha_ataques=false;
-                        aux_ataque=1;
-                        nome_ataque = "Tiro de Revólver";
-                        _Player->atacar<Inimigo>(_vilao, "Revólver");    
-                    }
-                    break;
-                case ALLEGRO_KEY_S:
-                    if(cont%2==0 && _Player->getNivel()>=2){
-                        player_atacou=true;
-                        desenha_ataques=false;
-                        aux_ataque=2;
-                        nome_ataque = "Coquetel Molotov";
-                        //_Player->atacar<Inimigo>(_vilao, "Coquetel Molotov");    
-                    }
-                    break;
-                case ALLEGRO_KEY_D:
-                    if(cont%2==0 && _Player->getNivel()>=3){
-                        player_atacou=true;
-                        desenha_ataques=false;
-                        aux_ataque=3;
-                        nome_ataque = "Shurikens";
-                        //_Player->atacar<Inimigo>(_vilao, "Shurikens");    
-                    }
-                    break;
-                case ALLEGRO_KEY_C:
-                    if(cont%2==0 && _Player->qtdItem("Comida") > 0 && _Player->getVida() < _Player->getMaxVida() ){
-                        player_atacou=true;
-                        desenha_ataques=false;
-                        nome_ataque = "Cura";
-                        _Player-> curarVida(5);
-                        _Player->addItem("Comida", -1);
-                        aux_ataque=5;
-                    }
-                    break;    
-
-                case ALLEGRO_KEY_SPACE:
-                    player_atacou=false;
-                    desenha_ataques=false;
-                    cont++;
-                    vilao_atacou=false;
-                    break;
-
-            } // fim do switch
-
-            keys[ev2.keyboard.keycode] = false;
-        }
+        if(!verificaTeclaBatalha(_Player, _vilao)) break;
 
     } //fim do while
     
@@ -243,7 +189,7 @@ void desenhar(Protagonista *_Player, Inimigo *_vilao){
     //desenhando as imagens comuns a todos as batalhas
     al_clear_to_color(al_map_rgb(238,202,169));
     
-    if(vilao_atacou){
+    if(vilao_atacou && nome_ataque!="Cura"){
         al_rest(0.02); 
         if(a==0){
             al_draw_scaled_bitmap(player_dano, 0, 0, 129, 68, 0, 0,  1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
@@ -280,13 +226,22 @@ void desenhar(Protagonista *_Player, Inimigo *_vilao){
     
     if(desenha_ataques){
         al_draw_scaled_bitmap(ataques, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
-        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1605), 0.80*res_y_comp, 0,"Cura");
-        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1575), 0.88*res_y_comp, 0,"C: +5 P.V.");
         al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(180), 0.80*res_y_comp, 0,"Revólver");
-        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(180), 0.88*res_y_comp, 0,"A: (02/08)");
+        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(180), 0.88*res_y_comp, 0, dano_revolver.c_str());
+
+        if(_Player->qtdItem("Comida")==0){
+            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1575), 0.80*res_y_comp, 0,"Esgotado!");
+        }
+        else{
+            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1605), 0.80*res_y_comp, 0,"Cura");
+            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1575), 0.88*res_y_comp, 0,"C: +5 P.V.");
+        }
 
         if(_Player->getNivel()<2){
             al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(518), 0.80*res_y_comp, 0,"???????");
+        }
+        else if(!_Player->hasAtaque("Coquetel Molotov")){
+            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(518), 0.80*res_y_comp, 0,"Esgotado!");
         }
         else{
             al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(540), 0.80*res_y_comp, 0,"Molotov");
@@ -304,6 +259,9 @@ void desenhar(Protagonista *_Player, Inimigo *_vilao){
         if(_Player->getNivel()<4){
             al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1210), 0.80*res_y_comp, 0,"???????");       
         }
+        else if(!_Player->hasAtaque("Pé de Coelho")){
+            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1210), 0.80*res_y_comp, 0,"Esgotado!"); 
+        }
         else{
             al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1180), 0.80*res_y_comp, 0,"Pé de Coelho");
             al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1215), 0.88*res_y_comp, 0,"F: (sorte)");
@@ -312,20 +270,71 @@ void desenhar(Protagonista *_Player, Inimigo *_vilao){
 
 }
 
-
-/*bool VerificaTeclaBatalha(){
-    if(ev3.type == ALLEGRO_EVENT_KEY_DOWN){
-        keys[ev3.keyboard.keycode] = true;
-
-        if(Batalha1x1.batalhar() && keys[ALLEGRO_KEY_1]){
-           
-            keys[ev3.keyboard.keycode] = false;
-
-            return true;
+bool verificaTeclaBatalha(Protagonista *_Player, Inimigo *_vilao){
+    if (ev2.type == ALLEGRO_EVENT_KEY_DOWN) {
+        keys[ev2.keyboard.keycode] = true;
+        if(keys[ALLEGRO_KEY_ESCAPE]) {
+            return false;
         }
+
+        switch (ev2.keyboard.keycode){
+            case ALLEGRO_KEY_A:
+                if(cont%2==0 && _Player->getNivel()>=1){
+                    player_atacou=true;
+                    desenha_ataques=false;
+                    aux_ataque=1;
+                    nome_ataque = "Tiro de Revólver";
+                    _Player->atacar<Inimigo>(_vilao, "Revólver");    
+                }
+                break;
+            case ALLEGRO_KEY_S:
+                if(cont%2==0 && _Player->getNivel()>=2 && _Player->hasAtaque("Coquetel Molotov")){
+                    player_atacou=true;
+                    desenha_ataques=false;
+                    aux_ataque=2;
+                    nome_ataque = "Coquetel Molotov";
+                    _Player->atacar<Inimigo>(_vilao, "Coquetel Molotov");    
+                }
+                break;
+            case ALLEGRO_KEY_D:
+                if(cont%2==0 && _Player->getNivel()>=3){
+                    player_atacou=true;
+                    desenha_ataques=false;
+                    aux_ataque=3;
+                    nome_ataque = "Shurikens";
+                    _Player->atacar<Inimigo>(_vilao, "Shurikens");    
+                }
+                break;
+            case ALLEGRO_KEY_F:
+                if(cont%2==0 && _Player->getNivel()>=4 && _Player->hasAtaque("Pé de Coelho")){
+                    player_atacou=true;
+                    desenha_ataques=false;
+                    aux_ataque=4;
+                    nome_ataque = "Pé de Coelho";
+                    _Player->atacar<Inimigo>(_vilao, "Pé de Coelho");    
+                }
+                break;
+            case ALLEGRO_KEY_C:
+                if(cont%2==0 && _Player->qtdItem("Comida")>0 && _Player->getVida()+5<=_Player->getMaxVida() ){
+                    player_atacou=true;
+                    desenha_ataques=false;
+                    nome_ataque = "Cura";
+                    _Player-> curarVida(5);
+                    _Player->addItem("Comida", -1);
+                    aux_ataque=5;
+                }
+                break;    
+
+            case ALLEGRO_KEY_SPACE:
+                player_atacou=false;
+                desenha_ataques=false;
+                cont++;
+                vilao_atacou=false;
+                break;
+
+        } // fim do switch
+
+        keys[ev2.keyboard.keycode] = false;
     }
-
-    return false;
-
-
-}*/
+    return true;
+}

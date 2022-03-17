@@ -22,6 +22,8 @@
 #define RES_HEIGHT(j) \
     j*(res_y_comp/1080.0)
 
+extern std::string dano_revolver;
+
 /* VARIÁVEIS ALLEGRO */
 extern ALLEGRO_DISPLAY *game; // ALLEGRO_DISPLAY é um tipo de variável que guarda uma janela a ser desenhada
 extern ALLEGRO_EVENT_QUEUE *event_queue; // Declarando a fila de enventos 

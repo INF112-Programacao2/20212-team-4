@@ -33,6 +33,7 @@ public:
 };
 
 void desenhar(Protagonista *_Player, Inimigo *_vilao);
-//bool VerificaTeclaBatalha();
+bool verificaTeclaBatalha(Protagonista *_Player, Inimigo *_vilao);
+
 #endif
 
