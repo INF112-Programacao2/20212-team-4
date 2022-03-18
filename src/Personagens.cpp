@@ -61,10 +61,12 @@ Protagonista::Protagonista(short int vida, short int dinheiro){
     this->_assombrado = false;
 }
 
-Inimigo::Inimigo(std::string nome, short int vida, short int total_ataques){
+Inimigo::Inimigo(std::string nome, short int vida, short int total_ataques, short int total_curas){
     this->_nome = nome;
     this->_vida = this->_maxVida = vida;
     this->_total_ataques = total_ataques;
+    this->_curas_usadas = 0;
+    this->_total_curas = total_curas;
 }
 
 /* Outros métodos importantes para o funcionamento do jogo
@@ -258,9 +260,15 @@ std::string Inimigo::atacar(Protagonista &alvo){
         */
         if(it->second[1] < 0){
             alvo.setVida(alvo.getVida() + it->second[1]);
+            if(alvo.getVida() < 0) alvo.setVida(0);
         }
         else if(it->second[1] > 0 && this->_vida != this->_maxVida){
             this->curarVida(it->second[1]);
+            this->_curas_usadas++;
+
+            if(this->_curas_usadas == this->_total_curas)
+                this->subAtaque("Cura");
+                this->_total_ataques--;
         }
         else
             goto RANDOM;

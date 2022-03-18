@@ -1,6 +1,8 @@
 #include "Grafico.hpp"
 #include "data.hpp"
 
+#define PROP_PLAYER ((double) Player->getVida() / Player->getMaxVida())
+
 ALLEGRO_EVENT evdialogo;
 ALLEGRO_EVENT evmorte;
 ALLEGRO_EVENT evfade;
@@ -69,7 +71,7 @@ void redesenhar(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d
     }
 
     al_draw_scaled_bitmap(fundo, 0, 0, 322, 73, RES_WIDTH(99*CELULA), RES_HEIGHT(15), RES_WIDTH(322), RES_HEIGHT(73), 0);
-    al_draw_scaled_bitmap(lifebar, 0, 0, 322, 73, RES_WIDTH(99*CELULA), RES_HEIGHT(15), RES_WIDTH(322*((double)Player->getVida()/Player->getMaxVida())), RES_HEIGHT(73), 0);
+    al_draw_scaled_bitmap(lifebar, 0, 0, 322, 73, RES_WIDTH(99*CELULA) + RES_WIDTH(5), RES_HEIGHT(15), RES_WIDTH(317) * PROP_PLAYER, RES_HEIGHT(73), 0);
     al_draw_scaled_bitmap(contorno, 0, 0, 322, 73, RES_WIDTH(99*CELULA), RES_HEIGHT(15), RES_WIDTH(322), RES_HEIGHT(73), 0);
 
     al_draw_textf(font15, al_map_rgb(60,25,97), RES_WIDTH(110*CELULA), RES_HEIGHT(105), 0,"$ %d", Player->getDinheiro());

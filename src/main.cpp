@@ -16,12 +16,12 @@ GameSave *Save = new GameSave();
 
 /* PERSONAGENS  */
 Protagonista *Player = new Protagonista(10, 3);
-Inimigo *Billy = new Inimigo("Billy", 19, 2);
-Inimigo *Xerife_Espeto = new Inimigo("Xerife Espeto", 25, 3);
-Inimigo *Jose_do_Caixao = new Inimigo("Jose do caixao", 32, 3);
-Inimigo *Caixao_do_Jose = new Inimigo("Caixao do Jose", 15, 3);
-Inimigo *Geraldina = new Inimigo("Geraldina", 45, 3);
-Inimigo *Johnny_Cash = new Inimigo("Johnny Cash", 60, 4);
+Inimigo *Billy = new Inimigo("Billy", 21, 2, 3);
+Inimigo *Xerife_Espeto = new Inimigo("Xerife Espeto", 40, 3, 3);
+Inimigo *Jose_do_Caixao = new Inimigo("Jose do caixao", 32, 3, 3);
+Inimigo *Caixao_do_Jose = new Inimigo("Caixao do Jose", 15, 3, 3);
+Inimigo *Geraldina = new Inimigo("Geraldina", 45, 3, 3);
+Inimigo *Johnny_Cash = new Inimigo("Johnny Cash", 60, 4, 3);
 
 /* ITENS */
 Interacao *Chave = new Interacao("Chave", 81, 70, '5');
@@ -53,8 +53,6 @@ Batalha1x1 Batalha_Nivel1 (Billy, Player);
 Batalha1x1 Batalha_Nivel2 (Xerife_Espeto, Player);
 Batalha1x1 Batalha_Nivel3 (Geraldina, Player);
 Batalha1x2 Batalha_Nivel4 (Jose_do_Caixao, Caixao_do_Jose, Player);
-
-
 
 /* FUNCOES */
 bool camera(char mov);
@@ -97,7 +95,7 @@ int main(int argc, char **argv){
         Player->addAtaque("Revólver", 1, 4);
         dano_revolver="A: (01/04)";
 
-        Billy->addAtaque("Tiro de Revólver", 0, -3);
+        Billy->addAtaque("Tiro de Revólver", 0, -2);
         Billy->addAtaque("Cura", 0, 1);
 
         al_start_timer(timer);
@@ -133,7 +131,7 @@ int main(int argc, char **argv){
 
         Xerife_Espeto->addAtaque("Revólver", 0, -4);
         Xerife_Espeto->addAtaque("Espinhos", 0, -1);
-        Xerife_Espeto->addAtaque("Cura", 0, 3);
+        Xerife_Espeto->addAtaque("Cura", 0, 2);
 
         /* === NÍVEL DOIS === */
         // Neste nível, o jogador tem a batalha contra o Xerife Espeto, no deserto. Estão presentes todos
