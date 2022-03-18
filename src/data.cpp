@@ -52,7 +52,8 @@ ALLEGRO_BITMAP *galinha4 = NULL; //variavel que vai receber a imagem das galinha
 ALLEGRO_BITMAP *botaointeracao = NULL; // variavel que vai receber a imagem do botao de interacao
 ALLEGRO_BITMAP *botaocomer = NULL; // variavel que vai receber a imagem do botao para comer
 ALLEGRO_BITMAP *fundo = NULL; // variavel que vai receber a imagem do fundo da barra de vida
-ALLEGRO_BITMAP *lifebar = NULL; // variavel que vai receber a imagem da barra de vida
+ALLEGRO_BITMAP *lifebar = NULL;
+ALLEGRO_BITMAP *lifebar_batalhas = NULL; // variavel que vai receber a imagem da barra de vida
 ALLEGRO_BITMAP *contorno = NULL; // variavel que vai receber a imagem do contorno da barra de vida
 ALLEGRO_BITMAP *caixa_texto = NULL;
 ALLEGRO_FONT *font15 = NULL; // variavel que vai receber a fonte do hud
@@ -487,6 +488,12 @@ bool inicializaJogo() {
     }
 
     lifebar = al_load_bitmap("./../assets/Life_bar.bmp");
+    if(!lifebar){
+        throw BitmapNotFound(game, timer);
+        return false;
+    }
+
+    lifebar_batalhas = al_load_bitmap("./../assets/batalha/lifebarbat.bmp");
     if(!lifebar){
         throw BitmapNotFound(game, timer);
         return false;

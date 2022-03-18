@@ -128,6 +128,7 @@ extern ALLEGRO_BITMAP *tela_fundo;
 extern ALLEGRO_FONT *font_titulo;
 extern ALLEGRO_BITMAP *caixa_nome;
 extern ALLEGRO_BITMAP *estrela;
+extern ALLEGRO_BITMAP *lifebar_batalhas;
 extern const char *ajuda_cesar;
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
