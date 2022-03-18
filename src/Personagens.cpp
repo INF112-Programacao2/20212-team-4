@@ -266,9 +266,10 @@ std::string Inimigo::atacar(Protagonista &alvo){
             this->curarVida(it->second[1]);
             this->_curas_usadas++;
 
-            if(this->_curas_usadas == this->_total_curas)
+            if(this->_curas_usadas == this->_total_curas && hasAtaque("Cura")){
                 this->subAtaque("Cura");
                 this->_total_ataques--;
+            }
         }
         else
             goto RANDOM;

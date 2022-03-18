@@ -44,7 +44,7 @@ Batalha1x2::Batalha1x2(Inimigo *vilao, Inimigo *caixao, Protagonista *player){
     this->_caixao=caixao;
 }
 
-void batalha_intro(Protagonista *Player, Inimigo* vilao){
+void batalha_intro(Protagonista *_Player, Inimigo* _vilao){
     timer = al_create_timer(0.4);
     short int PLAYER_X = 27;
     short int INIMIGO_X = -27;
@@ -115,7 +115,7 @@ void batalha_fim(Protagonista *_Player, Inimigo* _vilao){
     al_draw_scaled_bitmap(player_batalha, 0, 0, 129, 68, 0, 0,  1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
     al_draw_scaled_bitmap(caixa_de_ataques, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
 
-    al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(610), 0.82*res_y_comp, 0, "Você venceu!");
+    al_draw_textf(font15, al_map_rgb(58,15,43), (al_get_display_width(game)/2)-18*(mensagem.size()/2), 0.82*res_y_comp, 0, "Você venceu!");
     al_flip_display();
 
     al_rest(3);
@@ -177,10 +177,10 @@ bool Batalha1x1::batalhar(){
     }
 
     while (1){
-        desenhar(_Player, _vilao);
+        
         if(!_Player -> isDead() && !_vilao -> isDead()){
 
-            //desenhar(_Player, _vilao);                
+            desenhar(_Player, _vilao);                
 
             if(cont % 2 == 0 && !player_atacou){
                 desenha_ataques=true;
@@ -188,37 +188,33 @@ bool Batalha1x1::batalhar(){
                 d=0;
             }
             
-            else if(player_atacou && c < 20){
+            else if(player_atacou && c<20){
 
                 mensagem = "Você usou " + nome_ataque + "!";
-                al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(610), 0.82*res_y_comp, 0, mensagem.c_str());
+                al_draw_textf(font15, al_map_rgb(58,15,43), (al_get_display_width(game)/2)-18*(mensagem.size()/2), 0.82*res_y_comp, 0, mensagem.c_str());
                 if(c==19){
                     player_atacou=false;
-                    desenha_ataques=false;
+                    //desenha_ataques=false;
                     cont++;
                     vilao_atacou=false;
                 }
-                c++;
-                
-
+                c++;          
             }
 
-            else if(cont % 2 != 0 && d < 20){
+            else if(cont % 2 != 0 && d<20){
                 if(!vilao_atacou){
                     nome_ataque = _vilao->atacar(*_Player);
                     vilao_atacou=true;
                 }
                 mensagem = _vilao->getNome() + " usou " + nome_ataque + "!";
-                al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(610), 0.82*res_y_comp, 0, mensagem.c_str());
+                al_draw_textf(font15, al_map_rgb(58,15,43), (al_get_display_width(game)/2)-18*(mensagem.size()/2), 0.82*res_y_comp, 0, mensagem.c_str());
                if(d==19){
                     player_atacou=false;
-                    desenha_ataques=false;
+                    //desenha_ataques=false;
                     cont++;
                     vilao_atacou=false;
                 }
-                d++;
-                
-
+                d++;                
             }
         }
 
@@ -247,90 +243,19 @@ bool Batalha1x1::batalhar(){
 }
 
 bool Batalha1x2 :: batalhar(){
-    batalha_intro(this -> _Player, this -> _vilao);
+    // batalha_intro(this -> _Player, this -> _vilao);
 
-    img_vilao = jose_batalha;
-    img_vilao_dano = jose_dano;
-    img_caixao = caixao_batalha;
-    img_caixao_dano = caixao_dano;
+    // img_vilao = jose_batalha;
+    // img_vilao_dano = jose_dano;
+    // img_caixao = caixao_batalha;
+    // img_caixao_dano = caixao_dano;
 
     
-    resetTeclas();
+    // resetTeclas();
 
-    while(1){
-        desenhar(_Player, _vilao);
-
-        if(!_Player -> isDead() && !_vilao -> isDead()){
-            if(cont % 2 == 0 && !player_atacou){
-                desenha_ataques=true;
-                c=0;
-                d=0;
-            }
-            
-            else if(player_atacou && c < 20){
-
-                mensagem = "Você usou " + nome_ataque + "!";
-                al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(610), 0.82*res_y_comp, 0, mensagem.c_str());
-                if(c==19){
-                    
-                    player_atacou=false;
-                    desenha_ataques=false;
-                    cont++;
-                    vilao_atacou=false;
-                }
-                c++;
-                
-
-            }
-
-            else if(cont % 2 != 0 && d < 20){
-
-                if(!vilao_atacou){
-                    nome_ataque = _vilao->atacar(*_Player);
-                    vilao_atacou=true;
-                }
-
-                mensagem = _vilao->getNome() + " usou " + nome_ataque + "!";
-                al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(610), 0.82*res_y_comp, 0, mensagem.c_str());
-
-               if(d==19){
-                    player_atacou=false;
-                    desenha_ataques=false;
-                    cont++;
-                    vilao_atacou=false;
-                }
-                d++;
-                
-
-            }
-        }
-
-        else if(_Player -> isDead()){
-            telaGameOver(reiniciar);
-            _Player->setVida(_Player->getMaxVida());
-
-            return false;
-        }
-
-        else if(_vilao -> isDead()){
-
-            return true;
-        }
-
-        al_flip_display();
-
-        al_wait_for_event(event_queue, &ev2);
-
-        if(!verificaTeclaBatalha(_Player, _vilao)) break;
-    }
-
-    resetTeclas();
-    batalha_fim(_Player, _vilao);
-
-    return false;
-
+    
+    return true;
 }
-
 
 
 void desenhar(Protagonista *_Player, Inimigo *_vilao){
@@ -465,7 +390,7 @@ bool verificaTeclaBatalha(Protagonista *_Player, Inimigo *_vilao){
                 }
                 break;
             case ALLEGRO_KEY_C:
-                if(cont % 2 == 0 && _Player->qtdItem("Comida") > 0 && _Player->getVida() < _Player->getMaxVida() ){
+                if(cont % 2 == 0 && _Player->qtdItem("Comida") > 0 && _Player->getVida()+5<= _Player->getMaxVida() ){
                     player_atacou=true;
                     desenha_ataques=false;
                     nome_ataque = "Cura";
