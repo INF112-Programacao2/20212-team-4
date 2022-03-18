@@ -52,6 +52,7 @@ Missao *Nivel5 = new Missao(0, 0, 'F');
 Batalha1x1 Batalha_Nivel1 (Billy, Player);
 Batalha1x1 Batalha_Nivel2 (Xerife_Espeto, Player);
 Batalha1x1 Batalha_Nivel3 (Geraldina, Player);
+Batalha1x2 Batalha_Nivel4 (Jose_do_Caixao, Caixao_do_Jose, Player);
 
 /* FUNCOES */
 bool camera(char mov);
@@ -735,8 +736,12 @@ void interagir(){
             dialogoNivel4Pt3(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
 
-            Player->nextLevel();
-            Player->setVida(Player->getVida()+10);
+            fadeout();
+            resetTeclas();
+            if(Batalha_Nivel4.batalhar()){
+                Player->nextLevel();
+                Player->setVida(Player->getVida()+10);
+            }
         }
     }
 
