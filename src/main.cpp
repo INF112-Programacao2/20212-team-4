@@ -55,6 +55,7 @@ Batalha1x1 Batalha_Nivel1 (Billy, Player);
 Batalha1x1 Batalha_Nivel2 (Xerife_Espeto, Player);
 Batalha1x1 Batalha_Nivel3 (Geraldina, Player);
 Batalha1x2 Batalha_Nivel4 (Jose_do_Caixao, Caixao_do_Jose, Player);
+BatalhaFantasma Batalha_Nivel5 (Johnny_Cash, Player);
 
 /* FUNCOES */
 bool camera(char mov);
@@ -788,6 +789,13 @@ void interagir(){
 
             al_stop_samples();
             al_play_sample(battle5_song, 1, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
+            fadeout();
+            resetTeclas();
+            if(Batalha_Nivel5.batalhar()){
+                Player->nextLevel();
+                Player->setVida(Player->getVida()+10);
+            }
+            al_stop_samples();
         }
     }
 }

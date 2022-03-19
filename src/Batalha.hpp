@@ -34,6 +34,9 @@ public:
 
 class BatalhaFantasma : public IBatalha{
 public:
+    Inimigo *_vilao;
+    Protagonista *_Player;
+    BatalhaFantasma (Inimigo *vilao, Protagonista *player);
     virtual bool batalhar();
 };
 

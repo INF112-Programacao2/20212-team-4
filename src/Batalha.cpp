@@ -18,6 +18,7 @@ ALLEGRO_EVENT evfadebatalha;
 //VARIAVEIS
 bool caixao_batalhando=false;
 bool caixao_morreu=false;
+bool assombracao=false;
 bool desenha_ataques=true;
 bool player_atacou=false; //variavel que diz se o player fez o ataque ou não ***
 bool vilao_atacou=false; //variavel que diz se o vilao fez o ataque ou nao ***
@@ -46,6 +47,12 @@ Batalha1x2::Batalha1x2(Inimigo *vilao, Inimigo *caixao, Protagonista *player){
     this->_Player=player;
     this->_caixao=caixao;
 }
+
+BatalhaFantasma::BatalhaFantasma(Inimigo *vilao, Protagonista *player){
+    this->_vilao=vilao;
+    this->_Player=player;
+}
+
 
 void batalha_intro(Protagonista *_Player, Inimigo* _vilao){
     timer = al_create_timer(0.4);
@@ -76,6 +83,9 @@ void batalha_intro(Protagonista *_Player, Inimigo* _vilao){
 
             else if(_vilao->getNome() == "Jose do caixao")
                 al_draw_scaled_bitmap(jose_batalha, 0, 0, 240, 135, RES_WIDTH(INIMIGO_X*CELULA), 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+            
+            else if(_vilao->getNome() == "Johnny Cash")
+                al_draw_scaled_bitmap(fantasma_batalha, 0, 0, 240, 135, RES_WIDTH(INIMIGO_X*CELULA), 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
 
             al_draw_scaled_bitmap(player_batalha, 0, 0, 120, 68,  RES_WIDTH(PLAYER_X*CELULA), 0,  1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
             al_draw_scaled_bitmap(caixa_de_ataques, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
@@ -114,7 +124,10 @@ void batalha_fim(Protagonista *_Player, Inimigo* _vilao){
 
     else if(_vilao->getNome() == "Jose do caixao")
         al_draw_scaled_bitmap(jose_batalha, 0, 0, 240, 135, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
-
+    
+    else if(_vilao->getNome() == "Johnny Cash")
+        al_draw_scaled_bitmap(fantasma_batalha, 0, 0, 240, 135, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+    
     al_draw_scaled_bitmap(player_batalha, 0, 0, 129, 68, 0, 0,  1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
     al_draw_scaled_bitmap(caixa_de_ataques, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
 
@@ -147,7 +160,10 @@ void batalha_fim(Protagonista *_Player, Inimigo* _vilao){
 
             else if(_vilao->getNome() == "Jose do caixao")
                 al_draw_tinted_scaled_bitmap(jose_batalha, al_map_rgba(255 - alfa, 255 - alfa, 255 - alfa, alfa), 0, 0, 240, 135, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
-
+            
+            else if(_vilao->getNome() == "Johnny Cash")
+                al_draw_tinted_scaled_bitmap(fantasma_batalha, al_map_rgba(255 - alfa, 255 - alfa, 255 - alfa, alfa), 0, 0, 240, 135, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+            
             al_draw_tinted_scaled_bitmap(player_batalha, al_map_rgba(255 - alfa, 255 - alfa, 255 - alfa, alfa), 0, 0, 120, 68,  0, 0,  1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
             al_draw_tinted_scaled_bitmap(caixa_de_ataques, al_map_rgba(255 - alfa, 255 - alfa, 255 - alfa, alfa), 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
 
@@ -213,7 +229,6 @@ bool Batalha1x1::batalhar(){
                 al_draw_textf(font15, al_map_rgb(58,15,43), (al_get_display_width(game)/2)-18*(mensagem.size()/2), 0.82*res_y_comp, 0, mensagem.c_str());
                if(d==19){
                     player_atacou=false;
-                    //desenha_ataques=false;
                     cont++;
                     vilao_atacou=false;
                 }
@@ -270,14 +285,18 @@ bool Batalha1x2 :: batalhar(){
             }
             
             else if(player_atacou && c<20){
-                mensagem = "Você usou " + nome_ataque + "!";
                 if(caixao_batalhando){
                     mensagem ="José do Caixão chamou o Caixão do José para lutar!";
+                    al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(580), 0.82*res_y_comp, 0, mensagem.c_str());
                 }
                 else if(caixao_morreu){
                     mensagem ="Você derrotou o Caixão do José, mas a luta ainda não acabou!";
+                    al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(550), 0.82*res_y_comp, 0, mensagem.c_str());
                 }
-                al_draw_textf(font15, al_map_rgb(58,15,43), (al_get_display_width(game)/2)-18*(mensagem.size()/2), 0.82*res_y_comp, 0, mensagem.c_str());
+                else{
+                    mensagem = "Você usou " + nome_ataque + "!";
+                    al_draw_textf(font15, al_map_rgb(58,15,43), (al_get_display_width(game)/2)-18*(mensagem.size()/2), 0.82*res_y_comp, 0, mensagem.c_str());
+                }
                 if(c==19){
                     player_atacou=false;
                     caixao_batalhando=false;
@@ -348,6 +367,90 @@ bool Batalha1x2 :: batalhar(){
 
     return false;
     
+}
+
+
+bool BatalhaFantasma::batalhar(){
+    batalha_intro(this -> _Player, this -> _vilao);
+    player_atacou = false;
+    cont = 0;
+    img_vilao=fantasma_batalha;
+    img_vilao_dano=fantasma_batalha;
+    
+    resetTeclas();
+
+    while (1){
+        
+        if(!_Player -> isDead() && !_vilao -> isDead()){
+
+            desenhar(_Player, _vilao);                
+
+            if(cont % 2 == 0 && !player_atacou){
+                desenha_ataques=true;
+                c=0;
+                d=0;
+            }
+            
+            else if(player_atacou && c<20){
+
+                mensagem = "Você usou " + nome_ataque + "!";
+                al_draw_textf(font15, al_map_rgb(58,15,43), (al_get_display_width(game)/2)-18*(mensagem.size()/2), 0.82*res_y_comp, 0, mensagem.c_str());
+                if(c==19){
+                    player_atacou=false;
+                    cont++;
+                    vilao_atacou=false;
+                }
+                c++;          
+            }
+
+            else if(cont % 2 != 0 && d<40){
+                if(!vilao_atacou){
+                    nome_ataque = _vilao->atacar(*_Player);
+                    vilao_atacou=true;
+                }
+                mensagem = _vilao->getNome() + " usou " + nome_ataque + "!";
+                al_draw_textf(font15, al_map_rgb(58,15,43), (al_get_display_width(game)/2)-18*(mensagem.size()/2), 0.82*res_y_comp, 0, mensagem.c_str());
+                if(nome_ataque=="Assombração"){
+                    cont+=2;
+                    vilao_atacou=false;
+                    if(d==39){
+                        player_atacou=false;
+                        cont++;
+                        vilao_atacou=false;
+                    }
+                }
+                else if(d==19){
+                    player_atacou=false;
+                    cont++;
+                    vilao_atacou=false;
+                }
+                d++;                
+            }
+        }
+
+        else if(_Player -> isDead()){
+            telaGameOver(reiniciar);
+            _Player->setVida(_Player->getMaxVida());
+
+            return false;
+        }
+
+        else if(_vilao -> isDead()){
+            resetTeclas();
+            batalha_fim(_Player, _vilao);
+            return true;
+        }
+       
+        al_flip_display();
+
+        al_wait_for_event(event_queue, &ev2);
+
+        if(!verificaTeclaBatalha(_Player, _vilao)) break;
+
+    } //fim do while
+
+    return false;
+
 }
 
 
@@ -451,7 +554,7 @@ bool verificaTeclaBatalha(Protagonista *_Player, Inimigo *_vilao){
 
         switch (ev2.keyboard.keycode){
             case ALLEGRO_KEY_A:
-                if(cont%2==0 && _Player->getNivel()>=1){
+                if(cont%2==0 && _Player->getNivel()>=1 && !player_atacou){
                     player_atacou=true;
                     desenha_ataques=false;
                     aux_ataque=1;
@@ -460,7 +563,7 @@ bool verificaTeclaBatalha(Protagonista *_Player, Inimigo *_vilao){
                 }
                 break;
             case ALLEGRO_KEY_S:
-                if(cont%2==0 && _Player->getNivel()>=2 && _Player->hasAtaque("Coquetel Molotov")){
+                if(cont%2==0 && _Player->getNivel()>=2 && _Player->hasAtaque("Coquetel Molotov") && !player_atacou){
                     player_atacou=true;
                     desenha_ataques=false;
                     aux_ataque=2;
@@ -469,7 +572,7 @@ bool verificaTeclaBatalha(Protagonista *_Player, Inimigo *_vilao){
                 }
                 break;
             case ALLEGRO_KEY_D:
-                if(cont%2==0 && _Player->getNivel()>=3){
+                if(cont%2==0 && _Player->getNivel()>=3 && !player_atacou){
                     player_atacou=true;
                     desenha_ataques=false;
                     aux_ataque=3;
@@ -478,7 +581,7 @@ bool verificaTeclaBatalha(Protagonista *_Player, Inimigo *_vilao){
                 }
                 break;
             case ALLEGRO_KEY_F:
-                if(cont%2==0 && _Player->getNivel()>=4 && _Player->hasAtaque("Pé de Coelho")){
+                if(cont%2==0 && _Player->getNivel()>=4 && _Player->hasAtaque("Pé de Coelho") && !player_atacou){
                     player_atacou=true;
                     desenha_ataques=false;
                     aux_ataque=4;
@@ -487,7 +590,7 @@ bool verificaTeclaBatalha(Protagonista *_Player, Inimigo *_vilao){
                 }
                 break;
             case ALLEGRO_KEY_C:
-                if(cont % 2 == 0 && _Player->qtdItem("Comida") > 0 && _Player->getVida()+5<= _Player->getMaxVida() ){
+                if(cont % 2 == 0 && _Player->qtdItem("Comida") > 0 && _Player->getVida()+5<= _Player->getMaxVida() && !player_atacou){
                     player_atacou=true;
                     desenha_ataques=false;
                     nome_ataque = "Cura";
