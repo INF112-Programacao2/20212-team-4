@@ -345,7 +345,7 @@ bool inicializaJogo() {
     billy_dano=al_load_bitmap("./../assets/batalha/pistoleiro-dano.bmp");
     espeto_dano=al_load_bitmap("./../assets/batalha/xerife-dano.bmp");
     geraldina_dano=al_load_bitmap("./../assets/batalha/coiote-dano.bmp");
-    jose_dano=al_load_bitmap("./../assets/batalha/jose-dano.bmp");
+    jose_dano=al_load_bitmap("./../assets/batalha/coveiro-dano.bmp");
     caixao_dano=al_load_bitmap("./../assets/batalha/caixao-dano.bmp");
     espeto_morto=al_load_bitmap("./../assets/batalha/xerife-morto.bmp");
     geraldina_morta=al_load_bitmap("./../assets/batalha/coiote-morta    .bmp"); 

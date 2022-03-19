@@ -25,6 +25,7 @@ class Batalha1x2 : public IBatalha{
 public:
     Inimigo *_vilao;
     Inimigo *_caixao;
+    Inimigo *_jose;
     Protagonista *_Player;
     Batalha1x2(Inimigo *vilao, Inimigo *caixao, Protagonista *player);
     virtual bool batalhar();
