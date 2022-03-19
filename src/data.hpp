@@ -134,7 +134,12 @@ extern ALLEGRO_BITMAP *caixa_nome;
 extern ALLEGRO_BITMAP *estrela;
 extern ALLEGRO_BITMAP *lifebar_batalhas;
 extern ALLEGRO_SAMPLE *ambient_song13;
+extern ALLEGRO_SAMPLE *ambient_song24;
 extern ALLEGRO_SAMPLE *battle1_song;
+extern ALLEGRO_SAMPLE *battle2_song;
+extern ALLEGRO_SAMPLE *battle3_song;
+extern ALLEGRO_SAMPLE *battle4_song;
+extern ALLEGRO_SAMPLE *battle5_song;
 extern const char *ajuda_cesar;
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */

@@ -107,7 +107,12 @@ ALLEGRO_BITMAP *tela_fundo = NULL;  // base do personagem na batalha
 ALLEGRO_BITMAP *caixa_nome = NULL;
 ALLEGRO_BITMAP *estrela = NULL;
 ALLEGRO_SAMPLE *ambient_song13 = NULL;
+ALLEGRO_SAMPLE *ambient_song24 = NULL;
 ALLEGRO_SAMPLE *battle1_song = NULL;
+ALLEGRO_SAMPLE *battle2_song = NULL;
+ALLEGRO_SAMPLE *battle3_song = NULL;
+ALLEGRO_SAMPLE *battle4_song = NULL;
+ALLEGRO_SAMPLE *battle5_song = NULL;
 const char *ajuda_cesar = NULL;
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
@@ -316,7 +321,7 @@ bool inicializaJogo() {
     }
 
     al_init_acodec_addon();
-    al_reserve_samples(2);
+    al_reserve_samples(7);
 
     ambient_song13 = al_load_sample("./../assets/musicas/ambient_impares.ogg");
     if(!ambient_song13){
@@ -325,8 +330,43 @@ bool inicializaJogo() {
         return false;
     }
 
+    ambient_song24 = al_load_sample("./../assets/musicas/ambient_pares.ogg");
+    if(!ambient_song24){
+        al_destroy_display(game);
+        al_destroy_timer(timer);
+        return false;
+    }
+
     battle1_song = al_load_sample("./../assets/musicas/tgtbtu.ogg");
     if(!battle1_song){
+        al_destroy_display(game);
+        al_destroy_timer(timer);
+        return false;
+    }
+
+    battle2_song = al_load_sample("./../assets/musicas/venom.ogg");
+    if(!battle2_song){
+        al_destroy_display(game);
+        al_destroy_timer(timer);
+        return false;
+    }
+
+    battle3_song = al_load_sample("./../assets/musicas/hunter.ogg");
+    if(!battle3_song){
+        al_destroy_display(game);
+        al_destroy_timer(timer);
+        return false;
+    }
+
+    battle4_song = al_load_sample("./../assets/musicas/kyrie.ogg");
+    if(!battle4_song){
+        al_destroy_display(game);
+        al_destroy_timer(timer);
+        return false;
+    }
+
+    battle5_song = al_load_sample("./../assets/musicas/grits.ogg");
+    if(!battle5_song){
         al_destroy_display(game);
         al_destroy_timer(timer);
         return false;
