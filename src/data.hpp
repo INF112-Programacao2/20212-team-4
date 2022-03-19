@@ -9,6 +9,8 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 
 #define ZOOM 4
 #define FPS 8
@@ -100,6 +102,8 @@ extern ALLEGRO_BITMAP *mini_map;
 extern ALLEGRO_BITMAP *player_minimap;
 extern ALLEGRO_BITMAP *portao;
 extern ALLEGRO_BITMAP *botaoreiniciar;   // variavel que vai receber o botao para reiniciar
+extern bool PE_DE_COELHO_USADO;
+extern bool COQUETEL_MOLOTOV_USADO;
 extern ALLEGRO_BITMAP *player_batalha;   // imagem do jogador para a batalha
 extern ALLEGRO_BITMAP *billy_batalha;   // imagem do inimigo para a batalha
 extern ALLEGRO_BITMAP *espeto_batalha;   // imagem do inimigo para a batalha
@@ -129,6 +133,8 @@ extern ALLEGRO_FONT *font_titulo;
 extern ALLEGRO_BITMAP *caixa_nome;
 extern ALLEGRO_BITMAP *estrela;
 extern ALLEGRO_BITMAP *lifebar_batalhas;
+extern ALLEGRO_SAMPLE *ambient_song13;
+extern ALLEGRO_SAMPLE *battle1_song;
 extern const char *ajuda_cesar;
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
@@ -163,6 +169,7 @@ extern double TELA_Y_MAPA;
  * 
  */
 bool inicializaJogo();
+void setNivel(Protagonista* Player, int nivel);
 void resetCamera(short int x, short int y);
 void resetTeclas();
 

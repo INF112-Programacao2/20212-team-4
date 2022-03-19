@@ -4,6 +4,8 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 #include "Save.hpp"
 #include "data.hpp"
 #include "Grafico.hpp"
@@ -92,6 +94,8 @@ int main(int argc, char **argv){
         // Neste nível, o jogador tem a batalha contra o pistoleiro Billy, em frente ao Saloon. Não há NPCs 
         // no mapa para passar missões.
 
+        al_play_sample(ambient_song13, 1, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
+
         Player->addAtaque("Revólver", 1, 4);
         dano_revolver="A: (01/04)";
 
@@ -139,6 +143,8 @@ int main(int argc, char **argv){
 
         Nivel2->_etapa = 1;
         ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
+
+        setNivel(Player, 2);
         while(Player->getNivel()==2){
             al_wait_for_event(event_queue, &ev0);
 
@@ -175,6 +181,8 @@ int main(int argc, char **argv){
 
         Nivel3->_etapa = 1;
         ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
+
+        setNivel(Player, 3);
         if(Player->getNivel() == 3) Player->addItem("Estrela de Xerife", 1);
         while(Player->getNivel()==3){
             al_wait_for_event(event_queue, &ev0);
@@ -215,6 +223,8 @@ int main(int argc, char **argv){
 
         Nivel4->_etapa = 1;
         ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
+
+        setNivel(Player, 4);
         while(Player->getNivel()==4){
             al_wait_for_event(event_queue, &ev0);
 
@@ -253,6 +263,8 @@ int main(int argc, char **argv){
 
         Nivel5->_etapa = 1;
         ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
+
+        setNivel(Player, 5);
         while(Player->getNivel()==5){
             al_wait_for_event(event_queue, &ev0);
 
@@ -656,6 +668,8 @@ void interagir(){
             dialogoNivel1Pt2(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
 
+            al_stop_samples();
+            al_play_sample(battle1_song, 1, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
             fadeout();
             resetTeclas();
             if(Batalha_Nivel1.batalhar()){
@@ -663,6 +677,7 @@ void interagir(){
                 ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
                 Player->setVida(Player->getVida()+10);
             }
+            al_stop_samples();
         }
     }
 

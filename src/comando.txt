@@ -1,1 +1,1 @@
-g++ *.cpp -lallegro -lallegro_image -lallegro_font -lallegro_ttf -o teste
+g++ *.cpp -lallegro -lallegro_image -lallegro_font -lallegro_ttf -lallegro_audio -lallegro_acodec -o teste

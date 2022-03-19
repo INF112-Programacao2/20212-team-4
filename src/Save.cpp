@@ -23,6 +23,9 @@ void GameSave::save(Protagonista *Player, MissaoSecundaria *Sec1, MissaoSecundar
     data << (int)Sec3->completo() << " " << (int)Sec3->getinicializada() << "\n";
     data << (int)Sec4->completo() << " " << (int)Sec4->getinicializada() << "\n";
 
+    // Salva ataques únicos
+    data << (int)COQUETEL_MOLOTOV_USADO << " " << (int)PE_DE_COELHO_USADO;
+
     data.close();
 }
 
@@ -112,6 +115,15 @@ void GameSave::read_save(Protagonista *Player, MissaoSecundaria *Sec1, MissaoSec
     data >> value;
     if(value == 1) Sec4->setinicializadaTrue();
 
+    data >> value;
+    if(value == 1) COQUETEL_MOLOTOV_USADO = true;
+
+    if(COQUETEL_MOLOTOV_USADO == true) Player->subAtaque("Coquetel Molotov");
+
+    data >> value;
+    if(value == 1) PE_DE_COELHO_USADO = true;
+
+    if(COQUETEL_MOLOTOV_USADO == true) Player->subAtaque("Pé de Coelho");
 
     data.close();
 }

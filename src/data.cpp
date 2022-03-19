@@ -77,6 +77,8 @@ ALLEGRO_BITMAP *icone = NULL; // variavel que vai receber o botao para reiniciar
 ALLEGRO_BITMAP *icone_player = NULL; // variavel que vai receber o botao para reiniciar
 ALLEGRO_BITMAP *player_minimap = NULL;
 ALLEGRO_BITMAP *portao = NULL;
+bool PE_DE_COELHO_USADO = false;
+bool COQUETEL_MOLOTOV_USADO = false;
 ALLEGRO_BITMAP *player_batalha = NULL; // imagem do jogador para a batalha
 ALLEGRO_BITMAP *billy_batalha = NULL; // imagem do inimigo para a batalha
 ALLEGRO_BITMAP *espeto_batalha= NULL;   // imagem do inimigo para a batalha
@@ -104,6 +106,8 @@ ALLEGRO_BITMAP *mapmenu = NULL;  // mapa da tela inicial
 ALLEGRO_BITMAP *tela_fundo = NULL;  // base do personagem na batalha
 ALLEGRO_BITMAP *caixa_nome = NULL;
 ALLEGRO_BITMAP *estrela = NULL;
+ALLEGRO_SAMPLE *ambient_song13 = NULL;
+ALLEGRO_SAMPLE *battle1_song = NULL;
 const char *ajuda_cesar = NULL;
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
@@ -302,6 +306,29 @@ bool inicializaJogo() {
     if(!font_titulo)
     {
         throw InitNotDone();
+        return false;
+    }
+
+    if(!al_install_audio()){
+        al_destroy_display(game);
+        al_destroy_timer(timer);
+        return false;
+    }
+
+    al_init_acodec_addon();
+    al_reserve_samples(2);
+
+    ambient_song13 = al_load_sample("./../assets/musicas/ambient_impares.ogg");
+    if(!ambient_song13){
+        al_destroy_display(game);
+        al_destroy_timer(timer);
+        return false;
+    }
+
+    battle1_song = al_load_sample("./../assets/musicas/tgtbtu.ogg");
+    if(!battle1_song){
+        al_destroy_display(game);
+        al_destroy_timer(timer);
         return false;
     }
 
@@ -639,6 +666,127 @@ void resetCamera(short int x, short int y){ //Reseta a camera ao passar de níve
     CAMERA[y][x] = 'P';
     camJ = x;
     camI = y;
+}
+
+void setNivel(Protagonista *Player, int nivel){
+    resetTeclas();
+
+    if(Player->getNivel() == 1){
+        EIXO_X_PLAYER_TELA = 1216;
+        EIXO_Y_PLAYER_TELA = 572;
+
+        j = 69;
+        i = 29;
+
+        TELA_X_MAPA = 56;
+        TELA_Y_MAPA = 23;
+
+        resetCamera(13, 5);
+        
+        MAPA[28][63] = MAPA[28][63] = MAPA[68][64] = '3';
+        MAPA[29][40] = '0'; // Adiciona colisão no Billy.
+        Player->setVida(10);  
+        Player->setMaxVida(10);  
+        Player->setDinheiro(4);
+        if(Player->qtdItem("Comida") < 1) Player->addItem("Comida", 1);
+    }
+
+    // Define as posições iniciais pra cada nível.
+    else if(Player->getNivel() == 2){
+        i = 30;
+        j = 40;
+        TELA_X_MAPA = 35;
+        TELA_Y_MAPA = 24;
+
+        EIXO_X_PLAYER_TELA = 704;
+        EIXO_Y_PLAYER_TELA = 572;
+
+        Player->setMaxVida(20);     
+
+        resetCamera(5, 5);
+
+        // Adiciona personagens secundários na matriz
+        MAPA[28][50] = 'F';
+        MAPA[13][30] = 'I';
+        MAPA[39][63] = 'G';
+        MAPA[39][44] = MAPA[39][43] = 'H';
+        MAPA[56][70] = MAPA[56][71] = MAPA[57][70] = MAPA[57][71] = '0'; 
+        MAPA[28][76] = '1';
+        MAPA[29][40] = 'A';
+
+        MAPA[45][39] = MAPA[45][40] = 'z';
+
+        map= al_load_bitmap("./../assets/map2.bmp");
+    }
+
+    else if(Player->getNivel() == 3){
+        i = 56;
+        j = 69;
+
+        Player->setMaxVida(30);   
+
+        TELA_X_MAPA = 60;
+        TELA_Y_MAPA = 50;
+
+        EIXO_X_PLAYER_TELA = 960;
+        EIXO_Y_PLAYER_TELA = 572;    
+
+        resetCamera(10, 5); 
+
+        MAPA[49][16] = MAPA[49][17] = '0'; // Adiciona colisão em Mario / Geraldina
+        MAPA[29][40] = '0'; // Remove Ambrósio da matriz
+        MAPA[56][70] = MAPA[56][71] = MAPA[57][70] = MAPA[57][71] = '1'; // Remove xerife espeto da matriz
+        map= al_load_bitmap("./../assets/map3.bmp");
+        MAPA[28][76] = 'J';
+
+        if(!Player->hasAtaque("Coquetel Molotov")) COQUETEL_MOLOTOV_USADO = true;
+    }
+
+    else if(Player->getNivel() == 4){
+        i = 48;
+        j = 19;
+
+        Player->setMaxVida(40);  
+
+        TELA_X_MAPA = 11;
+        TELA_Y_MAPA = 45;
+
+        EIXO_X_PLAYER_TELA = 896;
+        EIXO_Y_PLAYER_TELA = 380;    
+
+        resetCamera(11, 2); 
+
+        MAPA[49][16] = MAPA[49][17] = 'C';
+        MAPA[27][88] = MAPA[28][88] = MAPA[27][89] = '0';
+        MAPA[28][76] = '0'; // Remove Renato da matriz
+        map= al_load_bitmap("./../assets/map4.bmp");
+
+        if(!Player->hasAtaque("Coquetel Molotov")) COQUETEL_MOLOTOV_USADO = true;
+    }
+
+    else if(Player->getNivel() == 5){
+        i = 29;
+        j = 86;
+
+        Player->setMaxVida(50);  
+
+        TELA_X_MAPA = 72;
+        TELA_Y_MAPA = 23;
+
+        EIXO_X_PLAYER_TELA = 1280;
+        EIXO_Y_PLAYER_TELA = 572;  
+
+        resetCamera(15, 5); 
+
+        MAPA[27][88] = MAPA[28][88] = MAPA[27][89] = '1'; // Remove José do Caixão da matriz
+        MAPA[16][7] = MAPA[16][8] = MAPA[17][7] = MAPA[17][8] = MAPA[17][9] = 'E'; // Adiciona Johnny Cash na matriz
+        map= al_load_bitmap("./../assets/map5.bmp");
+
+        if(!Player->hasAtaque("Coquetel Molotov")) COQUETEL_MOLOTOV_USADO = true;
+        if(!Player->hasAtaque("Pé de Coelho")) PE_DE_COELHO_USADO = true;
+    }   
+
+    general_player = player_f1;
 }
 
 void resetTeclas(){
