@@ -65,13 +65,7 @@ void batalha_intro(Protagonista *_Player, Inimigo* _vilao){
         if(evfadebatalha.type == ALLEGRO_EVENT_TIMER){
             al_clear_to_color(al_map_rgb(238,202,169));
 
-            al_draw_scaled_bitmap(fundo, 0, 0, 322, 73, RES_WIDTH(1016), RES_HEIGHT(468), RES_WIDTH(610), RES_HEIGHT(60), 0);    
-            al_draw_scaled_bitmap(fundo, 0, 0, 322, 73, RES_WIDTH(262), RES_HEIGHT(146), RES_WIDTH(600), RES_HEIGHT(80), 0);      
-            al_draw_scaled_bitmap(lifebar_batalhas, 0, 0, 586, 49, RES_WIDTH(1016), RES_HEIGHT(468), RES_WIDTH(590) * PROP_ENEMY, RES_HEIGHT(48), 0);
-            al_draw_scaled_bitmap(lifebar_batalhas, 0, 0, 586, 49, RES_WIDTH(262), RES_HEIGHT(146), RES_WIDTH(577) * PROP_PLAYER, RES_HEIGHT(80), 0);
-            al_draw_scaled_bitmap(vida_vilao, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
-            al_draw_scaled_bitmap(vida_player, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
-
+            
             if(_vilao->getNome() == "Billy")
                 al_draw_scaled_bitmap(billy_batalha, 0, 0, 240, 135, RES_WIDTH(INIMIGO_X*CELULA), 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
 
@@ -84,8 +78,17 @@ void batalha_intro(Protagonista *_Player, Inimigo* _vilao){
             else if(_vilao->getNome() == "Jose do caixao")
                 al_draw_scaled_bitmap(jose_batalha, 0, 0, 240, 135, RES_WIDTH(INIMIGO_X*CELULA), 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
             
-            else if(_vilao->getNome() == "Johnny Cash")
+            else if(_vilao->getNome() == "Johnny Cash"){ 
+                al_draw_scaled_bitmap(base_fantasma, 0, 0, 240, 135, RES_WIDTH(INIMIGO_X*CELULA), 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
                 al_draw_scaled_bitmap(fantasma_batalha, 0, 0, 240, 135, RES_WIDTH(INIMIGO_X*CELULA), 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+               
+                }
+            al_draw_scaled_bitmap(fundo, 0, 0, 322, 73, RES_WIDTH(1016), RES_HEIGHT(468), RES_WIDTH(610), RES_HEIGHT(60), 0);    
+            al_draw_scaled_bitmap(fundo, 0, 0, 322, 73, RES_WIDTH(262), RES_HEIGHT(146), RES_WIDTH(600), RES_HEIGHT(80), 0);      
+            al_draw_scaled_bitmap(lifebar_batalhas, 0, 0, 586, 49, RES_WIDTH(1016), RES_HEIGHT(468), RES_WIDTH(590) * PROP_ENEMY, RES_HEIGHT(48), 0);
+            al_draw_scaled_bitmap(lifebar_batalhas, 0, 0, 586, 49, RES_WIDTH(262), RES_HEIGHT(146), RES_WIDTH(577) * PROP_PLAYER, RES_HEIGHT(80), 0);
+            al_draw_scaled_bitmap(vida_vilao, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+            al_draw_scaled_bitmap(vida_player, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
 
             al_draw_scaled_bitmap(player_batalha, 0, 0, 120, 68,  RES_WIDTH(PLAYER_X*CELULA), 0,  1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
             al_draw_scaled_bitmap(caixa_de_ataques, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
@@ -460,7 +463,10 @@ void desenhar(Protagonista *_Player, Inimigo *_vilao){
     if(_vilao->getNome()=="Caixao do Jose"){
         al_draw_scaled_bitmap(jose_batalha, 0, 0, 240, 135, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
     }
-    
+    else if(_vilao->getNome()=="Johnny Cash"){
+        al_draw_scaled_bitmap(base_fantasma, 0, 0, 240, 135, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+    }
+
     if(vilao_atacou && nome_ataque!="Cura"){
         al_rest(0.02); 
         if(a==0){
@@ -501,8 +507,15 @@ void desenhar(Protagonista *_Player, Inimigo *_vilao){
 
     if(desenha_ataques){
         al_draw_scaled_bitmap(ataques, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
-        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(180), 0.80*res_y_comp, 0,"Revólver");
         al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(180), 0.88*res_y_comp, 0, dano_revolver.c_str());
+        if(_Player->getNivel() == 5){
+            
+            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(180), 0.80*res_y_comp, 0,"Munições Fanstasma");
+        }
+        else{
+             
+            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(180), 0.80*res_y_comp, 0,"Revólver");
+        }
 
         if(_Player->qtdItem("Comida")==0){
             al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1558), 0.80*res_y_comp, 0,"Esgotado!");
@@ -515,6 +528,10 @@ void desenhar(Protagonista *_Player, Inimigo *_vilao){
         if(_Player->getNivel()<2){
             al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(518), 0.80*res_y_comp, 0,"???????");
         }
+        else if(_Player->getNivel()==5){
+            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(540), 0.80*res_y_comp, 0,"Munições da Bruxa");
+            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(535), 0.88*res_y_comp, 0,"S: (04/06)");
+        }
         else if(!_Player->hasAtaque("Coquetel Molotov")){
             al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(518), 0.80*res_y_comp, 0,"Esgotado!");
         }
@@ -525,6 +542,9 @@ void desenhar(Protagonista *_Player, Inimigo *_vilao){
 
         if(_Player->getNivel()<3){
             al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(865), 0.80*res_y_comp, 0,"???????");
+        }
+        else if(_Player->getNivel()==5){
+            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(865), 0.80*res_y_comp, 0,"-------");
         }
         else{
             al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(865), 0.80*res_y_comp, 0,"Shurikens");
@@ -554,25 +574,39 @@ bool verificaTeclaBatalha(Protagonista *_Player, Inimigo *_vilao){
 
         switch (ev2.keyboard.keycode){
             case ALLEGRO_KEY_A:
-                if(cont%2==0 && _Player->getNivel()>=1 && !player_atacou){
+                if(cont%2==0 && _Player->getNivel()>=1 && !player_atacou && _Player->getNivel()!=5){
                     player_atacou=true;
                     desenha_ataques=false;
                     aux_ataque=1;
                     nome_ataque = "Tiro de Revólver";
                     _Player->atacar<Inimigo>(_vilao, "Revólver");    
                 }
+                else if(cont%2==0 && _Player->getNivel()>=1 && !player_atacou && _Player->getNivel()==5){
+                    player_atacou=true;
+                    desenha_ataques=false;
+                    aux_ataque=6;
+                    nome_ataque = "Munições Fanstasma";
+                    _Player->atacar<Inimigo>(_vilao, "Munições Fanstasma");  
+                }
                 break;
             case ALLEGRO_KEY_S:
-                if(cont%2==0 && _Player->getNivel()>=2 && _Player->hasAtaque("Coquetel Molotov") && !player_atacou){
+                if(cont%2==0 && _Player->getNivel()>=2 && _Player->hasAtaque("Coquetel Molotov") && !player_atacou && _Player->getNivel()!=5){
                     player_atacou=true;
                     desenha_ataques=false;
                     aux_ataque=2;
                     nome_ataque = "Coquetel Molotov";
                     _Player->atacar<Inimigo>(_vilao, "Coquetel Molotov");    
                 }
+                else if(cont%2==0 && _Player->getNivel()>=2  && !player_atacou && _Player->getNivel()==5){
+                    player_atacou=true;
+                    desenha_ataques=false;
+                    aux_ataque=7;
+                    nome_ataque = "Munições da Bruxa";
+                    _Player->atacar<Inimigo>(_vilao, "Munições da Bruxa"); 
+                }
                 break;
             case ALLEGRO_KEY_D:
-                if(cont%2==0 && _Player->getNivel()>=3 && !player_atacou){
+                if(cont%2==0 && _Player->getNivel()>=3 && !player_atacou && _Player->getNivel()!=5){
                     player_atacou=true;
                     desenha_ataques=false;
                     aux_ataque=3;

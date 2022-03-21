@@ -272,6 +272,8 @@ int main(int argc, char **argv){
         al_stop_samples();
 
         Player->addAtaque("Munições Fanstasma", 2, 8);
+        Player->addAtaque("Munições da Bruxa", 4, 6);
+
         dano_revolver="A: (02/08)";
 
         Johnny_Cash->addAtaque("Assombração", 0, -3);
@@ -604,14 +606,15 @@ void interagir(){
             dialogoMissaoPocaoPt2(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
             Player->subItem(Pocao->getNome(), 1);
-            Missao_Chave->finish();
+            Missao_Pocao->finish();
+            MAPA[13][30] = '0';
         }
 
         else if(Missao_Pocao->getinicializada() == true && Player->qtdItem("Pocao") == 1 && Player->getNivel() == 5){
             dialogoMissaoPocaoPt2Level5(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
             Player->subItem(Pocao->getNome(), 1);
-            Missao_Chave->finish();
+            Missao_Pocao->finish();
             MAPA[13][30] = '0';
         }
     }
