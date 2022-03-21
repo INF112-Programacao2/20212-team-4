@@ -286,11 +286,11 @@ bool Batalha1x2 :: batalhar(){
             
             else if(player_atacou && c<20){
                 if(caixao_batalhando){
-                    mensagem ="José do Caixão chamou o Caixão do José para lutar!";
+                    mensagem ="José do Caixão invocou o Caixão do José!";
                     al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(580), 0.82*res_y_comp, 0, mensagem.c_str());
                 }
                 else if(caixao_morreu){
-                    mensagem ="Você derrotou o Caixão do José, mas a luta ainda não acabou!";
+                    mensagem ="Você derrotou o Caixão do José!";
                     al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(550), 0.82*res_y_comp, 0, mensagem.c_str());
                 }
                 else{
@@ -493,7 +493,7 @@ void desenhar(Protagonista *_Player, Inimigo *_vilao){
     al_draw_scaled_bitmap(fundo, 0, 0, 322, 73, RES_WIDTH(1016), RES_HEIGHT(468), RES_WIDTH(610), RES_HEIGHT(60), 0);    
     al_draw_scaled_bitmap(fundo, 0, 0, 322, 73, RES_WIDTH(262), RES_HEIGHT(146), RES_WIDTH(600), RES_HEIGHT(80), 0); 
     al_draw_scaled_bitmap(caixa_de_ataques, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
-    al_draw_scaled_bitmap(lifebar_batalhas, 0, 0, 586, 49, RES_WIDTH(1016), RES_HEIGHT(468), RES_WIDTH(590) * PROP_ENEMY, RES_HEIGHT(48), 0);
+    al_draw_scaled_bitmap(lifebar_batalhas, 0, 0, 586, 49, RES_WIDTH(1025), RES_HEIGHT(468), RES_WIDTH(590) * PROP_ENEMY, RES_HEIGHT(48), 0);
     al_draw_scaled_bitmap(lifebar_batalhas, 0, 0, 586, 49, RES_WIDTH(262), RES_HEIGHT(146), RES_WIDTH(577) * PROP_PLAYER, RES_HEIGHT(80), 0);
     al_draw_scaled_bitmap(vida_vilao, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
     al_draw_scaled_bitmap(vida_player, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
@@ -528,7 +528,7 @@ void desenhar(Protagonista *_Player, Inimigo *_vilao){
         }
         else{
             al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(865), 0.80*res_y_comp, 0,"Shurikens");
-            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(875), 0.88*res_y_comp, 0,"D: (03/05)");
+            al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(875), 0.88*res_y_comp, 0,"D: (03/04)");
         }
 
         if(_Player->getNivel()<4){
@@ -590,7 +590,7 @@ bool verificaTeclaBatalha(Protagonista *_Player, Inimigo *_vilao){
                 }
                 break;
             case ALLEGRO_KEY_C:
-                if(cont % 2 == 0 && _Player->qtdItem("Comida") > 0 && _Player->getVida()+5<= _Player->getMaxVida() && !player_atacou){
+                if(cont % 2 == 0 && _Player->qtdItem("Comida") > 0 && _Player->getVida() <= _Player->getMaxVida() && !player_atacou){
                     player_atacou=true;
                     desenha_ataques=false;
                     nome_ataque = "Cura";

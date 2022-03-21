@@ -219,6 +219,7 @@ void Protagonista::escolherNome(){
 bool Protagonista::verificarTeclaNome(){
     if(evnome.type == ALLEGRO_EVENT_KEY_DOWN){
         keys[evnome.keyboard.keycode] = true;
+        al_play_sample(type_sound, 0.8, 0, 1, ALLEGRO_PLAYMODE_ONCE, NULL);
 
         if(this->_nome.length() < 11 && keys[ALLEGRO_KEY_A]){
             this->_nome += "A";

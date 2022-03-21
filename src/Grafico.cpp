@@ -245,7 +245,7 @@ bool Dialogo::dialogar(std::string npc, std::string **opcoes, bool rel, bool cha
     Player->_dialogo = true;
     std::string fala;
 
-    ajustarCamera(rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+    if(!BATALHA_JOSE) ajustarCamera(rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
 
     while(true){
         al_wait_for_event(event_queue, &evdialogo);
