@@ -19,10 +19,10 @@ GameSave *Save = new GameSave();
 /* PERSONAGENS  */
 Protagonista *Player = new Protagonista(10, 3);
 Inimigo *Billy = new Inimigo("Billy", 21, 2, 3);
-Inimigo *Xerife_Espeto = new Inimigo("Xerife Espeto", 40, 3, 3);
+Inimigo *Xerife_Espeto = new Inimigo("Xerife Espeto", 45, 3, 3);
 Inimigo *Jose_do_Caixao = new Inimigo("Jose do caixao", 32, 3, 3);
 Inimigo *Caixao_do_Jose = new Inimigo("Caixao do Jose", 15, 3, 3);
-Inimigo *Geraldina = new Inimigo("Geraldina", 45, 3, 3);
+Inimigo *Geraldina = new Inimigo("Geraldina", 60, 3, 3);
 Inimigo *Johnny_Cash = new Inimigo("Johnny Cash", 60, 4, 3);
 
 /* ITENS */
@@ -76,6 +76,8 @@ int main(int argc, char **argv){
     /* COMECANDO A EXECUCAO DO JOGO*/
     if(inicializaJogo()){
         srand (time(NULL));
+
+        al_play_sample(highwayman, 0.6, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
         while(true){
             al_wait_for_event(event_queue, &ev0);
             telaMenu(reiniciar);
@@ -94,8 +96,8 @@ int main(int argc, char **argv){
         /* === NÍVEL UM === */
         // Neste nível, o jogador tem a batalha contra o pistoleiro Billy, em frente ao Saloon. Não há NPCs 
         // no mapa para passar missões.
-
-        al_play_sample(ambient_song13, 1, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
+        al_stop_samples();
+        al_play_sample(ambient_song13, 0.6, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
 
         Player->addAtaque("Revólver", 1, 4);
         dano_revolver="A: (01/04)";
@@ -134,16 +136,16 @@ int main(int argc, char **argv){
         dano_revolver="A: (02/05)";
         Player->addAtaque("Coquetel Molotov", 10, 15);
 
-        Xerife_Espeto->addAtaque("Revólver", 0, -4);
+        Xerife_Espeto->addAtaque("Tiro de Revólver", 0, -4);
         Xerife_Espeto->addAtaque("Espinhos", 0, -1);
-        Xerife_Espeto->addAtaque("Cura", 0, 2);
+        Xerife_Espeto->addAtaque("Cura", 0, 4);
 
         /* === NÍVEL DOIS === */
         // Neste nível, o jogador tem a batalha contra o Xerife Espeto, no deserto. Estão presentes todos
         // os NPCs no mapa para passar missões, porém, ainda não é possível completar a missão da espingarda.
 
         al_stop_samples();
-        al_play_sample(ambient_song24, 1, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
+        al_play_sample(ambient_song24, 0.6, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
 
         Nivel2->_etapa = 1;
         ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
@@ -173,9 +175,9 @@ int main(int argc, char **argv){
         // Xerife_Espeto = nullptr;
         Player->addAtaque("Revólver", 2, 6);
         dano_revolver="A: (02/06)";
-        Player->addAtaque("Shurikens", 3, 5);
+        Player->addAtaque("Shurikens", 3, 4);
 
-        Geraldina->addAtaque("Garras", 0, -2);
+        Geraldina->addAtaque("Garras", 0, -6);
         Geraldina->addAtaque("Mordida", 0, -3);
         Geraldina->addAtaque("Cura", 0, 4);
 
@@ -184,7 +186,7 @@ int main(int argc, char **argv){
         // os NPCs no mapa para passar missões, porém, ainda não é possível completar a missão da espingarda.  
 
         al_stop_samples();
-        al_play_sample(ambient_song13, 1, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
+        al_play_sample(ambient_song13, 0.6, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
 
         Nivel3->_etapa = 1;
         ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
@@ -194,7 +196,10 @@ int main(int argc, char **argv){
         while(Player->getNivel()==3){
             al_wait_for_event(event_queue, &ev0);
 
-            if(!to_move()) break; 
+            if(!to_move()){
+                if(Nivel3->_etapa == 2) Player->setDinheiro(Player->getDinheiro() - 10);
+                break;
+            } 
             if(ev0.type == ALLEGRO_EVENT_TIMER){  
                 redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                     !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
@@ -218,7 +223,7 @@ int main(int argc, char **argv){
         // Estão presentes todos os NPCs no mapa para passar missões.
 
         al_stop_samples();
-        al_play_sample(ambient_song24, 1, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
+        al_play_sample(ambient_song24, 0.6, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
 
         Player->addAtaque("Revólver", 2, 7);
         dano_revolver="A: (02/07)";
@@ -682,7 +687,7 @@ void interagir(){
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
 
             al_stop_samples();
-            al_play_sample(battle1_song, 1, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
+            al_play_sample(battle1_song, 0.8, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
             fadeout();
             resetTeclas();
             if(Batalha_Nivel1.batalhar()){
@@ -718,7 +723,7 @@ void interagir(){
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
 
             al_stop_samples();
-            al_play_sample(battle2_song, 1, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
+            al_play_sample(battle2_song, 0.8, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
             fadeout();
             resetTeclas();
             if(Batalha_Nivel2.batalhar()){
@@ -746,7 +751,7 @@ void interagir(){
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
 
             al_stop_samples();
-            al_play_sample(battle3_song, 1, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
+            al_play_sample(battle3_song, 0.8, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
             fadeout();
             resetTeclas();
             if(Batalha_Nivel3.batalhar()){
@@ -767,11 +772,12 @@ void interagir(){
             ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
         }
         else if(Nivel4->missaoProxima('D') && Nivel4->_etapa == 2){
+            BATALHA_JOSE = true;
             dialogoNivel4Pt3(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
 
             al_stop_samples();
-            al_play_sample(battle4_song, 1, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
+            al_play_sample(battle4_song, 0.8, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
             fadeout();
             resetTeclas();
              if(Batalha_Nivel4.batalhar()){
@@ -788,7 +794,7 @@ void interagir(){
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
 
             al_stop_samples();
-            al_play_sample(battle5_song, 1, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
+            al_play_sample(battle5_song, 0.8, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
             fadeout();
             resetTeclas();
             if(Batalha_Nivel5.batalhar()){

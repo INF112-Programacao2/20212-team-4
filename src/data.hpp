@@ -140,6 +140,11 @@ extern ALLEGRO_SAMPLE *battle2_song;
 extern ALLEGRO_SAMPLE *battle3_song;
 extern ALLEGRO_SAMPLE *battle4_song;
 extern ALLEGRO_SAMPLE *battle5_song;
+extern ALLEGRO_SAMPLE *highwayman;
+extern ALLEGRO_SAMPLE *type_sound;
+extern ALLEGRO_SAMPLE *death_song;
+extern ALLEGRO_BITMAP *carregar;
+extern bool BATALHA_JOSE;
 extern const char *ajuda_cesar;
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */

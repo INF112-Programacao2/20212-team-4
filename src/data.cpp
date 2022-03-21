@@ -113,6 +113,11 @@ ALLEGRO_SAMPLE *battle2_song = NULL;
 ALLEGRO_SAMPLE *battle3_song = NULL;
 ALLEGRO_SAMPLE *battle4_song = NULL;
 ALLEGRO_SAMPLE *battle5_song = NULL;
+ALLEGRO_SAMPLE *highwayman = NULL;
+ALLEGRO_SAMPLE *type_sound = NULL;
+ALLEGRO_SAMPLE *death_song = NULL;
+ALLEGRO_BITMAP *carregar = NULL; //variavel que vai receber a imagem do game over
+bool BATALHA_JOSE = false;
 const char *ajuda_cesar = NULL;
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
@@ -271,6 +276,28 @@ bool inicializaJogo() {
         return false;
     }
 
+    carregar = al_load_bitmap("./../assets/carregar-moldura.bmp");
+    if(!carregar){
+        throw BitmapNotFound(game, timer);
+        return false;
+    }
+
+    al_init_font_addon();
+	al_init_ttf_addon();
+    al_init_acodec_addon();
+
+    font_titulo = al_load_font("./../assets/alterebro-pixel-font.ttf", RES_HEIGHT(150), 0);
+    if(!font_titulo)
+    {
+        throw InitNotDone();
+        return false;
+    }
+
+    al_clear_to_color(al_map_rgb(238,202,169));
+    al_draw_textf(font_titulo, al_map_rgb(60,25,97), RES_WIDTH(720), RES_HEIGHT(300), 0,"CARREGANDO...");
+    al_draw_scaled_bitmap(carregar, 0, 0, 753, 232, RES_WIDTH(600), RES_HEIGHT(400), RES_WIDTH(753), RES_HEIGHT(232), 0);    
+    al_flip_display();
+
     map= al_load_bitmap("./../assets/map1.bmp");
     if(!map){
         throw BitmapNotFound(game, timer);
@@ -288,10 +315,6 @@ bool inicializaJogo() {
         throw BitmapNotFound(game, timer);
         return false;
     }
-
-    al_init_font_addon();
-	al_init_ttf_addon();
-
     
     font15 = al_load_font("./../assets/alterebro-pixel-font.ttf", RES_HEIGHT(75), 0);
     if(!font15)
@@ -307,20 +330,12 @@ bool inicializaJogo() {
         return false;
     }
 
-    font_titulo = al_load_font("./../assets/alterebro-pixel-font.ttf", RES_HEIGHT(150), 0);
-    if(!font_titulo)
-    {
-        throw InitNotDone();
-        return false;
-    }
-
     if(!al_install_audio()){
         al_destroy_display(game);
         al_destroy_timer(timer);
         return false;
     }
 
-    al_init_acodec_addon();
     al_reserve_samples(7);
 
     ambient_song13 = al_load_sample("./../assets/musicas/ambient_impares.ogg");
@@ -330,12 +345,34 @@ bool inicializaJogo() {
         return false;
     }
 
+    carregar = al_load_bitmap("./../assets/carregar1.bmp");
+    if(!carregar){
+        throw BitmapNotFound(game, timer);
+        return false;
+    }
+
+    al_clear_to_color(al_map_rgb(238,202,169));
+    al_draw_textf(font_titulo, al_map_rgb(60,25,97), RES_WIDTH(720), RES_HEIGHT(300), 0,"CARREGANDO...");
+    al_draw_scaled_bitmap(carregar, 0, 0, 753, 232, RES_WIDTH(600), RES_HEIGHT(400), RES_WIDTH(753), RES_HEIGHT(232), 0);    
+    al_flip_display();
+
     ambient_song24 = al_load_sample("./../assets/musicas/ambient_pares.ogg");
     if(!ambient_song24){
         al_destroy_display(game);
         al_destroy_timer(timer);
         return false;
     }
+
+    carregar = al_load_bitmap("./../assets/carregar2.bmp");
+    if(!carregar){
+        throw BitmapNotFound(game, timer);
+        return false;
+    }
+
+    al_clear_to_color(al_map_rgb(238,202,169));
+    al_draw_textf(font_titulo, al_map_rgb(60,25,97), RES_WIDTH(720), RES_HEIGHT(300), 0,"CARREGANDO...");
+    al_draw_scaled_bitmap(carregar, 0, 0, 753, 232, RES_WIDTH(600), RES_HEIGHT(400), RES_WIDTH(753), RES_HEIGHT(232), 0);    
+    al_flip_display();
 
     battle1_song = al_load_sample("./../assets/musicas/tgtbtu.ogg");
     if(!battle1_song){
@@ -344,12 +381,34 @@ bool inicializaJogo() {
         return false;
     }
 
+    carregar = al_load_bitmap("./../assets/carregar3.bmp");
+    if(!carregar){
+        throw BitmapNotFound(game, timer);
+        return false;
+    }
+
+    al_clear_to_color(al_map_rgb(238,202,169));
+    al_draw_textf(font_titulo, al_map_rgb(60,25,97), RES_WIDTH(720), RES_HEIGHT(300), 0,"CARREGANDO...");
+    al_draw_scaled_bitmap(carregar, 0, 0, 753, 232, RES_WIDTH(600), RES_HEIGHT(400), RES_WIDTH(753), RES_HEIGHT(232), 0);    
+    al_flip_display();
+
     battle2_song = al_load_sample("./../assets/musicas/venom.ogg");
     if(!battle2_song){
         al_destroy_display(game);
         al_destroy_timer(timer);
         return false;
     }
+
+    carregar = al_load_bitmap("./../assets/carregar4.bmp");
+    if(!carregar){
+        throw BitmapNotFound(game, timer);
+        return false;
+    }
+
+    al_clear_to_color(al_map_rgb(238,202,169));
+    al_draw_textf(font_titulo, al_map_rgb(60,25,97), RES_WIDTH(720), RES_HEIGHT(300), 0,"CARREGANDO...");
+    al_draw_scaled_bitmap(carregar, 0, 0, 753, 232, RES_WIDTH(600), RES_HEIGHT(400), RES_WIDTH(753), RES_HEIGHT(232), 0);    
+    al_flip_display();
 
     battle3_song = al_load_sample("./../assets/musicas/hunter.ogg");
     if(!battle3_song){
@@ -358,6 +417,17 @@ bool inicializaJogo() {
         return false;
     }
 
+    carregar = al_load_bitmap("./../assets/carregar5.bmp");
+    if(!carregar){
+        throw BitmapNotFound(game, timer);
+        return false;
+    }
+
+    al_clear_to_color(al_map_rgb(238,202,169));
+    al_draw_textf(font_titulo, al_map_rgb(60,25,97), RES_WIDTH(720), RES_HEIGHT(300), 0,"CARREGANDO...");
+    al_draw_scaled_bitmap(carregar, 0, 0, 753, 232, RES_WIDTH(600), RES_HEIGHT(400), RES_WIDTH(753), RES_HEIGHT(232), 0);    
+    al_flip_display();
+
     battle4_song = al_load_sample("./../assets/musicas/kyrie.ogg");
     if(!battle4_song){
         al_destroy_display(game);
@@ -365,12 +435,77 @@ bool inicializaJogo() {
         return false;
     }
 
+    carregar = al_load_bitmap("./../assets/carregar6.bmp");
+    if(!carregar){
+        throw BitmapNotFound(game, timer);
+        return false;
+    }
+
+    al_clear_to_color(al_map_rgb(238,202,169));
+    al_draw_textf(font_titulo, al_map_rgb(60,25,97), RES_WIDTH(720), RES_HEIGHT(300), 0,"CARREGANDO...");
+    al_draw_scaled_bitmap(carregar, 0, 0, 753, 232, RES_WIDTH(600), RES_HEIGHT(400), RES_WIDTH(753), RES_HEIGHT(232), 0);    
+    al_flip_display();
+
     battle5_song = al_load_sample("./../assets/musicas/grits.ogg");
     if(!battle5_song){
         al_destroy_display(game);
         al_destroy_timer(timer);
         return false;
     }
+
+    carregar = al_load_bitmap("./../assets/carregar7.bmp");
+    if(!carregar){
+        throw BitmapNotFound(game, timer);
+        return false;
+    }
+
+    al_clear_to_color(al_map_rgb(238,202,169));
+    al_draw_textf(font_titulo, al_map_rgb(60,25,97), RES_WIDTH(720), RES_HEIGHT(300), 0,"CARREGANDO...");
+    al_draw_scaled_bitmap(carregar, 0, 0, 753, 232, RES_WIDTH(600), RES_HEIGHT(400), RES_WIDTH(753), RES_HEIGHT(232), 0);    
+    al_flip_display();
+
+    type_sound = al_load_sample("./../assets/musicas/type.ogg");
+    if(!type_sound){
+        al_destroy_display(game);
+        al_destroy_timer(timer);
+        return false;
+    }
+
+    death_song = al_load_sample("./../assets/musicas/death.ogg");
+    if(!death_song){
+        al_destroy_display(game);
+        al_destroy_timer(timer);
+        return false;
+    }
+
+    carregar = al_load_bitmap("./../assets/carregar8.bmp");
+    if(!carregar){
+        throw BitmapNotFound(game, timer);
+        return false;
+    }
+
+    al_clear_to_color(al_map_rgb(238,202,169));
+    al_draw_textf(font_titulo, al_map_rgb(60,25,97), RES_WIDTH(720), RES_HEIGHT(300), 0,"CARREGANDO...");
+    al_draw_scaled_bitmap(carregar, 0, 0, 753, 232, RES_WIDTH(600), RES_HEIGHT(400), RES_WIDTH(753), RES_HEIGHT(232), 0);    
+    al_flip_display();
+
+    highwayman = al_load_sample("./../assets/musicas/hwm_instr.ogg");
+    if(!highwayman){
+        al_destroy_display(game);
+        al_destroy_timer(timer);
+        return false;
+    }
+
+    carregar = al_load_bitmap("./../assets/carregar9.bmp");
+    if(!carregar){
+        throw BitmapNotFound(game, timer);
+        return false;
+    }
+
+    al_clear_to_color(al_map_rgb(238,202,169));
+    al_draw_textf(font_titulo, al_map_rgb(60,25,97), RES_WIDTH(720), RES_HEIGHT(300), 0,"CARREGANDO...");
+    al_draw_scaled_bitmap(carregar, 0, 0, 753, 232, RES_WIDTH(600), RES_HEIGHT(400), RES_WIDTH(753), RES_HEIGHT(232), 0);    
+    al_flip_display();
 
     //atribuindo as imagens do personagem as variaveis
     player_f1=al_load_bitmap("./../assets/frente1.bmp");
@@ -741,6 +876,9 @@ void setNivel(Protagonista *Player, int nivel){
         EIXO_X_PLAYER_TELA = 704;
         EIXO_Y_PLAYER_TELA = 572;
 
+        EIXO_X_MINIMAP = 890;
+        EIXO_Y_MINIMAP = 478;
+
         Player->setMaxVida(20);     
 
         resetCamera(5, 5);
@@ -769,7 +907,10 @@ void setNivel(Protagonista *Player, int nivel){
         TELA_Y_MAPA = 50;
 
         EIXO_X_PLAYER_TELA = 960;
-        EIXO_Y_PLAYER_TELA = 572;    
+        EIXO_Y_PLAYER_TELA = 572;   
+
+        EIXO_X_MINIMAP = 1280;
+        EIXO_Y_MINIMAP = 826.5; 
 
         resetCamera(10, 5); 
 
@@ -792,7 +933,10 @@ void setNivel(Protagonista *Player, int nivel){
         TELA_Y_MAPA = 45;
 
         EIXO_X_PLAYER_TELA = 896;
-        EIXO_Y_PLAYER_TELA = 380;    
+        EIXO_Y_PLAYER_TELA = 380; 
+
+        EIXO_X_MINIMAP = 605;
+        EIXO_Y_MINIMAP = 718.5;    
 
         resetCamera(11, 2); 
 
@@ -815,6 +959,9 @@ void setNivel(Protagonista *Player, int nivel){
 
         EIXO_X_PLAYER_TELA = 1280;
         EIXO_Y_PLAYER_TELA = 572;  
+
+        EIXO_X_MINIMAP = 1509.5;
+        EIXO_Y_MINIMAP = 462; 
 
         resetCamera(15, 5); 
 
@@ -1304,7 +1451,7 @@ void dialogoNivel2Pt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
         "1Olá?",
         "2Você deve ser o ",
         "1As vezes.",
-        "2É um prazer conhece-lo, mas terei que ser breve."
+        "2É um prazer conhece-lo, mas terei que ser breve.",
         "2Um dos invasores roubou a estrela do xerife e está passando por ele pela região.",
         "1E você sabe onde ele está?",
         "2Me informaram que ele foi encontrado soltando alguns bandidos pelo deserto.",
@@ -1355,20 +1502,25 @@ void dialogoNivel3Pt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
     short int **incrementos;
 
     icone = al_load_bitmap("./../assets/icone-renato.bmp");
-    std::string *falas = new std::string[9] {
+    std::string *falas = new std::string[13] {
         "1Aqui, a estrela do xerife.",
         "2Ótimo!",
         "2Aproveite e fique com essas estrelas falsas.",
-        "1Pra que isso?"
+        "1Pra que isso?",
         "2Você pode usar para atingir seus inimigos.",
         "1Ah, tipo uma shuriken ninja? Obrigado!",
         "2Seja lá o que isso for, sim.",
         "1Outra coisa, o cacto falou algo sobre uma invasão de um coiote a um rancho.",
-        "2*Deve ser mais um deles, por que não vai lá ver?"
+        "2Deve ser mais um deles, por que não vai lá ver?",
+        "1É o meu trabalho, não é?",
+        "2Aproveitei e fique com isso, uma recompensa pelo bom trabalho.",
+        "1O senhor tá sendo muito generoso por esta vila.",
+        "2*Uma contribuição da cidade! Algum morador vai ter uma surpresa no extrato..."
     };
 
     Dialogo dialogo(falas, fluxo, incrementos);
     dialogo.dialogar("RENATO", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+    Player->setDinheiro(Player->getDinheiro() + 10);
 }
 
 void dialogoNivel3Pt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
@@ -1421,11 +1573,14 @@ void dialogoNivel4Pt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
 
 
     icone = al_load_bitmap("./../assets/icone-mario.bmp");
-    std::string *falas = new std::string[4] {
+    std::string *falas = new std::string[7] {
         "2Pode deixar que eu cuido dela agora. Faz tempo que eu não faço um churrasco",
-        "2Isso aqui estava com ela, um pé de coelho. Pode te trazer sorte. Imagino que um garoto não tenha o tiro tão preciso ainda",
+        "2Isso aqui estava com ela, um pé de coelho. Pode te trazer sorte.",
+        "2Imagino que um garoto não tenha o tiro tão preciso ainda",
         "1Ah, obrigado.",
-        "2*É... Eu que agradeço"
+        "2É... Eu que agradeço.",
+        "2Lhe daria mais, garoto, mas alguém me tomou umas 10 moedas e o banco diz que não tem nada o que possa fazer.",
+        "1*..."
     };
 
     Dialogo dialogo(falas, fluxo, incrementos);
