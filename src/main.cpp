@@ -271,6 +271,7 @@ int main(int argc, char **argv){
         // todos os NPCs no mapa para passar missões.
 
         al_stop_samples();
+        al_play_sample(ambient_song5, 0.6, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
 
         Player->addAtaque("Munições Fanstasma", 2, 8);
         dano_revolver="A: (02/08)";
@@ -306,9 +307,66 @@ int main(int argc, char **argv){
          /* === NÍVEL SEIS === */
          //tela e dialogos finais
 
+         al_stop_samples();
+         al_play_sample(ending_song, 0.6, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
+
         if(Player->getNivel() == 6){
             dialogoFinal(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
+
+            al_clear_to_color(al_map_rgb(0,0,0));
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(100), ALLEGRO_ALIGN_CENTRE, "DESENVOLVEDORES");
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(150), ALLEGRO_ALIGN_CENTRE, "André Luiz");
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(200), ALLEGRO_ALIGN_CENTRE, "Bárbara Cristina");
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(250), ALLEGRO_ALIGN_CENTRE, "Lara Colorida");
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(300), ALLEGRO_ALIGN_CENTRE, "Maria Victória");
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(350), ALLEGRO_ALIGN_CENTRE, "Saulo Henrique");
+            al_flip_display();
+            al_rest(5.0);
+
+            al_clear_to_color(al_map_rgb(0,0,0));
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(100), ALLEGRO_ALIGN_CENTRE, "GRÁFICOS E DESIGN");
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(150), ALLEGRO_ALIGN_CENTRE, "Lara Colorida");
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(200), ALLEGRO_ALIGN_CENTRE, "Estúdio Vaca Roxa");
+            al_flip_display();
+            al_rest(5.0);
+
+            al_clear_to_color(al_map_rgb(0,0,0));
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(100), ALLEGRO_ALIGN_CENTRE, "SONOGRAFIA");
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(150), ALLEGRO_ALIGN_CENTRE, "André Luiz");
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(200), ALLEGRO_ALIGN_CENTRE, "CD Project Red");
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(250), ALLEGRO_ALIGN_CENTRE, "Faixa: Hunt or Be Hunted");
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(300), ALLEGRO_ALIGN_CENTRE, "Ennio Morricone");
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(350), ALLEGRO_ALIGN_CENTRE, "Faixa: The Good, The Bad and The Ugly");
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(400), ALLEGRO_ALIGN_CENTRE, "Guilherme Arantes");
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(450), ALLEGRO_ALIGN_CENTRE, "Faixa: Kyrie");
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(500), ALLEGRO_ALIGN_CENTRE, "Johnny Cash");
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(550), ALLEGRO_ALIGN_CENTRE, "Faixas: Hurt, Lorena, Folsom Prison Blues e I Walk the Line");
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(600), ALLEGRO_ALIGN_CENTRE, "Rockstar Games");
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(650), ALLEGRO_ALIGN_CENTRE, "Faixa: American Venom");
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(700), ALLEGRO_ALIGN_CENTRE, "Stan Jones");
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(750), ALLEGRO_ALIGN_CENTRE, "Faixa: Ghosts Riders in The Sky");
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(800), ALLEGRO_ALIGN_CENTRE, "The Highwaymen");
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(850), ALLEGRO_ALIGN_CENTRE, "Faixa: Highwaymen");
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(900), ALLEGRO_ALIGN_CENTRE, "Willie Nelson");
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(950), ALLEGRO_ALIGN_CENTRE, "Faixas: Hard to Be an Outlaw e I've got a Lot of Traveling to Do");
+            al_flip_display();
+            al_rest(5.0);
+
+            al_clear_to_color(al_map_rgb(0,0,0));
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(100), ALLEGRO_ALIGN_CENTRE, "ROTEIRO");
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(150), ALLEGRO_ALIGN_CENTRE, "André Luiz");
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(200), ALLEGRO_ALIGN_CENTRE, "Bárbara Cristina");
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(250), ALLEGRO_ALIGN_CENTRE, "Lara Colorida");
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(300), ALLEGRO_ALIGN_CENTRE, "Maria Victória");
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(350), ALLEGRO_ALIGN_CENTRE, "Saulo Henrique");
+            al_flip_display();
+            al_rest(5.0);
+
+        Save->reset_save();
+        Save->read_save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Chave, Relogio, Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
+        goto INICIO;
+
         }
 
         // delete Johnny_Cash;

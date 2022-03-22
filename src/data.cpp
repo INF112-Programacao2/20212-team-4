@@ -109,11 +109,13 @@ ALLEGRO_BITMAP *caixa_nome = NULL;
 ALLEGRO_BITMAP *estrela = NULL;
 ALLEGRO_SAMPLE *ambient_song13 = NULL;
 ALLEGRO_SAMPLE *ambient_song24 = NULL;
+ALLEGRO_SAMPLE *ambient_song5 = NULL;
 ALLEGRO_SAMPLE *battle1_song = NULL;
 ALLEGRO_SAMPLE *battle2_song = NULL;
 ALLEGRO_SAMPLE *battle3_song = NULL;
 ALLEGRO_SAMPLE *battle4_song = NULL;
 ALLEGRO_SAMPLE *battle5_song = NULL;
+ALLEGRO_SAMPLE *ending_song = NULL;
 ALLEGRO_SAMPLE *highwayman = NULL;
 ALLEGRO_SAMPLE *type_sound = NULL;
 ALLEGRO_SAMPLE *death_song = NULL;
@@ -376,6 +378,20 @@ bool inicializaJogo() {
 
     ambient_song24 = al_load_sample("./../assets/musicas/ambient_pares.ogg");
     if(!ambient_song24){
+        al_destroy_display(game);
+        al_destroy_timer(timer);
+        return false;
+    }
+
+    ambient_song5 = al_load_sample("./../assets/musicas/ambient5.ogg");
+    if(!ambient_song5){
+        al_destroy_display(game);
+        al_destroy_timer(timer);
+        return false;
+    }
+
+    ending_song = al_load_sample("./../assets/musicas/hwm.ogg");
+    if(!ending_song){
         al_destroy_display(game);
         al_destroy_timer(timer);
         return false;

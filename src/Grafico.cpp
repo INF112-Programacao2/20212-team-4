@@ -252,7 +252,7 @@ bool Dialogo::dialogar(std::string npc, std::string **opcoes, bool rel, bool cha
         if(Player->getNivel() < 6){
             redesenhar(rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
         }
-        else if(Player->getNivel() == 6){
+        if(Player->getNivel() == 6){
             al_clear_to_color(al_map_rgb(238,202,169));
             al_draw_scaled_bitmap(telaFinal, 0, 30, res_x_comp, res_y_comp, 110, 0, res_x_comp*(res_x_comp/1920.0)*ZOOM, res_y_comp*(res_y_comp/1080.0)*ZOOM, 0);
         }

@@ -140,3 +140,30 @@ void GameSave::read_save(Protagonista *Player, MissaoSecundaria *Sec1, MissaoSec
 
     data.close();
 }
+
+void GameSave::reset_save(){
+    std::ofstream data;
+
+    data.open("./../assets/game_save.txt");
+
+    // Reseta o nome do jogador.
+    data << "(escolher)\n";
+
+    // Reseta o nível e dados do player.
+    data << "1\n";
+    data << "10" << " " << "10" << "\n";
+    data << "4" << " " << "1" << "\n";
+    data << "0" << " " << "0" << " " << "0" << " " << "0" << "\n";
+    data << "0" << " " << "0" << " " << "0" << " " << "0" << "\n";
+
+    // Reseta as missões secundárias.
+    data << "0" << " " << "0" << "\n";
+    data << "0" << " " << "0" << "\n";
+    data << "0" << " " << "0" << "\n";
+    data << "0" << " " << "0" << "\n";
+
+    // Reseta os ataques únicos
+    data << "0" << " " << "0" << "\n";
+
+    data.close();
+}
