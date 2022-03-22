@@ -150,6 +150,7 @@ extern ALLEGRO_SAMPLE *desafinacao2;
 extern ALLEGRO_SAMPLE *desafinacao3;
 extern bool BATALHA_JOSE;
 extern const char *ajuda_cesar;
+extern ALLEGRO_BITMAP *telaFinal;
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
 // Matriz do mapa.

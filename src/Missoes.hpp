@@ -11,7 +11,6 @@ class Missao : public Interacao{
 
     public:
         Missao(short int X, short int Y, unsigned char valor);
-        void setDialogo(Dialogo *falas);
         void setinicializadaTrue();
         bool getinicializada();
         short int _etapa;

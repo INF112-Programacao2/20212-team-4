@@ -48,10 +48,7 @@ void GameSave::read_save(Protagonista *Player, MissaoSecundaria *Sec1, MissaoSec
 
     // Lê nível e dados do player.
     data >> value;
-    Player->setNivel(0);
-
-    for(int i = 0; i < value; i++)
-        Player->nextLevel();
+    Player->setNivel(value);
 
     data >> value;
     Player->setVida(value);

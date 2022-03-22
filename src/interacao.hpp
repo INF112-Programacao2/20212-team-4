@@ -25,7 +25,6 @@ class Interacao {
         bool itemProximo(unsigned char novoValor);
         bool interacaoProxima(unsigned char c);
         bool missaoProxima(unsigned char c);
-        bool batalhaProxima(unsigned char c);
 };
 
 #endif

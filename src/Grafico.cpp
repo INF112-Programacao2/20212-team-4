@@ -418,7 +418,6 @@ void telaMenu(bool iniciar){
     double posicao_X = 39;
     double posicao_Y = 19;
     bool esquerda = true;
-    bool baixo = true;
 
     timer = al_create_timer(1);
     while (!iniciar){

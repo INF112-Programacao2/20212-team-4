@@ -123,6 +123,7 @@ ALLEGRO_SAMPLE *desafinacao3 = NULL;
 ALLEGRO_BITMAP *carregar = NULL; //variavel que vai receber a imagem do game over
 bool BATALHA_JOSE = false;
 const char *ajuda_cesar = NULL;
+ALLEGRO_BITMAP *telaFinal = NULL;
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
 // Matriz do mapa.
@@ -316,6 +317,12 @@ bool inicializaJogo() {
 
     player_minimap = al_load_bitmap("./../assets/player_minimap.bmp");
     if(!player_minimap){
+        throw BitmapNotFound(game, timer);
+        return false;
+    }
+
+    telaFinal= al_load_bitmap("./../assets/final.bmp");
+    if(!telaFinal){
         throw BitmapNotFound(game, timer);
         return false;
     }
