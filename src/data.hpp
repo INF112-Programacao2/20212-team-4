@@ -217,5 +217,6 @@ void dialogoNivel5Pt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
 void dialogoNivel5Pt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao);
 const char *atualizaCesarJulio(Protagonista *player, Missao *n1, Missao *n2, Missao *n3, Missao *n4, Missao *n5);
 void dialogoCesarJulio(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao);
+void dialogoFinal(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao);
 
 #endif

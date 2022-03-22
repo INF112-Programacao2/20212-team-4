@@ -1724,3 +1724,144 @@ void dialogoCesarJulio(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3,
     Dialogo dialogo(falas, fluxo, incrementos);
     dialogo.dialogar("CESAR JÚLIO", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
 }
+
+void dialogoFinal(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
+    std::string player_nome = Player->getNome();
+    for(int i = 1; i < player_nome.length(); i++)
+        player_nome[i] += 32; 
+
+    std::map<short int, bool> fluxo;
+    std::string **opcoes;
+    short int **incrementos;
+    std::string *falas;
+    Dialogo *dialogo;
+
+
+    icone = al_load_bitmap("./../assets/icone-mario.bmp");
+    falas = new std::string [3] {
+        "1Bom, acho que esse foi o último.",
+        "1Qualquer um que ousar atacar a cidade de novo irá pensar duas vezes ao se lembrar de ",
+        "2*Obrigado por salvar minhas galinhas. Fico te devendo uma galinhada."
+    };
+
+    falas[1] += player_nome + ".";
+
+    dialogo = new Dialogo(falas, fluxo, incrementos);
+    dialogo->dialogar("MÁRIO VICTOR", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+
+    delete[] falas;
+    delete dialogo;
+
+    icone = al_load_bitmap("./../assets/icone-andrew.bmp");
+    falas = new std::string [1] {
+        "2*Até que você é bom de mira, acho que a Sandra Rosa ia gostar de competir com você."
+    };
+
+    dialogo = new Dialogo(falas, fluxo, incrementos);
+    dialogo->dialogar("ANDREW", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+
+    delete[] falas;
+    delete dialogo;
+
+    icone = al_load_bitmap("./../assets/icone-saul.bmp");
+    falas = new std::string [4] {
+        "2Acho que agora que você derrotou todos os malvados não vou mais precisar sair da cidade.",
+        "2Vou usar o dinheiro do relógio pra comprar uma carroça nova!",
+        "1Agora que o perigo acabou você já pode parar de se esconder atrás do chapéu.",
+        "2*Hehe... só por precaução... vai que ainda sobrou um deles né."
+    };
+
+    dialogo = new Dialogo(falas, fluxo, incrementos);
+    dialogo->dialogar("SAUL", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+
+    delete[] falas;
+    delete dialogo;
+
+    icone = al_load_bitmap("./../assets/icone-cris.bmp");
+    falas = new std::string [1] {
+        "2*Esses arruaceiros deixaram tudo uma bagunça! Eu vou ter que arrumar todo o armazém de novo!!!!!"
+    };
+
+    dialogo = new Dialogo(falas, fluxo, incrementos);
+    dialogo->dialogar("CRIS", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+
+    delete[] falas;
+    delete dialogo;
+
+    icone = al_load_bitmap("./../assets/icone-bruxa.bmp");
+    falas = new std::string [2] {
+        "2Suas ações demandam recompensas, e o universo está preparando elas pra você.",
+        "2*Uma delas era um cristal de proteção que eu mesma lhe daria, mas acho que deixei ele cair por aqui...."
+    };
+
+    dialogo = new Dialogo(falas, fluxo, incrementos);
+    dialogo->dialogar("CLARA", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+
+    delete[] falas;
+    delete dialogo;
+
+    icone = al_load_bitmap("./../assets/icone-coveiro.bmp");
+    falas = new std::string [2] {
+        "2Bem, acho que depois de tudo isso eu tenho trabalho suficiente pro Caixão do José ficar entretido.",
+        "2*Mas prometo não colocar pessoas em risco de novo. Pelo menos não as pessoas da cidade."
+    };
+
+    dialogo = new Dialogo(falas, fluxo, incrementos);
+    dialogo->dialogar("JOSÉ DO CAIXÃO", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+
+    delete[] falas;
+    delete dialogo;
+
+    icone = al_load_bitmap("./../assets/icone-cesar.bmp");
+    falas = new std::string [3] {
+        "2Obrigado ",
+        "2Como podemos te agradecer?",
+        "1*Uma bebida cairia bem."
+    };
+
+    falas[0] += player_nome + ".";
+
+    dialogo = new Dialogo(falas, fluxo, incrementos);
+    dialogo->dialogar("CÉSAR JÚLIO", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+
+    delete[] falas;
+    delete dialogo;
+
+    icone = al_load_bitmap("./../assets/icone-cervejeiro.bmp");
+    falas = new std::string [1] {
+        "2*Uma rodada de bebida grátis para o "
+    };
+
+    falas[0] += player_nome + "!";
+
+    dialogo = new Dialogo(falas, fluxo, incrementos);
+    dialogo->dialogar("CERVEJEIRO", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+
+    delete[] falas;
+    delete dialogo;
+
+    icone = al_load_bitmap("./../assets/icone-cervejeiro.bmp");
+    falas = new std::string [1] {
+        "2*Eu acho que todos merecem uma bebida depois desse susto. Eu pago."
+    };
+
+    dialogo = new Dialogo(falas, fluxo, incrementos);
+    dialogo->dialogar("VENDEDOR", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+
+    delete[] falas;
+    delete dialogo;
+
+    icone = al_load_bitmap("./../assets/icone-cervejeiro.bmp");
+    falas = new std::string [2] {
+        "2Uma rodada de bebida para todos da cidade!",
+        "1* Hehe."
+    };
+
+    dialogo = new Dialogo(falas, fluxo, incrementos);
+    dialogo->dialogar("CERVEJEIRO", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+
+    delete[] falas;
+    delete dialogo;
+
+
+}

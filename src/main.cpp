@@ -303,6 +303,14 @@ int main(int argc, char **argv){
             }
         }
 
+         /* === NÍVEL SEIS === */
+         //tela e dialogos finais
+
+        if(Player->getNivel() == 6){
+            dialogoFinal(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
+        }
+
         // delete Johnny_Cash;
         // Johnny_Cash = nullptr;
     }

@@ -245,11 +245,17 @@ bool Dialogo::dialogar(std::string npc, std::string **opcoes, bool rel, bool cha
     Player->_dialogo = true;
     std::string fala;
 
-    if(!BATALHA_JOSE) ajustarCamera(rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+    if(!BATALHA_JOSE && Player->getNivel() < 6) ajustarCamera(rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
 
     while(true){
         al_wait_for_event(event_queue, &evdialogo);
-        redesenhar(rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+        if(Player->getNivel() < 6){
+            redesenhar(rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+        }
+        else if(Player->getNivel() == 6){
+            al_clear_to_color(al_map_rgb(238,202,169));
+            al_draw_scaled_bitmap(telaFinal, 0, 30, res_x_comp, res_y_comp, 110, 0, res_x_comp*(res_x_comp/1920.0)*ZOOM, res_y_comp*(res_y_comp/1080.0)*ZOOM, 0);
+        }
 
         if(this->_dialogos[this->posicao_atual_dialogo][1] == '*'){
             fala = this->_dialogos[this->posicao_atual_dialogo].substr(2, this->_dialogos[this->posicao_atual_dialogo].length()-2);
