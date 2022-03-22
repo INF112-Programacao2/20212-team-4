@@ -59,6 +59,7 @@ ALLEGRO_BITMAP *caixa_texto = NULL;
 ALLEGRO_FONT *font15 = NULL; // variavel que vai receber a fonte do hud
 ALLEGRO_FONT *font10 = NULL; 
 ALLEGRO_FONT *font_titulo = NULL;
+ALLEGRO_FONT *fontataques = NULL;
 bool keys[ALLEGRO_KEY_MAX] = {0};
 ALLEGRO_BITMAP *game_over1 = NULL; //variavel que vai receber a imagem do game over
 ALLEGRO_BITMAP *game_over2 = NULL; //variavel que vai receber a imagem do game over
@@ -325,6 +326,13 @@ bool inicializaJogo() {
 
     font10 = al_load_font("./../assets/alterebro-pixel-font.ttf", RES_HEIGHT(50), 0);
     if(!font10)
+    {
+        throw InitNotDone();
+        return false;
+    }
+
+    fontataques = al_load_font("./../assets/alterebro-pixel-font.ttf", RES_HEIGHT(60), 0);
+    if(!fontataques)
     {
         throw InitNotDone();
         return false;

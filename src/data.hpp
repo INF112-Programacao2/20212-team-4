@@ -130,6 +130,7 @@ extern ALLEGRO_BITMAP *titulo;  // titulo da tela inicial
 extern ALLEGRO_BITMAP *mapmenu;  // mapa da tela inicial
 extern ALLEGRO_BITMAP *tela_fundo;
 extern ALLEGRO_FONT *font_titulo;
+extern ALLEGRO_FONT *fontataques;
 extern ALLEGRO_BITMAP *caixa_nome;
 extern ALLEGRO_BITMAP *estrela;
 extern ALLEGRO_BITMAP *lifebar_batalhas;

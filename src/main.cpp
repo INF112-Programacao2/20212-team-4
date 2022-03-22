@@ -55,7 +55,7 @@ Batalha1x1 Batalha_Nivel1 (Billy, Player);
 Batalha1x1 Batalha_Nivel2 (Xerife_Espeto, Player);
 Batalha1x1 Batalha_Nivel3 (Geraldina, Player);
 Batalha1x2 Batalha_Nivel4 (Jose_do_Caixao, Caixao_do_Jose, Player);
-BatalhaFantasma Batalha_Nivel5 (Johnny_Cash, Player);
+BatalhaFantasma Batalha_Nivel5 (Johnny_Cash, Player, Missao_Pocao);
 
 /* FUNCOES */
 bool camera(char mov);
@@ -109,7 +109,7 @@ int main(int argc, char **argv){
 
         Nivel1->_etapa = 1;
         ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
-
+ 
         while(Player->getNivel()==1){
             al_wait_for_event(event_queue, &ev0);
 

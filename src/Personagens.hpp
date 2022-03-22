@@ -193,11 +193,11 @@ class Protagonista : public Personagem{
  */
 class Inimigo : public Personagem{
     private:
-        short int _total_ataques;
         short int _total_curas;
         short int _curas_usadas;
         
     public:
+        short int _total_ataques;
         /*Método Construtor
         **/
         Inimigo(std::string nome, short int vida, short int total_ataques, short int total_curas);
