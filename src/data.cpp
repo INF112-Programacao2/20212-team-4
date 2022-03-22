@@ -117,6 +117,9 @@ ALLEGRO_SAMPLE *battle5_song = NULL;
 ALLEGRO_SAMPLE *highwayman = NULL;
 ALLEGRO_SAMPLE *type_sound = NULL;
 ALLEGRO_SAMPLE *death_song = NULL;
+ALLEGRO_SAMPLE *desafinacao1 = NULL;
+ALLEGRO_SAMPLE *desafinacao2 = NULL;
+ALLEGRO_SAMPLE *desafinacao3 = NULL;
 ALLEGRO_BITMAP *carregar = NULL; //variavel que vai receber a imagem do game over
 bool BATALHA_JOSE = false;
 const char *ajuda_cesar = NULL;
@@ -506,7 +509,21 @@ bool inicializaJogo() {
 
     carregar = al_load_bitmap("./../assets/carregar9.bmp");
     if(!carregar){
-        throw BitmapNotFound(game, timer);
+        return false;
+    }
+
+    desafinacao1 = al_load_sample("./../assets/musicas/desafinacao1.ogg");
+    if(!desafinacao1){
+        return false;
+    }
+
+    desafinacao2 = al_load_sample("./../assets/musicas/desafinacao2.ogg");
+    if(!desafinacao2){
+        return false;
+    }
+
+    desafinacao3 = al_load_sample("./../assets/musicas/desafinacao3.ogg");
+    if(!desafinacao3){
         return false;
     }
 
@@ -892,15 +909,9 @@ void setNivel(Protagonista *Player, int nivel){
         resetCamera(5, 5);
 
         // Adiciona personagens secundários na matriz
-        MAPA[28][50] = 'F';
-        MAPA[13][30] = 'I';
-        MAPA[39][63] = 'G';
-        MAPA[39][44] = MAPA[39][43] = 'H';
         MAPA[56][70] = MAPA[56][71] = MAPA[57][70] = MAPA[57][71] = '0'; 
         MAPA[28][76] = '1';
         MAPA[29][40] = 'A';
-
-        MAPA[45][39] = MAPA[45][40] = 'z';
 
         map= al_load_bitmap("./../assets/map2.bmp");
     }

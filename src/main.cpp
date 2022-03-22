@@ -109,7 +109,8 @@ int main(int argc, char **argv){
 
         Nivel1->_etapa = 1;
         ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
- 
+
+        setNivel(Player, 1);
         while(Player->getNivel()==1){
             al_wait_for_event(event_queue, &ev0);
 
@@ -272,8 +273,6 @@ int main(int argc, char **argv){
         al_stop_samples();
 
         Player->addAtaque("Munições Fanstasma", 2, 8);
-        Player->addAtaque("Munições da Bruxa", 4, 6);
-
         dano_revolver="A: (02/08)";
 
         Johnny_Cash->addAtaque("Assombração", 0, -3);
@@ -607,7 +606,6 @@ void interagir(){
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
             Player->subItem(Pocao->getNome(), 1);
             Missao_Pocao->finish();
-            MAPA[13][30] = '0';
         }
 
         else if(Missao_Pocao->getinicializada() == true && Player->qtdItem("Pocao") == 1 && Player->getNivel() == 5){
@@ -811,6 +809,9 @@ void interagir(){
 
 void resetGame(){
     if(Player->isDead()){
+        al_stop_samples();
+        al_play_sample(death_song, 0.8, 0, 1, ALLEGRO_PLAYMODE_ONCE, NULL);
+
         Player->setVida(Player->getMaxVida());
         telaGameOver(reiniciar);
     }

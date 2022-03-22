@@ -125,5 +125,21 @@ void GameSave::read_save(Protagonista *Player, MissaoSecundaria *Sec1, MissaoSec
 
     if(COQUETEL_MOLOTOV_USADO == true) Player->subAtaque("Pé de Coelho");
 
+    if(Player->getNivel() >= 2){
+        if(!Sec2->completo()) MAPA[28][50] = 'F';
+        else MAPA[28][50] = '0';
+
+        if(!Sec4->completo()) MAPA[13][30] = 'I';
+        else MAPA[13][30] = '0';
+
+        if(!Sec3->completo()) MAPA[39][63] = 'G';
+        else MAPA[39][63] = '0';
+
+        if(!Sec1->completo()) MAPA[39][44] = MAPA[39][43] = 'H';
+        else MAPA[39][44] = MAPA[39][43] = '0';
+
+        MAPA[45][39] = MAPA[45][40] = 'y';
+    }
+
     data.close();
 }

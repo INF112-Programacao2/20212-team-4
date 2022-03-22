@@ -145,6 +145,9 @@ extern ALLEGRO_SAMPLE *highwayman;
 extern ALLEGRO_SAMPLE *type_sound;
 extern ALLEGRO_SAMPLE *death_song;
 extern ALLEGRO_BITMAP *carregar;
+extern ALLEGRO_SAMPLE *desafinacao1;
+extern ALLEGRO_SAMPLE *desafinacao2;
+extern ALLEGRO_SAMPLE *desafinacao3;
 extern bool BATALHA_JOSE;
 extern const char *ajuda_cesar;
 

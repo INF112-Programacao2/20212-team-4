@@ -309,6 +309,7 @@ void Dialogo::dialogar_lojista(bool rel, bool chav, bool poc, bool d1, bool d2, 
     Player->_dialogo = true; //o dialogo com o lojista esta em andamento
 
     ajustarCamera(rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);//efeito de reposicionar a camera
+    icone = al_load_bitmap("./../assets/icone-cervejeiro.bmp");
 
     while(true){//enquanto o player estiver interagindo com a loja
         al_wait_for_event(event_queue, &evdialogo);//capturando um evento
@@ -328,6 +329,8 @@ void Dialogo::dialogar_lojista(bool rel, bool chav, bool poc, bool d1, bool d2, 
             al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(355), 0.895*res_y_comp, 0, "VENDEDOR");
             al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1550), 0.80*res_y_comp, 0, "SIM (Z)");
             al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1550), 0.905*res_y_comp, 0, "NÃO (X)");
+            al_draw_scaled_bitmap(icone, 0, 0, 18, 18, RES_WIDTH(348), RES_HEIGHT(825), RES_WIDTH(128), RES_HEIGHT(128), 0);
+
             al_flip_display();
 
             verificarTecla();//dependendo da tecla que for pressionada, a posicao_atual_dialogo muda de valor
@@ -349,6 +352,7 @@ void Dialogo::dialogar_lojista(bool rel, bool chav, bool poc, bool d1, bool d2, 
             "Prontinho! Foi bom fazer negócios com você!");
             al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(355), 0.895*res_y_comp, 0, "VENDEDOR");
             al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(1360), 0.91*res_y_comp, 0, "Espaço >");
+            al_draw_scaled_bitmap(icone, 0, 0, 18, 18, RES_WIDTH(348), RES_HEIGHT(825), RES_WIDTH(128), RES_HEIGHT(128), 0);
             al_flip_display();
 
             if(verificarTecla()) break; //se o usuario apertar espaco, a interacao com a loja termina
@@ -368,6 +372,7 @@ void Dialogo::dialogar_lojista(bool rel, bool chav, bool poc, bool d1, bool d2, 
             "depois!");
             al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(355), 0.895*res_y_comp, 0, "VENDEDOR");
             al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(1360), 0.91*res_y_comp, 0, "Espaço >");
+            al_draw_scaled_bitmap(icone, 0, 0, 18, 18, RES_WIDTH(348), RES_HEIGHT(825), RES_WIDTH(128), RES_HEIGHT(128), 0);
             al_flip_display();            
 
             if(verificarTecla()) break; //se o usuario apertar espaco, a interacao com a loja termina
@@ -382,6 +387,7 @@ void Dialogo::dialogar_lojista(bool rel, bool chav, bool poc, bool d1, bool d2, 
             al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(520), 0.80*res_y_comp, 0, "Até logo!");
             al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(355), 0.895*res_y_comp, 0, "VENDEDOR");
             al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(1360), 0.91*res_y_comp, 0, "Espaço >");
+            al_draw_scaled_bitmap(icone, 0, 0, 18, 18, RES_WIDTH(348), RES_HEIGHT(825), RES_WIDTH(128), RES_HEIGHT(128), 0);
             al_flip_display();
 
             if(verificarTecla()) break; //se o usuario apertar espaco, a interacao com a loja termina

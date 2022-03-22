@@ -22,6 +22,7 @@ bool missao_bruxa=false;
 bool desenha_ataques=true;
 bool player_atacou=false; //variavel que diz se o player fez o ataque ou não ***
 bool vilao_atacou=false; //variavel que diz se o vilao fez o ataque ou nao ***
+bool tocou = false;
 short int a=0, b=0, c=0, d=0, e=0, f=0; //auxiliares para desenhar a tela dos persoganes levando dano nas batalhas
 std::string mensagem="nada";
 std::string nome_ataque="nada";
@@ -35,11 +36,6 @@ int ataque_do_vilao;
 ALLEGRO_EVENT ev2; //declarando o evento
 ALLEGRO_BITMAP *img_vilao= NULL;
 ALLEGRO_BITMAP *img_vilao_dano= NULL;
-ALLEGRO_SAMPLE *desafinacao1= al_load_sample("./../assets/musicas/desafinacao1.ogg");
-ALLEGRO_SAMPLE *desafinacao2= al_load_sample("./../assets/musicas/desafinacao2.ogg");
-ALLEGRO_SAMPLE *desafinacao3= al_load_sample("./../assets/musicas/desafinacao3.ogg");
-
-
 
 void al_init_timeout(ALLEGRO_TIMEOUT *timeout, double seconds);
 
@@ -248,9 +244,6 @@ bool Batalha1x1::batalhar(){
         }
 
         else if(_Player -> isDead()){
-            telaGameOver(reiniciar);
-            _Player->setVida(_Player->getMaxVida());
-
             return false;
         }
 
@@ -335,9 +328,6 @@ bool Batalha1x2 :: batalhar(){
         }
 
         else if(_Player -> isDead()){
-            telaGameOver(reiniciar);
-            _Player->setVida(_Player->getMaxVida());
-
             return false;
         }
 
@@ -405,7 +395,7 @@ bool BatalhaFantasma::batalhar(){
                 _vilao->_total_ataques--;
             }
 
-            if(nome_ataque=="Desafinação"){
+            if(nome_ataque=="Desafinação" && !tocou){
                 if(desafinacao==1){
                     al_play_sample(desafinacao1, 0.8, 0, 1, ALLEGRO_PLAYMODE_ONCE, NULL);
                     desafinacao++;
@@ -418,6 +408,8 @@ bool BatalhaFantasma::batalhar(){
                     al_play_sample(desafinacao3, 0.8, 0, 1, ALLEGRO_PLAYMODE_ONCE, NULL);
                     desafinacao=1;
                 }
+
+                tocou = true;
             }  
 
             if(cont % 2 == 0 && !player_atacou && nome_ataque!="Assombração"){
@@ -427,7 +419,7 @@ bool BatalhaFantasma::batalhar(){
             }
             
             else if(player_atacou && c<20){
-
+                tocou = false;
                 mensagem = "Você usou " + nome_ataque + "!";
                 al_draw_textf(font15, al_map_rgb(58,15,43), (al_get_display_width(game)/2)-18*(mensagem.size()/2), 0.82*res_y_comp, 0, mensagem.c_str());
                 if(c==19){
@@ -455,9 +447,6 @@ bool BatalhaFantasma::batalhar(){
         }
 
         else if(_Player -> isDead()){
-            telaGameOver(reiniciar);
-            _Player->setVida(_Player->getMaxVida());
-
             return false;
         }
 
