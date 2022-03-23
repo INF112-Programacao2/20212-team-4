@@ -129,7 +129,9 @@ const char *ajuda_cesar = NULL;
 ALLEGRO_BITMAP *telaFinal = NULL;
 ALLEGRO_BITMAP *botaosair = NULL;
 ALLEGRO_BITMAP *aperteM = NULL; // variavel que vai receber o botao para abrir o mapa
- ALLEGRO_BITMAP *aperteO = NULL; // variavel que vai receber o botao para abrir os objetivos
+ALLEGRO_BITMAP *aperteO = NULL; // variavel que vai receber o botao para abrir os objetivos
+ALLEGRO_BITMAP *img_vilao= NULL;
+ALLEGRO_BITMAP *img_vilao_dano= NULL;
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
 // Matriz do mapa.
@@ -304,9 +306,18 @@ bool inicializaJogo() {
         return false;
     }
 
+    font10 = al_load_font("./../assets/alterebro-pixel-font.ttf", RES_HEIGHT(50), 0);
+    if(!font10)
+    {
+        throw InitNotDone();
+        return false;
+    }
+
     al_clear_to_color(al_map_rgb(238,202,169));
     al_draw_textf(font_titulo, al_map_rgb(60,25,97), RES_WIDTH(720), RES_HEIGHT(300), 0,"CARREGANDO...");
     al_draw_scaled_bitmap(carregar, 0, 0, 753, 232, RES_WIDTH(600), RES_HEIGHT(400), RES_WIDTH(753), RES_HEIGHT(232), 0);    
+    al_draw_textf(font10, al_map_rgb(60,25,97), RES_WIDTH(470), RES_HEIGHT(970), 0, "Dica: O progresso das missões secundárias será sempre salvo, porém falhar em um"); 
+    al_draw_textf(font10, al_map_rgb(60,25,97), RES_WIDTH(520), RES_HEIGHT(1000), 0, "nível ou fechar o jogo antes de concluí-lo fará com que ele recomece.");
     al_flip_display();
 
     map= al_load_bitmap("./../assets/map1.bmp");
@@ -335,13 +346,6 @@ bool inicializaJogo() {
     
     font15 = al_load_font("./../assets/alterebro-pixel-font.ttf", RES_HEIGHT(75), 0);
     if(!font15)
-    {
-        throw InitNotDone();
-        return false;
-    }
-
-    font10 = al_load_font("./../assets/alterebro-pixel-font.ttf", RES_HEIGHT(50), 0);
-    if(!font10)
     {
         throw InitNotDone();
         return false;
@@ -384,7 +388,9 @@ bool inicializaJogo() {
 
     al_clear_to_color(al_map_rgb(238,202,169));
     al_draw_textf(font_titulo, al_map_rgb(60,25,97), RES_WIDTH(720), RES_HEIGHT(300), 0,"CARREGANDO...");
-    al_draw_scaled_bitmap(carregar, 0, 0, 753, 232, RES_WIDTH(600), RES_HEIGHT(400), RES_WIDTH(753), RES_HEIGHT(232), 0);    
+    al_draw_scaled_bitmap(carregar, 0, 0, 753, 232, RES_WIDTH(600), RES_HEIGHT(400), RES_WIDTH(753), RES_HEIGHT(232), 0); 
+    al_draw_textf(font10, al_map_rgb(60,25,97), RES_WIDTH(470), RES_HEIGHT(970), 0, "Dica: O progresso das missões secundárias será sempre salvo, porém falhar em um"); 
+    al_draw_textf(font10, al_map_rgb(60,25,97), RES_WIDTH(520), RES_HEIGHT(1000), 0, "nível ou fechar o jogo antes de concluí-lo fará com que ele recomece.");   
     al_flip_display();
 
     ambient_song24 = al_load_sample("./../assets/musicas/ambient_pares.ogg");
@@ -416,7 +422,9 @@ bool inicializaJogo() {
 
     al_clear_to_color(al_map_rgb(238,202,169));
     al_draw_textf(font_titulo, al_map_rgb(60,25,97), RES_WIDTH(720), RES_HEIGHT(300), 0,"CARREGANDO...");
-    al_draw_scaled_bitmap(carregar, 0, 0, 753, 232, RES_WIDTH(600), RES_HEIGHT(400), RES_WIDTH(753), RES_HEIGHT(232), 0);    
+    al_draw_scaled_bitmap(carregar, 0, 0, 753, 232, RES_WIDTH(600), RES_HEIGHT(400), RES_WIDTH(753), RES_HEIGHT(232), 0);  
+    al_draw_textf(font10, al_map_rgb(60,25,97), RES_WIDTH(470), RES_HEIGHT(970), 0, "Dica: O progresso das missões secundárias será sempre salvo, porém falhar em um"); 
+    al_draw_textf(font10, al_map_rgb(60,25,97), RES_WIDTH(520), RES_HEIGHT(1000), 0, "nível ou fechar o jogo antes de concluí-lo fará com que ele recomece.");  
     al_flip_display();
 
     battle1_song = al_load_sample("./../assets/musicas/tgtbtu.ogg");
@@ -434,7 +442,9 @@ bool inicializaJogo() {
 
     al_clear_to_color(al_map_rgb(238,202,169));
     al_draw_textf(font_titulo, al_map_rgb(60,25,97), RES_WIDTH(720), RES_HEIGHT(300), 0,"CARREGANDO...");
-    al_draw_scaled_bitmap(carregar, 0, 0, 753, 232, RES_WIDTH(600), RES_HEIGHT(400), RES_WIDTH(753), RES_HEIGHT(232), 0);    
+    al_draw_scaled_bitmap(carregar, 0, 0, 753, 232, RES_WIDTH(600), RES_HEIGHT(400), RES_WIDTH(753), RES_HEIGHT(232), 0);
+    al_draw_textf(font10, al_map_rgb(60,25,97), RES_WIDTH(470), RES_HEIGHT(970), 0, "Dica: O progresso das missões secundárias será sempre salvo, porém falhar em um"); 
+    al_draw_textf(font10, al_map_rgb(60,25,97), RES_WIDTH(520), RES_HEIGHT(1000), 0, "nível ou fechar o jogo antes de concluí-lo fará com que ele recomece.");    
     al_flip_display();
 
     battle2_song = al_load_sample("./../assets/musicas/venom.ogg");
@@ -452,7 +462,9 @@ bool inicializaJogo() {
 
     al_clear_to_color(al_map_rgb(238,202,169));
     al_draw_textf(font_titulo, al_map_rgb(60,25,97), RES_WIDTH(720), RES_HEIGHT(300), 0,"CARREGANDO...");
-    al_draw_scaled_bitmap(carregar, 0, 0, 753, 232, RES_WIDTH(600), RES_HEIGHT(400), RES_WIDTH(753), RES_HEIGHT(232), 0);    
+    al_draw_scaled_bitmap(carregar, 0, 0, 753, 232, RES_WIDTH(600), RES_HEIGHT(400), RES_WIDTH(753), RES_HEIGHT(232), 0);  
+    al_draw_textf(font10, al_map_rgb(60,25,97), RES_WIDTH(470), RES_HEIGHT(970), 0, "Dica: O progresso das missões secundárias será sempre salvo, porém falhar em um"); 
+    al_draw_textf(font10, al_map_rgb(60,25,97), RES_WIDTH(520), RES_HEIGHT(1000), 0, "nível ou fechar o jogo antes de concluí-lo fará com que ele recomece.");  
     al_flip_display();
 
     battle3_song = al_load_sample("./../assets/musicas/hunter.ogg");
@@ -470,7 +482,9 @@ bool inicializaJogo() {
 
     al_clear_to_color(al_map_rgb(238,202,169));
     al_draw_textf(font_titulo, al_map_rgb(60,25,97), RES_WIDTH(720), RES_HEIGHT(300), 0,"CARREGANDO...");
-    al_draw_scaled_bitmap(carregar, 0, 0, 753, 232, RES_WIDTH(600), RES_HEIGHT(400), RES_WIDTH(753), RES_HEIGHT(232), 0);    
+    al_draw_scaled_bitmap(carregar, 0, 0, 753, 232, RES_WIDTH(600), RES_HEIGHT(400), RES_WIDTH(753), RES_HEIGHT(232), 0);  
+    al_draw_textf(font10, al_map_rgb(60,25,97), RES_WIDTH(470), RES_HEIGHT(970), 0, "Dica: O progresso das missões secundárias será sempre salvo, porém falhar em um"); 
+    al_draw_textf(font10, al_map_rgb(60,25,97), RES_WIDTH(520), RES_HEIGHT(1000), 0, "nível ou fechar o jogo antes de concluí-lo fará com que ele recomece.");  
     al_flip_display();
 
     battle4_song = al_load_sample("./../assets/musicas/kyrie.ogg");
@@ -488,7 +502,9 @@ bool inicializaJogo() {
 
     al_clear_to_color(al_map_rgb(238,202,169));
     al_draw_textf(font_titulo, al_map_rgb(60,25,97), RES_WIDTH(720), RES_HEIGHT(300), 0,"CARREGANDO...");
-    al_draw_scaled_bitmap(carregar, 0, 0, 753, 232, RES_WIDTH(600), RES_HEIGHT(400), RES_WIDTH(753), RES_HEIGHT(232), 0);    
+    al_draw_scaled_bitmap(carregar, 0, 0, 753, 232, RES_WIDTH(600), RES_HEIGHT(400), RES_WIDTH(753), RES_HEIGHT(232), 0);   
+    al_draw_textf(font10, al_map_rgb(60,25,97), RES_WIDTH(470), RES_HEIGHT(970), 0, "Dica: O progresso das missões secundárias será sempre salvo, porém falhar em um"); 
+    al_draw_textf(font10, al_map_rgb(60,25,97), RES_WIDTH(520), RES_HEIGHT(1000), 0, "nível ou fechar o jogo antes de concluí-lo fará com que ele recomece."); 
     al_flip_display();
 
     battle5_song = al_load_sample("./../assets/musicas/grits.ogg");
@@ -506,7 +522,9 @@ bool inicializaJogo() {
 
     al_clear_to_color(al_map_rgb(238,202,169));
     al_draw_textf(font_titulo, al_map_rgb(60,25,97), RES_WIDTH(720), RES_HEIGHT(300), 0,"CARREGANDO...");
-    al_draw_scaled_bitmap(carregar, 0, 0, 753, 232, RES_WIDTH(600), RES_HEIGHT(400), RES_WIDTH(753), RES_HEIGHT(232), 0);    
+    al_draw_scaled_bitmap(carregar, 0, 0, 753, 232, RES_WIDTH(600), RES_HEIGHT(400), RES_WIDTH(753), RES_HEIGHT(232), 0);  
+    al_draw_textf(font10, al_map_rgb(60,25,97), RES_WIDTH(470), RES_HEIGHT(970), 0, "Dica: O progresso das missões secundárias será sempre salvo, porém falhar em um"); 
+    al_draw_textf(font10, al_map_rgb(60,25,97), RES_WIDTH(520), RES_HEIGHT(1000), 0, "nível ou fechar o jogo antes de concluí-lo fará com que ele recomece.");  
     al_flip_display();
 
     type_sound = al_load_sample("./../assets/musicas/type.ogg");
@@ -532,6 +550,8 @@ bool inicializaJogo() {
     al_clear_to_color(al_map_rgb(238,202,169));
     al_draw_textf(font_titulo, al_map_rgb(60,25,97), RES_WIDTH(720), RES_HEIGHT(300), 0,"CARREGANDO...");
     al_draw_scaled_bitmap(carregar, 0, 0, 753, 232, RES_WIDTH(600), RES_HEIGHT(400), RES_WIDTH(753), RES_HEIGHT(232), 0);    
+    al_draw_textf(font10, al_map_rgb(60,25,97), RES_WIDTH(470), RES_HEIGHT(970), 0, "Dica: O progresso das missões secundárias será sempre salvo, porém falhar em um"); 
+    al_draw_textf(font10, al_map_rgb(60,25,97), RES_WIDTH(520), RES_HEIGHT(1000), 0, "nível ou fechar o jogo antes de concluí-lo fará com que ele recomece.");
     al_flip_display();
 
     highwayman = al_load_sample("./../assets/musicas/hwm_instr.ogg");
@@ -563,8 +583,11 @@ bool inicializaJogo() {
 
     al_clear_to_color(al_map_rgb(238,202,169));
     al_draw_textf(font_titulo, al_map_rgb(60,25,97), RES_WIDTH(720), RES_HEIGHT(300), 0,"CARREGANDO...");
-    al_draw_scaled_bitmap(carregar, 0, 0, 753, 232, RES_WIDTH(600), RES_HEIGHT(400), RES_WIDTH(753), RES_HEIGHT(232), 0);    
+    al_draw_scaled_bitmap(carregar, 0, 0, 753, 232, RES_WIDTH(600), RES_HEIGHT(400), RES_WIDTH(753), RES_HEIGHT(232), 0);   
+    al_draw_textf(font10, al_map_rgb(60,25,97), RES_WIDTH(470), RES_HEIGHT(970), 0, "Dica: O progresso das missões secundárias será sempre salvo, porém falhar em um"); 
+    al_draw_textf(font10, al_map_rgb(60,25,97), RES_WIDTH(520), RES_HEIGHT(1000), 0, "nível ou fechar o jogo antes de concluí-lo fará com que ele recomece."); 
     al_flip_display();
+    al_rest(5);
 
     //atribuindo as imagens do personagem as variaveis
     player_f1=al_load_bitmap("./../assets/frente1.bmp");
@@ -990,8 +1013,6 @@ void setNivel(Protagonista *Player, int nivel){
         MAPA[56][70] = MAPA[56][71] = MAPA[57][70] = MAPA[57][71] = '1'; // Remove xerife espeto da matriz
         map= al_load_bitmap("./../assets/map3.bmp");
         MAPA[28][76] = 'J';
-
-        if(!Player->hasAtaque("Coquetel Molotov")) COQUETEL_MOLOTOV_USADO = true;
     }
 
     else if(Player->getNivel() == 4){
@@ -1015,8 +1036,6 @@ void setNivel(Protagonista *Player, int nivel){
         MAPA[27][88] = MAPA[28][88] = MAPA[27][89] = '0';
         MAPA[28][76] = '0'; // Remove Renato da matriz
         map= al_load_bitmap("./../assets/map4.bmp");
-
-        if(!Player->hasAtaque("Coquetel Molotov")) COQUETEL_MOLOTOV_USADO = true;
     }
 
     else if(Player->getNivel() == 5){
@@ -1039,9 +1058,6 @@ void setNivel(Protagonista *Player, int nivel){
         MAPA[27][88] = MAPA[28][88] = MAPA[27][89] = '1'; // Remove José do Caixão da matriz
         MAPA[16][7] = MAPA[16][8] = MAPA[17][7] = MAPA[17][8] = MAPA[17][9] = 'E'; // Adiciona Johnny Cash na matriz
         map= al_load_bitmap("./../assets/map5.bmp");
-
-        if(!Player->hasAtaque("Coquetel Molotov")) COQUETEL_MOLOTOV_USADO = true;
-        if(!Player->hasAtaque("Pé de Coelho")) PE_DE_COELHO_USADO = true;
     }   
 
     general_player = player_f1;

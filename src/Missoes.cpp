@@ -62,7 +62,7 @@ void Objetivos::atualizaPrincipal(Missao *Nivel1, Missao *Nivel2, Missao *Nivel3
     }
     if(Player->getNivel() == 4){
         if(Nivel4->_etapa == 1){
-            _principal = "Vá para o cemitério";
+            _principal = "Fale com Mario Victor";
         }
         if(Nivel4->_etapa == 2){
             _principal = "Vá para o cemitério";
@@ -96,6 +96,7 @@ void Objetivos::atualizaSecundaria(MissaoSecundaria *espingarda, MissaoSecundari
             _secundarias.push_back("Volte ao Andrew");
         }
     }
+
     if(relogio->getinicializada()){
         std::vector<std::string>::iterator it_etapa1 = _secundarias.begin();
         for (; it_etapa1 != _secundarias.end(); it_etapa1++)
@@ -118,6 +119,7 @@ void Objetivos::atualizaSecundaria(MissaoSecundaria *espingarda, MissaoSecundari
             _secundarias.push_back("Volte ao Saul");
         }
     }
+
     if(chave->getinicializada()){
         std::vector<std::string>::iterator it_etapa1 = _secundarias.begin();
         for (; it_etapa1 != _secundarias.end(); it_etapa1++)
@@ -140,6 +142,7 @@ void Objetivos::atualizaSecundaria(MissaoSecundaria *espingarda, MissaoSecundari
             _secundarias.push_back("Volte ao Cris");
         }
     }
+    
     if(pocao->getinicializada()){
         std::vector<std::string>::iterator it_etapa1 = _secundarias.begin();
         for (; it_etapa1 != _secundarias.end(); it_etapa1++)

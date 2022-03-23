@@ -76,9 +76,10 @@ ALLEGRO_EVENT ev1;
 short int contGalinha = 0;
 
 int main(int argc, char **argv){
-    
+
     /* COMECANDO A EXECUCAO DO JOGO*/
     if(inicializaJogo()){
+
         srand (time(NULL));
         MENU:
         al_stop_samples();
@@ -117,6 +118,7 @@ int main(int argc, char **argv){
 
         setNivel(Player, 1);
         Lista->atualizaPrincipal(Nivel1, Nivel2, Nivel3, Nivel4, Nivel5, Player);
+        Lista->atualizaSecundaria(Missao_Espingarda, Missao_Relogio, Missao_Chave, Missao_Pocao, Player);
         while(Player->getNivel()==1){
             al_wait_for_event(event_queue, &ev0);
 
@@ -142,7 +144,7 @@ int main(int argc, char **argv){
 
         Player->addAtaque("Revólver", 2, 5);
         dano_revolver="A: (02/05)";
-        Player->addAtaque("Coquetel Molotov", 10, 15);
+        if(!COQUETEL_MOLOTOV_USADO) Player->addAtaque("Coquetel Molotov", 10, 15);
 
         Xerife_Espeto->addAtaque("Tiro de Revólver", 0, -4);
         Xerife_Espeto->addAtaque("Espinhos", 0, -1);
@@ -160,6 +162,7 @@ int main(int argc, char **argv){
 
         setNivel(Player, 2);
         Lista->atualizaPrincipal(Nivel1, Nivel2, Nivel3, Nivel4, Nivel5, Player);
+        Lista->atualizaSecundaria(Missao_Espingarda, Missao_Relogio, Missao_Chave, Missao_Pocao, Player);
         while(Player->getNivel()==2){
             al_wait_for_event(event_queue, &ev0);
 
@@ -204,6 +207,7 @@ int main(int argc, char **argv){
         setNivel(Player, 3);
         if(Player->getNivel() == 3) Player->addItem("Estrela de Xerife", 1);
         Lista->atualizaPrincipal(Nivel1, Nivel2, Nivel3, Nivel4, Nivel5, Player);
+        Lista->atualizaSecundaria(Missao_Espingarda, Missao_Relogio, Missao_Chave, Missao_Pocao, Player);
         while(Player->getNivel()==3){
             al_wait_for_event(event_queue, &ev0);
 
@@ -239,7 +243,7 @@ int main(int argc, char **argv){
 
         Player->addAtaque("Revólver", 2, 7);
         dano_revolver="A: (02/07)";
-        Player->addAtaque("Pé de Coelho", 0, 0);
+        if(!PE_DE_COELHO_USADO) Player->addAtaque("Pé de Coelho", 0, 0);
 
         Jose_do_Caixao->addAtaque("Revólver", 0, -5);
         Jose_do_Caixao->addAtaque("Pá", 0, -2);
@@ -254,6 +258,7 @@ int main(int argc, char **argv){
 
         setNivel(Player, 4);
         Lista->atualizaPrincipal(Nivel1, Nivel2, Nivel3, Nivel4, Nivel5, Player);
+        Lista->atualizaSecundaria(Missao_Espingarda, Missao_Relogio, Missao_Chave, Missao_Pocao, Player);
         while(Player->getNivel()==4){
             al_wait_for_event(event_queue, &ev0);
 
@@ -299,6 +304,7 @@ int main(int argc, char **argv){
 
         setNivel(Player, 5);
         Lista->atualizaPrincipal(Nivel1, Nivel2, Nivel3, Nivel4, Nivel5, Player);
+        Lista->atualizaSecundaria(Missao_Espingarda, Missao_Relogio, Missao_Chave, Missao_Pocao, Player);
         while(Player->getNivel()==5){
             al_wait_for_event(event_queue, &ev0);
 
@@ -552,7 +558,7 @@ bool to_move(){
             //e caso o player tenha comida no inventário e não esteja com a vida completa
             if(Player->getVida()<Player->getMaxVida() && Player->qtdItem("Comida")>0){
                 Player->addItem("Comida", -1); //reduz a quantidade de comida
-                Player->curarVida(1); //aumenta um ponto de vida
+                Player->curarVida(5); //aumenta um ponto de vida
             }
         }
     }
@@ -764,6 +770,7 @@ void interagir(){
                 Player->nextLevel();
                 ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
                 Player->setVida(Player->getVida()+10);
+                if(!Player->hasAtaque("Coquetel Molotov")) COQUETEL_MOLOTOV_USADO = true;
             }
             al_stop_samples();
         }
@@ -791,6 +798,7 @@ void interagir(){
             if(Batalha_Nivel3.batalhar()){
                 Player->nextLevel();
                 Player->setVida(Player->getVida()+10);
+                if(!Player->hasAtaque("Coquetel Molotov")) COQUETEL_MOLOTOV_USADO = true;
             }
             al_stop_samples();
         } 
@@ -815,8 +823,10 @@ void interagir(){
             fadeout();
             resetTeclas();
              if(Batalha_Nivel4.batalhar()){
-                 Player->nextLevel();
-                 Player->setVida(Player->getVida()+10);
+                Player->nextLevel();
+                Player->setVida(Player->getVida()+10);
+                if(!Player->hasAtaque("Coquetel Molotov")) COQUETEL_MOLOTOV_USADO = true;
+                if(!Player->hasAtaque("Pé de Coelho")) PE_DE_COELHO_USADO = true;
              }
              al_stop_samples();
         }
@@ -834,6 +844,8 @@ void interagir(){
             if(Batalha_Nivel5.batalhar()){
                 Player->nextLevel();
                 Player->setVida(Player->getVida()+10);
+                if(!Player->hasAtaque("Coquetel Molotov")) COQUETEL_MOLOTOV_USADO = true;
+                if(!Player->hasAtaque("Pé de Coelho")) PE_DE_COELHO_USADO = true;
             }
             al_stop_samples();
         }
@@ -854,23 +866,18 @@ void resetGame(){
 
 
 void desenhaObjetivos(){
-    int posicao = 0;
-    al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(2), RES_HEIGHT(2+posicao), 0, "       para sair       para abrir o mapa");
-    al_draw_scaled_bitmap(botaosair, 0,  0, 34, 18, RES_WIDTH(0), RES_HEIGHT(10+posicao), RES_WIDTH(17*ZOOM), RES_HEIGHT(9*ZOOM), 0);
-    al_draw_scaled_bitmap(aperteM, 0,  0, 34, 18, RES_WIDTH(210), RES_HEIGHT(7+posicao), RES_WIDTH(17*ZOOM), RES_HEIGHT(9*ZOOM), 0);
-    posicao+=8;
-    al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(2), RES_HEIGHT(6*posicao), 0, "     para abrir os objetivos");
-    al_draw_scaled_bitmap(aperteO, 0,  0, 34, 18, RES_WIDTH(0), RES_HEIGHT(7*posicao), RES_WIDTH(17*ZOOM), RES_HEIGHT(9*ZOOM), 0);
-    posicao+=8;
-
-    al_draw_textf(font13, al_map_rgb(58,15,43), RES_WIDTH(5), RES_HEIGHT(7*posicao), 0, "MISSÕES PRINCIPAIS");
-    posicao+=8;
-    al_draw_textf(font13, al_map_rgb(58,15,43), RES_WIDTH(5), RES_HEIGHT(7*posicao), 0, Lista->getPrincipal().c_str());
-    posicao+=10;
-    al_draw_textf(font13, al_map_rgb(58,15,43), RES_WIDTH(5), RES_HEIGHT(7*posicao), 0, "MISSÕES SECUNDÁRIAS");
-    posicao+=8;
-    for(int i = 0; i < Lista->getTotalSecundarias(); i++){
-        al_draw_textf(font13, al_map_rgb(58,15,43), RES_WIDTH(5), RES_HEIGHT(7*posicao), 0, Lista->getSecundaria(i).c_str());
+    if(keys[ALLEGRO_KEY_O]){
+        int posicao = 16;
+    
+        al_draw_textf(font13, al_map_rgb(58,15,43), RES_WIDTH(5), RES_HEIGHT(7*posicao), 0, "MISSÕES PRINCIPAIS");
         posicao+=8;
-    }  
+        al_draw_textf(font13, al_map_rgb(58,15,43), RES_WIDTH(5), RES_HEIGHT(7*posicao), 0, Lista->getPrincipal().c_str());
+        posicao+=10;
+        al_draw_textf(font13, al_map_rgb(58,15,43), RES_WIDTH(5), RES_HEIGHT(7*posicao), 0, "MISSÕES SECUNDÁRIAS");
+        posicao+=8;
+        for(int i = 0; i < Lista->getTotalSecundarias(); i++){
+            al_draw_textf(font13, al_map_rgb(58,15,43), RES_WIDTH(5), RES_HEIGHT(7*posicao), 0, Lista->getSecundaria(i).c_str());
+            posicao+=8;
+        }  
+    }
 }

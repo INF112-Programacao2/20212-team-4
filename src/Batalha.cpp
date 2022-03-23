@@ -34,8 +34,6 @@ short int desafinacao=1;
 int cont;
 int ataque_do_vilao;
 ALLEGRO_EVENT ev2; //declarando o evento
-ALLEGRO_BITMAP *img_vilao= NULL;
-ALLEGRO_BITMAP *img_vilao_dano= NULL;
 
 void al_init_timeout(ALLEGRO_TIMEOUT *timeout, double seconds);
 
@@ -57,6 +55,38 @@ BatalhaFantasma::BatalhaFantasma(Inimigo *vilao, Protagonista *player, MissaoSec
     this->_Bruxa=bruxa;
 }
 
+
+void dialogo_Geraldina(Protagonista *_Player){
+    std::map<short int, bool> fluxo;
+    std::string **opcoes;
+    short int **incrementos;
+
+    icone = al_load_bitmap("./../assets/icone-cris.bmp");
+    std::string *falas = new std::string [2] {
+        "2Conseguiu as chaves?",
+        "1*Não."
+    };
+
+    std::cout << "oi\n";
+
+    Dialogo dialogo(falas, fluxo, incrementos);
+    dialogo.dialogar_batalha("Geraldina", opcoes, 3, _Player);
+}
+
+void dialogo_Jose(Protagonista *_Player){
+    std::map<short int, bool> fluxo;
+    std::string **opcoes;
+    short int **incrementos;
+
+    icone = al_load_bitmap("./../assets/icone-cris.bmp");
+    std::string *falas = new std::string [2] {
+        "2Conseguiu as chaves?",
+        "1*Não."
+    };
+
+    Dialogo dialogo(falas, fluxo, incrementos);
+    dialogo.dialogar_batalha("José do Caixão", opcoes, 4, _Player);
+}
 
 void batalha_intro(Protagonista *_Player, Inimigo* _vilao){
     timer = al_create_timer(0.4);
@@ -184,6 +214,7 @@ void batalha_fim(Protagonista *_Player, Inimigo* _vilao){
 }
 
 bool Batalha1x1::batalhar(){
+    this->_Player->_batalhando = true;
     resetTeclas();
     cont=0;
     player_atacou = false;
@@ -244,11 +275,14 @@ bool Batalha1x1::batalhar(){
         }
 
         else if(_Player -> isDead()){
+            this->_Player->_batalhando = false;
             return false;
         }
 
         else if(_vilao -> isDead()){
+            this->_Player->_batalhando = false;
             resetTeclas();
+            // if(_vilao->getNome() == "Geraldina") dialogo_Geraldina(this->_Player);
             batalha_fim(_Player, _vilao);
             return true;
         }
@@ -265,6 +299,7 @@ bool Batalha1x1::batalhar(){
 }
 
 bool Batalha1x2 :: batalhar(){
+    this->_Player->_batalhando = true;
      batalha_intro(this -> _Player, this -> _vilao);
      img_vilao=jose_batalha;
      img_vilao_dano=jose_dano;
@@ -328,11 +363,14 @@ bool Batalha1x2 :: batalhar(){
         }
 
         else if(_Player -> isDead()){
+            this->_Player->_batalhando = false;
             return false;
         }
 
         else if(_caixao -> isDead() && _jose->isDead()){
+            this->_Player->_batalhando = false;
             resetTeclas();
+            // dialogo_Jose(this->_Player);
             batalha_fim(_Player, _vilao);
             return true;
         }

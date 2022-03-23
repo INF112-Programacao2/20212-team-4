@@ -129,7 +129,17 @@ void redesenhar(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d
         //ele recebe a seguinte mensagem:
         al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(610), 0.85*res_y_comp, 0,"Aperte          para comer");
         al_draw_scaled_bitmap(botaocomer, 0,  0, 18, 18, RES_WIDTH(770), 0.85*res_y_comp, RES_WIDTH(18*ZOOM), RES_HEIGHT(18*ZOOM), 0);
-    }   
+    }
+
+    int posicao = 0;
+
+    al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(2), RES_HEIGHT(2+posicao), 0, "       para sair        para abrir o mapa");
+    al_draw_scaled_bitmap(botaosair, 0,  0, 34, 18, RES_WIDTH(0), RES_HEIGHT(13+posicao), RES_WIDTH(17*ZOOM), RES_HEIGHT(9*ZOOM), 0);
+    al_draw_scaled_bitmap(aperteM, 0,  0, 34, 18, RES_WIDTH(200), RES_HEIGHT(10+posicao), RES_WIDTH(17*ZOOM), RES_HEIGHT(8*ZOOM), 0);
+    posicao+=8;
+    al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(2), RES_HEIGHT(6*posicao), 0, "    para abrir os objetivos");
+    al_draw_scaled_bitmap(aperteO, 0,  0, 34, 18, RES_WIDTH(0), RES_HEIGHT(7*posicao), RES_WIDTH(15.5*ZOOM), RES_HEIGHT(9*ZOOM), 0);
+    posicao+=8;   
 }
 
 void fadeout(){
@@ -248,13 +258,90 @@ bool Dialogo::dialogar(std::string npc, std::string **opcoes, bool rel, bool cha
 
     while(true){
         al_wait_for_event(event_queue, &evdialogo);
+
         if(Player->getNivel() < 6){
             redesenhar(rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
         }
-        if(Player->getNivel() == 6){
+        else if(Player->getNivel() == 6){
             al_clear_to_color(al_map_rgb(238,202,169));
             al_draw_scaled_bitmap(telaFinal, 0, 30, res_x_comp, res_y_comp, 110, 0, res_x_comp*(res_x_comp/1920.0)*ZOOM, res_y_comp*(res_y_comp/1080.0)*ZOOM, 0);
         }
+
+        if(this->_dialogos[this->posicao_atual_dialogo][1] == '*'){
+            fala = this->_dialogos[this->posicao_atual_dialogo].substr(2, this->_dialogos[this->posicao_atual_dialogo].length()-2);
+
+            if(this->_dialogos[this->posicao_atual_dialogo][2] == '!'){
+                fala = this->_dialogos[this->posicao_atual_dialogo].substr(3, this->_dialogos[this->posicao_atual_dialogo].length()-3);
+                retorno = true; 
+            }
+
+            al_draw_scaled_bitmap(caixa_texto, 0, 0, 1520, 1080, 0, 0, 1520*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+            al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(1360), 0.91*res_y_comp, 0, "Espaço >");
+            
+            if(verificarTecla()) break;
+        }
+
+        else{
+            fala = this->_dialogos[this->posicao_atual_dialogo].substr(1, this->_dialogos[this->posicao_atual_dialogo].length()-1);
+            if(!this->_fluxo[this->posicao_atual_dialogo]){
+                al_draw_scaled_bitmap(caixa_texto, 0, 0, 1520, 1080, 0, 0, 1520*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+                al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(1360), 0.91*res_y_comp, 0, "Espaço >");
+                this->incremento_dialogoSPACE = 1;
+            }
+            else{
+                al_draw_scaled_bitmap(caixa_texto, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+                this->incremento_dialogoZ = this->_fluxo_incremento[this->posicao_atual_incremento][0];
+                this->incremento_dialogoX = this->_fluxo_incremento[this->posicao_atual_incremento][1];
+
+                al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1550), 0.80*res_y_comp, 0, opcoes[this->posicao_atual_incremento][0].c_str());
+                al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(1550), 0.905*res_y_comp, 0, opcoes[this->posicao_atual_incremento][1].c_str());                
+            }
+        }
+
+
+        if(this->_dialogos[this->posicao_atual_dialogo][0] == '1'){
+            al_draw_scaled_bitmap(icone_player, 0, 0, 18, 18, RES_WIDTH(348), RES_HEIGHT(825), RES_WIDTH(128), RES_HEIGHT(128), 0);
+            al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(355), 0.895*res_y_comp, 0, Player->getNome().c_str());
+        }
+        else {
+            al_draw_scaled_bitmap(icone, 0, 0, 18, 18, RES_WIDTH(348), RES_HEIGHT(825), RES_WIDTH(128), RES_HEIGHT(128), 0);
+            al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(355), 0.895*res_y_comp, 0, npc.c_str());
+        }
+        al_flip_display();
+
+        al_draw_multiline_text(font15, al_map_rgb(58,15,43), RES_WIDTH(520), 0.80*res_y_comp, RES_WIDTH(950), RES_HEIGHT(40), 0, fala.c_str());
+        verificarTecla();
+
+        al_flip_display();
+    }
+
+    resetTeclas();
+    Player->_dialogo = false;
+    return retorno;
+}
+
+bool Dialogo::dialogar_batalha(std::string npc, std::string **opcoes, int nivel, Protagonista *Player){
+    bool retorno = false;
+    keys[ALLEGRO_KEY_E] = false;
+    std::string fala;
+
+    while(true){
+        al_wait_for_event(event_queue, &evdialogo);
+
+        al_clear_to_color(al_map_rgb(238,202,169));
+
+        std::cout << "oi\n";
+        if(nivel == 3)
+            img_vilao = al_load_bitmap("./../assets/coiote-morta.bmp");
+
+        if(nivel == 4)
+            img_vilao = al_load_bitmap("./../assets/coveiro-morto.bmp");
+        std::cout << "oi\n";
+
+        al_draw_scaled_bitmap(player_batalha, 0, 0, 129, 68, 0, 0,  1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0); 
+        al_draw_scaled_bitmap(img_vilao, 0, 0, 240, 135, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+        std::cout << "oi\n";
+
 
         if(this->_dialogos[this->posicao_atual_dialogo][1] == '*'){
             fala = this->_dialogos[this->posicao_atual_dialogo].substr(2, this->_dialogos[this->posicao_atual_dialogo].length()-2);

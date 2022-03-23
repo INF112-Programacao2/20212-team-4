@@ -59,6 +59,7 @@ Protagonista::Protagonista(short int vida, short int dinheiro){
     this->_sortudo = false;
     this->_dialogo = false;
     this->_assombrado = false;
+    this->_batalhando = false;
 }
 
 Inimigo::Inimigo(std::string nome, short int vida, short int total_ataques, short int total_curas){

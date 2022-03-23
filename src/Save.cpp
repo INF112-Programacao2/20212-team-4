@@ -135,7 +135,7 @@ void GameSave::read_save(Protagonista *Player, MissaoSecundaria *Sec1, MissaoSec
         if(!Sec1->completo()) MAPA[39][44] = MAPA[39][43] = 'H';
         else MAPA[39][44] = MAPA[39][43] = '0';
 
-        MAPA[45][39] = MAPA[45][40] = 'y';
+        MAPA[45][39] = MAPA[45][40] = 'z';
     }
 
     data.close();

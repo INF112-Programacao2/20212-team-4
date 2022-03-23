@@ -90,6 +90,7 @@ class Protagonista : public Personagem{
         bool _dialogo;
         bool _assombrado;
         bool _sortudo;
+        bool _batalhando;
 
         // Método Construtor.
         Protagonista(short int vida, short int dinheiro);

@@ -25,6 +25,7 @@ class Dialogo{
         Dialogo();
         Dialogo(std::string *dialogos, std::map <short int, bool> fluxo, short int **incrementos);
         bool dialogar(std::string npc, std::string **opcoes, bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int &cont, Protagonista *Player, Interacao *botao);
+        bool dialogar_batalha(std::string npc, std::string **opcoes, int nivel, Protagonista *Player);
         void dialogar_lojista(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int &cont, Protagonista *Player, Interacao *botao);
 }; 
 
