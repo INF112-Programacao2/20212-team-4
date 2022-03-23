@@ -943,7 +943,7 @@ void resetCamera(short int x, short int y){ //Reseta a camera ao passar de níve
     camI = y;
 }
 
-void setNivel(Protagonista *Player, int nivel){
+void setNivel(Protagonista *Player, int nivel, MissaoSecundaria *Sec1, MissaoSecundaria *Sec2, MissaoSecundaria *Sec3, MissaoSecundaria *Sec4){
     resetTeclas();
 
     if(Player->getNivel() == 1){
@@ -989,6 +989,20 @@ void setNivel(Protagonista *Player, int nivel){
         MAPA[29][40] = 'A';
 
         map= al_load_bitmap("./../assets/map2.bmp");
+
+        if(!Sec2->completo()) MAPA[28][50] = 'F';
+        else MAPA[28][50] = '0';
+
+        if(!Sec4->completo()) MAPA[13][30] = 'I';
+        else MAPA[13][30] = '0';
+
+        if(!Sec3->completo()) MAPA[39][63] = 'G';
+        else MAPA[39][63] = '0';
+
+        if(!Sec1->completo()) MAPA[39][44] = MAPA[39][43] = 'H';
+        else MAPA[39][44] = MAPA[39][43] = '0';
+
+        MAPA[45][39] = MAPA[45][40] = 'z';
     }
 
     else if(Player->getNivel() == 3){
@@ -1008,11 +1022,26 @@ void setNivel(Protagonista *Player, int nivel){
 
         resetCamera(10, 5); 
 
+        MAPA[28][76] = '0';
         MAPA[49][16] = MAPA[49][17] = '0'; // Adiciona colisão em Mario / Geraldina
         MAPA[29][40] = '0'; // Remove Ambrósio da matriz
         MAPA[56][70] = MAPA[56][71] = MAPA[57][70] = MAPA[57][71] = '1'; // Remove xerife espeto da matriz
         map= al_load_bitmap("./../assets/map3.bmp");
         MAPA[28][76] = 'J';
+
+        if(!Sec2->completo()) MAPA[28][50] = 'F';
+        else MAPA[28][50] = '0';
+
+        if(!Sec4->completo()) MAPA[13][30] = 'I';
+        else MAPA[13][30] = '0';
+
+        if(!Sec3->completo()) MAPA[39][63] = 'G';
+        else MAPA[39][63] = '0';
+
+        if(!Sec1->completo()) MAPA[39][44] = MAPA[39][43] = 'H';
+        else MAPA[39][44] = MAPA[39][43] = '0';
+
+        MAPA[45][39] = MAPA[45][40] = 'z';
     }
 
     else if(Player->getNivel() == 4){
@@ -1036,6 +1065,20 @@ void setNivel(Protagonista *Player, int nivel){
         MAPA[27][88] = MAPA[28][88] = MAPA[27][89] = '0';
         MAPA[28][76] = '0'; // Remove Renato da matriz
         map= al_load_bitmap("./../assets/map4.bmp");
+
+        if(!Sec2->completo()) MAPA[28][50] = 'F';
+        else MAPA[28][50] = '0';
+
+        if(!Sec4->completo()) MAPA[13][30] = 'I';
+        else MAPA[13][30] = '0';
+
+        if(!Sec3->completo()) MAPA[39][63] = 'G';
+        else MAPA[39][63] = '0';
+
+        if(!Sec1->completo()) MAPA[39][44] = MAPA[39][43] = 'H';
+        else MAPA[39][44] = MAPA[39][43] = '0';
+
+        MAPA[45][39] = MAPA[45][40] = 'z';
     }
 
     else if(Player->getNivel() == 5){
@@ -1058,6 +1101,20 @@ void setNivel(Protagonista *Player, int nivel){
         MAPA[27][88] = MAPA[28][88] = MAPA[27][89] = '1'; // Remove José do Caixão da matriz
         MAPA[16][7] = MAPA[16][8] = MAPA[17][7] = MAPA[17][8] = MAPA[17][9] = 'E'; // Adiciona Johnny Cash na matriz
         map= al_load_bitmap("./../assets/map5.bmp");
+
+        if(!Sec2->completo()) MAPA[28][50] = 'F';
+        else MAPA[28][50] = '0';
+
+        if(!Sec4->completo()) MAPA[13][30] = 'I';
+        else MAPA[13][30] = '0';
+
+        if(!Sec3->completo()) MAPA[39][63] = 'G';
+        else MAPA[39][63] = '0';
+
+        if(!Sec1->completo()) MAPA[39][44] = MAPA[39][43] = 'H';
+        else MAPA[39][44] = MAPA[39][43] = '0';
+
+        MAPA[45][39] = MAPA[45][40] = 'z';
     }   
 
     general_player = player_f1;
