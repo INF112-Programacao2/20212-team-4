@@ -50,6 +50,9 @@ Missao *Nivel3 = new Missao(0, 0, 'J');
 Missao *Nivel4 = new Missao(0, 0, 'C');
 Missao *Nivel5 = new Missao(0, 0, 'F');
 
+/* LISTA DE OBJETIVOS */
+Objetivos *Lista = new Objetivos();
+
 /* BATALHAS */
 Batalha1x1 Batalha_Nivel1 (Billy, Player);
 Batalha1x1 Batalha_Nivel2 (Xerife_Espeto, Player);
@@ -64,6 +67,7 @@ bool to_move();
 void interagir();
 void loja(); //funcao que gerencia a loja
 void resetGame();
+void desenhaObjetivos();
 
 
 short int mov_cont = 0;
@@ -76,7 +80,8 @@ int main(int argc, char **argv){
     /* COMECANDO A EXECUCAO DO JOGO*/
     if(inicializaJogo()){
         srand (time(NULL));
-
+        MENU:
+        al_stop_samples();
         al_play_sample(highwayman, 0.6, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
         while(true){
             al_wait_for_event(event_queue, &ev0);
@@ -111,6 +116,7 @@ int main(int argc, char **argv){
         ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
 
         setNivel(Player, 1);
+        Lista->atualizaPrincipal(Nivel1, Nivel2, Nivel3, Nivel4, Nivel5, Player);
         while(Player->getNivel()==1){
             al_wait_for_event(event_queue, &ev0);
 
@@ -124,6 +130,7 @@ int main(int argc, char **argv){
 
                 redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                     !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+                desenhaObjetivos();
                 minimap();
 
                 al_flip_display();
@@ -152,6 +159,7 @@ int main(int argc, char **argv){
         ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
 
         setNivel(Player, 2);
+        Lista->atualizaPrincipal(Nivel1, Nivel2, Nivel3, Nivel4, Nivel5, Player);
         while(Player->getNivel()==2){
             al_wait_for_event(event_queue, &ev0);
 
@@ -159,6 +167,7 @@ int main(int argc, char **argv){
             if(ev0.type == ALLEGRO_EVENT_TIMER){  
                 redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                     !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+                desenhaObjetivos();
                 minimap();
 
                 resetGame();
@@ -194,6 +203,7 @@ int main(int argc, char **argv){
 
         setNivel(Player, 3);
         if(Player->getNivel() == 3) Player->addItem("Estrela de Xerife", 1);
+        Lista->atualizaPrincipal(Nivel1, Nivel2, Nivel3, Nivel4, Nivel5, Player);
         while(Player->getNivel()==3){
             al_wait_for_event(event_queue, &ev0);
 
@@ -204,6 +214,7 @@ int main(int argc, char **argv){
             if(ev0.type == ALLEGRO_EVENT_TIMER){  
                 redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                     !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+                desenhaObjetivos();
                 minimap();
 
                 resetGame();
@@ -242,6 +253,7 @@ int main(int argc, char **argv){
         ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
 
         setNivel(Player, 4);
+        Lista->atualizaPrincipal(Nivel1, Nivel2, Nivel3, Nivel4, Nivel5, Player);
         while(Player->getNivel()==4){
             al_wait_for_event(event_queue, &ev0);
 
@@ -249,6 +261,7 @@ int main(int argc, char **argv){
             if(ev0.type == ALLEGRO_EVENT_TIMER){  
                 redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                     !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+                desenhaObjetivos();
                 minimap();
 
                 resetGame();
@@ -285,6 +298,7 @@ int main(int argc, char **argv){
         ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
 
         setNivel(Player, 5);
+        Lista->atualizaPrincipal(Nivel1, Nivel2, Nivel3, Nivel4, Nivel5, Player);
         while(Player->getNivel()==5){
             al_wait_for_event(event_queue, &ev0);
 
@@ -292,6 +306,7 @@ int main(int argc, char **argv){
             if(ev0.type == ALLEGRO_EVENT_TIMER){  
                 redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                     !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+                desenhaObjetivos();
                 minimap();
 
                 resetGame();
@@ -313,59 +328,13 @@ int main(int argc, char **argv){
         if(Player->getNivel() == 6){
             dialogoFinal(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
-
-            al_clear_to_color(al_map_rgb(0,0,0));
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(100), ALLEGRO_ALIGN_CENTRE, "DESENVOLVEDORES");
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(150), ALLEGRO_ALIGN_CENTRE, "André Luiz");
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(200), ALLEGRO_ALIGN_CENTRE, "Bárbara Cristina");
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(250), ALLEGRO_ALIGN_CENTRE, "Lara Colorida");
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(300), ALLEGRO_ALIGN_CENTRE, "Maria Victória");
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(350), ALLEGRO_ALIGN_CENTRE, "Saulo Henrique");
-            al_flip_display();
-            al_rest(5.0);
-
-            al_clear_to_color(al_map_rgb(0,0,0));
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(100), ALLEGRO_ALIGN_CENTRE, "GRÁFICOS E DESIGN");
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(150), ALLEGRO_ALIGN_CENTRE, "Lara Colorida");
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(200), ALLEGRO_ALIGN_CENTRE, "Estúdio Vaca Roxa");
-            al_flip_display();
-            al_rest(5.0);
-
-            al_clear_to_color(al_map_rgb(0,0,0));
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(100), ALLEGRO_ALIGN_CENTRE, "SONOGRAFIA");
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(150), ALLEGRO_ALIGN_CENTRE, "André Luiz");
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(200), ALLEGRO_ALIGN_CENTRE, "CD Project Red");
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(250), ALLEGRO_ALIGN_CENTRE, "Faixa: Hunt or Be Hunted");
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(300), ALLEGRO_ALIGN_CENTRE, "Ennio Morricone");
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(350), ALLEGRO_ALIGN_CENTRE, "Faixa: The Good, The Bad and The Ugly");
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(400), ALLEGRO_ALIGN_CENTRE, "Guilherme Arantes");
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(450), ALLEGRO_ALIGN_CENTRE, "Faixa: Kyrie");
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(500), ALLEGRO_ALIGN_CENTRE, "Johnny Cash");
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(550), ALLEGRO_ALIGN_CENTRE, "Faixas: Hurt, Lorena, Folsom Prison Blues e I Walk the Line");
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(600), ALLEGRO_ALIGN_CENTRE, "Rockstar Games");
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(650), ALLEGRO_ALIGN_CENTRE, "Faixa: American Venom");
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(700), ALLEGRO_ALIGN_CENTRE, "Stan Jones");
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(750), ALLEGRO_ALIGN_CENTRE, "Faixa: Ghosts Riders in The Sky");
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(800), ALLEGRO_ALIGN_CENTRE, "The Highwaymen");
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(850), ALLEGRO_ALIGN_CENTRE, "Faixa: Highwaymen");
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(900), ALLEGRO_ALIGN_CENTRE, "Willie Nelson");
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(950), ALLEGRO_ALIGN_CENTRE, "Faixas: Hard to Be an Outlaw e I've got a Lot of Traveling to Do");
-            al_flip_display();
-            al_rest(5.0);
-
-            al_clear_to_color(al_map_rgb(0,0,0));
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(100), ALLEGRO_ALIGN_CENTRE, "ROTEIRO");
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(150), ALLEGRO_ALIGN_CENTRE, "André Luiz");
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(200), ALLEGRO_ALIGN_CENTRE, "Bárbara Cristina");
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(250), ALLEGRO_ALIGN_CENTRE, "Lara Colorida");
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(300), ALLEGRO_ALIGN_CENTRE, "Maria Victória");
-            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(350), ALLEGRO_ALIGN_CENTRE, "Saulo Henrique");
-            al_flip_display();
-            al_rest(5.0);
-
-        Save->reset_save();
-        Save->read_save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Chave, Relogio, Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
-        goto INICIO;
+            Final(reiniciar);
+            Save->reset_save();
+            Save->read_save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Chave, Relogio, Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
+            if(reiniciar){
+                reiniciar = false;
+                goto MENU;
+            }
 
         }
 
@@ -871,6 +840,8 @@ void interagir(){
             al_stop_samples();
         }
     }
+    Lista->atualizaPrincipal(Nivel1, Nivel2, Nivel3, Nivel4, Nivel5, Player);
+    Lista->atualizaSecundaria(Missao_Espingarda, Missao_Relogio, Missao_Chave, Missao_Pocao, Player);
 }
 
 void resetGame(){
@@ -881,4 +852,23 @@ void resetGame(){
         Player->setVida(Player->getMaxVida());
         telaGameOver(reiniciar);
     }
+}
+
+
+void desenhaObjetivos(){
+    int posicao = 0;
+    al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(2), RES_HEIGHT(2+posicao), 0, "       para sair       para abrir o mapa");
+    al_draw_scaled_bitmap(botaosair, 0,  0, 34, 18, RES_WIDTH(0), RES_HEIGHT(10+posicao), RES_WIDTH(17*ZOOM), RES_HEIGHT(9*ZOOM), 0);
+    al_draw_scaled_bitmap(aperteM, 0,  0, 34, 18, RES_WIDTH(210), RES_HEIGHT(7+posicao), RES_WIDTH(17*ZOOM), RES_HEIGHT(9*ZOOM), 0);
+    posicao+=8;
+    al_draw_textf(font13, al_map_rgb(58,15,43), RES_WIDTH(5), RES_HEIGHT(7*posicao), 0, "MISSÕES PRINCIPAIS");
+    posicao+=8;
+    al_draw_textf(font13, al_map_rgb(58,15,43), RES_WIDTH(5), RES_HEIGHT(7*posicao), 0, Lista->getPrincipal().c_str());
+    posicao+=10;
+    al_draw_textf(font13, al_map_rgb(58,15,43), RES_WIDTH(5), RES_HEIGHT(7*posicao), 0, "MISSÕES SECUNDÁRIAS");
+    posicao+=8;
+    for(int i = 0; i < Lista->getTotalSecundarias(); i++){
+        al_draw_textf(font13, al_map_rgb(58,15,43), RES_WIDTH(5), RES_HEIGHT(7*posicao), 0, Lista->getSecundaria(i).c_str());
+        posicao+=8;
+    }  
 }

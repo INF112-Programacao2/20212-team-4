@@ -58,6 +58,7 @@ ALLEGRO_BITMAP *contorno = NULL; // variavel que vai receber a imagem do contorn
 ALLEGRO_BITMAP *caixa_texto = NULL;
 ALLEGRO_FONT *font15 = NULL; // variavel que vai receber a fonte do hud
 ALLEGRO_FONT *font10 = NULL; 
+ALLEGRO_FONT *font13 = NULL; 
 ALLEGRO_FONT *font_titulo = NULL;
 ALLEGRO_FONT *fontataques = NULL;
 bool keys[ALLEGRO_KEY_MAX] = {0};
@@ -126,6 +127,8 @@ ALLEGRO_BITMAP *carregar = NULL; //variavel que vai receber a imagem do game ove
 bool BATALHA_JOSE = false;
 const char *ajuda_cesar = NULL;
 ALLEGRO_BITMAP *telaFinal = NULL;
+ALLEGRO_BITMAP *botaosair = NULL;
+ALLEGRO_BITMAP *aperteM = NULL; // variavel que vai receber o botao para abrir o mapa
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
 // Matriz do mapa.
@@ -338,6 +341,13 @@ bool inicializaJogo() {
 
     font10 = al_load_font("./../assets/alterebro-pixel-font.ttf", RES_HEIGHT(50), 0);
     if(!font10)
+    {
+        throw InitNotDone();
+        return false;
+    }
+
+    font13 = al_load_font("./../assets/alterebro-pixel-font.ttf", RES_HEIGHT(65), 0);
+    if(!font13)
     {
         throw InitNotDone();
         return false;
@@ -871,6 +881,18 @@ bool inicializaJogo() {
 
     estrela = al_load_bitmap("./../assets/estrela.bmp");
     if(!estrela){
+        throw BitmapNotFound(game, timer);
+        return false;
+    }
+
+    botaosair = al_load_bitmap("./../assets/esc.bmp");
+    if(!botaosair){
+        throw BitmapNotFound(game, timer);
+        return false;
+    }
+
+    aperteM = al_load_bitmap("./../assets/aperteM.bmp");
+    if(!aperteM){
         throw BitmapNotFound(game, timer);
         return false;
     }

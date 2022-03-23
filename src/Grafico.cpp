@@ -129,7 +129,6 @@ void redesenhar(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d
         //ele recebe a seguinte mensagem:
         al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(610), 0.85*res_y_comp, 0,"Aperte          para comer");
         al_draw_scaled_bitmap(botaocomer, 0,  0, 18, 18, RES_WIDTH(770), 0.85*res_y_comp, RES_WIDTH(18*ZOOM), RES_HEIGHT(18*ZOOM), 0);
-        
     }   
 }
 
@@ -545,4 +544,68 @@ void telaGameOver(bool reiniciar){
 
     general_player = player_f1;
     timer = al_create_timer(1.0/FPS);
+}
+
+void Final(bool reiniciar){
+    
+
+    al_clear_to_color(al_map_rgb(0,0,0));
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(100), ALLEGRO_ALIGN_CENTRE, "DESENVOLVEDORES");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(150), ALLEGRO_ALIGN_CENTRE, "André Luiz");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(200), ALLEGRO_ALIGN_CENTRE, "Bárbara Cristina");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(250), ALLEGRO_ALIGN_CENTRE, "Lara Colorida");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(300), ALLEGRO_ALIGN_CENTRE, "Maria Victória");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(350), ALLEGRO_ALIGN_CENTRE, "Saulo Henrique");
+    al_flip_display();
+    al_rest(5.0);
+
+    al_clear_to_color(al_map_rgb(0,0,0));
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(100), ALLEGRO_ALIGN_CENTRE, "GRÁFICOS E DESIGN");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(150), ALLEGRO_ALIGN_CENTRE, "Lara Colorida");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(200), ALLEGRO_ALIGN_CENTRE, "Estúdio Vaca Roxa");
+    al_flip_display();
+    al_rest(5.0);
+
+    al_clear_to_color(al_map_rgb(0,0,0));
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(100), ALLEGRO_ALIGN_CENTRE, "SONOGRAFIA");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(150), ALLEGRO_ALIGN_CENTRE, "André Luiz");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(200), ALLEGRO_ALIGN_CENTRE, "CD Project Red");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(250), ALLEGRO_ALIGN_CENTRE, "Faixa: Hunt or Be Hunted");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(300), ALLEGRO_ALIGN_CENTRE, "Ennio Morricone");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(350), ALLEGRO_ALIGN_CENTRE, "Faixa: The Good, The Bad and The Ugly");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(400), ALLEGRO_ALIGN_CENTRE, "Guilherme Arantes");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(450), ALLEGRO_ALIGN_CENTRE, "Faixa: Kyrie");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(500), ALLEGRO_ALIGN_CENTRE, "Johnny Cash");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(550), ALLEGRO_ALIGN_CENTRE, "Faixas: Hurt, Lorena, Folsom Prison Blues e I Walk the Line");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(600), ALLEGRO_ALIGN_CENTRE, "Rockstar Games");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(650), ALLEGRO_ALIGN_CENTRE, "Faixa: American Venom");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(700), ALLEGRO_ALIGN_CENTRE, "Stan Jones");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(750), ALLEGRO_ALIGN_CENTRE, "Faixa: Ghosts Riders in The Sky");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(800), ALLEGRO_ALIGN_CENTRE, "The Highwaymen");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(850), ALLEGRO_ALIGN_CENTRE, "Faixa: Highwaymen");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(900), ALLEGRO_ALIGN_CENTRE, "Willie Nelson");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(950), ALLEGRO_ALIGN_CENTRE, "Faixas: Hard to Be an Outlaw e I've got a Lot of Traveling to Do");
+    al_flip_display();
+    al_rest(5.0);
+
+    al_clear_to_color(al_map_rgb(0,0,0));
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(100), ALLEGRO_ALIGN_CENTRE, "ROTEIRO");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(150), ALLEGRO_ALIGN_CENTRE, "André Luiz");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(200), ALLEGRO_ALIGN_CENTRE, "Bárbara Cristina");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(250), ALLEGRO_ALIGN_CENTRE, "Lara Colorida");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(300), ALLEGRO_ALIGN_CENTRE, "Maria Victória");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(350), ALLEGRO_ALIGN_CENTRE, "Saulo Henrique");
+    al_flip_display();
+    al_rest(5.0);
+    
+    resetTeclas();
+    timer = al_create_timer(1);
+    while (!reiniciar){
+        al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(100), ALLEGRO_ALIGN_CENTRE,"Aperte               para reiniciar");
+        al_draw_scaled_bitmap(botaoreiniciar, 0,  0, 34, 18, RES_WIDTH(770), 0.85*res_y_comp, RES_WIDTH(34*ZOOM), RES_HEIGHT(18*ZOOM), 0);
+    }
+    
+    al_flip_display();
+    al_rest(5.0);
+
 }

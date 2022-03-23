@@ -35,5 +35,6 @@ void telaGameOver(bool reiniciar);
 void minimap();
 void telaMenu(bool iniciar);
 void fadeout();
+void Final(bool reiniciar);
 
 #endif

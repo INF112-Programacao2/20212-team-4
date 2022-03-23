@@ -81,6 +81,7 @@ extern ALLEGRO_BITMAP *lifebar; // variavel que vai receber a imagem da barra de
 extern ALLEGRO_BITMAP *contorno; // variavel que vai receber a imagem do contorno da barra de vida
 extern ALLEGRO_FONT *font15;  // variavel que vai receber a fonte do hud
 extern ALLEGRO_FONT *font10;  // variavel que vai receber a fonte do hud
+extern ALLEGRO_FONT *font13;  // variavel que vai receber a fonte do hud
 extern bool keys[ALLEGRO_KEY_MAX];
 extern ALLEGRO_BITMAP *caixa_texto;
 extern ALLEGRO_BITMAP *game_over1; //variavel que vai receber a imagem do game over
@@ -153,6 +154,8 @@ extern ALLEGRO_SAMPLE *desafinacao3;
 extern bool BATALHA_JOSE;
 extern const char *ajuda_cesar;
 extern ALLEGRO_BITMAP *telaFinal;
+extern ALLEGRO_BITMAP *botaosair; // variavel que vai receber o botao para sair
+extern ALLEGRO_BITMAP *aperteM; // variavel que vai receber o botao para abrir o mapa
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
 // Matriz do mapa.

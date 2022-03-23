@@ -3,6 +3,9 @@
 
 #include "Grafico.hpp"
 #include "interacao.hpp"
+#include <string>
+#include <vector>
+
 
 class Missao : public Interacao{
     protected:
@@ -27,6 +30,18 @@ class MissaoSecundaria : public Missao{
         void finish();
         bool got();
         void pay(Protagonista *Player);
+};
+
+class Objetivos{
+    private:
+        std::string _principal;
+        std::vector<std::string> _secundarias;
+    public:
+        std::string getPrincipal();
+        std::string getSecundaria(int n);
+        int getTotalSecundarias();
+        void atualizaPrincipal(Missao *Nivel1, Missao *Nivel2, Missao *Nivel3, Missao *Nivel4, Missao *Nivel5, Protagonista *Player);
+        void atualizaSecundaria(MissaoSecundaria *espingarda, MissaoSecundaria *relogio, MissaoSecundaria *chave, MissaoSecundaria *pocao, Protagonista *Player);
 };
 
 #endif
