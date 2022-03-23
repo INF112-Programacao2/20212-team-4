@@ -314,7 +314,7 @@ void Dialogo::dialogar_lojista(bool rel, bool chav, bool poc, bool d1, bool d2, 
     Player->_dialogo = true; //o dialogo com o lojista esta em andamento
 
     ajustarCamera(rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);//efeito de reposicionar a camera
-    icone = al_load_bitmap("./../assets/icone-cervejeiro.bmp");
+    icone = al_load_bitmap("./../assets/icone-comerciante.bmp");
 
     while(true){//enquanto o player estiver interagindo com a loja
         al_wait_for_event(event_queue, &evdialogo);//capturando um evento
@@ -601,11 +601,16 @@ void Final(bool reiniciar){
     resetTeclas();
     timer = al_create_timer(1);
     while (!reiniciar){
-        al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(100), ALLEGRO_ALIGN_CENTRE,"Aperte               para reiniciar");
-        al_draw_scaled_bitmap(botaoreiniciar, 0,  0, 34, 18, RES_WIDTH(770), 0.85*res_y_comp, RES_WIDTH(34*ZOOM), RES_HEIGHT(18*ZOOM), 0);
+        al_wait_for_event(event_queue, &evmorte);
+        if(evmorte.type == ALLEGRO_EVENT_TIMER){
+            al_clear_to_color(al_map_rgb(0,0,0));
+            al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), 0.5*res_y_comp, ALLEGRO_ALIGN_CENTRE,"Aperte               para reiniciar");
+            al_draw_scaled_bitmap(botaoreiniciar, 0,  0, 34, 20, RES_WIDTH(800), 0.5*res_y_comp, RES_WIDTH(34*ZOOM), RES_HEIGHT(18*ZOOM), 0);
+        }
+        al_flip_display();
+        if(enterToReset()) break;
     }
-    
-    al_flip_display();
-    al_rest(5.0);
+
+    timer = al_create_timer(1.0/FPS);
 
 }

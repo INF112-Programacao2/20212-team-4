@@ -330,12 +330,10 @@ int main(int argc, char **argv){
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
             Final(reiniciar);
             Save->reset_save();
-            Save->read_save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Chave, Relogio, Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
             if(reiniciar){
                 reiniciar = false;
                 goto MENU;
             }
-
         }
 
         // delete Johnny_Cash;
@@ -861,6 +859,10 @@ void desenhaObjetivos(){
     al_draw_scaled_bitmap(botaosair, 0,  0, 34, 18, RES_WIDTH(0), RES_HEIGHT(10+posicao), RES_WIDTH(17*ZOOM), RES_HEIGHT(9*ZOOM), 0);
     al_draw_scaled_bitmap(aperteM, 0,  0, 34, 18, RES_WIDTH(210), RES_HEIGHT(7+posicao), RES_WIDTH(17*ZOOM), RES_HEIGHT(9*ZOOM), 0);
     posicao+=8;
+    al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(2), RES_HEIGHT(6*posicao), 0, "     para abrir os objetivos");
+    al_draw_scaled_bitmap(aperteO, 0,  0, 34, 18, RES_WIDTH(0), RES_HEIGHT(7*posicao), RES_WIDTH(17*ZOOM), RES_HEIGHT(9*ZOOM), 0);
+    posicao+=8;
+
     al_draw_textf(font13, al_map_rgb(58,15,43), RES_WIDTH(5), RES_HEIGHT(7*posicao), 0, "MISSÕES PRINCIPAIS");
     posicao+=8;
     al_draw_textf(font13, al_map_rgb(58,15,43), RES_WIDTH(5), RES_HEIGHT(7*posicao), 0, Lista->getPrincipal().c_str());

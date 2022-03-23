@@ -129,6 +129,7 @@ const char *ajuda_cesar = NULL;
 ALLEGRO_BITMAP *telaFinal = NULL;
 ALLEGRO_BITMAP *botaosair = NULL;
 ALLEGRO_BITMAP *aperteM = NULL; // variavel que vai receber o botao para abrir o mapa
+ ALLEGRO_BITMAP *aperteO = NULL; // variavel que vai receber o botao para abrir os objetivos
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
 // Matriz do mapa.
@@ -893,6 +894,12 @@ bool inicializaJogo() {
 
     aperteM = al_load_bitmap("./../assets/aperteM.bmp");
     if(!aperteM){
+        throw BitmapNotFound(game, timer);
+        return false;
+    }
+
+    aperteO = al_load_bitmap("./../assets/aperteO.bmp");
+    if(!aperteO){
         throw BitmapNotFound(game, timer);
         return false;
     }
@@ -1878,7 +1885,7 @@ void dialogoFinal(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool
     delete[] falas;
     delete dialogo;
 
-    icone = al_load_bitmap("./../assets/icone-cervejeiro.bmp");
+    icone = al_load_bitmap("./../assets/icone-comerciante.bmp");
     falas = new std::string [1] {
         "2*Eu acho que todos merecem uma bebida depois desse susto. Eu pago."
     };
