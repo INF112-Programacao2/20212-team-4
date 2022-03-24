@@ -884,16 +884,17 @@ void resetGame(){
 
 void desenhaObjetivos(){
     if(keys[ALLEGRO_KEY_O]){
-        int posicao = 16;
+        int posicao = 17;
     
-        al_draw_textf(font13, al_map_rgb(58,15,43), RES_WIDTH(5), RES_HEIGHT(7*posicao), 0, "MISSÕES PRINCIPAIS");
+        al_draw_scaled_bitmap(objetivos_fundo, 0, 0, 1920, 1080, 0, 0, RES_WIDTH(1920), RES_HEIGHT(1080), 0);
+        al_draw_textf(font13, al_map_rgb(58,15,43), RES_WIDTH(40), RES_HEIGHT(7*posicao), 0, "MISSÕES PRINCIPAIS");
         posicao+=5;
-        al_draw_textf(font13, al_map_rgb(58,15,43), RES_WIDTH(5), RES_HEIGHT(7*posicao), 0, Lista->getPrincipal().c_str());
+        al_draw_textf(font13, al_map_rgb(58,15,43), RES_WIDTH(40), RES_HEIGHT(7*posicao), 0, Lista->getPrincipal().c_str());
         posicao+=10;
-        al_draw_textf(font13, al_map_rgb(58,15,43), RES_WIDTH(5), RES_HEIGHT(7*posicao), 0, "MISSÕES SECUNDÁRIAS");
+        al_draw_textf(font13, al_map_rgb(58,15,43), RES_WIDTH(40), RES_HEIGHT(7*posicao), 0, "MISSÕES SECUNDÁRIAS");
         posicao+=5;
         for(int i = 0; i < Lista->getTotalSecundarias(); i++){
-            al_draw_textf(font13, al_map_rgb(58,15,43), RES_WIDTH(5), RES_HEIGHT(7*posicao), 0, Lista->getSecundaria(i).c_str());
+            al_draw_textf(font13, al_map_rgb(58,15,43), RES_WIDTH(40), RES_HEIGHT(7*posicao), 0, Lista->getSecundaria(i).c_str());
             posicao+=5;
         }  
     }
