@@ -88,10 +88,10 @@ void Objetivos::atualizaSecundaria(MissaoSecundaria *espingarda, MissaoSecundari
         if(espingarda->completo() && it_etapa2 != _secundarias.end()){
             _secundarias.erase(it_etapa2);
         }
-        else if(Player->qtdItem("Espingarda") == 0 && it_etapa1 == _secundarias.end()){
+        else if(!espingarda->completo() && Player->qtdItem("Espingarda") == 0 && it_etapa1 == _secundarias.end()){
             _secundarias.push_back("Fale com Mario Victor");
         }
-        else if(Player->qtdItem("Espingarda") > 0 && it_etapa1 != _secundarias.end()){
+        else if(!espingarda->completo() && Player->qtdItem("Espingarda") > 0 && it_etapa1 != _secundarias.end()){
             _secundarias.erase(it_etapa1);
             _secundarias.push_back("Volte ao Andrew");
         }
@@ -111,10 +111,10 @@ void Objetivos::atualizaSecundaria(MissaoSecundaria *espingarda, MissaoSecundari
         if(relogio->completo() && it_etapa2 != _secundarias.end()){
             _secundarias.erase(it_etapa2);
         }
-        else if(Player->qtdItem("Relogio") == 0 && it_etapa1 == _secundarias.end()){
+        else if(!relogio->completo() && Player->qtdItem("Relogio") == 0 && it_etapa1 == _secundarias.end()){
             _secundarias.push_back("Pegue o relógio");
         }
-        else if(Player->qtdItem("Relogio") > 0 && it_etapa1 != _secundarias.end()){
+        else if(!relogio->completo() && Player->qtdItem("Relogio") > 0 && it_etapa1 != _secundarias.end()){
             _secundarias.erase(it_etapa1);
             _secundarias.push_back("Volte ao Saul");
         }
@@ -134,10 +134,10 @@ void Objetivos::atualizaSecundaria(MissaoSecundaria *espingarda, MissaoSecundari
         if(chave->completo() && it_etapa2 != _secundarias.end()){
             _secundarias.erase(it_etapa2);
         }
-        else if(Player->qtdItem("Chave") == 0 && it_etapa1 == _secundarias.end()){
+        else if(!chave->completo() && Player->qtdItem("Chave") == 0 && it_etapa1 == _secundarias.end()){
             _secundarias.push_back("Pegue a chave");
         }
-        else if(Player->qtdItem("Chave") > 0 && it_etapa1 != _secundarias.end()){
+        else if(!chave->completo() && Player->qtdItem("Chave") > 0 && it_etapa1 != _secundarias.end()){
             _secundarias.erase(it_etapa1);
             _secundarias.push_back("Volte ao Cris");
         }
@@ -157,10 +157,10 @@ void Objetivos::atualizaSecundaria(MissaoSecundaria *espingarda, MissaoSecundari
         if(pocao->completo() && it_etapa2 != _secundarias.end()){
             _secundarias.erase(it_etapa2);
         }
-        else if(Player->qtdItem("Pocao") == 0 && it_etapa1 == _secundarias.end()){
+        else if(!pocao->completo() && Player->qtdItem("Pocao") == 0 && it_etapa1 == _secundarias.end()){
             _secundarias.push_back("Pegue a poção");
         }
-        else if(Player->qtdItem("Pocao") > 0 && it_etapa1 != _secundarias.end()){
+        else if(!pocao->completo() && Player->qtdItem("Pocao") > 0 && it_etapa1 != _secundarias.end()){
             _secundarias.erase(it_etapa1);
             _secundarias.push_back("Volte à Clara");
         }

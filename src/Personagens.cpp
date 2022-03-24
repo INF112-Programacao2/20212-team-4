@@ -123,6 +123,9 @@ void Protagonista::setNivel(short int nivel){
 
 void Personagem::curarVida(short int cura){
     this->_vida += cura;
+
+    if(this->_vida > this->_maxVida)
+        this->_vida = this->_maxVida;
 }
 
 void Protagonista::comer(){

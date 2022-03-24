@@ -19,11 +19,11 @@ GameSave *Save = new GameSave();
 /* PERSONAGENS  */
 Protagonista *Player = new Protagonista(10, 3);
 Inimigo *Billy = new Inimigo("Billy", 21, 2, 3);
-Inimigo *Xerife_Espeto = new Inimigo("Xerife Espeto", 45, 3, 3);
-Inimigo *Jose_do_Caixao = new Inimigo("Jose do caixao", 32, 3, 3);
-Inimigo *Caixao_do_Jose = new Inimigo("Caixao do Jose", 15, 3, 3);
-Inimigo *Geraldina = new Inimigo("Geraldina", 60, 3, 3);
-Inimigo *Johnny_Cash = new Inimigo("Johnny Cash", 60, 4, 3);
+Inimigo *Xerife_Espeto = new Inimigo("Xerife Espeto", 40, 3, 3);
+Inimigo *Jose_do_Caixao = new Inimigo("José do Caixão", 80, 3, 3);
+Inimigo *Caixao_do_Jose = new Inimigo("Caixão do José", 60, 3, 3);
+Inimigo *Geraldina = new Inimigo("Geraldina", 58, 3, 3);
+Inimigo *Johnny_Cash = new Inimigo("Johnny Cash", 75, 4, 3);
 
 /* ITENS */
 Interacao *Chave = new Interacao("Chave", 81, 70, '5');
@@ -33,7 +33,7 @@ Interacao *Dinheiro1 = new Interacao("Dinheiro1", 3, 14, '8');
 Interacao *Dinheiro2 = new Interacao("Dinheiro2", 78, 19, '8');
 Interacao *Dinheiro3 = new Interacao("Dinheiro3", 2, 46, '8');
 Interacao *Dinheiro4 = new Interacao("Dinheiro4", 68, 67, '8');
-Interacao *Loja = new Interacao("Loja", 42, 45, '4'); //criando ponteiro para objeto loja do tipo interecao
+Interacao *Loja = new Interacao("Loja", 42, 45, '0'); //criando ponteiro para objeto loja do tipo interaçao
 Interacao *Botao_Interagir = new Interacao("Botaointeracao", 0, 0, '1');
 
 
@@ -74,12 +74,12 @@ short int mov_cont = 0;
 ALLEGRO_EVENT ev0;
 ALLEGRO_EVENT ev1;
 short int contGalinha = 0;
+bool brinde = false;
 
 int main(int argc, char **argv){
 
     /* COMECANDO A EXECUCAO DO JOGO*/
     if(inicializaJogo()){
-
         srand (time(NULL));
         MENU:
         al_stop_samples();
@@ -147,8 +147,8 @@ int main(int argc, char **argv){
         if(!COQUETEL_MOLOTOV_USADO) Player->addAtaque("Coquetel Molotov", 10, 15);
 
         Xerife_Espeto->addAtaque("Tiro de Revólver", 0, -4);
-        Xerife_Espeto->addAtaque("Espinhos", 0, -1);
-        Xerife_Espeto->addAtaque("Cura", 0, 4);
+        Xerife_Espeto->addAtaque("Espinhos", 0, -3);
+        Xerife_Espeto->addAtaque("Cura", 0, 2);
 
         /* === NÍVEL DOIS === */
         // Neste nível, o jogador tem a batalha contra o Xerife Espeto, no deserto. Estão presentes todos
@@ -158,6 +158,7 @@ int main(int argc, char **argv){
         al_play_sample(ambient_song24, 0.6, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
 
         Nivel2->_etapa = 1;
+        Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
         ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
 
         setNivel(Player, 2, Missao_Espingarda, Missao_Chave, Missao_Pocao, Missao_Relogio);
@@ -190,18 +191,18 @@ int main(int argc, char **argv){
         dano_revolver="A: (02/06)";
         Player->addAtaque("Shurikens", 3, 4);
 
-        Geraldina->addAtaque("Garras", 0, -6);
-        Geraldina->addAtaque("Mordida", 0, -3);
-        Geraldina->addAtaque("Cura", 0, 4);
+        Geraldina->addAtaque("Garras", 0, -9);
+        Geraldina->addAtaque("Mordida", 0, -2);
+        Geraldina->addAtaque("Cura", 0, 3);
 
         /* === NÍVEL TRÊS === */
         // Neste nível, o jogador tem a batalha contra Geraldina, no rancho. Estão presentes todos
         // os NPCs no mapa para passar missões, porém, ainda não é possível completar a missão da espingarda.  
-
         al_stop_samples();
         al_play_sample(ambient_song13, 0.6, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
 
         Nivel3->_etapa = 1;
+        Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
         ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
 
         setNivel(Player, 3, Missao_Espingarda, Missao_Chave, Missao_Pocao, Missao_Relogio);
@@ -245,15 +246,16 @@ int main(int argc, char **argv){
         dano_revolver="A: (02/07)";
         if(!PE_DE_COELHO_USADO) Player->addAtaque("Pé de Coelho", 0, 0);
 
-        Jose_do_Caixao->addAtaque("Revólver", 0, -5);
-        Jose_do_Caixao->addAtaque("Pá", 0, -2);
+        Jose_do_Caixao->addAtaque("Tiro de Revólver", 0, -5);
+        Jose_do_Caixao->addAtaque("Pá", 0, -1);
         Jose_do_Caixao->addAtaque("Cura", 0, 3);
 
         Caixao_do_Jose->addAtaque("Mordida Fúnebre", 0, -3);
-        Caixao_do_Jose->addAtaque("Pá", 0, -2);
-        Caixao_do_Jose->addAtaque("Cura", 0, 2);
+        Caixao_do_Jose->addAtaque("Pá", 0, -1);
+        Caixao_do_Jose->addAtaque("Cura", 0, 60);
 
         Nivel4->_etapa = 1;
+        Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
         ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
 
         setNivel(Player, 4, Missao_Espingarda, Missao_Chave, Missao_Pocao, Missao_Relogio);
@@ -294,10 +296,10 @@ int main(int argc, char **argv){
         Player->addAtaque("Munições Fanstasma", 2, 8);
         dano_revolver="A: (02/08)";
 
-        Johnny_Cash->addAtaque("Assombração", 0, -3);
-        Johnny_Cash->addAtaque("Desafinação", 0, -2);
+        Johnny_Cash->addAtaque("Assombração", 0, -15);
+        Johnny_Cash->addAtaque("Desafinação", 0, -3);
         Johnny_Cash->addAtaque("Tiro espectral", 0, -4);
-        Johnny_Cash->addAtaque("Cura", 0, 3);
+        Johnny_Cash->addAtaque("Cura", 0, 5);
 
         Nivel5->_etapa = 1;
         ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
@@ -305,10 +307,14 @@ int main(int argc, char **argv){
         setNivel(Player, 5, Missao_Espingarda, Missao_Chave, Missao_Pocao, Missao_Relogio);
         Lista->atualizaPrincipal(Nivel1, Nivel2, Nivel3, Nivel4, Nivel5, Player);
         Lista->atualizaSecundaria(Missao_Espingarda, Missao_Relogio, Missao_Chave, Missao_Pocao, Player);
+        Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
         while(Player->getNivel()==5){
             al_wait_for_event(event_queue, &ev0);
 
-            if(!to_move()) break; 
+            if(!to_move()){
+                if(brinde) Player->subItem("Comida", 5);
+                break; 
+            }
             if(ev0.type == ALLEGRO_EVENT_TIMER){  
                 redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                     !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
@@ -327,7 +333,6 @@ int main(int argc, char **argv){
 
          /* === NÍVEL SEIS === */
          //tela e dialogos finais
-
          al_stop_samples();
          al_play_sample(ending_song, 0.6, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
 
@@ -573,8 +578,14 @@ bool to_move(){
 void loja(){
     Dialogo *dialogoLoja = new Dialogo();
 
-    dialogoLoja->dialogar_lojista(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
-                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+    if(Player->getNivel() == 5 && !brinde){
+        dialogoLoja->dialogar_lojista_brinde(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+            !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+        brinde = true;
+    }
+    else
+        dialogoLoja->dialogar_lojista(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                    !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
 
     delete dialogoLoja;
 }   
@@ -731,6 +742,7 @@ void interagir(){
             al_play_sample(battle1_song, 0.8, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
             fadeout();
             resetTeclas();
+            Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
             if(Batalha_Nivel1.batalhar()){
                 Player->nextLevel();
                 ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
@@ -767,6 +779,7 @@ void interagir(){
             al_play_sample(battle2_song, 0.8, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
             fadeout();
             resetTeclas();
+            Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
             if(Batalha_Nivel2.batalhar()){
                 Player->nextLevel();
                 ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
@@ -796,6 +809,7 @@ void interagir(){
             al_play_sample(battle3_song, 0.8, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
             fadeout();
             resetTeclas();
+            Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
             if(Batalha_Nivel3.batalhar()){
                 Player->nextLevel();
                 Player->setVida(Player->getVida()+10);
@@ -823,6 +837,7 @@ void interagir(){
             al_play_sample(battle4_song, 0.8, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
             fadeout();
             resetTeclas();
+            Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
              if(Batalha_Nivel4.batalhar()){
                 Player->nextLevel();
                 Player->setVida(Player->getVida()+10);
@@ -842,6 +857,7 @@ void interagir(){
             al_play_sample(battle5_song, 0.8, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
             fadeout();
             resetTeclas();
+            Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
             if(Batalha_Nivel5.batalhar()){
                 Player->nextLevel();
                 Player->setVida(Player->getVida()+10);
@@ -859,7 +875,6 @@ void resetGame(){
     if(Player->isDead()){
         al_stop_samples();
         al_play_sample(death_song, 0.8, 0, 1, ALLEGRO_PLAYMODE_ONCE, NULL);
-        Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
 
         Player->setVida(Player->getMaxVida());
         telaGameOver(reiniciar);
@@ -872,14 +887,14 @@ void desenhaObjetivos(){
         int posicao = 16;
     
         al_draw_textf(font13, al_map_rgb(58,15,43), RES_WIDTH(5), RES_HEIGHT(7*posicao), 0, "MISSÕES PRINCIPAIS");
-        posicao+=8;
+        posicao+=5;
         al_draw_textf(font13, al_map_rgb(58,15,43), RES_WIDTH(5), RES_HEIGHT(7*posicao), 0, Lista->getPrincipal().c_str());
         posicao+=10;
         al_draw_textf(font13, al_map_rgb(58,15,43), RES_WIDTH(5), RES_HEIGHT(7*posicao), 0, "MISSÕES SECUNDÁRIAS");
-        posicao+=8;
+        posicao+=5;
         for(int i = 0; i < Lista->getTotalSecundarias(); i++){
             al_draw_textf(font13, al_map_rgb(58,15,43), RES_WIDTH(5), RES_HEIGHT(7*posicao), 0, Lista->getSecundaria(i).c_str());
-            posicao+=8;
+            posicao+=5;
         }  
     }
 }

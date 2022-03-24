@@ -58,6 +58,7 @@ ALLEGRO_BITMAP *contorno = NULL; // variavel que vai receber a imagem do contorn
 ALLEGRO_BITMAP *caixa_texto = NULL;
 ALLEGRO_FONT *font15 = NULL; // variavel que vai receber a fonte do hud
 ALLEGRO_FONT *font10 = NULL; 
+ALLEGRO_FONT *font_faixas = NULL; 
 ALLEGRO_FONT *font13 = NULL; 
 ALLEGRO_FONT *font_titulo = NULL;
 ALLEGRO_FONT *fontataques = NULL;
@@ -351,6 +352,13 @@ bool inicializaJogo() {
         return false;
     }
 
+    font_faixas = al_load_font("./../assets/alterebro-pixel-font.ttf", RES_HEIGHT(40), 0);
+    if(!font_faixas)
+    {
+        throw InitNotDone();
+        return false;
+    }
+
     font13 = al_load_font("./../assets/alterebro-pixel-font.ttf", RES_HEIGHT(65), 0);
     if(!font13)
     {
@@ -358,7 +366,7 @@ bool inicializaJogo() {
         return false;
     }
 
-    fontataques = al_load_font("./../assets/alterebro-pixel-font.ttf", RES_HEIGHT(60), 0);
+    fontataques = al_load_font("./../assets/alterebro-pixel-font.ttf", RES_HEIGHT(50), 0);
     if(!fontataques)
     {
         throw InitNotDone();
@@ -632,7 +640,7 @@ bool inicializaJogo() {
     jose_dano=al_load_bitmap("./../assets/batalha/coveiro-dano.bmp");
     caixao_dano=al_load_bitmap("./../assets/batalha/caixao-dano.bmp");
     espeto_morto=al_load_bitmap("./../assets/batalha/xerife-morto.bmp");
-    geraldina_morta=al_load_bitmap("./../assets/batalha/coiote-morta    .bmp"); 
+    geraldina_morta=al_load_bitmap("./../assets/batalha/coiote-morta.bmp"); 
     jose_morto=al_load_bitmap("./../assets/batalha/coveiro-morto.bmp");
     
 
@@ -964,6 +972,7 @@ void setNivel(Protagonista *Player, int nivel, MissaoSecundaria *Sec1, MissaoSec
         Player->setMaxVida(10);  
         Player->setDinheiro(4);
         if(Player->qtdItem("Comida") < 1) Player->addItem("Comida", 1);
+
     }
 
     // Define as posições iniciais pra cada nível.
@@ -1687,29 +1696,6 @@ void dialogoNivel3Pt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
     dialogo.dialogar("GERALDINA", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
 }
 
-void dialogoNivel4Pt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
-    std::map<short int, bool> fluxo;
-    std::string **opcoes;
-    short int **incrementos;
-
-
-    icone = al_load_bitmap("./../assets/icone-geraldina.bmp");
-    std::string *falas = new std::string[9] {
-        "1Onde tá o seu líder? Eu já perdi a paciência com o grupo de vocês.",
-        "2Eu não sei.",
-        "1Fala logo, lobinha. Eu não quero precisar duelar com você de novo.",
-        "2Eu não sei!",
-        "1Alguma coisa eu sei que você sabe.",
-        "2O máximo que eu sei é que você pode ter mais informações com o coveiro.",
-        "1Qual o nome do coveiro?",
-        "2José...",
-        "2*José do caixão."
-    };
-
-    Dialogo dialogo(falas, fluxo, incrementos);
-    dialogo.dialogar("GERALDINA", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
-}
-
 void dialogoNivel4Pt2(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
     std::map<short int, bool> fluxo;
     std::string **opcoes;
@@ -1742,41 +1728,7 @@ void dialogoNivel4Pt3(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, 
         "1Imagino que seja o tal José do Caixão.",
         "2Eu mesmo.",
         "1Blá blá blá, eu to aqui pra acabar com vocês, pipipi popopo, pega o revólver e vamos.",
-        "2*Pessoal do roteiro  tá numa preguiça danada, hein."
-    };
-
-    Dialogo dialogo(falas, fluxo, incrementos);
-    dialogo.dialogar("JOSÉ DO CAIXÃO", opcoes, rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
-}
-
-void dialogoNivel5Pt1(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int cont, Protagonista *Player, Interacao *botao){
-    std::map<short int, bool> fluxo;
-    fluxo.insert(std::pair<short int, bool> (2, true));
-
-    std::string **opcoes = new std::string*;
-    opcoes[0] = new std::string[2] {"JOHNNY? (Z)", "ONDE? (X)"};
-
-    short int **incrementos = new short int*;
-    incrementos[0] = new short int[2] {1, 9};
-
-
-    icone = al_load_bitmap("./../assets/icone-coveiro.bmp");
-    std::string *falas = new std::string[15] {
-        "1A coiote disse que você sabe quem começou isso tudo aqui.",
-        "1É o fim da linha, parceiro. Quem é o líder disso tudo?",
-        "2O nome dele é Johnny.",
-        "1Quem diabos é Johnny?"
-        "2Cash...",
-        "1Não, pera, o cantor?",
-        "2Sua alma estava há dias me assombrando, dizendo que queria voltar para este mundo.",
-        "1E por que permitiu isso? Sua gangue aterrorizou toda a cidade, matou pessoas!",
-        "2O meu caixãozinho... Ele estava tão triste... Há tempos não enterrava ninguém!",
-        "1...",
-        "2Eu fiz isso por ele! Só por ele...",
-        "1E onde ele está?",
-        "2Na cabana mal assombrada da floresta... Ele comandou isso tudo por lá.",
-        "2Mas antes de ir... Tome isso... São munições especiais, contra fantasmas.",
-        "1*Obrigado, José"
+        "2*Pessoal do roteiro tava numa preguiça danada, hein."
     };
 
     Dialogo dialogo(falas, fluxo, incrementos);

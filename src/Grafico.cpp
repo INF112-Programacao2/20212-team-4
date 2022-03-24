@@ -122,14 +122,14 @@ void redesenhar(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d
 
 
     if(botao->interacaoProxima('2') && !Player->_dialogo){//caso haja uma interacao proxima e o personagem não esteja na loja
-        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(610), 0.85*res_y_comp, 0,"Aperte          para Interagir");
-        al_draw_scaled_bitmap(botaointeracao, 0,  0, 18, 18, RES_WIDTH(770), 0.85*res_y_comp, RES_WIDTH(18*ZOOM), RES_HEIGHT(18*ZOOM), 0);
+        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(610), 0.885*res_y_comp, 0,"Aperte          para Interagir");
+        al_draw_scaled_bitmap(botaointeracao, 0,  0, 18, 18, RES_WIDTH(770), 0.885*res_y_comp, RES_WIDTH(18*ZOOM), RES_HEIGHT(18*ZOOM), 0);
     }
     else if(Player->getVida()<Player->getMaxVida() && Player->qtdItem("Comida")>0){
         //caso o player tenha comida no inventário e não esteja com a vida completa
         //ele recebe a seguinte mensagem:
-        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(610), 0.85*res_y_comp, 0,"Aperte          para comer");
-        al_draw_scaled_bitmap(botaocomer, 0,  0, 18, 18, RES_WIDTH(770), 0.85*res_y_comp, RES_WIDTH(18*ZOOM), RES_HEIGHT(18*ZOOM), 0);
+        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(610), 0.885*res_y_comp, 0,"Aperte          para comer");
+        al_draw_scaled_bitmap(botaocomer, 0,  0, 18, 18, RES_WIDTH(770), 0.885*res_y_comp, RES_WIDTH(18*ZOOM), RES_HEIGHT(18*ZOOM), 0);
     }
 
     int posicao = 0;
@@ -255,7 +255,10 @@ bool Dialogo::dialogar(std::string npc, std::string **opcoes, bool rel, bool cha
     Player->_dialogo = true;
     std::string fala;
 
-    if(!BATALHA_JOSE && Player->getNivel() < 6) ajustarCamera(rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+    if(!BATALHA_JOSE && Player->getNivel() < 6){
+        ajustarCamera(rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);
+        BATALHA_JOSE = false;
+    }
 
     while(true){
         al_wait_for_event(event_queue, &evdialogo);
@@ -305,8 +308,12 @@ bool Dialogo::dialogar(std::string npc, std::string **opcoes, bool rel, bool cha
             al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(355), 0.895*res_y_comp, 0, Player->getNome().c_str());
         }
         else {
+            int pos;
+            if(npc.length() <= 10) pos = 355;
+            else pos = 340;
+
             al_draw_scaled_bitmap(icone, 0, 0, 18, 18, RES_WIDTH(348), RES_HEIGHT(825), RES_WIDTH(128), RES_HEIGHT(128), 0);
-            al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(355), 0.895*res_y_comp, 0, npc.c_str());
+            al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(pos), 0.895*res_y_comp, 0, npc.c_str());
         }
         al_flip_display();
 
@@ -327,22 +334,18 @@ bool Dialogo::dialogar_batalha(std::string npc, std::string **opcoes, int nivel,
     std::string fala;
 
     while(true){
-        al_wait_for_event(event_queue, &evdialogo);
 
+        al_wait_for_event(event_queue, &evdialogo);
         al_clear_to_color(al_map_rgb(238,202,169));
 
-        std::cout << "oi\n";
         if(nivel == 3)
-            img_vilao = al_load_bitmap("./../assets/coiote-morta.bmp");
+            al_draw_scaled_bitmap(geraldina_morta, 0, 0, 240, 135, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
 
-        if(nivel == 4)
-            img_vilao = al_load_bitmap("./../assets/coveiro-morto.bmp");
-        std::cout << "oi\n";
+        else
+            al_draw_scaled_bitmap(jose_morto, 0, 0, 240, 135, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
 
+        
         al_draw_scaled_bitmap(player_batalha, 0, 0, 129, 68, 0, 0,  1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0); 
-        al_draw_scaled_bitmap(img_vilao, 0, 0, 240, 135, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
-        std::cout << "oi\n";
-
 
         if(this->_dialogos[this->posicao_atual_dialogo][1] == '*'){
             fala = this->_dialogos[this->posicao_atual_dialogo].substr(2, this->_dialogos[this->posicao_atual_dialogo].length()-2);
@@ -485,6 +488,42 @@ void Dialogo::dialogar_lojista(bool rel, bool chav, bool poc, bool d1, bool d2, 
 
             if(verificarTecla()) break; //se o usuario apertar espaco, a interacao com a loja termina
         }
+    }
+
+    resetTeclas();
+    Player->_dialogo = false; //o dialogo com o lojista termina
+}
+
+void Dialogo::dialogar_lojista_brinde(bool rel, bool chav, bool poc, bool d1, bool d2, bool d3, bool d4, short int &cont, Protagonista *Player, Interacao *botao){
+    Player->_dialogo = true; //o dialogo com o lojista esta em andamento
+    this->posicao_atual_dialogo = 0;
+    this->_fluxo[0] = false;
+    keys[ALLEGRO_KEY_SPACE] = false;
+
+    ajustarCamera(rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);//efeito de reposicionar a camera
+    icone = al_load_bitmap("./../assets/icone-comerciante.bmp");
+
+    while(true){//enquanto o player estiver interagindo com a loja
+        al_wait_for_event(event_queue, &evdialogo);//capturando um evento
+
+        //quando o player decicide interagir com o loja, ele recebe a seguinte mensagem:
+        redesenhar(rel, chav, poc, d1, d2, d3, d4, cont, Player, botao);//todos os elementos do mapa são redesenhados
+        al_draw_scaled_bitmap(caixa_texto, 0, 0, 1520, 1080, 0, 0, 1520*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+
+        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(520), 0.80*res_y_comp, 0, 
+            "Você tem sido muito bom pra essa vila! Creio que ");
+        al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(520), 0.85*res_y_comp, 0, 
+            "deva agradecê-lo... Tome essa recompensa!");
+        al_draw_textf(font10, al_map_rgb(58,15,43), RES_WIDTH(1360), 0.91*res_y_comp, 0, "Espaço >");
+
+        if(!buy_made)
+            Player->addItem("Comida", 5);
+
+        buy_made = true; //ou seja, a compra ainda não foi feita
+        al_draw_scaled_bitmap(icone, 0, 0, 18, 18, RES_WIDTH(348), RES_HEIGHT(825), RES_WIDTH(128), RES_HEIGHT(128), 0);
+        al_flip_display();
+
+        if(verificarTecla()) break; //dependendo da tecla que for pressionada, a posicao_atual_dialogo muda de valor
     }
 
     resetTeclas();
@@ -635,54 +674,54 @@ void telaGameOver(bool reiniciar){
 }
 
 void Final(bool reiniciar){
-    
+    int acrescimo = 10;
 
     al_clear_to_color(al_map_rgb(0,0,0));
-    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(100), ALLEGRO_ALIGN_CENTRE, "DESENVOLVEDORES");
-    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(150), ALLEGRO_ALIGN_CENTRE, "André Luiz");
-    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(200), ALLEGRO_ALIGN_CENTRE, "Bárbara Cristina");
-    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(250), ALLEGRO_ALIGN_CENTRE, "Lara Colorida");
-    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(300), ALLEGRO_ALIGN_CENTRE, "Maria Victória");
-    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(350), ALLEGRO_ALIGN_CENTRE, "Saulo Henrique");
+    al_draw_textf(font_titulo, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(60), ALLEGRO_ALIGN_CENTRE, "DESENVOLVEDORES");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(160), ALLEGRO_ALIGN_CENTRE, "André Luiz");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(210), ALLEGRO_ALIGN_CENTRE, "Bárbara Cristina");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(260), ALLEGRO_ALIGN_CENTRE, "Lara Colorida");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(310), ALLEGRO_ALIGN_CENTRE, "Maria Victória");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(360), ALLEGRO_ALIGN_CENTRE, "Saulo Henrique");
     al_flip_display();
     al_rest(5.0);
 
     al_clear_to_color(al_map_rgb(0,0,0));
-    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(100), ALLEGRO_ALIGN_CENTRE, "GRÁFICOS E DESIGN");
-    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(150), ALLEGRO_ALIGN_CENTRE, "Lara Colorida");
-    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(200), ALLEGRO_ALIGN_CENTRE, "Estúdio Vaca Roxa");
+    al_draw_textf(font_titulo, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(60), ALLEGRO_ALIGN_CENTRE, "GRÁFICOS E DESIGN");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(160), ALLEGRO_ALIGN_CENTRE, "Lara Colorida");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(210), ALLEGRO_ALIGN_CENTRE, "Estúdio Vaca Roxa");
     al_flip_display();
     al_rest(5.0);
 
     al_clear_to_color(al_map_rgb(0,0,0));
-    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(100), ALLEGRO_ALIGN_CENTRE, "SONOGRAFIA");
-    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(150), ALLEGRO_ALIGN_CENTRE, "André Luiz");
+    al_draw_textf(font_titulo, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(60), ALLEGRO_ALIGN_CENTRE, "SONOGRAFIA");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(160), ALLEGRO_ALIGN_CENTRE, "André Luiz");
     al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(200), ALLEGRO_ALIGN_CENTRE, "CD Project Red");
-    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(250), ALLEGRO_ALIGN_CENTRE, "Faixa: Hunt or Be Hunted");
+    al_draw_textf(font_faixas, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(250), ALLEGRO_ALIGN_CENTRE, "Faixa: Hunt or Be Hunted");
     al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(300), ALLEGRO_ALIGN_CENTRE, "Ennio Morricone");
-    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(350), ALLEGRO_ALIGN_CENTRE, "Faixa: The Good, The Bad and The Ugly");
+    al_draw_textf(font_faixas, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(350), ALLEGRO_ALIGN_CENTRE, "Faixa: The Good, The Bad and The Ugly");
     al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(400), ALLEGRO_ALIGN_CENTRE, "Guilherme Arantes");
-    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(450), ALLEGRO_ALIGN_CENTRE, "Faixa: Kyrie");
+    al_draw_textf(font_faixas, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(450), ALLEGRO_ALIGN_CENTRE, "Faixa: Kyrie");
     al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(500), ALLEGRO_ALIGN_CENTRE, "Johnny Cash");
-    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(550), ALLEGRO_ALIGN_CENTRE, "Faixas: Hurt, Lorena, Folsom Prison Blues e I Walk the Line");
+    al_draw_textf(font_faixas, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(550), ALLEGRO_ALIGN_CENTRE, "Faixas: Hurt, Lorena, Folsom Prison Blues e I Walk the Line");
     al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(600), ALLEGRO_ALIGN_CENTRE, "Rockstar Games");
-    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(650), ALLEGRO_ALIGN_CENTRE, "Faixa: American Venom");
+    al_draw_textf(font_faixas, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(650), ALLEGRO_ALIGN_CENTRE, "Faixa: American Venom");
     al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(700), ALLEGRO_ALIGN_CENTRE, "Stan Jones");
-    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(750), ALLEGRO_ALIGN_CENTRE, "Faixa: Ghosts Riders in The Sky");
+    al_draw_textf(font_faixas, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(750), ALLEGRO_ALIGN_CENTRE, "Faixa: Ghosts Riders in The Sky");
     al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(800), ALLEGRO_ALIGN_CENTRE, "The Highwaymen");
-    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(850), ALLEGRO_ALIGN_CENTRE, "Faixa: Highwaymen");
+    al_draw_textf(font_faixas, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(850), ALLEGRO_ALIGN_CENTRE, "Faixa: Highwaymen");
     al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(900), ALLEGRO_ALIGN_CENTRE, "Willie Nelson");
-    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(950), ALLEGRO_ALIGN_CENTRE, "Faixas: Hard to Be an Outlaw e I've got a Lot of Traveling to Do");
+    al_draw_textf(font_faixas, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(950), ALLEGRO_ALIGN_CENTRE, "Faixas: Hard to Be an Outlaw e I've got a Lot of Traveling to Do");
     al_flip_display();
     al_rest(5.0);
 
     al_clear_to_color(al_map_rgb(0,0,0));
-    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(100), ALLEGRO_ALIGN_CENTRE, "ROTEIRO");
-    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(150), ALLEGRO_ALIGN_CENTRE, "André Luiz");
-    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(200), ALLEGRO_ALIGN_CENTRE, "Bárbara Cristina");
-    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(250), ALLEGRO_ALIGN_CENTRE, "Lara Colorida");
-    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(300), ALLEGRO_ALIGN_CENTRE, "Maria Victória");
-    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(350), ALLEGRO_ALIGN_CENTRE, "Saulo Henrique");
+    al_draw_textf(font_titulo, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(60), ALLEGRO_ALIGN_CENTRE, "ROTEIRO");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(160), ALLEGRO_ALIGN_CENTRE, "André Luiz");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(210), ALLEGRO_ALIGN_CENTRE, "Bárbara Cristina");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(260), ALLEGRO_ALIGN_CENTRE, "Lara Colorida");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(310), ALLEGRO_ALIGN_CENTRE, "Maria Victória");
+    al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), RES_HEIGHT(360), ALLEGRO_ALIGN_CENTRE, "Saulo Henrique");
     al_flip_display();
     al_rest(5.0);
     
@@ -693,7 +732,7 @@ void Final(bool reiniciar){
         if(evmorte.type == ALLEGRO_EVENT_TIMER){
             al_clear_to_color(al_map_rgb(0,0,0));
             al_draw_textf(font15, al_map_rgb(255,255,255), RES_WIDTH(60*CELULA), 0.5*res_y_comp, ALLEGRO_ALIGN_CENTRE,"Aperte               para reiniciar");
-            al_draw_scaled_bitmap(botaoreiniciar, 0,  0, 34, 20, RES_WIDTH(800), 0.5*res_y_comp, RES_WIDTH(34*ZOOM), RES_HEIGHT(18*ZOOM), 0);
+            al_draw_scaled_bitmap(botaoreiniciar, 0,  0, 35, 14, RES_WIDTH(828), 0.5*res_y_comp + RES_HEIGHT(5), RES_WIDTH(35*ZOOM), RES_HEIGHT(14*ZOOM), 0);
         }
         al_flip_display();
         if(enterToReset()) break;

@@ -159,6 +159,7 @@ extern ALLEGRO_BITMAP *aperteM; // variavel que vai receber o botao para abrir o
 extern ALLEGRO_BITMAP *aperteO; // variavel que vai receber o botao para abrir os objetivos
 extern ALLEGRO_BITMAP *img_vilao;
 extern ALLEGRO_BITMAP *img_vilao_dano;
+extern ALLEGRO_FONT *font_faixas; 
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
 // Matriz do mapa.
