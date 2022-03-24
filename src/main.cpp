@@ -645,6 +645,7 @@ void interagir(){
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
             Player->subItem(Pocao->getNome(), 1);
             Missao_Pocao->finish();
+            MAPA[13][30] = '0';
         }
 
         else if(Missao_Pocao->getinicializada() == true && Player->qtdItem("Pocao") == 1 && Player->getNivel() == 5){
@@ -858,6 +859,7 @@ void resetGame(){
     if(Player->isDead()){
         al_stop_samples();
         al_play_sample(death_song, 0.8, 0, 1, ALLEGRO_PLAYMODE_ONCE, NULL);
+        Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
 
         Player->setVida(Player->getMaxVida());
         telaGameOver(reiniciar);
