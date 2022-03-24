@@ -116,7 +116,7 @@ int main(int argc, char **argv){
         Nivel1->_etapa = 1;
         ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
 
-        setNivel(Player, 1);
+        setNivel(Player, 1, Missao_Espingarda, Missao_Chave, Missao_Pocao, Missao_Relogio);
         Lista->atualizaPrincipal(Nivel1, Nivel2, Nivel3, Nivel4, Nivel5, Player);
         Lista->atualizaSecundaria(Missao_Espingarda, Missao_Relogio, Missao_Chave, Missao_Pocao, Player);
         while(Player->getNivel()==1){
@@ -160,7 +160,7 @@ int main(int argc, char **argv){
         Nivel2->_etapa = 1;
         ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
 
-        setNivel(Player, 2);
+        setNivel(Player, 2, Missao_Espingarda, Missao_Chave, Missao_Pocao, Missao_Relogio);
         Lista->atualizaPrincipal(Nivel1, Nivel2, Nivel3, Nivel4, Nivel5, Player);
         Lista->atualizaSecundaria(Missao_Espingarda, Missao_Relogio, Missao_Chave, Missao_Pocao, Player);
         while(Player->getNivel()==2){
@@ -204,7 +204,7 @@ int main(int argc, char **argv){
         Nivel3->_etapa = 1;
         ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
 
-        setNivel(Player, 3);
+        setNivel(Player, 3, Missao_Espingarda, Missao_Chave, Missao_Pocao, Missao_Relogio);
         if(Player->getNivel() == 3) Player->addItem("Estrela de Xerife", 1);
         Lista->atualizaPrincipal(Nivel1, Nivel2, Nivel3, Nivel4, Nivel5, Player);
         Lista->atualizaSecundaria(Missao_Espingarda, Missao_Relogio, Missao_Chave, Missao_Pocao, Player);
@@ -256,7 +256,7 @@ int main(int argc, char **argv){
         Nivel4->_etapa = 1;
         ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
 
-        setNivel(Player, 4);
+        setNivel(Player, 4, Missao_Espingarda, Missao_Chave, Missao_Pocao, Missao_Relogio);
         Lista->atualizaPrincipal(Nivel1, Nivel2, Nivel3, Nivel4, Nivel5, Player);
         Lista->atualizaSecundaria(Missao_Espingarda, Missao_Relogio, Missao_Chave, Missao_Pocao, Player);
         while(Player->getNivel()==4){
@@ -302,7 +302,7 @@ int main(int argc, char **argv){
         Nivel5->_etapa = 1;
         ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
 
-        setNivel(Player, 5);
+        setNivel(Player, 5, Missao_Espingarda, Missao_Chave, Missao_Pocao, Missao_Relogio);
         Lista->atualizaPrincipal(Nivel1, Nivel2, Nivel3, Nivel4, Nivel5, Player);
         Lista->atualizaSecundaria(Missao_Espingarda, Missao_Relogio, Missao_Chave, Missao_Pocao, Player);
         while(Player->getNivel()==5){

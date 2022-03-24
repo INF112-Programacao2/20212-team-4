@@ -192,7 +192,7 @@ extern double TELA_Y_MAPA;
  * 
  */
 bool inicializaJogo();
-void setNivel(Protagonista* Player, int nivel);
+void setNivel(Protagonista *Player, int nivel, MissaoSecundaria *Sec1, MissaoSecundaria *Sec2, MissaoSecundaria *Sec3, MissaoSecundaria *Sec4);
 void resetCamera(short int x, short int y);
 void resetTeclas();
 
