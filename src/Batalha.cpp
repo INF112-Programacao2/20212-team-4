@@ -131,47 +131,58 @@ void resetBatalha(Inimigo *vilao, Inimigo *vilao2){
     cont = 0;
     ataque_do_vilao;
 
-    if(vilao != nullptr)
-        delete vilao;
 
     if(vilao->getNome() == "Billy"){
-        vilao = new Inimigo("Billy", 21, 2, 3);
+        vilao->_total_ataques = 2;
+        vilao->_total_curas = 3;
+        vilao->_curas_usadas = 0;
+        vilao->setVida(21);
         vilao->addAtaque("Tiro de Revólver", 0, -2);
         vilao->addAtaque("Cura", 0, 1);
     }
 
     else if(vilao->getNome() == "Xerife Espeto"){
-        vilao = new Inimigo("Xerife Espeto", 40, 3, 3);
+        vilao->_curas_usadas = 0;
+        vilao->_total_ataques = 3;
+        vilao->_total_curas = 3;
+        vilao->setVida(40);
         vilao->addAtaque("Tiro de Revólver", 0, -4);
         vilao->addAtaque("Espinhos", 0, -3);
         vilao->addAtaque("Cura", 0, 2);
     }
 
     else if(vilao->getNome() == "Geraldina"){
-        vilao = new Inimigo("Geraldina", 21, 2, 3);
+        vilao->_curas_usadas = 0;
+        vilao->_total_ataques = 3;
+        vilao->_total_curas = 3;
+        vilao->setVida(58);
         vilao->addAtaque("Garras", 0, -9);
         vilao->addAtaque("Mordida", 0, -2);
         vilao->addAtaque("Cura", 0, 3);
     }
 
     else if(vilao->getNome() == "José do Caixão"){
-        if(vilao2 != nullptr)
-            delete vilao2;
-
-        vilao = new Inimigo("José do Caixão", 80, 3, 3);
-        vilao2 = new Inimigo("Caixão do José", 60, 3, 3);
-
+        vilao->_curas_usadas = 0;
+        vilao->_total_ataques = 3;
+        vilao->_total_curas = 3;
+        vilao->setVida(80);
         vilao->addAtaque("Tiro de Revólver", 0, -5);
         vilao->addAtaque("Pá", 0, -1);
         vilao->addAtaque("Cura", 0, 3);
 
+        vilao->_total_ataques = 3;
+        vilao->_total_curas = 3;
+        vilao2->setVida(60);
         vilao2->addAtaque("Mordida Fúnebre", 0, -3);
         vilao2->addAtaque("Pá", 0, -1);
         vilao2->addAtaque("Cura", 0, 60);
     }
 
     else if(vilao->getNome() == "Johnny Cash"){
-        vilao = new Inimigo("Johnny Cash", 80, 4, 3);
+        vilao->_curas_usadas = 0;
+        vilao->_total_ataques = 4;
+        vilao->_total_curas = 3;
+        vilao->setVida(75);
         vilao->addAtaque("Assombração", 0, -15);
         vilao->addAtaque("Desafinação", 0, -3);
         vilao->addAtaque("Tiro espectral", 0, -4);

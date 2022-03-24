@@ -11,7 +11,7 @@ bool buy_made; //variavel que define se o player ja fez ou nao a compra
 void minimap(){
     if(keys[ALLEGRO_KEY_M]){
         al_draw_scaled_bitmap(mini_map, 0, 0, 1714, 1282, 256, 10, RES_WIDTH(1714)*0.85, RES_HEIGHT(1282)*0.85, 0);
-        al_draw_scaled_bitmap(player_minimap, 0, 0, 12, 12, EIXO_X_MINIMAP, EIXO_Y_MINIMAP, RES_WIDTH(12), RES_HEIGHT(12), 0);
+        al_draw_scaled_bitmap(player_minimap, 0, 0, 12, 12, RES_WIDTH(EIXO_X_MINIMAP), RES_HEIGHT(EIXO_Y_MINIMAP), RES_WIDTH(12), RES_HEIGHT(12), 0);
     }
 }
 

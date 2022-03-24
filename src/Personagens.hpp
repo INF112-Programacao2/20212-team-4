@@ -192,12 +192,10 @@ class Protagonista : public Personagem{
  * @brief Esta classe define os atributos e métodos utilizados apenas pelos inimigos.
  * 
  */
-class Inimigo : public Personagem{
-    private:
+class Inimigo : public Personagem{        
+    public:
         short int _total_curas;
         short int _curas_usadas;
-        
-    public:
         short int _total_ataques;
         /*Método Construtor
         **/
