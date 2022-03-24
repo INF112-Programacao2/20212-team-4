@@ -37,7 +37,7 @@
 <b>:cowboy_hat_face: BAIXAR OS ARQUIVOS</b><br><br>
 <p align=justify>Para baixar os arquivos em seu computador, vá em Code -> Download ZIP e salve o arquivo compactado onde desejar!<br>
 <img alt="print" title="print" src="https://user-images.githubusercontent.com/92737180/160021595-c8fbbfa5-184a-4044-9b93-8c389125dd7b.png"></p>
-<br><br>
+<br>
 
 <p align=justify>Depois, clique com o botão direito direto do mouse nele e selecione <b>"Extrair aqui"</b>.</p><br>
 <img alt="print" title="print" src="https://user-images.githubusercontent.com/92737180/160021825-cf7d86e4-88d7-46d1-9519-8d1d283cdb1a.png">
@@ -47,8 +47,7 @@
 <b>:cowboy_hat_face: ADIÇÃO DO MINGW NAS VARIÁVEIS DE AMBIENTE</b><br><br>
 <p align=justify>Se esta parte lhe parece muito técnica, não se preocupe! Para isso, você não precisar ter o gatilho mais rápido do velho oeste! Acesse <b>https://drive.google.com/drive/folders/1bauTrrAK9UKedWnj19keHuFpxH_UX67X?usp=sharing</b> e faça o download do arquivo compactado que deixamos lá para você! (Não se preocupe se o Google lhe fornecer um aviso, caubói, o arquivo é grande demais para a carroça do GitHub e para o Google verificar se há virús, mas juramos que ele não faz mal).</p><br>
 <img alt="print" title="print" src="https://user-images.githubusercontent.com/92737180/160021927-11eb6b32-ae3b-457a-8724-f59eaaf82422.png">
-<br><br>
-
+<br>
 
 <p align=justify>Ao realizar o mesmo processo de extração que fizemos para o arquivo "20212-team-4-main", haverá uma pasta chamada "20212-team-4-main". Abra-a, vá para o diretório <b>bin</b> e copie o endereço desta pasta.</p><br>
 <img alt="print" title="print" src="https://user-images.githubusercontent.com/92737180/160021988-c422d3d7-d955-44ea-b563-8c75846862e7.png">
@@ -75,8 +74,7 @@
 <br><br>
 <b>:cowboy_hat_face: EXECUTAR O JOGO</b><br><br>
 <p align=justify>Para executar o jogo no seu computador, basta procurar pela pasta em que você descompactou os arquivos, clicar em "jogo" e, então, sua aventura começará!</p>
-<br><br>
-
+<br>
 
 <h2 id="devs">:cowboy_hat_face: Desenvolvedores:</h3>
 <a href="https://github.com/andrefeijosantos"><img alt="André Luiz" title="André Luiz" src="https://user-images.githubusercontent.com/92737180/155859397-1b3ea701-f098-45c8-822a-6ca773ec52c8.png"></a>
