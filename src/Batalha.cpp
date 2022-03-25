@@ -156,7 +156,7 @@ void resetBatalha(Inimigo *vilao, Inimigo *vilao2){
         vilao->_total_ataques = 3;
         vilao->_total_curas = 3;
         vilao->setVida(58);
-        vilao->addAtaque("Garras", 0, -9);
+        vilao->addAtaque("Garras", 0, -7);
         vilao->addAtaque("Mordida", 0, -2);
         vilao->addAtaque("Cura", 0, 3);
     }

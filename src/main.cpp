@@ -191,7 +191,7 @@ int main(int argc, char **argv){
         dano_revolver="A: (02/06)";
         Player->addAtaque("Shurikens", 3, 4);
 
-        Geraldina->addAtaque("Garras", 0, -9);
+        Geraldina->addAtaque("Garras", 0, -7);
         Geraldina->addAtaque("Mordida", 0, -2);
         Geraldina->addAtaque("Cura", 0, 3);
 
