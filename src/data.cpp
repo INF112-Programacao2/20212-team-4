@@ -133,6 +133,7 @@ ALLEGRO_BITMAP *aperteM = NULL; // variavel que vai receber o botao para abrir o
 ALLEGRO_BITMAP *aperteO = NULL; // variavel que vai receber o botao para abrir os objetivos
 ALLEGRO_BITMAP *img_vilao= NULL;
 ALLEGRO_BITMAP *img_vilao_dano= NULL;
+ALLEGRO_BITMAP *objetivos_fundo = NULL;
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
 // Matriz do mapa.
@@ -931,6 +932,12 @@ bool inicializaJogo() {
 
     aperteO = al_load_bitmap("./../assets/aperteO.bmp");
     if(!aperteO){
+        throw BitmapNotFound(game, timer);
+        return false;
+    }
+
+    objetivos_fundo = al_load_bitmap("./../assets/objetivos-fundo.bmp");
+    if(!objetivos_fundo){
         throw BitmapNotFound(game, timer);
         return false;
     }
