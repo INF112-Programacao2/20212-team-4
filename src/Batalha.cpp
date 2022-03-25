@@ -94,7 +94,7 @@ void dialogo_Jose(Protagonista *_Player){
         "1A coiote disse que você sabe quem começou isso tudo aqui.",
         "1É o fim da linha, parceiro. Quem é o líder disso tudo?",
         "2O nome dele é Johnny.",
-        "1Quem diabos é Johnny?"
+        "1Quem diabos é Johnny?",
         "2Cash...",
         "1Não, pera, o cantor?",
         "2Sua alma estava há dias me assombrando, dizendo que queria voltar para este mundo.",
