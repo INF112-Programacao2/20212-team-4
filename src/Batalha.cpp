@@ -156,7 +156,7 @@ void resetBatalha(Inimigo *vilao, Inimigo *vilao2){
         vilao->_total_ataques = 3;
         vilao->_total_curas = 3;
         vilao->setVida(58);
-        vilao->addAtaque("Garras", 0, -7);
+        vilao->addAtaque("Garras", 0, -6);
         vilao->addAtaque("Mordida", 0, -2);
         vilao->addAtaque("Cura", 0, 3);
     }
@@ -172,10 +172,10 @@ void resetBatalha(Inimigo *vilao, Inimigo *vilao2){
 
         vilao->_total_ataques = 3;
         vilao->_total_curas = 3;
-        vilao2->setVida(60);
+        vilao2->setVida(40);
         vilao2->addAtaque("Mordida Fúnebre", 0, -3);
         vilao2->addAtaque("Pá", 0, -1);
-        vilao2->addAtaque("Cura", 0, 60);
+        vilao2->addAtaque("Cura", 0, 40);
     }
 
     else if(vilao->getNome() == "Johnny Cash"){

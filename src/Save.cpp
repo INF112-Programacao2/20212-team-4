@@ -54,21 +54,29 @@ void GameSave::read_save(Protagonista *Player, MissaoSecundaria *Sec1, MissaoSec
     Player->setVida(value);
     data >> value;
     Player->setMaxVida(value);
-    data >> value;
-    Player->setDinheiro(value);
 
     data >> value;
+    Player->setDinheiro(value);
+    data >> value;
     Player->addItem("Comida", value);
+
     data >> value;
     Player->addItem("Espingarda", value);
     data >> value;
     Player->addItem("Chave", value);
-    if(value == 1) Int1->removeItem('1');
+    if(value == 1){
+        Int1->removeItem('1');
+    }
     data >> value;
     Player->addItem("Relogio", value);
-    if(value == 1) Int2->removeItem('1');
+    if(value == 1){
+        Int2->removeItem('1');
+    }
     data >> value;
     Player->addItem("Pocao", value);
+    if(value == 1){
+        Int3->removeItem('1');
+    }
 
     data >> value;
     if(value == 1) d1->removeItem('1');
@@ -91,7 +99,7 @@ void GameSave::read_save(Protagonista *Player, MissaoSecundaria *Sec1, MissaoSec
     data >> value;
     if(value == 1){
         Sec2->finish();
-        MAPA[28][54] = '1';
+        Int1->removeItem('1');
     }
     data >> value;
     if(value == 1) Sec2->setinicializadaTrue();
@@ -99,7 +107,7 @@ void GameSave::read_save(Protagonista *Player, MissaoSecundaria *Sec1, MissaoSec
     data >> value;
     if(value == 1) {
         Sec3->finish();
-        MAPA[39][65] = '1';
+        Int2->removeItem('1');
     }
     data >> value;
     if(value == 1) Sec3->setinicializadaTrue();
@@ -107,7 +115,7 @@ void GameSave::read_save(Protagonista *Player, MissaoSecundaria *Sec1, MissaoSec
     data >> value;
     if(value == 1) {
         Sec4->finish();
-        MAPA[13][31] = '1';
+        Int3->removeItem('1');
     }
     data >> value;
     if(value == 1) Sec4->setinicializadaTrue();

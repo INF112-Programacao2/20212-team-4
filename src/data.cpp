@@ -1009,10 +1009,10 @@ void setNivel(Protagonista *Player, int nivel, MissaoSecundaria *Sec1, MissaoSec
         if(!Sec2->completo()) MAPA[28][50] = 'F';
         else MAPA[28][50] = '0';
 
-        if(!Sec4->completo()) MAPA[13][30] = 'I';
+        if(!Sec3->completo()) MAPA[13][30] = 'I';
         else MAPA[13][30] = '0';
 
-        if(!Sec3->completo()) MAPA[39][63] = 'G';
+        if(!Sec4->completo()) MAPA[39][63] = 'G';
         else MAPA[39][63] = '0';
 
         if(!Sec1->completo()) MAPA[39][44] = MAPA[39][43] = 'H';
@@ -1048,10 +1048,10 @@ void setNivel(Protagonista *Player, int nivel, MissaoSecundaria *Sec1, MissaoSec
         if(!Sec2->completo()) MAPA[28][50] = 'F';
         else MAPA[28][50] = '0';
 
-        if(!Sec4->completo()) MAPA[13][30] = 'I';
+        if(!Sec3->completo()) MAPA[13][30] = 'I';
         else MAPA[13][30] = '0';
 
-        if(!Sec3->completo()) MAPA[39][63] = 'G';
+        if(!Sec4->completo()) MAPA[39][63] = 'G';
         else MAPA[39][63] = '0';
 
         if(!Sec1->completo()) MAPA[39][44] = MAPA[39][43] = 'H';
@@ -1085,10 +1085,10 @@ void setNivel(Protagonista *Player, int nivel, MissaoSecundaria *Sec1, MissaoSec
         if(!Sec2->completo()) MAPA[28][50] = 'F';
         else MAPA[28][50] = '0';
 
-        if(!Sec4->completo()) MAPA[13][30] = 'I';
+        if(!Sec3->completo()) MAPA[13][30] = 'I';
         else MAPA[13][30] = '0';
 
-        if(!Sec3->completo()) MAPA[39][63] = 'G';
+        if(!Sec4->completo()) MAPA[39][63] = 'G';
         else MAPA[39][63] = '0';
 
         if(!Sec1->completo()) MAPA[39][44] = MAPA[39][43] = 'H';
@@ -1114,6 +1114,7 @@ void setNivel(Protagonista *Player, int nivel, MissaoSecundaria *Sec1, MissaoSec
 
         resetCamera(15, 5); 
 
+        MAPA[49][16] = MAPA[49][17] = 'C';
         MAPA[27][88] = MAPA[28][88] = MAPA[27][89] = '1'; // Remove José do Caixão da matriz
         MAPA[16][7] = MAPA[16][8] = MAPA[17][7] = MAPA[17][8] = MAPA[17][9] = 'E'; // Adiciona Johnny Cash na matriz
         map= al_load_bitmap("./../assets/map5.bmp");
@@ -1121,10 +1122,10 @@ void setNivel(Protagonista *Player, int nivel, MissaoSecundaria *Sec1, MissaoSec
         if(!Sec2->completo()) MAPA[28][50] = 'F';
         else MAPA[28][50] = '0';
 
-        if(!Sec4->completo()) MAPA[13][30] = 'I';
+        if(!Sec3->completo()) MAPA[13][30] = 'I';
         else MAPA[13][30] = '0';
 
-        if(!Sec3->completo()) MAPA[39][63] = 'G';
+        if(!Sec4->completo()) MAPA[39][63] = 'G';
         else MAPA[39][63] = '0';
 
         if(!Sec1->completo()) MAPA[39][44] = MAPA[39][43] = 'H';

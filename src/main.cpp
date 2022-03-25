@@ -21,7 +21,7 @@ Protagonista *Player = new Protagonista(10, 3);
 Inimigo *Billy = new Inimigo("Billy", 21, 2, 3);
 Inimigo *Xerife_Espeto = new Inimigo("Xerife Espeto", 40, 3, 3);
 Inimigo *Jose_do_Caixao = new Inimigo("José do Caixão", 80, 3, 3);
-Inimigo *Caixao_do_Jose = new Inimigo("Caixão do José", 60, 3, 3);
+Inimigo *Caixao_do_Jose = new Inimigo("Caixão do José", 40, 3, 3);
 Inimigo *Geraldina = new Inimigo("Geraldina", 58, 3, 3);
 Inimigo *Johnny_Cash = new Inimigo("Johnny Cash", 75, 4, 3);
 
@@ -98,6 +98,8 @@ int main(int argc, char **argv){
         INICIO:
         Save->read_save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Chave, Relogio, Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
         Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
+
+        
 
         /* === NÍVEL UM === */
         // Neste nível, o jogador tem a batalha contra o pistoleiro Billy, em frente ao Saloon. Não há NPCs 
@@ -191,7 +193,7 @@ int main(int argc, char **argv){
         dano_revolver="A: (02/06)";
         Player->addAtaque("Shurikens", 3, 4);
 
-        Geraldina->addAtaque("Garras", 0, -7);
+        Geraldina->addAtaque("Garras", 0, -6);
         Geraldina->addAtaque("Mordida", 0, -2);
         Geraldina->addAtaque("Cura", 0, 3);
 
@@ -301,6 +303,7 @@ int main(int argc, char **argv){
         Johnny_Cash->addAtaque("Tiro espectral", 0, -4);
         Johnny_Cash->addAtaque("Cura", 0, 5);
 
+        Nivel4->_etapa = 2;
         Nivel5->_etapa = 1;
         ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
 
@@ -316,6 +319,7 @@ int main(int argc, char **argv){
                 break; 
             }
             if(ev0.type == ALLEGRO_EVENT_TIMER){  
+                std::cout << MAPA[i][j] << "\n";
                 redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                     !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
                 desenhaObjetivos();
@@ -630,7 +634,7 @@ void interagir(){
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
         }
 
-        else if(Missao_Chave->getinicializada() == true && Player->qtdItem("Chave") == 1){
+        else if(Missao_Chave->getinicializada() == true && Player->qtdItem("Chave") > 0){
             dialogoMissaoChavesPt2(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
             
@@ -638,6 +642,7 @@ void interagir(){
             Missao_Chave->finish();
             MAPA[28][50] = '0';
         }
+        std::cout << Missao_Chave->getinicializada() << " " << Player->qtdItem("Chave") << std::endl;
     }
 
     else if(Missao_Pocao->missaoProxima('I')){
@@ -713,6 +718,7 @@ void interagir(){
         else if(Missao_Relogio->getinicializada() == true && Player->qtdItem("Relogio") == 1){
             dialogoMissaoRelogioPt2(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                 !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+
             Player->subItem(Relogio->getNome(), 1);
             Missao_Relogio->pay(Player);
             Missao_Relogio->finish();
