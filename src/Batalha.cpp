@@ -739,9 +739,6 @@ void desenhar(Protagonista *_Player, Inimigo *_vilao){
 bool verificaTeclaBatalha(Protagonista *_Player, Inimigo *_vilao){
     if (ev2.type == ALLEGRO_EVENT_KEY_DOWN) {
         keys[ev2.keyboard.keycode] = true;
-        if(keys[ALLEGRO_KEY_ESCAPE]) {
-            return false;
-        }
 
         if(!player_atacou){
             switch (ev2.keyboard.keycode){
