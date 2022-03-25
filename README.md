@@ -49,7 +49,7 @@
 <img alt="print" title="print" src="https://user-images.githubusercontent.com/92737180/160021927-11eb6b32-ae3b-457a-8724-f59eaaf82422.png">
 <br>
 
-<p align=justify>Ao realizar o mesmo processo de extração que fizemos para o arquivo "20212-team-4-main", haverá uma pasta chamada "20212-team-4-main". Abra-a, vá para o diretório <b>bin</b> e copie o endereço desta pasta.</p><br>
+<p align=justify>Ao realizar o mesmo processo de extração que fizemos para o arquivo "20212-team-4-main", haverá uma pasta chamada "mingw64". Abra-a, vá para o diretório <b>bin</b> e copie o endereço desta pasta.</p><br>
 <img alt="print" title="print" src="https://user-images.githubusercontent.com/92737180/160021988-c422d3d7-d955-44ea-b563-8c75846862e7.png">
 <br>
 
