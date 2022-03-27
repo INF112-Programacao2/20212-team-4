@@ -79,6 +79,7 @@ bool brinde = false;
 int main(int argc, char **argv){
 
     /* COMECANDO A EXECUCAO DO JOGO*/
+try{
     if(inicializaJogo()){
         srand (time(NULL));
         MENU:
@@ -354,6 +355,17 @@ int main(int argc, char **argv){
         // delete Johnny_Cash;
         // Johnny_Cash = nullptr;
     }
+}catch (BitmapNotFound &e){
+    std::cout << e.what() << std::endl;
+}catch (InitNotDone &e){
+    std::cout << e.what() << std::endl;
+}catch (TimerNotCreated &e){
+    std::cout << e.what() << std::endl;
+}catch (DisplayNotCreated &e){
+    std::cout << e.what() << std::endl;
+}catch (EventQeueNotCreated &e){
+    std::cout << e.what() << std::endl;
+}
 
     Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
     if(Player != nullptr) delete Player;
