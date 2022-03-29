@@ -91,7 +91,6 @@ void GameSave::read_save(Protagonista *Player, MissaoSecundaria *Sec1, MissaoSec
     data >> value;
     if(value == 1){
         Sec1->finish();
-        MAPA[38][44] = '1';
     }
     data >> value;
     if(value == 1) Sec1->setinicializadaTrue();
@@ -144,7 +143,7 @@ void GameSave::reset_save(){
     // Reseta o nível e dados do player.
     data << "1\n";
     data << "10" << " " << "10" << "\n";
-    data << "4" << " " << "1" << "\n";
+    data << "5" << " " << "1" << "\n";
     data << "0" << " " << "0" << " " << "0" << " " << "0" << "\n";
     data << "0" << " " << "0" << " " << "0" << " " << "0" << "\n";
 

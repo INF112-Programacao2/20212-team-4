@@ -82,7 +82,9 @@ int main(int argc, char **argv){
     try{
         if(inicializaJogo()){
             srand (time(NULL));
+
             MENU:
+            std::cout << Player->qtdItem("Comida") << std::endl;
             al_stop_samples();
             al_play_sample(highwayman, 0.6, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
             while(true){
@@ -97,7 +99,9 @@ int main(int argc, char **argv){
             }
 
             INICIO:
+            std::cout << Player->qtdItem("Comida") << std::endl;
             Save->read_save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Chave, Relogio, Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
+            std::cout << Player->qtdItem("Comida") << std::endl;
             Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
 
             
@@ -118,10 +122,11 @@ int main(int argc, char **argv){
 
             Nivel1->_etapa = 1;
             ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
-
+            std::cout << Player->qtdItem("Comida") << std::endl;
             setNivel(Player, 1, Missao_Espingarda, Missao_Chave, Missao_Pocao, Missao_Relogio);
             Lista->atualizaPrincipal(Nivel1, Nivel2, Nivel3, Nivel4, Nivel5, Player);
             Lista->atualizaSecundaria(Missao_Espingarda, Missao_Relogio, Missao_Chave, Missao_Pocao, Player);
+            std::cout << Player->qtdItem("Comida") << std::endl;
             while(Player->getNivel()==1){
                 al_wait_for_event(event_queue, &ev0);
 
@@ -342,10 +347,10 @@ int main(int argc, char **argv){
             al_play_sample(ending_song, 0.6, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
 
             if(Player->getNivel() == 6){
+                Save->reset_save();
                 dialogoFinal(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                     !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
                 Final(reiniciar);
-                Save->reset_save();
                 if(reiniciar){
                     reiniciar = false;
                     goto MENU;
@@ -367,7 +372,9 @@ int main(int argc, char **argv){
         std::cout << e.what() << std::endl;
     }
 
-    Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
+    if(Player->getNivel() != 6)
+        Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
+
     if(Player != nullptr) delete Player;
     if(Billy != nullptr) delete Billy;
     if(Xerife_Espeto != nullptr) delete Xerife_Espeto;
@@ -672,7 +679,6 @@ void interagir(){
             Missao_Chave->finish();
             MAPA[28][50] = '0';
         }
-        std::cout << Missao_Chave->getinicializada() << " " << Player->qtdItem("Chave") << std::endl;
     }
 
     else if(Missao_Pocao->missaoProxima('I')){
