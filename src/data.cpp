@@ -1002,7 +1002,6 @@ void setNivel(Protagonista *Player, int nivel, MissaoSecundaria *Sec1, MissaoSec
         MAPA[56][70] = MAPA[56][71] = MAPA[57][70] = MAPA[57][71] = '0'; 
         MAPA[28][76] = '1';
         MAPA[29][40] = 'A';
-        MAPA[28][76] = '0';
 
         map= al_load_bitmap("./../assets/map2.bmp");
 
