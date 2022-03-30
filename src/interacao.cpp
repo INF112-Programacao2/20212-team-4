@@ -50,6 +50,7 @@ bool Interacao::itemProximo(unsigned char novoValor){
     return false;
 }
 
+/* FUNCAO QUE VERIFICA SE EXISTE UMA INTERAÇÃO QUALQUER PROXIMO AO JOGADOR */
 bool Interacao::interacaoProxima(unsigned char c){
     if((int)MAPA[i+2][j] > (int)c) return true;
     else if((int)MAPA[i+1][j-1] > (int)c) return true;
@@ -59,6 +60,7 @@ bool Interacao::interacaoProxima(unsigned char c){
     return false;
 }
 
+/* FUNCAO QUE VERIFICA SE EXISTE UMA MISSAO ESPECIFICA PROXIMO AO JOGADOR */
 bool Interacao::missaoProxima(unsigned char c){
     if(MAPA[i+2][j] == c) return true;
     else if(MAPA[i+1][j-1] == c) return true;

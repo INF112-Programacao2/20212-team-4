@@ -32,6 +32,7 @@ void MissaoSecundaria::pay(Protagonista *Player){
     Player->setDinheiro(Player->getDinheiro() + this->_recompensa);
 }
 
+/* FUNÇÃO QUE DEFINE QUAL MENSAGEM APARECERÁ NA TELA DE OBJETIVOS*/
 void Objetivos::atualizaPrincipal(Missao *Nivel1, Missao *Nivel2, Missao *Nivel3, Missao *Nivel4, Missao *Nivel5, Protagonista *Player){
     if(Player->getNivel() == 1){
         if(Nivel1->_etapa == 1){
@@ -73,6 +74,7 @@ void Objetivos::atualizaPrincipal(Missao *Nivel1, Missao *Nivel2, Missao *Nivel3
     }
 }
 
+/* FUNÇÃO QUE DEFINE QUAL MENSAGEM APARECERÁ NA TELA DE OBJETIVOS*/
 void Objetivos::atualizaSecundaria(MissaoSecundaria *espingarda, MissaoSecundaria *relogio, MissaoSecundaria *chave, MissaoSecundaria *pocao, Protagonista *Player){
     if(espingarda->getinicializada()){
         std::vector<std::string>::iterator it_etapa1 = _secundarias.begin();

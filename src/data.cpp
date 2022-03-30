@@ -249,6 +249,7 @@ double EIXO_Y_MINIMAP;
 double TELA_X_MAPA = 56;
 double TELA_Y_MAPA = 23;
 
+/* FUNÇÃO QUE INICIALIZA TODOS OS ELEMENTOS DO JOGO */
 bool inicializaJogo() {
     if(!al_init()){
         throw InitNotDone();

@@ -1,6 +1,8 @@
 #include "Grafico.hpp"
 #include "data.hpp"
 
+/* Esse arquivo contém as funções que desenham os gráficos na tela */
+
 #define PROP_PLAYER ((double) Player->getVida() / Player->getMaxVida())
 
 ALLEGRO_EVENT evdialogo;

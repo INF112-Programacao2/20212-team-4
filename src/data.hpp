@@ -82,8 +82,8 @@ extern ALLEGRO_BITMAP *contorno; // variavel que vai receber a imagem do contorn
 extern ALLEGRO_FONT *font15;  // variavel que vai receber a fonte do hud
 extern ALLEGRO_FONT *font10;  // variavel que vai receber a fonte do hud
 extern ALLEGRO_FONT *font13;  // variavel que vai receber a fonte do hud
-extern bool keys[ALLEGRO_KEY_MAX];
-extern ALLEGRO_BITMAP *caixa_texto;
+extern bool keys[ALLEGRO_KEY_MAX]; // variavel que vai armazenar quais teclas foram apertadas
+extern ALLEGRO_BITMAP *caixa_texto; // variavel que vai receber a imagem da caixa de texto
 extern ALLEGRO_BITMAP *game_over1; //variavel que vai receber a imagem do game over
 extern ALLEGRO_BITMAP *game_over2; //variavel que vai receber a imagem do game over
 extern ALLEGRO_BITMAP *game_over3; //variavel que vai receber a imagem do game over
@@ -97,14 +97,14 @@ extern ALLEGRO_BITMAP *game_over10; //variavel que vai receber a imagem do game 
 extern ALLEGRO_BITMAP *game_over11; //variavel que vai receber a imagem do game over
 extern ALLEGRO_BITMAP *game_over12; //variavel que vai receber a imagem do game over
 extern ALLEGRO_BITMAP *botaoreiniciar; // variavel que vai receber o botao para reiniciar
-extern ALLEGRO_BITMAP *icone;
-extern ALLEGRO_BITMAP *icone_player;
-extern ALLEGRO_BITMAP *mini_map;
-extern ALLEGRO_BITMAP *player_minimap;
-extern ALLEGRO_BITMAP *portao;
+extern ALLEGRO_BITMAP *icone; // variavel que vai receber os icones dos dialogos
+extern ALLEGRO_BITMAP *icone_player; // variavel que vai receber o icone do personagem
+extern ALLEGRO_BITMAP *mini_map; // variavel que vai receber o minimapa
+extern ALLEGRO_BITMAP *player_minimap; // variavel que vai receber o personagem no minimapa
+extern ALLEGRO_BITMAP *portao; // variavel que vai receber o portao do rancho
 extern ALLEGRO_BITMAP *botaoreiniciar;   // variavel que vai receber o botao para reiniciar
-extern bool PE_DE_COELHO_USADO;
-extern bool COQUETEL_MOLOTOV_USADO;
+extern bool PE_DE_COELHO_USADO; // variavel que armazena se o pe de coelho foi utilizado
+extern bool COQUETEL_MOLOTOV_USADO; // variavel que armazena se o coquetel molotov foi utilizado
 extern ALLEGRO_BITMAP *player_batalha;   // imagem do jogador para a batalha
 extern ALLEGRO_BITMAP *billy_batalha;   // imagem do inimigo para a batalha
 extern ALLEGRO_BITMAP *espeto_batalha;   // imagem do inimigo para a batalha
@@ -129,38 +129,38 @@ extern ALLEGRO_BITMAP *base_fantasma;  // base do fantasma na batalha
 extern ALLEGRO_BITMAP *menu;  // tela inicial
 extern ALLEGRO_BITMAP *titulo;  // titulo da tela inicial
 extern ALLEGRO_BITMAP *mapmenu;  // mapa da tela inicial
-extern ALLEGRO_BITMAP *tela_fundo;
-extern ALLEGRO_FONT *font_titulo;
-extern ALLEGRO_FONT *fontataques;
-extern ALLEGRO_BITMAP *caixa_nome;
-extern ALLEGRO_BITMAP *estrela;
-extern ALLEGRO_BITMAP *lifebar_batalhas;
-extern ALLEGRO_SAMPLE *ambient_song13;
-extern ALLEGRO_SAMPLE *ambient_song24;
-extern ALLEGRO_SAMPLE *ambient_song5;
-extern ALLEGRO_SAMPLE *ending_song;
-extern ALLEGRO_SAMPLE *battle1_song;
-extern ALLEGRO_SAMPLE *battle2_song;
-extern ALLEGRO_SAMPLE *battle3_song;
-extern ALLEGRO_SAMPLE *battle4_song;
-extern ALLEGRO_SAMPLE *battle5_song;
-extern ALLEGRO_SAMPLE *highwayman;
-extern ALLEGRO_SAMPLE *type_sound;
-extern ALLEGRO_SAMPLE *death_song;
-extern ALLEGRO_BITMAP *carregar;
-extern ALLEGRO_SAMPLE *desafinacao1;
-extern ALLEGRO_SAMPLE *desafinacao2;
-extern ALLEGRO_SAMPLE *desafinacao3;
+extern ALLEGRO_BITMAP *tela_fundo; // imagem da tela de fundo da batalha
+extern ALLEGRO_FONT *font_titulo; // fonte do titulo
+extern ALLEGRO_FONT *fontataques; // fonte dos ataques
+extern ALLEGRO_BITMAP *caixa_nome; //imagem da caixa com o nome
+extern ALLEGRO_BITMAP *estrela; // estrela do hud
+extern ALLEGRO_BITMAP *lifebar_batalhas; //barra de vida das batalhas
+extern ALLEGRO_SAMPLE *ambient_song13; // musica de ambientacao do niveis 1 e 3
+extern ALLEGRO_SAMPLE *ambient_song24; // musica de ambientacao do niveis 2 e 4
+extern ALLEGRO_SAMPLE *ambient_song5; // musica de ambientacao do nivel 5
+extern ALLEGRO_SAMPLE *ending_song; // musica de ambientacao do final
+extern ALLEGRO_SAMPLE *battle1_song; // musica da batalha 1
+extern ALLEGRO_SAMPLE *battle2_song; // musica da batalha 2
+extern ALLEGRO_SAMPLE *battle3_song; // musica da batalha 3
+extern ALLEGRO_SAMPLE *battle4_song; // musica da batalha 4
+extern ALLEGRO_SAMPLE *battle5_song; // musica da batalha 5
+extern ALLEGRO_SAMPLE *highwayman; // musica tema do jogo
+extern ALLEGRO_SAMPLE *type_sound; //indica o que deve ser tocado
+extern ALLEGRO_SAMPLE *death_song; // musica de morte
+extern ALLEGRO_BITMAP *carregar; //tela de carregamento
+extern ALLEGRO_SAMPLE *desafinacao1; //som do ataque desafinacao
+extern ALLEGRO_SAMPLE *desafinacao2; //som do ataque desafinacao
+extern ALLEGRO_SAMPLE *desafinacao3; //som do ataque desafinacao
 extern bool BATALHA_JOSE;
-extern const char *ajuda_cesar;
-extern ALLEGRO_BITMAP *telaFinal;
+extern const char *ajuda_cesar; //indica qual dica o cesar julio irá dizer
+extern ALLEGRO_BITMAP *telaFinal; //imagem da tela do final
 extern ALLEGRO_BITMAP *botaosair; // variavel que vai receber o botao para sair
 extern ALLEGRO_BITMAP *aperteM; // variavel que vai receber o botao para abrir o mapa
 extern ALLEGRO_BITMAP *aperteO; // variavel que vai receber o botao para abrir os objetivos
-extern ALLEGRO_BITMAP *img_vilao;
-extern ALLEGRO_BITMAP *img_vilao_dano;
-extern ALLEGRO_FONT *font_faixas; 
-extern ALLEGRO_BITMAP *objetivos_fundo;
+extern ALLEGRO_BITMAP *img_vilao; // variavel que vai receber a imagem do vilao
+extern ALLEGRO_BITMAP *img_vilao_dano; // variavel que vai receber a imagem do vilao tomando dano
+extern ALLEGRO_FONT *font_faixas; //fonte das faixas
+extern ALLEGRO_BITMAP *objetivos_fundo; // imagem de fundo da tela dos objetivos
 
 /* VARIÁVEIS DE MOVIMENTAÇÃO */
 // Matriz do mapa.
@@ -170,7 +170,7 @@ extern short int camI;
 extern short int camJ;
 extern short int valueIJcam;
 extern short int res_x_comp;
-extern short int res_y_comp;
+extern short int res_y_comp; 
 extern short int j; //posicao do personagem na matriz
 extern short int i; //posicao do personagem na matriz
 extern bool reiniciar;
