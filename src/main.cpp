@@ -79,293 +79,293 @@ bool brinde = false;
 int main(int argc, char **argv){
 
     /* COMECANDO A EXECUCAO DO JOGO*/
-    try{
-        if(inicializaJogo()){
-            srand (time(NULL));
-            MENU:
-            al_stop_samples();
-            al_play_sample(highwayman, 0.6, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
-            while(true){
-                al_wait_for_event(event_queue, &ev0);
-                telaMenu(reiniciar);
+try{
+    if(inicializaJogo()){
+        srand (time(NULL));
+        MENU:
+        al_stop_samples();
+        al_play_sample(highwayman, 0.6, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
+        while(true){
+            al_wait_for_event(event_queue, &ev0);
+            telaMenu(reiniciar);
+            if(reiniciar){
+                reiniciar = false;
+                goto INICIO;
+                break;
+            }
+            al_flip_display();
+        }
+
+        INICIO:
+        Save->read_save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Chave, Relogio, Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
+        Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
+
+        
+
+        /* === NÍVEL UM === */
+        // Neste nível, o jogador tem a batalha contra o pistoleiro Billy, em frente ao Saloon. Não há NPCs 
+        // no mapa para passar missões.
+        al_stop_samples();
+        al_play_sample(ambient_song13, 0.6, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
+
+        Player->addAtaque("Revólver", 1, 4);
+        dano_revolver="A: (01/04)";
+
+        Billy->addAtaque("Tiro de Revólver", 0, -2);
+        Billy->addAtaque("Cura", 0, 1);
+
+        al_start_timer(timer);
+
+        Nivel1->_etapa = 1;
+        ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
+
+        setNivel(Player, 1, Missao_Espingarda, Missao_Chave, Missao_Pocao, Missao_Relogio);
+        Lista->atualizaPrincipal(Nivel1, Nivel2, Nivel3, Nivel4, Nivel5, Player);
+        Lista->atualizaSecundaria(Missao_Espingarda, Missao_Relogio, Missao_Chave, Missao_Pocao, Player);
+        while(Player->getNivel()==1){
+            al_wait_for_event(event_queue, &ev0);
+
+            if(!to_move()) break; 
+            if(ev0.type == ALLEGRO_EVENT_TIMER){  
+                resetGame();
                 if(reiniciar){
                     reiniciar = false;
                     goto INICIO;
-                    break;
                 }
+
+                redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                    !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+                desenhaObjetivos();
+                minimap();
+
                 al_flip_display();
             }
+        }
 
-            INICIO:
-            Save->read_save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Chave, Relogio, Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
-            Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
+        // delete Billy;
+        // Billy = nullptr;
 
-            
+        Player->addAtaque("Revólver", 2, 5);
+        dano_revolver="A: (02/05)";
+        if(!COQUETEL_MOLOTOV_USADO) Player->addAtaque("Coquetel Molotov", 10, 15);
 
-            /* === NÍVEL UM === */
-            // Neste nível, o jogador tem a batalha contra o pistoleiro Billy, em frente ao Saloon. Não há NPCs 
-            // no mapa para passar missões.
-            al_stop_samples();
-            al_play_sample(ambient_song13, 0.6, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
+        Xerife_Espeto->addAtaque("Tiro de Revólver", 0, -4);
+        Xerife_Espeto->addAtaque("Espinhos", 0, -3);
+        Xerife_Espeto->addAtaque("Cura", 0, 2);
 
-            Player->addAtaque("Revólver", 1, 4);
-            dano_revolver="A: (01/04)";
+        /* === NÍVEL DOIS === */
+        // Neste nível, o jogador tem a batalha contra o Xerife Espeto, no deserto. Estão presentes todos
+        // os NPCs no mapa para passar missões, porém, ainda não é possível completar a missão da espingarda.
 
-            Billy->addAtaque("Tiro de Revólver", 0, -2);
-            Billy->addAtaque("Cura", 0, 1);
+        al_stop_samples();
+        al_play_sample(ambient_song24, 0.6, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
 
-            al_start_timer(timer);
+        Nivel2->_etapa = 1;
+        Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
+        ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
 
-            Nivel1->_etapa = 1;
-            ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
+        setNivel(Player, 2, Missao_Espingarda, Missao_Chave, Missao_Pocao, Missao_Relogio);
+        Lista->atualizaPrincipal(Nivel1, Nivel2, Nivel3, Nivel4, Nivel5, Player);
+        Lista->atualizaSecundaria(Missao_Espingarda, Missao_Relogio, Missao_Chave, Missao_Pocao, Player);
+        while(Player->getNivel()==2){
+            al_wait_for_event(event_queue, &ev0);
 
-            setNivel(Player, 1, Missao_Espingarda, Missao_Chave, Missao_Pocao, Missao_Relogio);
-            Lista->atualizaPrincipal(Nivel1, Nivel2, Nivel3, Nivel4, Nivel5, Player);
-            Lista->atualizaSecundaria(Missao_Espingarda, Missao_Relogio, Missao_Chave, Missao_Pocao, Player);
-            while(Player->getNivel()==1){
-                al_wait_for_event(event_queue, &ev0);
+            if(!to_move()) break; 
+            if(ev0.type == ALLEGRO_EVENT_TIMER){  
+                redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                    !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+                desenhaObjetivos();
+                minimap();
 
-                if(!to_move()) break; 
-                if(ev0.type == ALLEGRO_EVENT_TIMER){  
-                    resetGame();
-                    if(reiniciar){
-                        reiniciar = false;
-                        goto INICIO;
-                    }
-
-                    redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
-                        !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
-                    desenhaObjetivos();
-                    minimap();
-
-                    al_flip_display();
-                }
-            }
-
-            // delete Billy;
-            // Billy = nullptr;
-
-            Player->addAtaque("Revólver", 2, 5);
-            dano_revolver="A: (02/05)";
-            if(!COQUETEL_MOLOTOV_USADO) Player->addAtaque("Coquetel Molotov", 10, 15);
-
-            Xerife_Espeto->addAtaque("Tiro de Revólver", 0, -4);
-            Xerife_Espeto->addAtaque("Espinhos", 0, -3);
-            Xerife_Espeto->addAtaque("Cura", 0, 2);
-
-            /* === NÍVEL DOIS === */
-            // Neste nível, o jogador tem a batalha contra o Xerife Espeto, no deserto. Estão presentes todos
-            // os NPCs no mapa para passar missões, porém, ainda não é possível completar a missão da espingarda.
-
-            al_stop_samples();
-            al_play_sample(ambient_song24, 0.6, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
-
-            Nivel2->_etapa = 1;
-            Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
-            ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
-
-            setNivel(Player, 2, Missao_Espingarda, Missao_Chave, Missao_Pocao, Missao_Relogio);
-            Lista->atualizaPrincipal(Nivel1, Nivel2, Nivel3, Nivel4, Nivel5, Player);
-            Lista->atualizaSecundaria(Missao_Espingarda, Missao_Relogio, Missao_Chave, Missao_Pocao, Player);
-            while(Player->getNivel()==2){
-                al_wait_for_event(event_queue, &ev0);
-
-                if(!to_move()) break; 
-                if(ev0.type == ALLEGRO_EVENT_TIMER){  
-                    redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
-                        !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
-                    desenhaObjetivos();
-                    minimap();
-
-                    resetGame();
-                    if(reiniciar){
-                        reiniciar = false;
-                        goto INICIO;
-                    }
-
-                    al_flip_display();
-                }
-            }
-
-
-            // delete Xerife_Espeto;
-            // Xerife_Espeto = nullptr;
-            Player->addAtaque("Revólver", 2, 6);
-            dano_revolver="A: (02/06)";
-            Player->addAtaque("Shurikens", 3, 4);
-
-            Geraldina->addAtaque("Garras", 0, -6);
-            Geraldina->addAtaque("Mordida", 0, -2);
-            Geraldina->addAtaque("Cura", 0, 3);
-
-            /* === NÍVEL TRÊS === */
-            // Neste nível, o jogador tem a batalha contra Geraldina, no rancho. Estão presentes todos
-            // os NPCs no mapa para passar missões, porém, ainda não é possível completar a missão da espingarda.  
-            al_stop_samples();
-            al_play_sample(ambient_song13, 0.6, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
-
-            Nivel3->_etapa = 1;
-            Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
-            ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
-
-            setNivel(Player, 3, Missao_Espingarda, Missao_Chave, Missao_Pocao, Missao_Relogio);
-            if(Player->getNivel() == 3) Player->addItem("Estrela de Xerife", 1);
-            Lista->atualizaPrincipal(Nivel1, Nivel2, Nivel3, Nivel4, Nivel5, Player);
-            Lista->atualizaSecundaria(Missao_Espingarda, Missao_Relogio, Missao_Chave, Missao_Pocao, Player);
-            while(Player->getNivel()==3){
-                al_wait_for_event(event_queue, &ev0);
-
-                if(!to_move()){
-                    if(Nivel3->_etapa == 2) Player->setDinheiro(Player->getDinheiro() - 10);
-                    break;
-                } 
-                if(ev0.type == ALLEGRO_EVENT_TIMER){  
-                    redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
-                        !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
-                    desenhaObjetivos();
-                    minimap();
-
-                    resetGame();
-                    if(reiniciar){
-                        reiniciar = false;
-                        goto INICIO;
-                    }
-
-                    al_flip_display();
-                }
-            }
-
-            // delete Geraldina;
-            // Geraldina = nullptr;
-
-            /* === NÍVEL QUATRO === */
-            // Neste nível, o jogador tem a batalha contra José do Caixão e o Caixão do josé, na igreja. 
-            // Estão presentes todos os NPCs no mapa para passar missões.
-
-            al_stop_samples();
-            al_play_sample(ambient_song24, 0.6, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
-
-            Player->addAtaque("Revólver", 2, 7);
-            dano_revolver="A: (02/07)";
-            if(!PE_DE_COELHO_USADO) Player->addAtaque("Pé de Coelho", 0, 0);
-
-            Jose_do_Caixao->addAtaque("Tiro de Revólver", 0, -5);
-            Jose_do_Caixao->addAtaque("Pá", 0, -1);
-            Jose_do_Caixao->addAtaque("Cura", 0, 3);
-
-            Caixao_do_Jose->addAtaque("Mordida Fúnebre", 0, -3);
-            Caixao_do_Jose->addAtaque("Pá", 0, -1);
-            Caixao_do_Jose->addAtaque("Cura", 0, 60);
-
-            Nivel4->_etapa = 1;
-            Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
-            ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
-
-            setNivel(Player, 4, Missao_Espingarda, Missao_Chave, Missao_Pocao, Missao_Relogio);
-            Lista->atualizaPrincipal(Nivel1, Nivel2, Nivel3, Nivel4, Nivel5, Player);
-            Lista->atualizaSecundaria(Missao_Espingarda, Missao_Relogio, Missao_Chave, Missao_Pocao, Player);
-            while(Player->getNivel()==4){
-                al_wait_for_event(event_queue, &ev0);
-
-                if(!to_move()) break; 
-                if(ev0.type == ALLEGRO_EVENT_TIMER){  
-                    redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
-                        !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
-                    desenhaObjetivos();
-                    minimap();
-
-                    resetGame();
-                    if(reiniciar){
-                        reiniciar = false;
-                        goto INICIO;
-                    }
-
-                    al_flip_display();
-                }
-            }
-
-            // delete Jose_do_Caixao;
-            // Jose_do_Caixao = nullptr;
-            // delete Caixao_do_Jose;
-            // Caixao_do_Jose = nullptr;
-
-            /* === NÍVEL CINCO === */
-            // Neste nível, o jogador tem a batalha contra Johnny Cash, na cabana. Estão presentes 
-            // todos os NPCs no mapa para passar missões.
-
-            al_stop_samples();
-            al_play_sample(ambient_song5, 0.6, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
-
-            Player->addAtaque("Munições Fanstasma", 2, 8);
-            dano_revolver="A: (02/08)";
-
-            Johnny_Cash->addAtaque("Assombração", 0, -15);
-            Johnny_Cash->addAtaque("Desafinação", 0, -3);
-            Johnny_Cash->addAtaque("Tiro espectral", 0, -4);
-            Johnny_Cash->addAtaque("Cura", 0, 5);
-
-            Nivel4->_etapa = 2;
-            Nivel5->_etapa = 1;
-            ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
-
-            setNivel(Player, 5, Missao_Espingarda, Missao_Chave, Missao_Pocao, Missao_Relogio);
-            Lista->atualizaPrincipal(Nivel1, Nivel2, Nivel3, Nivel4, Nivel5, Player);
-            Lista->atualizaSecundaria(Missao_Espingarda, Missao_Relogio, Missao_Chave, Missao_Pocao, Player);
-            Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
-            while(Player->getNivel()==5){
-                al_wait_for_event(event_queue, &ev0);
-
-                if(!to_move()){
-                    if(brinde) Player->subItem("Comida", 5);
-                    break; 
-                }
-                if(ev0.type == ALLEGRO_EVENT_TIMER){  
-                    std::cout << MAPA[i][j] << "\n";
-                    redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
-                        !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
-                    desenhaObjetivos();
-                    minimap();
-
-                    resetGame();
-                    if(reiniciar){
-                        reiniciar = false;
-                        goto INICIO;
-                    }
-
-                    al_flip_display();
-                }
-            }
-
-            /* === NÍVEL SEIS === */
-            //tela e dialogos finais
-            al_stop_samples();
-            al_play_sample(ending_song, 0.6, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
-
-            if(Player->getNivel() == 6){
-                dialogoFinal(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
-                    !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
-                Final(reiniciar);
-                Save->reset_save();
+                resetGame();
                 if(reiniciar){
                     reiniciar = false;
-                    goto MENU;
+                    goto INICIO;
                 }
-            }
 
-            // delete Johnny_Cash;
-            // Johnny_Cash = nullptr;
+                al_flip_display();
+            }
         }
-    }catch (BitmapNotFound &e){
-        std::cout << e.what() << std::endl;
-    }catch (InitNotDone &e){
-        std::cout << e.what() << std::endl;
-    }catch (TimerNotCreated &e){
-        std::cout << e.what() << std::endl;
-    }catch (DisplayNotCreated &e){
-        std::cout << e.what() << std::endl;
-    }catch (EventQeueNotCreated &e){
-        std::cout << e.what() << std::endl;
+
+
+        // delete Xerife_Espeto;
+        // Xerife_Espeto = nullptr;
+        Player->addAtaque("Revólver", 2, 6);
+        dano_revolver="A: (02/06)";
+        Player->addAtaque("Shurikens", 3, 4);
+
+        Geraldina->addAtaque("Garras", 0, -6);
+        Geraldina->addAtaque("Mordida", 0, -2);
+        Geraldina->addAtaque("Cura", 0, 3);
+
+        /* === NÍVEL TRÊS === */
+        // Neste nível, o jogador tem a batalha contra Geraldina, no rancho. Estão presentes todos
+        // os NPCs no mapa para passar missões, porém, ainda não é possível completar a missão da espingarda.  
+        al_stop_samples();
+        al_play_sample(ambient_song13, 0.6, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
+
+        Nivel3->_etapa = 1;
+        Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
+        ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
+
+        setNivel(Player, 3, Missao_Espingarda, Missao_Chave, Missao_Pocao, Missao_Relogio);
+        if(Player->getNivel() == 3) Player->addItem("Estrela de Xerife", 1);
+        Lista->atualizaPrincipal(Nivel1, Nivel2, Nivel3, Nivel4, Nivel5, Player);
+        Lista->atualizaSecundaria(Missao_Espingarda, Missao_Relogio, Missao_Chave, Missao_Pocao, Player);
+        while(Player->getNivel()==3){
+            al_wait_for_event(event_queue, &ev0);
+
+            if(!to_move()){
+                if(Nivel3->_etapa == 2) Player->setDinheiro(Player->getDinheiro() - 10);
+                break;
+            } 
+            if(ev0.type == ALLEGRO_EVENT_TIMER){  
+                redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                    !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+                desenhaObjetivos();
+                minimap();
+
+                resetGame();
+                if(reiniciar){
+                    reiniciar = false;
+                    goto INICIO;
+                }
+
+                al_flip_display();
+            }
+        }
+
+        // delete Geraldina;
+        // Geraldina = nullptr;
+
+        /* === NÍVEL QUATRO === */
+        // Neste nível, o jogador tem a batalha contra José do Caixão e o Caixão do josé, na igreja. 
+        // Estão presentes todos os NPCs no mapa para passar missões.
+
+        al_stop_samples();
+        al_play_sample(ambient_song24, 0.6, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
+
+        Player->addAtaque("Revólver", 2, 7);
+        dano_revolver="A: (02/07)";
+        if(!PE_DE_COELHO_USADO) Player->addAtaque("Pé de Coelho", 0, 0);
+
+        Jose_do_Caixao->addAtaque("Tiro de Revólver", 0, -5);
+        Jose_do_Caixao->addAtaque("Pá", 0, -1);
+        Jose_do_Caixao->addAtaque("Cura", 0, 3);
+
+        Caixao_do_Jose->addAtaque("Mordida Fúnebre", 0, -3);
+        Caixao_do_Jose->addAtaque("Pá", 0, -1);
+        Caixao_do_Jose->addAtaque("Cura", 0, 60);
+
+        Nivel4->_etapa = 1;
+        Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
+        ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
+
+        setNivel(Player, 4, Missao_Espingarda, Missao_Chave, Missao_Pocao, Missao_Relogio);
+        Lista->atualizaPrincipal(Nivel1, Nivel2, Nivel3, Nivel4, Nivel5, Player);
+        Lista->atualizaSecundaria(Missao_Espingarda, Missao_Relogio, Missao_Chave, Missao_Pocao, Player);
+        while(Player->getNivel()==4){
+            al_wait_for_event(event_queue, &ev0);
+
+            if(!to_move()) break; 
+            if(ev0.type == ALLEGRO_EVENT_TIMER){  
+                redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                    !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+                desenhaObjetivos();
+                minimap();
+
+                resetGame();
+                if(reiniciar){
+                    reiniciar = false;
+                    goto INICIO;
+                }
+
+                al_flip_display();
+            }
+        }
+
+        // delete Jose_do_Caixao;
+        // Jose_do_Caixao = nullptr;
+        // delete Caixao_do_Jose;
+        // Caixao_do_Jose = nullptr;
+
+        /* === NÍVEL CINCO === */
+        // Neste nível, o jogador tem a batalha contra Johnny Cash, na cabana. Estão presentes 
+        // todos os NPCs no mapa para passar missões.
+
+        al_stop_samples();
+        al_play_sample(ambient_song5, 0.6, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
+
+        Player->addAtaque("Munições Fanstasma", 2, 8);
+        dano_revolver="A: (02/08)";
+
+        Johnny_Cash->addAtaque("Assombração", 0, -15);
+        Johnny_Cash->addAtaque("Desafinação", 0, -3);
+        Johnny_Cash->addAtaque("Tiro espectral", 0, -4);
+        Johnny_Cash->addAtaque("Cura", 0, 5);
+
+        Nivel4->_etapa = 2;
+        Nivel5->_etapa = 1;
+        ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
+
+        setNivel(Player, 5, Missao_Espingarda, Missao_Chave, Missao_Pocao, Missao_Relogio);
+        Lista->atualizaPrincipal(Nivel1, Nivel2, Nivel3, Nivel4, Nivel5, Player);
+        Lista->atualizaSecundaria(Missao_Espingarda, Missao_Relogio, Missao_Chave, Missao_Pocao, Player);
+        Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
+        while(Player->getNivel()==5){
+            al_wait_for_event(event_queue, &ev0);
+
+            if(!to_move()){
+                if(brinde) Player->subItem("Comida", 5);
+                break; 
+            }
+            if(ev0.type == ALLEGRO_EVENT_TIMER){  
+                std::cout << MAPA[i][j] << "\n";
+                redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                    !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
+                desenhaObjetivos();
+                minimap();
+
+                resetGame();
+                if(reiniciar){
+                    reiniciar = false;
+                    goto INICIO;
+                }
+
+                al_flip_display();
+            }
+        }
+
+         /* === NÍVEL SEIS === */
+         //tela e dialogos finais
+         al_stop_samples();
+         al_play_sample(ending_song, 0.6, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
+
+        if(Player->getNivel() == 6){
+            dialogoFinal(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
+                !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4 != NULL), contGalinha, Player, Botao_Interagir);
+            Final(reiniciar);
+            Save->reset_save();
+            if(reiniciar){
+                reiniciar = false;
+                goto MENU;
+            }
+        }
+
+        // delete Johnny_Cash;
+        // Johnny_Cash = nullptr;
     }
+}catch (BitmapNotFound &e){
+    std::cout << e.what() << std::endl;
+}catch (InitNotDone &e){
+    std::cout << e.what() << std::endl;
+}catch (TimerNotCreated &e){
+    std::cout << e.what() << std::endl;
+}catch (DisplayNotCreated &e){
+    std::cout << e.what() << std::endl;
+}catch (EventQeueNotCreated &e){
+    std::cout << e.what() << std::endl;
+}
 
     Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
     if(Player != nullptr) delete Player;
@@ -375,24 +375,6 @@ int main(int argc, char **argv){
     if(Jose_do_Caixao != nullptr) delete Jose_do_Caixao;
     if(Caixao_do_Jose != nullptr) delete Caixao_do_Jose;
     if(Johnny_Cash != nullptr) delete Johnny_Cash;
-    if(Chave != nullptr) delete Chave;
-    if(Relogio != nullptr) delete Relogio;
-    if(Pocao != nullptr) delete Pocao;
-    if(Dinheiro1 != nullptr) delete Dinheiro1;
-    if(Dinheiro2 != nullptr) delete Dinheiro2;
-    if(Dinheiro3 != nullptr) delete Dinheiro3;
-    if(Dinheiro4 != nullptr) delete Dinheiro4;
-    if(Loja != nullptr) delete Loja;
-    if(Botao_Interagir != nullptr) delete Botao_Interagir;
-    if(Missao_Espingarda != nullptr) delete Missao_Espingarda;
-    if(Missao_Chave != nullptr) delete Missao_Chave;
-    if(Missao_Relogio != nullptr) delete Missao_Relogio;
-    if(Missao_Pocao != nullptr) delete Missao_Pocao;
-    if(Nivel1 != nullptr) delete Nivel1;
-    if(Nivel2 != nullptr) delete Nivel2;
-    if(Nivel3 != nullptr) delete Nivel3;
-    if(Nivel4 != nullptr) delete Nivel4;
-    if(Nivel5 != nullptr) delete Nivel5;
 
     return 0;
 }
