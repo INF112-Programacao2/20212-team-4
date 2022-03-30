@@ -55,7 +55,7 @@ BatalhaFantasma::BatalhaFantasma(Inimigo *vilao, Protagonista *player, MissaoSec
     this->_Bruxa=bruxa;
 }
 
-
+//Diálogo do protagonista com a Geraldina ainda na cena da Batalha
 void dialogo_Geraldina(Protagonista *_Player){
     std::map<short int, bool> fluxo;
     std::string **opcoes;
@@ -78,6 +78,7 @@ void dialogo_Geraldina(Protagonista *_Player){
     dialogo.dialogar_batalha("Geraldina", opcoes, 3, _Player);
 }
 
+//Diálogo do protagonista com o José ainda nascendo da Batalha
 void dialogo_Jose(Protagonista *_Player){
     std::map<short int, bool> fluxo;
     fluxo.insert(std::pair<short int, bool> (2, true));
@@ -112,6 +113,7 @@ void dialogo_Jose(Protagonista *_Player){
     dialogo.dialogar_batalha("José do Caixão", opcoes, 4, _Player);
 }
 
+//Função que reinicia as variáveis utilizadas na batalha e adiciona os ataques as informações dos vilões
 void resetBatalha(Inimigo *vilao, Inimigo *vilao2){
     caixao_batalhando=false;
     caixao_morreu=false;
@@ -190,7 +192,7 @@ void resetBatalha(Inimigo *vilao, Inimigo *vilao2){
     }
 }
 
-
+//Função que realiza a entrada do protagonista e do vilão na batalha
 void batalha_intro(Protagonista *_Player, Inimigo* _vilao){
     timer = al_create_timer(0.4);
     short int PLAYER_X = 27;
@@ -242,6 +244,7 @@ void batalha_intro(Protagonista *_Player, Inimigo* _vilao){
     timer = al_create_timer(1.0/FPS);
 }
 
+//Função que desenha o final da Batalha quando o protagonista vence
 void batalha_fim(Protagonista *_Player, Inimigo* _vilao){
     timer = al_create_timer(0.4);
     int alfa = 130;
@@ -322,14 +325,17 @@ void batalha_fim(Protagonista *_Player, Inimigo* _vilao){
     timer = al_create_timer(1.0/FPS);
 }
 
+//Método que realiza as batalhas da Geraldina, do Billy e do Xerife Espeto
 bool Batalha1x1::batalhar(){
     this->_Player->_batalhando = true;
     resetTeclas();
     cont=0;
     player_atacou = false;
 
+    //Chamamos a introdução da Batalha
     batalha_intro(this -> _Player, this -> _vilao);
 
+    //Atribuímos as imagens do vilão correspondente a batalha
     if(_vilao->getNome() == "Billy"){
         img_vilao=billy_batalha;
         img_vilao_dano=billy_dano;
@@ -345,16 +351,21 @@ bool Batalha1x1::batalhar(){
 
     while (1){
         
+        //Caso protagonista e vilão ainda estejam vivos, começam os turnos
         if(!_Player -> isDead() && !_vilao -> isDead()){
 
+            //Chamamos a função que desenha todos os elementos da Batalha
             desenhar(_Player, _vilao);                
 
+            //Se o contador for par, o player pode atacar e a caixa com as opções de ataque será desenhada
+            //Além disso, os contadores de tempo que regem quantas vezes o player e o vilão vão piscar com dano são reiniciadas
             if(cont % 2 == 0 && !player_atacou){
                 desenha_ataques=true;
                 c=0;
                 d=0;
             }
             
+            //Caso o Player já tenha atacado, mostramos por um tempo o nome do ataque e a imagem do vilão piscando na tela
             else if(player_atacou && c<20){
 
                 mensagem = "Você usou " + nome_ataque + "!";
@@ -367,6 +378,7 @@ bool Batalha1x1::batalhar(){
                 c++;          
             }
 
+            //Caso o contador seja ímpar, é a vez do vilão e mostramos por um tempo o nome do ataque usado pelo vilão e o personagem piscando com dano
             else if(cont % 2 != 0 && d<20){
                 if(!vilao_atacou){
                     nome_ataque = _vilao->atacar(*_Player);
@@ -383,6 +395,7 @@ bool Batalha1x1::batalhar(){
             }
         }
 
+        //Caso o personagem morra, chamamos a função que reseta o jogo
         else if(_Player -> isDead()){
             this->_Player->_batalhando = false;
             resetBatalha(_vilao, _vilao);
@@ -390,6 +403,7 @@ bool Batalha1x1::batalhar(){
             return false;
         }
 
+        //Caso o vilão morra, chamamos a função que finaliza a batalha
         else if(_vilao -> isDead()){
             this->_Player->_batalhando = false;
             resetTeclas();
@@ -398,6 +412,8 @@ bool Batalha1x1::batalhar(){
             return true;
         }
        
+        //Mostramos tudo que foi desenhado na tela, captamos um evento um evento e testamos qual tecla o player apertou para atacar
+
         al_flip_display();
 
         al_wait_for_event(event_queue, &ev2);
@@ -409,6 +425,9 @@ bool Batalha1x1::batalhar(){
     return false;
 }
 
+
+//Método que realiza a batalha do José do caixão e do caixão do José
+//A principal diferença é que nessa batalha o vilão principal é diferente dependendo do momento em que estamos
 bool Batalha1x2 :: batalhar(){
     this->_Player->_batalhando = true;
      batalha_intro(this -> _Player, this -> _vilao);
@@ -433,6 +452,7 @@ bool Batalha1x2 :: batalhar(){
             }
             
             else if(player_atacou && c<20){
+                //Precisamos mostrar uma mensagem quando o caixão do José é invocado e quando ele morre
                 if(caixao_batalhando){
                     mensagem ="José do Caixão invocou o Caixão do José!";
                     al_draw_textf(font15, al_map_rgb(58,15,43), RES_WIDTH(580), 0.82*res_y_comp, 0, mensagem.c_str());
@@ -486,6 +506,8 @@ bool Batalha1x2 :: batalhar(){
        
         al_flip_display();
 
+
+        //Quando o José do caixão perde a metade da vida alternamos o vilão principal da Batalha para o caixão do José e o desenhamos na tela
         if(_jose->getVida()<=_jose->getMaxVida()/2 && !_caixao->isDead()){
             if(e==0){
                 caixao_batalhando=true;
@@ -496,6 +518,7 @@ bool Batalha1x2 :: batalhar(){
             img_vilao_dano = caixao_dano;
         }
 
+        //Antes de ter apenas metade da vida ou depois de o caixão morrer, o vilão principal da Batalha será o José e apenas ele será desenhando
         else{
             if(f==0 && _caixao->isDead()){
                 caixao_morreu=true;
@@ -516,13 +539,15 @@ bool Batalha1x2 :: batalhar(){
     
 }
 
-
+//Método que realiza a batalha do protagonista contra o Fantasma
 bool BatalhaFantasma::batalhar(){
     batalha_intro(this -> _Player, this -> _vilao);
     player_atacou = false;
     cont = 0;
     img_vilao=fantasma_batalha;
     img_vilao_dano=fantasma_batalha;
+
+    //Nesta batalha um dos ataques só pode ser usado se a missão secundária da bruxa for completa
     if(_Bruxa->completo()){
         missao_bruxa=true;
     }
@@ -535,6 +560,8 @@ bool BatalhaFantasma::batalhar(){
 
             desenhar(_Player, _vilao);    
 
+            //Caso vilão use o ataque assombração, o personagem perde um turno de atacar
+            //Depois disso o vilão perde o ataque pois ele só pode ser usado uma única vez
             if(nome_ataque=="Assombração" && cont % 2 == 0){
                 cont++;
                 d=0;
@@ -542,6 +569,7 @@ bool BatalhaFantasma::batalhar(){
                 _vilao->_total_ataques--;
             }
 
+            //Se o ataque do fantasma for desafinação, a batalha tocara sons diferentes
             if(nome_ataque=="Desafinação" && !tocou){
                 if(desafinacao==1){
                     al_play_sample(desafinacao1, 0.8, 0, 1, ALLEGRO_PLAYMODE_ONCE, NULL);
@@ -582,6 +610,8 @@ bool BatalhaFantasma::batalhar(){
                     nome_ataque = _vilao->atacar(*_Player);
                     vilao_atacou=true;
                 }
+
+                //Se o ataque for assombração, dizemos ao jogador que ele perdeu um turno
                 if(nome_ataque == "Assombração") mensagem = "Johnny Cash usou Assombração! Você perdeu um turno!";
                 else mensagem = _vilao->getNome() + " usou " + nome_ataque + "!";
                 al_draw_textf(font15, al_map_rgb(58,15,43), (al_get_display_width(game)/2)-18*(mensagem.size()/2), 0.82*res_y_comp, 0, mensagem.c_str());
@@ -618,7 +648,7 @@ bool BatalhaFantasma::batalhar(){
 
 }
 
-
+//Função que desenha a interface gráfica de todas as batalhas
 void desenhar(Protagonista *_Player, Inimigo *_vilao){
     //desenhando as imagens comuns a todas as batalhas
     al_clear_to_color(al_map_rgb(238,202,169));
@@ -736,6 +766,8 @@ void desenhar(Protagonista *_Player, Inimigo *_vilao){
 
 }
 
+
+//Função que testa as teclas que o usuário pode usar para atacar nas batalhas
 bool verificaTeclaBatalha(Protagonista *_Player, Inimigo *_vilao){
     if (ev2.type == ALLEGRO_EVENT_KEY_DOWN) {
         keys[ev2.keyboard.keycode] = true;

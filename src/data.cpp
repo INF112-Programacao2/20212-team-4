@@ -978,7 +978,6 @@ void setNivel(Protagonista *Player, int nivel, MissaoSecundaria *Sec1, MissaoSec
         MAPA[29][40] = '0'; // Adiciona colisão no Billy.
         Player->setVida(10);  
         Player->setMaxVida(10);  
-        Player->setDinheiro(4);
         if(Player->qtdItem("Comida") < 1) Player->addItem("Comida", 1);
 
     }
@@ -1004,6 +1003,7 @@ void setNivel(Protagonista *Player, int nivel, MissaoSecundaria *Sec1, MissaoSec
         MAPA[56][70] = MAPA[56][71] = MAPA[57][70] = MAPA[57][71] = '0'; 
         MAPA[28][76] = '1';
         MAPA[29][40] = 'A';
+        MAPA[28][76] = '0'; // Adiciona colisao do Renato da matriz
 
         map= al_load_bitmap("./../assets/map2.bmp");
 
@@ -1080,7 +1080,7 @@ void setNivel(Protagonista *Player, int nivel, MissaoSecundaria *Sec1, MissaoSec
 
         MAPA[49][16] = MAPA[49][17] = 'C';
         MAPA[27][88] = MAPA[28][88] = MAPA[27][89] = '0';
-        MAPA[28][76] = '0'; // Remove Renato da matriz
+        MAPA[28][76] = '0'; // Adiciona colisao do Renato da matriz
         map= al_load_bitmap("./../assets/map4.bmp");
 
         if(!Sec2->completo()) MAPA[28][50] = 'F';
