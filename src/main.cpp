@@ -84,6 +84,7 @@ int main(int argc, char **argv){
             srand (time(NULL));
 
             MENU:
+            std::cout << Player->qtdItem("Comida") << std::endl;
             al_stop_samples();
             al_play_sample(highwayman, 0.6, 0, 1, ALLEGRO_PLAYMODE_LOOP, NULL);
             while(true){
@@ -98,7 +99,9 @@ int main(int argc, char **argv){
             }
 
             INICIO:
+            std::cout << Player->qtdItem("Comida") << std::endl;
             Save->read_save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Chave, Relogio, Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
+            std::cout << Player->qtdItem("Comida") << std::endl;
             Save->save(Player, Missao_Espingarda, Missao_Chave, Missao_Relogio, Missao_Pocao, Dinheiro1, Dinheiro2, Dinheiro3, Dinheiro4);
 
             
@@ -119,10 +122,11 @@ int main(int argc, char **argv){
 
             Nivel1->_etapa = 1;
             ajuda_cesar = atualizaCesarJulio(Player, Nivel1, Nivel2, Nivel3, Nivel4, Nivel5);
+            std::cout << Player->qtdItem("Comida") << std::endl;
             setNivel(Player, 1, Missao_Espingarda, Missao_Chave, Missao_Pocao, Missao_Relogio);
             Lista->atualizaPrincipal(Nivel1, Nivel2, Nivel3, Nivel4, Nivel5, Player);
             Lista->atualizaSecundaria(Missao_Espingarda, Missao_Relogio, Missao_Chave, Missao_Pocao, Player);
-
+            std::cout << Player->qtdItem("Comida") << std::endl;
             while(Player->getNivel()==1){
                 al_wait_for_event(event_queue, &ev0);
 
@@ -321,6 +325,7 @@ int main(int argc, char **argv){
                     break; 
                 }
                 if(ev0.type == ALLEGRO_EVENT_TIMER){  
+                    std::cout << MAPA[i][j] << "\n";
                     redesenhar(!Relogio->completo(), !Chave->completo(), !Pocao->completo(), !(Dinheiro1->completo()), 
                         !(Dinheiro2->completo()), !(Dinheiro3->completo()), !(Dinheiro4->completo()), contGalinha, Player, Botao_Interagir);
                     desenhaObjetivos();
