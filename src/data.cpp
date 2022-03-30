@@ -977,6 +977,7 @@ void setNivel(Protagonista *Player, int nivel, MissaoSecundaria *Sec1, MissaoSec
         MAPA[29][40] = '0'; // Adiciona colisão no Billy.
         Player->setVida(10);  
         Player->setMaxVida(10);  
+        Player->setDinheiro(4);
         if(Player->qtdItem("Comida") < 1) Player->addItem("Comida", 1);
 
     }

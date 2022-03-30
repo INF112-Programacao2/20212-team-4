@@ -247,15 +247,15 @@ void batalha_fim(Protagonista *_Player, Inimigo* _vilao){
     int alfa = 130;
 
     if(_vilao->getNome() != "Johnny Cash"){
-        al_draw_scaled_bitmap(vida_vilao, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
         al_draw_scaled_bitmap(fundo, 0, 0, 322, 73, RES_WIDTH(1016), RES_HEIGHT(468), RES_WIDTH(610), RES_HEIGHT(60), 0); 
-        al_draw_tinted_scaled_bitmap(vida_vilao, al_map_rgba(255 - alfa, 255 - alfa, 255 - alfa, alfa), 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+        al_draw_scaled_bitmap(caixa_de_ataques, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0); 
         al_draw_scaled_bitmap(lifebar_batalhas, 0, 0, 586, 49, RES_WIDTH(1016), RES_HEIGHT(468), RES_WIDTH(590) * PROP_ENEMY, RES_HEIGHT(48), 0);
     }  
 
     al_draw_scaled_bitmap(fundo, 0, 0, 322, 73, RES_WIDTH(262), RES_HEIGHT(146), RES_WIDTH(600), RES_HEIGHT(80), 0); 
     al_draw_scaled_bitmap(lifebar_batalhas, 0, 0, 586, 49, RES_WIDTH(262), RES_HEIGHT(146), RES_WIDTH(577) * PROP_PLAYER, RES_HEIGHT(80), 0);
     al_draw_scaled_bitmap(vida_player, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
+    al_draw_scaled_bitmap(vida_vilao, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
 
     al_rest(0.02); 
 
@@ -287,15 +287,12 @@ void batalha_fim(Protagonista *_Player, Inimigo* _vilao){
 
         if(evfadebatalha.type == ALLEGRO_EVENT_TIMER){
             al_clear_to_color(al_map_rgba(238, 202, 169, 255-alfa));
-
-            if(_vilao->getNome() != "Johnny Cash"){
-                al_draw_scaled_bitmap(fundo, 0, 0, 322, 73, RES_WIDTH(1016), RES_HEIGHT(468), RES_WIDTH(610), RES_HEIGHT(60), 0); 
-                al_draw_scaled_bitmap(caixa_de_ataques, 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0); 
-                al_draw_scaled_bitmap(lifebar_batalhas, 0, 0, 586, 49, RES_WIDTH(1016), RES_HEIGHT(468), RES_WIDTH(590) * PROP_ENEMY, RES_HEIGHT(48), 0);
-            }  
             
+            al_draw_scaled_bitmap(fundo, 0, 0, 322, 73, RES_WIDTH(1016), RES_HEIGHT(468), RES_WIDTH(610), RES_HEIGHT(60), 0);    
             al_draw_scaled_bitmap(fundo, 0, 0, 322, 73, RES_WIDTH(262), RES_HEIGHT(146), RES_WIDTH(600), RES_HEIGHT(80), 0); 
+            al_draw_tinted_scaled_bitmap(lifebar_batalhas, al_map_rgba(255 - alfa, 255 - alfa, 255 - alfa, alfa), 0, 0, 586, 49, RES_WIDTH(1016), RES_HEIGHT(468), RES_WIDTH(590) * PROP_ENEMY, RES_HEIGHT(48), 0);
             al_draw_tinted_scaled_bitmap(lifebar_batalhas, al_map_rgba(255 - alfa, 255 - alfa, 255 - alfa, alfa), 0, 0, 586, 49, RES_WIDTH(262), RES_HEIGHT(146), RES_WIDTH(577) * PROP_PLAYER, RES_HEIGHT(80), 0);
+            al_draw_tinted_scaled_bitmap(vida_vilao, al_map_rgba(255 - alfa, 255 - alfa, 255 - alfa, alfa), 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
             al_draw_tinted_scaled_bitmap(vida_player, al_map_rgba(255 - alfa, 255 - alfa, 255 - alfa, alfa), 0, 0, 1920, 1080, 0, 0, 1920*(res_x_comp/1920.0), 1080*(res_y_comp/1080.0), 0);
 
             if(_vilao->getNome() == "Billy")
