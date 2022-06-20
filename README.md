@@ -4,7 +4,7 @@
   :cowboy_hat_face:  :cowboy_hat_face:  :cowboy_hat_face: HIGHWAYMAN :cowboy_hat_face:  :cowboy_hat_face:  :cowboy_hat_face:
 <br> </h1>
 
-<h4 align="center">:test_tube: Status do Projeto: Fase de Testes :test_tube:</h4>
+<h4 align="center">:heavy_check_mark: Status do Projeto: Pronto :heavy_check_mark:</h4>
 <h1></h1><br>
 
 <h4 align="center">
